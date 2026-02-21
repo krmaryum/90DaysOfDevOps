@@ -1,4 +1,4 @@
-# 📚 Table of Contents
+#  Table of Contents
 
 - [Task 1: Basics](#task-1-basics)
 - [Task 2: Operators and Conditionals](#task-2-operators-and-conditionals)
@@ -8,7 +8,7 @@
 - [Task 6: Useful Patterns and One-Liners](#task-6-useful-patterns-and-one-liners)
 - [Task 7: Error Handling and Debugging](#task-7-error-handling-and-debugging)
 
-# 🔥 Shell Scripting Cheat Sheet (Bash)
+#  Shell Scripting Cheat Sheet (Bash)
 ## Practical Bash reference for DevOps work — fast lookup, real examples, production-safe patterns.
 
 ---
