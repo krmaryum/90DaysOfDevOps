@@ -1,4 +1,4 @@
-# 📚 Table of Contents
+#  Table of Contents
 
 - [Task 1: Basics](#task-1-basics)
 - [Task 2: Operators and Conditionals](#task-2-operators-and-conditionals)
