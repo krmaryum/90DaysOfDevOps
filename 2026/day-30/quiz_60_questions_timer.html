@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>60-Question Quiz (60-minute timer)</title>
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background:#f7f7fb; color:#111; }
+  header { position: sticky; top: 0; background: #111; color: #fff; padding: 14px 16px; z-index: 10; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 18px 16px 48px; }
+  .timer { font-weight: 700; }
+  .meta { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .card { background:#fff; border-radius:14px; padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06); margin:12px 0; }
+  .qtitle { font-weight:700; margin-bottom:10px; }
+  .opt { display:block; padding:10px 12px; border-radius:10px; border:1px solid #e4e4ee; margin:8px 0; cursor:pointer; }
+  .opt:hover { border-color:#b9b9d6; }
+  .opt input { margin-right:10px; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 8px; }
+  button { border:0; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer; }
+  button.primary { background:#2563eb; color:#fff; }
+  button.secondary { background:#e5e7eb; color:#111; }
+  button.danger { background:#dc2626; color:#fff; }
+  .muted { color:#555; font-size: 0.95rem; }
+  .result { padding:14px; border-radius:14px; background:#0b1220; color:#fff; }
+  .badge { display:inline-block; padding:4px 10px; border-radius:999px; font-size:.85rem; background:#1f2937; color:#fff; }
+  .review-item { border-left:4px solid #e5e7eb; padding-left:12px; margin:10px 0; }
+  .correct { border-left-color:#16a34a; }
+  .wrong { border-left-color:#dc2626; }
+  .ansline { margin:6px 0; }
+  .source { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:.9rem; color:#374151; }
+  .locked { opacity:.85; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap meta">
+    <div style="flex:1">
+      <div style="font-size:1.1rem;font-weight:800;">60-Question Quiz</div>
+      <div class="muted" style="color:#c7c7d7;">Timer: 60 minutes • Submit to see answers + explanations</div>
+    </div>
+    <div class="timer" id="timer">60:00</div>
+    <span class="badge" id="progress">0 / 60 answered</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="card">
+    <div class="qtitle">Instructions</div>
+    <div class="muted">
+      • You have <b>60 minutes</b>. When time reaches 0, the quiz auto-submits.<br/>
+      • After submission, you’ll see your <b>score</b>, the <b>correct answers</b>, and <b>explanations</b> (with source file names).<br/>
+      • Your answers are saved only in this page (no internet needed).
+    </div>
+    <div class="actions">
+      <button class="primary" id="submitBtn">Submit</button>
+      <button class="secondary" id="resetBtn" type="button">Reset</button>
+      <button class="danger" id="endNowBtn" type="button">End now</button>
+    </div>
+    <div id="result" style="display:none" class="result"></div>
+  </div>
+
+  <div id="quiz"></div>
+
+  <div class="card muted">
+    Tip: Use your browser’s Find (Ctrl+F) to jump to a keyword (e.g., “DNS”, “chmod”, “LVM”, “Docker”).
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"question": "Which Linux command matches this description? Displays running processes for the current terminal.", "options": ["kill `<PID>`", "ps", "hostname -I", "ps aux"], "answerIndex": 1, "explanation": "ps — Displays running processes for the current terminal.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Shows all running processes with detailed information.", "options": ["ps aux", "dig `<domain>`", "kill `<PID>`", "kill -9 `<PID>`"], "answerIndex": 0, "explanation": "ps aux — Shows all running processes with detailed information.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Displays real-time system and process statistics.", "options": ["top", "htop", "ps aux", "ps"], "answerIndex": 0, "explanation": "top — Displays real-time system and process statistics.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Interactive and user-friendly process viewer (if installed).", "options": ["curl `<url>`", "jobs", "cat `<file>`", "htop"], "answerIndex": 3, "explanation": "htop — Interactive and user-friendly process viewer (if installed).", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Terminates a process using its process ID.", "options": ["head -n `<number>` `<file>`", "kill `<PID>`", "ps", "nice -n `<value>` `<command>`"], "answerIndex": 1, "explanation": "kill `<PID>` — Terminates a process using its process ID.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Forcefully stops a process immediately.", "options": ["kill `<PID>`", "uptime", "kill -9 `<PID>`", "nice -n `<value>` `<command>`"], "answerIndex": 2, "explanation": "kill -9 `<PID>` — Forcefully stops a process immediately.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Runs a command in the background.", "options": ["top", "command &", "cd `<directory>`", "htop"], "answerIndex": 1, "explanation": "command & — Runs a command in the background.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Lists background jobs in the current shell.", "options": ["mkdir `<dir_name>`", "jobs", "dig `<domain>`", "ps aux"], "answerIndex": 1, "explanation": "jobs — Lists background jobs in the current shell.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Brings a background job to the foreground.", "options": ["watch `<command>`", "cat `<file>`", "fg", "hostname -I"], "answerIndex": 2, "explanation": "fg — Brings a background job to the foreground.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Starts a process with a specified priority.", "options": ["ps aux", "curl `<url>`", "nice -n `<value>` `<command>`", "top"], "answerIndex": 2, "explanation": "nice -n `<value>` `<command>` — Starts a process with a specified priority.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Runs a command repeatedly at fixed intervals.", "options": ["jobs", "watch `<command>`", "htop", "cd `<directory>`"], "answerIndex": 1, "explanation": "watch `<command>` — Runs a command repeatedly at fixed intervals.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Shows system running time and load average.", "options": ["ls", "kill -9 `<PID>`", "uptime", "command &"], "answerIndex": 2, "explanation": "uptime — Shows system running time and load average.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Lists files and directories in the current directory.", "options": ["kill -9 `<PID>`", "ls", "ip addr", "hostname -I"], "answerIndex": 1, "explanation": "ls — Lists files and directories in the current directory.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Changes the current directory.", "options": ["ls", "cd `<directory>`", "hostname -I", "fg"], "answerIndex": 1, "explanation": "cd `<directory>` — Changes the current directory.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Creates an empty file.", "options": ["watch `<command>`", "ps aux", "jobs", "touch `<file_name>`"], "answerIndex": 3, "explanation": "touch `<file_name>` — Creates an empty file.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Creates a new directory.", "options": ["mkdir `<dir_name>`", "head -n `<number>` `<file>`", "command &", "curl `<url>`"], "answerIndex": 0, "explanation": "mkdir `<dir_name>` — Creates a new directory.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Deletes a file.", "options": ["touch `<file_name>`", "ls", "rm `<file_name>`", "hostname -I"], "answerIndex": 2, "explanation": "rm `<file_name>` — Deletes a file.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Deletes an empty directory.", "options": ["jobs", "dig `<domain>`", "rmdir `<dir_name>`", "cat `<file>`"], "answerIndex": 2, "explanation": "rmdir `<dir_name>` — Deletes an empty directory.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Displays the entire contents of a file.", "options": ["uptime", "cat `<file>`", "head -n `<number>` `<file>`", "ls"], "answerIndex": 1, "explanation": "cat `<file>` — Displays the entire contents of a file.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Displays the first N lines of a file.", "options": ["head -n `<number>` `<file>`", "top", "htop", "ps aux"], "answerIndex": 0, "explanation": "head -n `<number>` `<file>` — Displays the first N lines of a file.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Displays network interfaces and IP addresses.", "options": ["ip addr", "head -n `<number>` `<file>`", "cd `<directory>`", "ping `<hostname>`"], "answerIndex": 0, "explanation": "ip addr — Displays network interfaces and IP addresses.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Shows the system’s IP address.", "options": ["touch `<file_name>`", "head -n `<number>` `<file>`", "hostname -I", "rm `<file_name>`"], "answerIndex": 2, "explanation": "hostname -I — Shows the system’s IP address.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Checks network connectivity between two systems.", "options": ["hostname -I", "dig `<domain>`", "ping `<hostname>`", "htop"], "answerIndex": 2, "explanation": "ping `<hostname>` — Checks network connectivity between two systems.", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Transfers data from or to a server (commonly used for downloads).", "options": ["cd `<directory>`", "htop", "curl `<url>`", "nice -n `<value>` `<command>`"], "answerIndex": 2, "explanation": "curl `<url>` — Transfers data from or to a server (commonly used for downloads).", "source": "linux-commands-cheatsheet.md"}, {"question": "Which Linux command matches this description? Performs a detailed DNS lookup.", "options": ["dig `<domain>`", "curl `<url>`", "rm `<file_name>`", "fg"], "answerIndex": 0, "explanation": "dig `<domain>` — Performs a detailed DNS lookup.", "source": "linux-commands-cheatsheet.md"}, {"question": "In DNS, what does a A record do?", "options": ["Specifies authoritative name servers for a domain", "Maps a domain name to an IPv4 address", "Maps a domain name to an IPv6 address", "Specifies mail servers for a domain"], "answerIndex": 1, "explanation": "A A record: Maps a domain name to an IPv4 address.", "source": "day-15-networking-concepts.md"}, {"question": "In DNS, what does a AAAA record do?", "options": ["Maps a domain name to an IPv4 address", "Specifies mail servers for a domain", "Maps a domain name to an IPv6 address", "Alias that points one domain to another domain"], "answerIndex": 2, "explanation": "A AAAA record: Maps a domain name to an IPv6 address.", "source": "day-15-networking-concepts.md"}, {"question": "In DNS, what does a CNAME record do?", "options": ["Specifies mail servers for a domain", "Maps a domain name to an IPv6 address", "Maps a domain name to an IPv4 address", "Alias that points one domain to another domain"], "answerIndex": 3, "explanation": "A CNAME record: Alias that points one domain to another domain.", "source": "day-15-networking-concepts.md"}, {"question": "In DNS, what does a MX record do?", "options": ["Maps a domain name to an IPv4 address", "Maps a domain name to an IPv6 address", "Alias that points one domain to another domain", "Specifies mail servers for a domain"], "answerIndex": 3, "explanation": "A MX record: Specifies mail servers for a domain.", "source": "day-15-networking-concepts.md"}, {"question": "In DNS, what does a NS record do?", "options": ["Specifies authoritative name servers for a domain", "Alias that points one domain to another domain", "Specifies mail servers for a domain", "Maps a domain name to an IPv6 address"], "answerIndex": 0, "explanation": "A NS record: Specifies authoritative name servers for a domain.", "source": "day-15-networking-concepts.md"}, {"question": "How many layers are in the OSI model?", "options": ["8", "7", "5", "4"], "answerIndex": 1, "explanation": "OSI has 7 layers: Physical through Application.", "source": "day-14-networking.md"}, {"question": "Which OSI layer is IP primarily associated with?", "options": ["Network (Layer 3)", "Data Link (Layer 2)", "Transport (Layer 4)", "Application (Layer 7)"], "answerIndex": 0, "explanation": "IP is placed at the Network layer (OSI L3) / Internet layer in TCP/IP.", "source": "day-14-networking.md"}, {"question": "Which OSI layer is TCP/UDP primarily associated with?", "options": ["Transport (Layer 4)", "Network (Layer 3)", "Application (Layer 7)", "Session (Layer 5)"], "answerIndex": 0, "explanation": "TCP and UDP are Transport layer protocols (OSI L4).", "source": "day-14-networking.md"}, {"question": "DNS is typically considered part of which OSI layer?", "options": ["Network (Layer 3)", "Transport (Layer 4)", "Physical (Layer 1)", "Application (Layer 7)"], "answerIndex": 3, "explanation": "DNS is an application-layer protocol (OSI L7).", "source": "day-14-networking.md"}, {"question": "How many layers are in the TCP/IP model (as listed in the notes)?", "options": ["7", "3", "5", "4"], "answerIndex": 3, "explanation": "The TCP/IP model is commonly represented as 4 layers: Network Access, Internet, Transport, Application.", "source": "day-14-networking.md"}, {"question": "In the example `curl https://example.com`, HTTPS typically uses which TCP port?", "options": ["22", "443", "53", "80"], "answerIndex": 1, "explanation": "HTTPS uses TCP port 443 (HTTP is typically 80).", "source": "day-14-networking.md"}, {"question": "Which command shows the IP address assigned to your system (as used in the notes)?", "options": ["whoami", "df -h", "free -m", "hostname -I"], "answerIndex": 3, "explanation": "The notes use `hostname -I` to display the system’s IP address.", "source": "day-14-networking.md"}, {"question": "Which command displays full network interface details on Linux (as shown in the notes)?", "options": ["chmod", "ps aux", "ip addr show", "lsblk"], "answerIndex": 2, "explanation": "`ip addr show` prints interface addresses and status.", "source": "day-14-networking.md"}, {"question": "When you type a domain like google.com, what is typically checked first according to the notes?", "options": ["The DNS root servers first", "The router’s firewall rules first", "Local DNS cache", "The web server’s TLS certificate first"], "answerIndex": 2, "explanation": "The notes describe checking the local DNS cache before querying resolvers/root/TLD/authoritative servers.", "source": "day-15-networking-concepts.md"}, {"question": "In DNS, TTL stands for:", "options": ["Time To Live", "Transfer To Local", "Time To Link", "Total Time Logged"], "answerIndex": 0, "explanation": "TTL means Time To Live — how long a DNS record can be cached.", "source": "day-15-networking-concepts.md"}, {"question": "Which file typically contains local user account entries on Linux (used for verification in the notes)?", "options": ["/home/passwd", "/etc/passwd", "/var/log/syslog", "/etc/shadow"], "answerIndex": 1, "explanation": "The notes verify created users by grepping `/etc/passwd`.", "source": "day-09-user-management.md"}, {"question": "Which option with `useradd` creates a home directory for the user (as shown)?", "options": ["-a", "-G", "-m", "-R"], "answerIndex": 2, "explanation": "`useradd -m` creates the user and their home directory.", "source": "day-09-user-management.md"}, {"question": "Which command is used to create a new group in Linux (as shown)?", "options": ["groupmod", "useradd", "groupadd", "chmod"], "answerIndex": 2, "explanation": "The notes use `sudo groupadd developers` / `sudo groupadd admins`.", "source": "day-09-user-management.md"}, {"question": "Which `usermod` flag appends supplementary groups without removing existing memberships?", "options": ["-g", "-rG", "-AG", "-aG"], "answerIndex": 3, "explanation": "In the notes, `usermod -aG` is used to add users to additional groups.", "source": "day-09-user-management.md"}, {"question": "Which command changes file permissions on Linux?", "options": ["chmod", "passwd", "chown", "chgrp"], "answerIndex": 0, "explanation": "`chmod` modifies permission bits (read/write/execute).", "source": "day-10-file-permissions.md"}, {"question": "Which command is used to create an empty file (as in the notes)?", "options": ["mkdir", "touch", "cat", "rm"], "answerIndex": 1, "explanation": "The notes use `touch devops.txt` to create an empty file.", "source": "day-10-file-permissions.md"}, {"question": "In `ls -l` output, which field shows the file’s owner (user)?", "options": ["The 4th column (group)", "The 2nd column (link count)", "The 5th column (size)", "The 3rd column (owner user)"], "answerIndex": 3, "explanation": "The Day 11 table explains that the owner user appears before the group in `ls -l`.", "source": "day-11-file-ownership.md"}, {"question": "Which command changes a file’s owner (user ownership)?", "options": ["chmod", "usermod", "chown", "chgrp"], "answerIndex": 2, "explanation": "`chown` changes the user owner of a file/directory.", "source": "day-11-file-ownership.md"}, {"question": "Which command changes a file’s group ownership?", "options": ["chmod", "groupadd", "chgrp", "chown"], "answerIndex": 2, "explanation": "`chgrp` changes the group owner of a file/directory.", "source": "day-11-file-ownership.md"}, {"question": "Which `chown` option applies ownership changes recursively to all files in a directory tree?", "options": ["-aG", "-R", "-h", "-m"], "answerIndex": 1, "explanation": "`chown -R` applies ownership changes recursively.", "source": "day-11-file-ownership.md"}, {"question": "In LVM terminology, what does PV stand for?", "options": ["Primary Variable", "Physical Volume", "Private Volume", "Partition Volume"], "answerIndex": 1, "explanation": "A Physical Volume (PV) is the actual disk or partition used by LVM.", "source": "day-13-lvm.md"}, {"question": "Which command initializes a disk/partition for use as an LVM Physical Volume?", "options": ["lvcreate", "mkfs", "vgcreate", "pvcreate"], "answerIndex": 3, "explanation": "The notes show `pvcreate /dev/...` to create Physical Volumes.", "source": "day-13-lvm.md"}, {"question": "What is a Volume Group (VG) in LVM?", "options": ["A filesystem type like ext4", "A single folder under /var", "A network share mount", "A storage pool created from one or more PVs"], "answerIndex": 3, "explanation": "The notes describe VG as a collection/pool of disks (PVs).", "source": "day-13-lvm.md"}, {"question": "Which command creates a new Volume Group (VG) in LVM?", "options": ["pvcreate", "lvcreate", "vgextend", "vgcreate"], "answerIndex": 3, "explanation": "The notes show `vgcreate vg_data ...`.", "source": "day-13-lvm.md"}, {"question": "Which command extends an existing Volume Group by adding another PV?", "options": ["vgextend", "lvs", "vgs", "df -h"], "answerIndex": 0, "explanation": "The notes show `vgextend vg_data /dev/sdc1` to add more storage.", "source": "day-13-lvm.md"}, {"question": "In Docker, what is a container (as described in the notes)?", "options": ["Only the Linux kernel", "A lightweight package with an app plus its dependencies", "A physical server rack", "A full virtual machine including a whole OS"], "answerIndex": 1, "explanation": "The Day 29 table describes a container as a lightweight package with app + dependencies.", "source": "day-29-docker-basics.md"}, {"question": "What problem do containers help solve (as stated in the notes)?", "options": ["Kernel panics on boot", "“It works on my machine”", "Hardware overheating", "DNS propagation delays"], "answerIndex": 1, "explanation": "The notes explicitly mention containers solve the “It works on my machine” problem.", "source": "day-29-docker-basics.md"}, {"question": "In the notes, how do containers differ from VMs?", "options": ["Containers share the host kernel; VMs include a full OS", "VMs share the host kernel; containers include full OS", "Containers require more RAM than VMs", "They are identical"], "answerIndex": 0, "explanation": "The table contrasts VM vs container: VMs include full OS; containers share host kernel.", "source": "day-29-docker-basics.md"}, {"question": "Which sequence best matches the Docker architecture flow shown in the notes?", "options": ["Client → Daemon → Registry → Image → Container", "Image → Registry → Client → Daemon → Container", "Daemon → Client → Image → Registry → Container", "Registry → Daemon → Client → Container → Image"], "answerIndex": 0, "explanation": "The Day 29 table lists: Client → Daemon → Registry → Image → Container.", "source": "day-29-docker-basics.md"}, {"question": "A Docker image is best described as:", "options": ["A Linux user account", "A TCP port scanner", "A template used to create containers", "A running container instance"], "answerIndex": 2, "explanation": "In Docker concepts, an image is the blueprint/template from which containers run.", "source": "day-29-docker-basics.md"}];
+
+const TOTAL_SECONDS = 60 * 60; // 60 minutes
+let remaining = TOTAL_SECONDS;
+let intervalId = null;
+let submitted = false;
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return String(m).padStart(2,'0') + ":" + String(s).padStart(2,'0');
+}
+
+function renderQuiz() {
+  const quiz = document.getElementById('quiz');
+  quiz.innerHTML = "";
+  QUESTIONS.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = `q_${idx}`;
+
+    const title = document.createElement('div');
+    title.className = 'qtitle';
+    title.textContent = `${idx+1}) ${q.question}`;
+    card.appendChild(title);
+
+    q.options.forEach((opt, oidx) => {
+      const label = document.createElement('label');
+      label.className = 'opt';
+
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = `q_${idx}`;
+      input.value = String(oidx);
+      input.addEventListener('change', updateProgress);
+
+      const span = document.createElement('span');
+      span.textContent = opt;
+
+      label.appendChild(input);
+      label.appendChild(span);
+      card.appendChild(label);
+    });
+
+    // review placeholder
+    const review = document.createElement('div');
+    review.id = `review_${idx}`;
+    review.style.display = 'none';
+    review.className = 'review-item';
+    card.appendChild(review);
+
+    quiz.appendChild(card);
+  });
+  updateProgress();
+}
+
+function updateProgress() {
+  let answered = 0;
+  QUESTIONS.forEach((_, idx) => {
+    const chosen = document.querySelector(`input[name="q_${idx}"]:checked`);
+    if (chosen) answered++;
+  });
+  document.getElementById('progress').textContent = `${answered} / ${QUESTIONS.length} answered`;
+}
+
+function startTimer() {
+  document.getElementById('timer').textContent = formatTime(remaining);
+  intervalId = setInterval(() => {
+    if (submitted) return;
+    remaining--;
+    if (remaining < 0) remaining = 0;
+    document.getElementById('timer').textContent = formatTime(remaining);
+
+    // visual urgency last 5 minutes
+    if (remaining <= 300) {
+      document.getElementById('timer').style.color = "#fca5a5";
+    }
+    if (remaining === 0) {
+      submitQuiz(true);
+    }
+  }, 1000);
+}
+
+function lockInputs() {
+  QUESTIONS.forEach((_, idx) => {
+    document.querySelectorAll(`input[name="q_${idx}"]`).forEach(inp => inp.disabled = true);
+    const card = document.getElementById(`q_${idx}`);
+    card.classList.add('locked');
+  });
+}
+
+function submitQuiz(auto=false) {
+  if (submitted) return;
+  submitted = true;
+  if (intervalId) clearInterval(intervalId);
+
+  lockInputs();
+
+  let correct = 0;
+  let answered = 0;
+
+  QUESTIONS.forEach((q, idx) => {
+    const chosen = document.querySelector(`input[name="q_${idx}"]:checked`);
+    const chosenIdx = chosen ? Number(chosen.value) : null;
+    if (chosenIdx !== null) answered++;
+
+    const isCorrect = chosenIdx === q.answerIndex;
+    if (isCorrect) correct++;
+
+    const review = document.getElementById(`review_${idx}`);
+    review.style.display = 'block';
+    review.classList.add(isCorrect ? 'correct' : 'wrong');
+
+    const yourAns = (chosenIdx === null) ? "(not answered)" : q.options[chosenIdx];
+    const correctAns = q.options[q.answerIndex];
+
+    review.innerHTML = `
+      <div class="ansline"><b>Your answer:</b> ${escapeHtml(yourAns)}</div>
+      <div class="ansline"><b>Correct answer:</b> ${escapeHtml(correctAns)}</div>
+      <div class="ansline"><b>Explanation:</b> ${escapeHtml(q.explanation)}</div>
+      <div class="ansline source"><b>Source:</b> ${escapeHtml(q.source)}</div>
+    `;
+  });
+
+  const pct = Math.round((correct / QUESTIONS.length) * 100);
+  const result = document.getElementById('result');
+  result.style.display = 'block';
+  result.innerHTML = `
+    <div style="font-size:1.15rem;font-weight:900;margin-bottom:6px;">Result</div>
+    <div>Score: <b>${correct}</b> / <b>${QUESTIONS.length}</b> (${pct}%)</div>
+    <div>Answered: <b>${answered}</b> / <b>${QUESTIONS.length}</b></div>
+    <div style="margin-top:8px;">${auto ? "⏱️ Time is up — auto-submitted." : "✅ Submitted."}</div>
+  `;
+
+  // scroll to top so user sees score
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetQuiz() {
+  submitted = false;
+  if (intervalId) clearInterval(intervalId);
+  remaining = TOTAL_SECONDS;
+  document.getElementById('timer').style.color = "#fff";
+  document.getElementById('timer').textContent = formatTime(remaining);
+
+  // clear answers
+  QUESTIONS.forEach((_, idx) => {
+    document.querySelectorAll(`input[name="q_${idx}"]`).forEach(inp => {
+      inp.checked = false;
+      inp.disabled = false;
+    });
+    const review = document.getElementById(`review_${idx}`);
+    review.style.display = 'none';
+    review.className = 'review-item';
+    const card = document.getElementById(`q_${idx}`);
+    card.classList.remove('locked');
+  });
+
+  document.getElementById('result').style.display = 'none';
+  updateProgress();
+  startTimer();
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+document.getElementById('submitBtn').addEventListener('click', () => submitQuiz(false));
+document.getElementById('endNowBtn').addEventListener('click', () => submitQuiz(false));
+document.getElementById('resetBtn').addEventListener('click', resetQuiz);
+
+renderQuiz();
+startTimer();
+</script>
+</body>
+</html>
