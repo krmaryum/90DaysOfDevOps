@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Docker MCQ Quiz (25 Questions)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 980px;
+      margin: 24px auto;
+      padding: 0 16px;
+      line-height: 1.5;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    h1, h2 { color: #f8fafc; }
+    .card {
+      background: #111c35;
+      border: 1px solid #22335f;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 14px 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+    .q-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #f1f5f9;
+    }
+    .option {
+      display: block;
+      padding: 10px 12px;
+      margin: 8px 0;
+      border-radius: 12px;
+      border: 1px solid #2a3c6d;
+      background: #0b1530;
+      cursor: pointer;
+      transition: transform .04s ease, border-color .15s ease;
+    }
+    .option:hover {
+      transform: translateY(-1px);
+      border-color: #4a6cff;
+    }
+    .option input { margin-right: 10px; }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0 6px;
+      align-items: center;
+    }
+    button {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #2a3c6d;
+      background: #17306b;
+      color: #e2e8f0;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    button:hover { border-color: #4a6cff; }
+    .muted { color: #94a3b8; }
+    .result {
+      font-size: 18px;
+      font-weight: 800;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #2a3c6d;
+      background: #0b1530;
+      margin-top: 10px;
+    }
+    .review-item {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #2a3c6d;
+      background: #0b1530;
+    }
+    .correct { border-color: #16a34a; }
+    .wrong { border-color: #ef4444; }
+    .pill {
+      display: inline-block;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-left: 8px;
+      border: 1px solid #2a3c6d;
+      background: #111c35;
+      color: #cbd5e1;
+    }
+    code {
+      background: rgba(148,163,184,0.12);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+    .time-row {
+      margin-top: 6px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <h1>Docker MCQ Quiz (25 Questions)</h1>
+  <p class="muted">Select one answer per question. Click <b>Submit</b> to see your score and review (with per-question time).</p>
+
+  <div class="controls">
+    <button onclick="submitQuiz()">Submit</button>
+    <button onclick="resetQuiz()">Reset</button>
+    <span class="muted">Tip: Your answers stay until you reset.</span>
+  </div>
+
+  <div id="quiz"></div>
+
+  <div id="scoreBox" class="result" style="display:none;"></div>
+  <div id="review" class="card" style="display:none;">
+    <h2>Review</h2>
+    <div id="reviewList"></div>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "1) What does the <code>FROM</code> instruction do in a Dockerfile?",
+        options: ["Runs commands when the container starts","Sets the base image for the build","Copies files from the container to host","Publishes ports automatically"],
+        answer: 1, explain: "FROM sets the base image that your image is built on top of."
+      },
+      { q: "2) What is the Docker build context?",
+        options: ["The Docker Hub repository","The set of files sent to Docker during <code>docker build</code>","The container's runtime environment","The volume mounted at /data"],
+        answer: 1, explain: "The build context is the directory (like <code>.</code>) whose files Docker can access during build."
+      },
+      { q: "3) What does <code>COPY . .</code> do?",
+        options: ["Copies everything from container to host","Copies everything from host build context into the image workdir","Copies only hidden files","Copies only the Dockerfile"],
+        answer: 1, explain: "COPY takes files from your build context (host folder) into the image."
+      },
+      { q: "4) Which instruction runs during image build time (not container runtime)?",
+        options: ["CMD","ENTRYPOINT","RUN","EXPOSE"],
+        answer: 2, explain: "RUN executes commands while building the image and creates layers."
+      },
+      { q: "5) What does <code>WORKDIR /app</code> do?",
+        options: ["Creates a volume at /app","Sets the default directory for subsequent commands","Exposes port 80","Deletes /app"],
+        answer: 1, explain: "WORKDIR sets the working directory for RUN/COPY/CMD, creating it if needed."
+      },
+      { q: "6) What does <code>EXPOSE 80</code> do?",
+        options: ["Opens port 80 on the host automatically","Documents that the container listens on port 80","Maps port 80 to 8080","Starts nginx"],
+        answer: 1, explain: "EXPOSE documents the port; actual publishing happens with <code>-p</code>."
+      },
+      { q: "7) Which command builds an image named <code>myapp</code> with tag <code>v1</code>?",
+        options: ["docker run -t myapp:v1 .","docker build -t myapp:v1 .","docker push myapp:v1 .","docker build myapp:v1 -t ."],
+        answer: 1, explain: "Use <code>docker build -t name:tag .</code>."
+      },
+      { q: "8) If you run <code>docker run image echo hi</code> and the image has CMD set, what happens?",
+        options: ["CMD is appended to echo hi","CMD is replaced by echo hi","CMD runs first, then echo hi","Docker throws an error"],
+        answer: 1, explain: "When you provide a command to <code>docker run</code>, it overrides CMD."
+      },
+      { q: "9) If an image has <code>ENTRYPOINT [\"echo\"]</code> and you run <code>docker run image hello</code>, what happens?",
+        options: ["It prints: echo","It prints: hello","It prints: echo hello","It errors because CMD is missing"],
+        answer: 1, explain: "ENTRYPOINT stays fixed; runtime args are appended. So it runs <code>echo hello</code>."
+      },
+      { q: "10) Best use of ENTRYPOINT is when you want:",
+        options: ["A default command that users can easily replace","A fixed executable that always runs","To remove caching","To publish ports automatically"],
+        answer: 1, explain: "ENTRYPOINT is for a container that behaves like a single executable."
+      },
+      { q: "11) Where does nginx serve static files from by default?",
+        options: ["/var/www/html","/usr/share/nginx/html","/etc/nginx/sites-enabled","/home/nginx/html"],
+        answer: 1, explain: "In the official nginx image, default web root is <code>/usr/share/nginx/html</code>."
+      },
+      { q: "12) What does <code>docker run -p 8080:80</code> mean?",
+        options: ["Container port 8080 maps to host port 80","Host port 8080 maps to container port 80","It exposes 8080 and 80 inside container","It disables firewall rules"],
+        answer: 1, explain: "Syntax is <code>host:container</code>."
+      },
+      { q: "13) What is the purpose of a <code>.dockerignore</code> file?",
+        options: ["To ignore container logs","To stop Docker from pulling images","To exclude files from the build context","To block network ports"],
+        answer: 2, explain: ".dockerignore prevents unnecessary files from being sent to the build context."
+      },
+      { q: "14) Which of these should usually be in <code>.dockerignore</code>?",
+        options: ["Dockerfile","node_modules","package.json","src/"],
+        answer: 1, explain: "node_modules is large and often shouldn’t be copied from host into the image."
+      },
+      { q: "15) Why does Dockerfile layer order matter for build speed?",
+        options: ["It changes CPU priority","Docker can only cache the last layer","If one layer changes, all layers after it must rebuild","It changes Docker Hub authentication"],
+        answer: 2, explain: "Docker caches layers; changing an earlier layer invalidates later ones."
+      },
+      { q: "16) In a Node app Dockerfile, which order is best for caching?",
+        options: ["COPY . . then RUN npm install","RUN npm install then COPY package.json","COPY package.json then RUN npm install then COPY . .","EXPOSE then FROM then CMD"],
+        answer: 2, explain: "Copy dependency files first so npm install can be cached unless deps change."
+      },
+      { q: "17) What does <code>--no-cache</code> do in <code>docker build</code>?",
+        options: ["Disables container networking","Forces Docker to rebuild all layers without cache","Uses cache only for COPY steps","Deletes images after build"],
+        answer: 1, explain: "<code>--no-cache</code> forces all build steps to run fresh."
+      },
+      { q: "18) What does <code>docker ps</code> show?",
+        options: ["All images","Running containers","Stopped containers only","Dockerfile history"],
+        answer: 1, explain: "<code>docker ps</code> shows currently running containers."
+      },
+      { q: "19) What does <code>docker images</code> show?",
+        options: ["Running containers","Stopped containers","Images stored locally","Volumes only"],
+        answer: 2, explain: "<code>docker images</code> lists images available on your machine."
+      },
+      { q: "20) Which statement is true about CMD and ENTRYPOINT together?",
+        options: ["ENTRYPOINT sets default arguments, CMD sets executable","CMD is ignored if ENTRYPOINT exists","ENTRYPOINT sets executable, CMD can provide default arguments","They cannot be used together"],
+        answer: 2, explain: "Common pattern: ENTRYPOINT = executable, CMD = default args."
+      },
+      { q: "21) What is an image layer?",
+        options: ["A network rule","A read-only filesystem change created by a Dockerfile step","A type of Docker volume","A Kubernetes object"],
+        answer: 1, explain: "Each Dockerfile step creates a cached filesystem layer (typically)."
+      },
+      { q: "22) Which instruction is best for installing packages in Ubuntu images?",
+        options: ["RUN apt-get update && apt-get install -y <pkg>","CMD apt-get install <pkg>","EXPOSE apt-get install <pkg>","COPY apt-get install <pkg>"],
+        answer: 0, explain: "Use RUN to install at build time. Update package lists first."
+      },
+      { q: "23) Why is <code>rm -rf /var/lib/apt/lists/*</code> often used after apt install?",
+        options: ["It removes the entire OS","It removes cached package list files to reduce image size","It disables apt forever","It upgrades curl"],
+        answer: 1, explain: "Cleaning apt lists reduces image size and keeps images lean."
+      },
+      { q: "24) Which command stops a running container?",
+        options: ["docker kill <image>","docker stop <container_id>","docker rm <image>","docker pause <image>"],
+        answer: 1, explain: "<code>docker stop</code> stops a running container gracefully."
+      },
+      { q: "25) Which statement about <code>EXPOSE</code> is correct?",
+        options: ["It automatically publishes ports to the host","It documents ports; you still need <code>-p</code> to publish","It opens firewall rules","It prevents access to the port"],
+        answer: 1, explain: "EXPOSE is documentation; <code>-p</code> publishes the port."
+      }
+    ];
+
+    // --- TIMING ---
+    // Per-question start times (starts at page load). We'll show time spent until submit.
+    const quizStartMs = Date.now();
+    const questionStartMs = []; // filled on render
+
+    function renderQuiz() {
+      const quiz = document.getElementById("quiz");
+      quiz.innerHTML = "";
+
+      questions.forEach((item, idx) => {
+        questionStartMs[idx] = Date.now();
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const title = document.createElement("div");
+        title.className = "q-title";
+        title.innerHTML = item.q;
+        card.appendChild(title);
+
+        item.options.forEach((opt, optIdx) => {
+          const label = document.createElement("label");
+          label.className = "option";
+          label.innerHTML = `
+            <input type="radio" name="q${idx}" value="${optIdx}">
+            ${opt}
+          `;
+          card.appendChild(label);
+        });
+
+        quiz.appendChild(card);
+      });
+    }
+
+    function submitQuiz() {
+      const submitMs = Date.now();
+      const totalSeconds = (submitMs - quizStartMs) / 1000;
+
+      let score = 0;
+      const reviewList = document.getElementById("reviewList");
+      reviewList.innerHTML = "";
+
+      questions.forEach((item, idx) => {
+        const chosen = document.querySelector(`input[name="q${idx}"]:checked`);
+        const chosenVal = chosen ? Number(chosen.value) : null;
+
+        const isCorrect = chosenVal === item.answer;
+        if (isCorrect) score++;
+
+        // Per-question time (from render/page load until submit)
+        const qSeconds = (submitMs - questionStartMs[idx]) / 1000;
+
+        const review = document.createElement("div");
+        review.className = "review-item " + (isCorrect ? "correct" : "wrong");
+
+        const yourText = chosenVal === null ? "No answer selected" : item.options[chosenVal];
+        const correctText = item.options[item.answer];
+
+        review.innerHTML = `
+          <div><b>${item.q}</b>
+            <span class="pill">${isCorrect ? "Correct" : "Wrong"}</span>
+          </div>
+          <div style="margin-top:8px;"><b>Your answer:</b> ${escapeHtml(yourText)}</div>
+          <div style="margin-top:6px;"><b>Correct answer:</b> ${escapeHtml(correctText)}</div>
+          <div class="muted" style="margin-top:6px;">${escapeHtml(item.explain)}</div>
+          <div class="time-row">Time spent: ${formatSeconds(qSeconds)}</div>
+        `;
+        reviewList.appendChild(review);
+      });
+
+      const scoreBox = document.getElementById("scoreBox");
+      scoreBox.style.display = "block";
+      scoreBox.textContent = `Score: ${score} / ${questions.length}  |  Total time: ${formatSeconds(totalSeconds)}`;
+
+      const review = document.getElementById("review");
+      review.style.display = "block";
+      window.scrollTo({ top: scoreBox.offsetTop - 10, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      document.getElementById("scoreBox").style.display = "none";
+      document.getElementById("review").style.display = "none";
+      document.getElementById("reviewList").innerHTML = "";
+
+      // Reset timing
+      const now = Date.now();
+      for (let i = 0; i < questions.length; i++) questionStartMs[i] = now;
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatSeconds(seconds) {
+      // show 1 decimal place, and format as mm:ss.s for readability
+      const s = Math.max(0, seconds);
+      const minutes = Math.floor(s / 60);
+      const rem = s - minutes * 60;
+      const remFixed = rem.toFixed(1).padStart(4, "0"); // e.g. 2.3 -> "02.3"
+      return minutes > 0 ? `${minutes}:${remFixed}` : `${rem.toFixed(1)}s`;
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>

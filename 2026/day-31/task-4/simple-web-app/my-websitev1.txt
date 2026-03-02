@@ -1,0 +1,37 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 374B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/nginx:alpine
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 32B done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/library/nginx:alpine@sha256:1d13701a5f9f3fb01aaa88cef2344d65b6b5bf6b7d9fa4cf0dca557a8d7702ba
+#5 resolve docker.io/library/nginx:alpine@sha256:1d13701a5f9f3fb01aaa88cef2344d65b6b5bf6b7d9fa4cf0dca557a8d7702ba 0.0s done
+#5 DONE 0.0s
+
+#6 [2/3] RUN rm -rf /usr/share/nginx/html/*
+#6 CACHED
+
+#7 [3/3] COPY index.html /usr/share/nginx/html/
+#7 CACHED
+
+#8 exporting to image
+#8 exporting layers done
+#8 exporting manifest sha256:df615a747e5aa6fb26d3251eeb34ac96d256683ebab7cec5dc839a34d21a4a42 done
+#8 exporting config sha256:0860773169557ad4d068ab4529640390c9a690ca681b7d82a2e74ba154d039cb 0.0s done
+#8 exporting attestation manifest sha256:d4ad8f1eb26e8a5e71000c8fa9d7315f71767f32931e24e2dd585ba13f18ca9f 0.1s done
+#8 exporting manifest list sha256:fc3e03b7af79fb3a5e5ab0cb53505b0cbc07e098f781ef551101b52b6054969c 0.0s done
+#8 naming to docker.io/library/my-website:v1
+#8 naming to docker.io/library/my-website:v1 done
+#8 unpacking to docker.io/library/my-website:v1 0.1s done
+#8 DONE 0.4s
