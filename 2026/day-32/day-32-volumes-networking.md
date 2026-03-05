@@ -8,12 +8,12 @@ Goal: fix two real-world problems in Docker: **data persistence** (volumes/bind 
 
 | Task | Link |
 |-----|-----|
-| Task 1 – The Problem (Ephemeral containers) | [Go to Task 1](#task-1-the-problem) |
-| Task 2 – Fix persistence with a Named Volume | [Go to Task 2](#task-2-named-volumes) |
-| Task 3 – Bind Mount (host path ↔ container path) | [Go to Task 3](#task-3-bind-mounts) |
+| Task 1 – The Problem (Ephemeral containers) | [Go to Task 1](## Task 1: The Problem (Ephemeral containers)) |
+| Task 2 – Task 2: Fix persistence with a Named Volume | [Go to Task 2](## Task 2: Fix persistence with a Named Volume) |
+| Task 3 – Task 3: Bind Mount (host path ↔ container path) | [Go to Task 3](## Task 3: Bind Mount (host path ↔ container path)) |
 | Task 4 – Container Networking | [Go to Task 4](#task-4-container-networking) |
-| Task 5 – Custom Networks | [Go to Task 5](#task-5-custom-networks) |
-| Task 6 – Put It Together | [Go to Task 6](#task-6-put-it-together) |
+| Task 5 – Task 5: Custom Networks (containers talking to each other) | [Go to Task 5](## Task 5: Custom Networks (containers talking to each other)) |
+| Task 6 – Task 6: Put It Together (Network + DB Volume + App Container) | [Go to Task 6](## Task 6: Put It Together (Network + DB Volume + App Container)) |
 
 ---
 
