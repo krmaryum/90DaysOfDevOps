@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Day 32 Docker MCQs (25 Questions)</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 20px; line-height: 1.4; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 14px 0; }
+    .qtitle { font-weight: 700; margin-bottom: 10px; }
+    .opts label { display:block; padding: 8px 10px; border: 1px solid #eee; border-radius: 10px; margin: 8px 0; cursor:pointer; }
+    .opts input { margin-right: 8px; }
+    button { padding: 10px 14px; border-radius: 10px; border: 1px solid #ccc; background: #f7f7f7; cursor:pointer; }
+    button:hover { background: #f0f0f0; }
+    .timer { font-weight: 700; }
+    .muted { color:#666; }
+    .result { font-size: 18px; font-weight: 800; }
+    .good { border-color: #b7e1b7; background: #f2fff2; }
+    .bad { border-color: #f2b6b6; background: #fff2f2; }
+    .pill { display:inline-block; padding: 4px 10px; border-radius: 999px; border: 1px solid #ddd; margin-left: 8px; font-size: 12px; }
+    .footer { margin-top: 18px; }
+    .small { font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div>
+      <h1 style="margin:0;">Day 32 – Docker Volumes & Networking</h1>
+      <div class="muted">25 MCQs • Timer + explanations after submission</div>
+    </div>
+    <div class="card" style="margin:0; padding:12px 14px;">
+      <div class="timer">Time left: <span id="time">25:00</span></div>
+      <div class="small muted">Auto-submits when time is up</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="qtitle">Instructions</div>
+    <ul>
+      <li>Select one option per question.</li>
+      <li>Click <b>Submit</b> to see your score and explanations.</li>
+      <li>Timer is set to <b>25 minutes</b> by default (1 minute per question).</li>
+    </ul>
+  </div>
+
+  <form id="quiz"></form>
+
+  <div class="footer">
+    <button type="button" id="submitBtn">Submit</button>
+    <span class="pill" id="progress">0 / 25 answered</span>
+  </div>
+
+  <div id="summary" class="card" style="display:none;"></div>
+
+<script>
+const QUESTIONS = [{"q": "What happens to data stored inside a container\u2019s writable layer when the container is removed?", "opts": ["It is automatically backed up by Docker", "It persists until the image is deleted", "It is deleted with the container", "It moves to /var/lib/docker/tmp"], "ans": 2, "exp": "By default, data written inside the container lives in its writable layer. When you remove the container (docker rm), that writable layer is removed too."}, {"q": "Which command creates a named Docker volume?", "opts": ["docker volume make data", "docker volume create data", "docker create volume data", "docker mkvol data"], "ans": 1, "exp": "docker volume create <name> creates a managed (named) volume."}, {"q": "Which option correctly attaches a named volume to a container path?", "opts": ["-v /container/path:volname", "-v volname:/container/path", "--mount type=bind,source=volname,target=/path", "--volume /path=volname"], "ans": 1, "exp": "Named volume syntax is -v volume_name:/container/path (or --mount type=volume,source=...,target=...)."}, {"q": "What is a bind mount?", "opts": ["A Docker-managed storage area not tied to a container", "A mount that maps a host path directly into a container", "A mount that only works on Linux", "A mount that stores data inside the image layers"], "ans": 1, "exp": "Bind mounts map a specific host directory/file into the container, e.g., -v /host/path:/container/path."}, {"q": "Which is the default web root for Nginx in the official nginx image?", "opts": ["/var/www/html", "/usr/share/nginx/html", "/etc/nginx/www", "/opt/nginx/html"], "ans": 1, "exp": "The official nginx image serves static files from /usr/share/nginx/html by default."}, {"q": "Which command lists running containers?", "opts": ["docker ls", "docker ps", "docker containers", "docker status"], "ans": 1, "exp": "docker ps lists running containers (use -a to include stopped)."}, {"q": "Which command runs a command inside a running container (interactive terminal)?", "opts": ["docker attach -it", "docker exec -it", "docker shell -it", "docker enter -it"], "ans": 1, "exp": "docker exec -it <container> <command> executes a command inside a running container with an interactive TTY."}, {"q": "What does docker volume inspect show?", "opts": ["CPU and RAM usage of a volume", "Volume details like Mountpoint and Driver", "The content files inside the volume", "Which images created the volume"], "ans": 1, "exp": "docker volume inspect returns metadata such as Driver and Mountpoint (where it lives on the host)."}, {"q": "Why are named volumes preferred for databases in Docker?", "opts": ["They make containers start faster", "They persist data independent of container lifecycle", "They compress database files automatically", "They store data inside the container image"], "ans": 1, "exp": "Named volumes persist outside containers, so removing/recreating containers doesn\u2019t delete DB data."}, {"q": "Which command creates a custom Docker network?", "opts": ["docker net create mynet", "docker network create mynet", "docker create network mynet", "docker bridge create mynet"], "ans": 1, "exp": "docker network create <name> creates a user-defined network (bridge by default)."}, {"q": "On a user-defined bridge network, how can containers reach each other reliably?", "opts": ["Only by external IP", "Only by port mapping", "By container name via Docker DNS", "They cannot communicate"], "ans": 2, "exp": "User-defined networks include Docker\u2019s embedded DNS, so containers can resolve each other by name."}, {"q": "Which command attaches a container to a specific network at start?", "opts": ["docker run --bridge mynet", "docker run --network mynet", "docker run --netmode mynet", "docker run --dns mynet"], "ans": 1, "exp": "Use docker run --network <network_name> to connect at container start."}, {"q": "What is a key advantage of a user-defined bridge network over the default bridge network?", "opts": ["It disables isolation", "It provides automatic DNS-based name resolution", "It forces containers to use host networking", "It maps ports automatically"], "ans": 1, "exp": "User-defined bridge networks provide DNS service discovery by container name."}, {"q": "Which command tests connectivity from container c1 to c2 by name?", "opts": ["docker ping c1 c2", "docker exec c1 ping c2", "docker exec ping c1 c2", "docker net ping c2"], "ans": 1, "exp": "You run ping inside a container using docker exec, e.g., docker exec -it c1 ping -c 4 c2."}, {"q": "If you remove a container using a named volume, what happens to the volume by default?", "opts": ["The volume is deleted automatically", "The volume persists", "The volume becomes read-only", "The volume is renamed"], "ans": 1, "exp": "Volumes persist unless you explicitly remove them (docker volume rm) or use docker rm -v."}, {"q": "What does -p 8080:80 do in docker run?", "opts": ["Maps container port 8080 to host port 80", "Maps host port 8080 to container port 80", "Publishes both ports 8080 and 80", "Blocks port 80"], "ans": 1, "exp": "Port mapping syntax is host:container, so -p 8080:80 exposes container port 80 on host port 8080."}, {"q": "Where does Postgres store its data inside the official postgres image by default?", "opts": ["/data/postgres", "/var/lib/postgresql/data", "/usr/local/pgsql/data", "/etc/postgres/data"], "ans": 1, "exp": "The postgres image uses /var/lib/postgresql/data as its default data directory."}, {"q": "Which statement best describes containers as \u201cephemeral\u201d?", "opts": ["They can\u2019t run for more than a day", "Their filesystem changes are temporary unless persisted externally", "They always restart on reboot", "They must be run with --rm"], "ans": 1, "exp": "Ephemeral means container state isn\u2019t durable by default\u2014remove the container and the writable layer is gone."}, {"q": "Which flag makes a container run in the background?", "opts": ["-b", "-bg", "-d", "--quiet"], "ans": 2, "exp": "-d runs the container in detached mode."}, {"q": "How do you list all networks on a Docker host?", "opts": ["docker networks", "docker network ls", "docker net ls", "docker ls network"], "ans": 1, "exp": "docker network ls lists all Docker networks."}, {"q": "What is the biggest risk of bind mounts compared to named volumes?", "opts": ["They can\u2019t be used on Linux", "They expose host filesystem paths directly to containers", "They are always slower than volumes", "They can only be read-only"], "ans": 1, "exp": "Bind mounts directly map host paths into containers, which can increase exposure and dependency on host structure."}, {"q": "Which is a correct bind mount example?", "opts": ["-v myvol:/usr/share/nginx/html", "-v $(pwd):/usr/share/nginx/html", "-v /usr/share/nginx/html:$(pwd)", "--mount type=volume,source=$(pwd),target=/html"], "ans": 1, "exp": "Bind mounts map host path to container path: -v <host_path>:<container_path>."}, {"q": "Which command shows detailed configuration of a network (containers, subnets, etc.)?", "opts": ["docker net show my-app-net", "docker network inspect my-app-net", "docker network info my-app-net", "docker inspect network my-app-net"], "ans": 1, "exp": "docker network inspect prints details like subnet, gateway, and attached containers."}, {"q": "In Task 6, why did the \u201capp\u201d container connect using -h pg-db?", "opts": ["-h sets the host name of the container", "-h tells psql which DB hostname to connect to", "-h enables HTTP mode", "-h makes Docker create a network"], "ans": 1, "exp": "For psql, -h specifies the database host to connect to. Docker DNS resolves pg-db to the DB container IP on the shared network."}, {"q": "Which command removes a Docker volume named pgdata?", "opts": ["docker rm pgdata", "docker volume rm pgdata", "docker delete volume pgdata", "docker volume delete pgdata"], "ans": 1, "exp": "docker volume rm <name> removes a named volume (only if not in use)."}];
+const TOTAL_SECONDS = 25 * 60; // 25 minutes
+let remaining = TOTAL_SECONDS;
+let submitted = false;
+let timerId = null;
+
+function pad(n) { return String(n).padStart(2,'0'); }
+function renderTime() {
+  const m = Math.floor(remaining / 60);
+  const s = remaining % 60;
+  document.getElementById('time').textContent = `${pad(m)}:${pad(s)}`;
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, (m) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
+}
+
+function buildQuiz() {
+  const quiz = document.getElementById('quiz');
+  quiz.innerHTML = "";
+  QUESTIONS.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = "card";
+    card.id = `qcard-${idx}`;
+    const qNum = idx + 1;
+    const qTitle = document.createElement('div');
+    qTitle.className = "qtitle";
+    qTitle.innerHTML = `Q${qNum}. ${escapeHtml(item.q)}`;
+    card.appendChild(qTitle);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = "opts";
+
+    item.opts.forEach((opt, oidx) => {
+      const label = document.createElement('label');
+      label.innerHTML = `<input type="radio" name="q${idx}" value="${oidx}"> ${escapeHtml(opt)}`;
+      optsDiv.appendChild(label);
+    });
+
+    card.appendChild(optsDiv);
+    quiz.appendChild(card);
+  });
+
+  quiz.addEventListener('change', updateProgress);
+  updateProgress();
+}
+
+function getAnswers() {
+  const answers = [];
+  for (let i=0;i<QUESTIONS.length;i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    answers.push(sel ? Number(sel.value) : null);
+  }
+  return answers;
+}
+
+function updateProgress() {
+  const ans = getAnswers();
+  const count = ans.filter(v => v !== null).length;
+  document.getElementById('progress').textContent = `${count} / ${QUESTIONS.length} answered`;
+}
+
+function submitQuiz(auto=false) {
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timerId);
+
+  const answers = getAnswers();
+  let score = 0;
+
+  QUESTIONS.forEach((item, idx) => {
+    const card = document.getElementById(`qcard-${idx}`);
+    const user = answers[idx];
+    const correct = item.ans;
+
+    const explanation = document.createElement('div');
+    explanation.style.marginTop = "10px";
+
+    const userText = (user === null) ? "Not answered" : item.opts[user];
+    const correctText = item.opts[correct];
+
+    const ok = (user === correct);
+    if (ok) score++;
+
+    card.classList.add(ok ? "good" : "bad");
+
+    explanation.innerHTML = `
+      <div><b>Your answer:</b> ${escapeHtml(userText)} </div>
+      <div><b>Correct answer:</b> ${escapeHtml(correctText)} </div>
+      <div class="muted"><b>Explanation:</b> ${escapeHtml(item.exp)}</div>
+    `;
+    card.appendChild(explanation);
+
+    // disable inputs
+    card.querySelectorAll('input').forEach(inp => inp.disabled = true);
+  });
+
+  const pct = Math.round((score / QUESTIONS.length) * 100);
+  const summary = document.getElementById('summary');
+  summary.style.display = "block";
+  summary.innerHTML = `
+    <div class="result">Score: ${score} / ${QUESTIONS.length} (${pct}%)</div>
+    <div class="muted">${auto ? "Auto-submitted because time ended." : "Submitted successfully."}</div>
+  `;
+
+  document.getElementById('submitBtn').disabled = true;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startTimer() {
+  renderTime();
+  timerId = setInterval(() => {
+    if (submitted) return;
+    remaining--;
+    if (remaining <= 0) {
+      remaining = 0;
+      renderTime();
+      submitQuiz(true);
+      return;
+    }
+    renderTime();
+  }, 1000);
+}
+
+document.getElementById('submitBtn').addEventListener('click', () => submitQuiz(false));
+
+buildQuiz();
+startTimer();
+</script>
+
+</body>
+</html>
