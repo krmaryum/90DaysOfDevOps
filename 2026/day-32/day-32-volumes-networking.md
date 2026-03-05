@@ -4,12 +4,6 @@ Goal: fix two real-world problems in Docker: **data persistence** (volumes/bind 
 
 ---
 
-# Day 32 – Docker Volumes & Networking
-
-## Table of Contents
-
-# Day 32 – Docker Volumes & Networking
-
 ## Table of Contents
 
 | Task | Link |
@@ -20,8 +14,6 @@ Goal: fix two real-world problems in Docker: **data persistence** (volumes/bind 
 | Task 4 – Container Networking | [Go to Task 4](#task-4-container-networking) |
 | Task 5 – Custom Networks | [Go to Task 5](#task-5-custom-networks) |
 | Task 6 – Put It Together | [Go to Task 6](#task-6-put-it-together) |
-
----
 
 ---
 
