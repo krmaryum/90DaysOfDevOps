@@ -6,18 +6,17 @@ Goal: fix two real-world problems in Docker: **data persistence** (volumes/bind 
 
 ## Table of Contents
 
-| Task | Link |
-|-----|-----|
-| Task 1 – The Problem (Ephemeral containers) | [Go to Task 1](## Task 1: The Problem (Ephemeral containers)) |
-| Task 2 – Task 2: Fix persistence with a Named Volume | [Go to Task 2](## Task 2: Fix persistence with a Named Volume) |
-| Task 3 – Task 3: Bind Mount (host path ↔ container path) | [Go to Task 3](## Task 3: Bind Mount (host path ↔ container path)) |
-| Task 4 – Container Networking | [Go to Task 4](#task-4-container-networking) |
-| Task 5 – Task 5: Custom Networks (containers talking to each other) | [Go to Task 5](## Task 5: Custom Networks (containers talking to each other)) |
-| Task 6 – Task 6: Put It Together (Network + DB Volume + App Container) | [Go to Task 6](## Task 6: Put It Together (Network + DB Volume + App Container)) |
-
+- [Task 1: The Problem](#task-1-the-problem)
+- [Task 2: Named Volumes](#task-2-named-volumes)
+- [Task 3: Bind Mounts](#task-3-bind-mounts)
+- [Task 4: Container Networking](#task-4-container-networking)
+- [Task 5: Custom Networks](#task-5-custom-networks)
+- [Task 6: Put It Together](#task-6-put-it-together)
 ---
 
-## Task 1: The Problem (Ephemeral containers)
+## Task 1: The Problem
+The Problem (Ephemeral containers)
+
 “Ephemeral” means temporary.
 
 Containers are considered ephemeral because their filesystem is temporary.
@@ -135,8 +134,9 @@ That’s why containers are considered **ephemeral**.
 
 ---
 
+## Task 2: Named Volumes
 
-## Task 2: Fix persistence with a Named Volume
+Fix persistence with a Named Volume
 
 ### 2A) Create a named volume
 First, create a Docker volume that will persist database data.
@@ -271,7 +271,9 @@ This is why volumes are essential for databases in Docker.
 
 ---
 
-## Task 3: Bind Mount (host path ↔ container path)
+## Task 3: Bind Mounts
+
+Bind Mount (host path ↔ container path)
 
 Bind mounts are great when you want to edit files on the host and have changes appear instantly in the container.
 
@@ -367,8 +369,9 @@ No container rebuild or restart is required.
 
 ---
 
+## Task 4: Container Networking
 
-## Task 5: Custom Networks (containers talking to each other)
+Custom Networks (containers talking to each other)
 
 By default, containers can communicate on the default bridge network, but **user-defined networks** provide:
 - automatic DNS by container name
@@ -434,7 +437,9 @@ docker network rm day32-net 2>/dev/null || true
 
 ---
 
-## Task 6: Put It Together (Network + DB Volume + App Container)
+## Task 6: Put It Together
+
+Put It Together (Network + DB Volume + App Container)
 
 #### 1. Create a custom network
 ```bash
