@@ -4,8 +4,17 @@ An application is a software system that allows users to perform tasks by combin
 ## Frontend (UI)
 Frontend (UI) is the visual and interactive part of an application that users see and use in a browser or app.
 
+This is the part that the user can see.
+
+Example:
+- buttons
+- forms
+- pages
+- images
+
 ## Backend API
 Backend API is the server-side system that processes requests, interacts with databases, and sends data to the frontend.
+
 
 ## Database
 A database stores persistent data so applications can keep information safely even after restarts or crashes.
@@ -17,7 +26,7 @@ Applications rely on databases to keep important information such as:
 - messages
 
 ### Common Databases
-Popular databases jo applications mein use hoti hain:
+Popular databases that are used in applications:
 - MySQL
 - PostgreSQL
 - MongoDB
@@ -45,3 +54,4 @@ Backend API
  ↓
 Database
 ```
+
