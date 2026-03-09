@@ -140,7 +140,7 @@ Open:
 ```bash
 http://localhost:8080
 ```
-![first docker-compose](screenshots/day-33-1-nginx.png)
+![first docker-compose](Screenshots/day-33-1-nginx.png)
 
 ### 5. View logs 
 ```bash
@@ -151,7 +151,7 @@ docker compose logs -f
 ```bash
 docker compose down
 ```
-![nginx](screenshots/day-33-2-nginx-down.png)
+![nginx](Screenshots/day-33-2-nginx-down.png)
 
 ---
 
@@ -228,17 +228,17 @@ Run it with
 ```bash
 docker compose up -d
 ```
-![2-container-compose](screenshots/day-33-two-container-compose.png)
+![2-container-compose](Screenshots/day-33-two-container-compose.png)
 
 Open WordPress in your browser:
 ```bash
 http://localhost:8081
 ```
-![wordpress-setup](screenshots/day-33-wordpress-setup.png)
+![wordpress-setup](Screenshots/day-33-wordpress-setup.png)
 
-![wordpress-final](screenshots/day-33-wordpress-final.png)
+![wordpress-final](Screenshots/day-33-wordpress-final.png)
 
-![down n up](screenshots/day-33-down-&-up.png)
+![down n up](Screenshots/day-33-down-&-up.png)
 
 ---
 
@@ -349,7 +349,7 @@ Check variables inside the container:
 ```bash
 docker compose exec app env
 ```
-![Environment Variables](screenshots/day-33-Environment-Variables-1.png)
+![Environment Variables](Screenshots/day-33-Environment-Variables-1.png)
 
 Stop it:
 ```bash
@@ -389,11 +389,11 @@ Open in browser:
 ```bash
 http://localhost:8083
 ```
-![use .env file](screenshots/day-33-docker-compose-dot-env.png)
+![use .env file](Screenshots/day-33-docker-compose-dot-env.png)
 
 ### 4. Verify variables are picked up
 Check inside the container:
 ```bash
 docker compose exec app env | grep APP
 ```
-![Verify variables are picked up](screenshots/day-33-docker-compose-dot-env-output.png)
+![Verify variables are picked up](Screenshots/day-33-docker-compose-dot-env-output.png)
