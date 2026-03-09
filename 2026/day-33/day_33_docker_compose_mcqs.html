@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 33 Docker Compose MCQs</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 950px;
+      margin: 32px auto;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    h1, h2 { margin-top: 0; }
+    .muted { color: #6b7280; }
+    .question {
+      padding: 18px;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      background: #fcfdff;
+    }
+    .question h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+    .options label {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .options label:hover { background: #f9fafb; }
+    .options input { margin-right: 10px; }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .primary { background: #2563eb; color: white; }
+    .secondary { background: #e5e7eb; color: #111827; }
+    .result {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 14px;
+      background: #eef6ff;
+      border: 1px solid #bfdbfe;
+    }
+    .correct { background: #ecfdf5 !important; border-color: #10b981 !important; }
+    .wrong { background: #fef2f2 !important; border-color: #ef4444 !important; }
+    .answer-note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-left: 4px solid #2563eb;
+      background: #eff6ff;
+      border-radius: 8px;
+      display: none;
+    }
+    .score {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .small { font-size: 14px; }
+    @media (max-width: 640px) {
+      .container { padding: 14px; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Day 33 – Docker Compose MCQs</h1>
+      <p class="muted">25 multiple-choice questions based on Docker Compose basics, multi-container apps, commands, volumes, networking, and environment variables.</p>
+      <div class="btn-row">
+        <button class="primary" onclick="submitQuiz()">Submit Quiz</button>
+        <button class="secondary" onclick="resetQuiz()">Reset</button>
+      </div>
+      <div id="result" class="result"></div>
+    </div>
+
+    <div id="quiz"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What is the main purpose of Docker Compose?",
+        options: [
+          "To build Linux kernels",
+          "To run multi-container applications using a YAML file",
+          "To replace Docker Engine completely",
+          "To manage only volumes"
+        ],
+        answer: 1,
+        explanation: "Docker Compose lets you define and run multi-container applications using a docker-compose.yml file."
+      },
+      {
+        q: "2. Which command starts services in detached mode?",
+        options: [
+          "docker compose start -d",
+          "docker compose run -d",
+          "docker compose up -d",
+          "docker compose init -d"
+        ],
+        answer: 2,
+        explanation: "The correct command is docker compose up -d."
+      },
+      {
+        q: "3. Which file is commonly used to define Docker Compose services?",
+        options: [
+          "Dockerfile",
+          "docker-compose.yml",
+          "compose.json",
+          "containers.txt"
+        ],
+        answer: 1,
+        explanation: "Docker Compose configurations are commonly stored in docker-compose.yml."
+      },
+      {
+        q: "4. In Docker Compose, service names can be used as what inside the default network?",
+        options: [
+          "Image tags",
+          "Volume names",
+          "DNS hostnames",
+          "Port numbers"
+        ],
+        answer: 2,
+        explanation: "Compose service names act as DNS names for inter-container communication."
+      },
+      {
+        q: "5. Which command shows running services for the current Compose project?",
+        options: [
+          "docker compose ps",
+          "docker compose ls -a",
+          "docker service ps",
+          "docker compose show"
+        ],
+        answer: 0,
+        explanation: "docker compose ps lists the containers/services in the current Compose project."
+      },
+      {
+        q: "6. What does docker compose down remove by default?",
+        options: [
+          "Containers and networks",
+          "Images only",
+          "Volumes only",
+          "Docker Engine"
+        ],
+        answer: 0,
+        explanation: "docker compose down stops and removes containers and networks by default."
+      },
+      {
+        q: "7. Which option removes named volumes as well?",
+        options: [
+          "docker compose rm -all",
+          "docker compose delete",
+          "docker compose down -v",
+          "docker compose down --images"
+        ],
+        answer: 2,
+        explanation: "Use docker compose down -v to remove volumes too."
+      },
+      {
+        q: "8. In a WordPress + MySQL Compose setup, what is usually used in WORDPRESS_DB_HOST?",
+        options: [
+          "localhost:3306",
+          "db:3306",
+          "mysql.local:80",
+          "wordpress:3306"
+        ],
+        answer: 1,
+        explanation: "The WordPress service connects to MySQL using the MySQL service name, commonly db:3306."
+      },
+      {
+        q: "9. What is the benefit of a named volume for MySQL?",
+        options: [
+          "It speeds up internet access",
+          "It persists database data across container restarts",
+          "It replaces the network",
+          "It exposes ports automatically"
+        ],
+        answer: 1,
+        explanation: "Named volumes are used so database data remains even if containers are recreated."
+      },
+      {
+        q: "10. Which command follows logs for all services in real time?",
+        options: [
+          "docker compose logs -f",
+          "docker compose tail",
+          "docker compose watch logs",
+          "docker compose ps -f"
+        ],
+        answer: 0,
+        explanation: "The -f flag means follow logs in real time."
+      },
+      {
+        q: "11. Which command shows logs for a specific service named db?",
+        options: [
+          "docker compose db logs",
+          "docker compose logs db",
+          "docker logs compose db",
+          "docker compose ps db"
+        ],
+        answer: 1,
+        explanation: "Use docker compose logs db to see logs for the db service."
+      },
+      {
+        q: "12. Which statement about depends_on is correct?",
+        options: [
+          "It guarantees the app is fully ready",
+          "It controls startup order but not readiness",
+          "It creates a volume",
+          "It maps ports"
+        ],
+        answer: 1,
+        explanation: "depends_on helps with startup order, but it does not wait for a service to be ready to accept connections."
+      },
+      {
+        q: "13. What does docker compose stop do?",
+        options: [
+          "Stops services without removing containers",
+          "Stops and removes everything",
+          "Deletes images",
+          "Removes volumes"
+        ],
+        answer: 0,
+        explanation: "docker compose stop stops containers but leaves them in place."
+      },
+      {
+        q: "14. Which command starts previously stopped services again?",
+        options: [
+          "docker compose resume",
+          "docker compose begin",
+          "docker compose start",
+          "docker compose up start"
+        ],
+        answer: 2,
+        explanation: "docker compose start starts services that were previously stopped."
+      },
+      {
+        q: "15. What does docker compose config help with?",
+        options: [
+          "Editing images",
+          "Validating and viewing the merged Compose configuration",
+          "Installing Docker",
+          "Building the Linux filesystem"
+        ],
+        answer: 1,
+        explanation: "docker compose config validates YAML and shows the final resolved configuration."
+      },
+      {
+        q: "16. Which command rebuilds images after changes and starts services?",
+        options: [
+          "docker compose up -d --build",
+          "docker compose build && docker compose run",
+          "docker compose rebuild",
+          "docker build compose"
+        ],
+        answer: 0,
+        explanation: "docker compose up -d --build rebuilds images and starts the services."
+      },
+      {
+        q: "17. Where does Docker Compose automatically look for environment variables by default?",
+        options: [
+          "Only /etc/environment",
+          "A .env file in the same directory as the Compose file",
+          "Inside the Docker daemon config",
+          "In the browser cache"
+        ],
+        answer: 1,
+        explanation: "Compose automatically reads a .env file from the project directory."
+      },
+      {
+        q: "18. Which syntax references an environment variable named PORT in a Compose file?",
+        options: [
+          "$PORT$",
+          "{PORT}",
+          "${PORT}",
+          "<PORT>"
+        ],
+        answer: 2,
+        explanation: "Compose variable substitution uses the ${VARIABLE_NAME} format."
+      },
+      {
+        q: "19. Which is a correct example of using a specific Compose file?",
+        options: [
+          "docker compose --yaml docker-compose.yml",
+          "docker compose -f docker-compose-dot-env.yml up -d",
+          "docker compose open docker-compose.yml",
+          "docker compose use docker-compose.yml"
+        ],
+        answer: 1,
+        explanation: "The -f flag is used to specify a Compose file."
+      },
+      {
+        q: "20. Which command combines multiple Compose files?",
+        options: [
+          "docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
+          "docker compose merge docker-compose.yml docker-compose.prod.yml",
+          "docker compose multi up",
+          "docker compose --all-files up -d"
+        ],
+        answer: 0,
+        explanation: "You can pass multiple -f flags to combine Compose files."
+      },
+      {
+        q: "21. In the port mapping \"8080:80\", what does 8080 represent?",
+        options: [
+          "Container port",
+          "Host port",
+          "Volume port",
+          "Network ID"
+        ],
+        answer: 1,
+        explanation: "In host:container mapping, 8080 is the host port and 80 is the container port."
+      },
+      {
+        q: "22. Which service would typically expose port 80 in an Nginx example?",
+        options: [
+          "mysql",
+          "db",
+          "nginx",
+          "volume"
+        ],
+        answer: 2,
+        explanation: "Nginx commonly listens on port 80 inside the container."
+      },
+      {
+        q: "23. What happens if you run docker compose down and then docker compose up, without -v, in a setup with named volumes?",
+        options: [
+          "All database data is lost",
+          "The Docker Engine resets",
+          "Persistent volume data remains",
+          "Networks cannot be recreated"
+        ],
+        answer: 2,
+        explanation: "Named volumes remain unless you explicitly remove them with -v."
+      },
+      {
+        q: "24. Which of the following best describes Docker Compose networking?",
+        options: [
+          "You must always create a network manually first",
+          "Compose automatically creates a default network for services",
+          "Networks are not supported",
+          "Only one container can join a network"
+        ],
+        answer: 1,
+        explanation: "Compose automatically creates a default network for the project."
+      },
+      {
+        q: "25. Which command is best to verify that variables from .env are being picked up inside a running container?",
+        options: [
+          "docker compose exec app env",
+          "docker compose rm env",
+          "docker compose list vars",
+          "docker inspect image app"
+        ],
+        answer: 0,
+        explanation: "docker compose exec app env lets you inspect environment variables inside the running container."
+      }
+    ];
+
+    const quizContainer = document.getElementById('quiz');
+
+    function renderQuiz() {
+      quizContainer.innerHTML = questions.map((item, index) => `
+        <div class="card question" id="question-${index}">
+          <h3>${item.q}</h3>
+          <div class="options">
+            ${item.options.map((opt, i) => `
+              <label data-question="${index}" data-option="${i}">
+                <input type="radio" name="q${index}" value="${i}"> ${opt}
+              </label>
+            `).join('')}
+          </div>
+          <div class="answer-note" id="note-${index}"></div>
+        </div>
+      `).join('');
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const labels = document.querySelectorAll(`label[data-question="${index}"]`);
+        const note = document.getElementById(`note-${index}`);
+
+        labels.forEach(label => {
+          label.classList.remove('correct', 'wrong');
+          const optionIndex = Number(label.dataset.option);
+          if (optionIndex === item.answer) label.classList.add('correct');
+        });
+
+        if (selected) {
+          const selectedValue = Number(selected.value);
+          if (selectedValue === item.answer) {
+            score++;
+          } else {
+            labels[selectedValue].classList.add('wrong');
+          }
+        }
+
+        note.style.display = 'block';
+        note.innerHTML = `<strong>Correct Answer:</strong> ${item.options[item.answer]}<br><span class="small">${item.explanation}</span>`;
+      });
+
+      const result = document.getElementById('result');
+      const percentage = Math.round((score / questions.length) * 100);
+      let message = 'Good effort.';
+      if (percentage >= 90) message = 'Excellent work!';
+      else if (percentage >= 75) message = 'Great job!';
+      else if (percentage >= 60) message = 'Nice progress — keep practicing.';
+
+      result.style.display = 'block';
+      result.innerHTML = `
+        <div class="score">Your Score: ${score} / ${questions.length} (${percentage}%)</div>
+        <div>${message}</div>
+      `;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+      document.querySelectorAll('.options label').forEach(label => label.classList.remove('correct', 'wrong'));
+      document.querySelectorAll('.answer-note').forEach(note => {
+        note.style.display = 'none';
+        note.innerHTML = '';
+      });
+      const result = document.getElementById('result');
+      result.style.display = 'none';
+      result.innerHTML = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
