@@ -1,0 +1,10 @@
+---
+services:
+  app:
+    image: nginx:latest
+    ports:
+      - "${PORT}:80"
+    environment:
+      APP_ENV: ${APP_ENV}
+      APP_NAME: ${APP_NAME}
+...

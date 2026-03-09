@@ -1,0 +1,11 @@
+---
+# Equivalent Docker CLI Command
+# docker run -d --name compose-nginx -p 8080:80 nginx:latest
+services:
+  nginx:
+    image: nginx:latest
+    container_name: compose-nginx
+    ports:
+      - "8080:80"
+...
+

@@ -1,0 +1,30 @@
+---
+services:                            # is the main section in Docker Compose where containers of the application are defined.
+  db:                                # This the service name representing the database container.
+    image: mysql:8.4                 # means the container runs using the MySQL version 8.4 image.
+    restart: unless-stopped          # The container will automatically restart if it stops or crashes, unless it is manually stopped.
+    environment:                     # Environment Variables (Database Setup)
+      MYSQL_DATABASE: wordpress      # name of the WordPress database
+      MYSQL_USER: wpuser             # database username
+      MYSQL_PASSWORD: wppass         # password for the user
+      MYSQL_ROOT_PASSWORD: rootpass  # admin (root) password for MySQL
+    volumes:                         # This ensures persistent storage for the database.
+      - db_data:/var/lib/mysql       # is the default directory where MySQL stores data.
+
+  wordpress:
+    image: wordpress:6-php8.2-apache
+    restart: unless-stopped
+    depends_on:                      # This means the WordPress container starts after the db container.
+      - db                           # The database must be available first.
+    ports:
+      - "8081:80"                    # Maps host port 8081 to container port 80.
+    environment:
+      WORDPRESS_DB_HOST: db:3306     # WORDPRESS_DB_HOST → database host (db), 3306 → MySQL default port
+      WORDPRESS_DB_NAME: wordpress   # WORDPRESS_DB_NAME → database name
+      WORDPRESS_DB_USER: wpuser      # ORDPRESS_DB_USER → database user
+      WORDPRESS_DB_PASSWORD: wppass  # WORDPRESS_DB_PASSWORD → database password
+
+volumes:
+  db_data:                           # This defines a named Docker volume called db_data. 
+...
+

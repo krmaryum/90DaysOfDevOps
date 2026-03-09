@@ -1,0 +1,11 @@
+---
+services:
+  app:
+    image: nginx
+    ports:
+      - "8082:80"
+    environment:
+      APP_ENV: development
+      APP_NAME: docker-compose-demo
+...
+
