@@ -1,0 +1,12 @@
+flask==3.0.3
+# Flask web framework used to build the Python web application
+# Handles HTTP requests, routes, and responses
+
+psycopg2-binary==2.9.9
+# PostgreSQL database adapter for Python
+# Allows the Flask app to connect to and query the PostgreSQL database
+
+redis==5.0.4
+# Python client library for Redis
+# Enables communication between the Flask app and Redis cache server
+

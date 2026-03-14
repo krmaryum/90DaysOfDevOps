@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 34 Docker Compose MCQs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      color: #1f3c88;
+    }
+    .subtitle {
+      color: #555;
+      margin-bottom: 24px;
+    }
+    .question {
+      margin-bottom: 24px;
+      padding: 20px;
+      border: 1px solid #e3e8f0;
+      border-radius: 12px;
+      background: #fafcff;
+    }
+    .question h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    button {
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .submit-btn {
+      background: #1f6feb;
+      color: white;
+    }
+    .reset-btn {
+      background: #e9eef7;
+      color: #222;
+    }
+    #result {
+      margin-top: 24px;
+      padding: 18px;
+      border-radius: 12px;
+      display: none;
+      background: #eef7ee;
+      border: 1px solid #cce5cc;
+    }
+    .correct {
+      color: #0a7a0a;
+      font-weight: 700;
+    }
+    .wrong {
+      color: #c62828;
+      font-weight: 700;
+    }
+    .answer-key {
+      margin-top: 20px;
+      background: #fff8e6;
+      border: 1px solid #f1d38a;
+      padding: 16px;
+      border-radius: 12px;
+    }
+    .muted {
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 34 - Docker Compose MCQs</h1>
+    <p class="subtitle">25 multiple-choice questions based on Docker Compose real-world multi-container apps.</p>
+
+    <form id="quizForm">
+      <div id="questions"></div>
+
+      <div class="actions">
+        <button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        <button type="reset" class="reset-btn" onclick="resetQuiz()">Reset</button>
+      </div>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        q: "1. What is Docker Compose mainly used for?",
+        options: [
+          "Writing application code",
+          "Managing multi-container applications",
+          "Building Linux kernels",
+          "Creating virtual machines"
+        ],
+        answer: 1
+      },
+      {
+        q: "2. Which file is commonly used to define Docker Compose services?",
+        options: ["Dockerfile", "compose.json", "docker-compose.yml", "containers.txt"],
+        answer: 2
+      },
+      {
+        q: "3. In this Day 34 setup, which service acts as the web app?",
+        options: ["Postgres", "Redis", "Flask app", "Nginx only"],
+        answer: 2
+      },
+      {
+        q: "4. Which service is used as the database in the stack?",
+        options: ["Redis", "PostgreSQL", "Flask", "Alpine"],
+        answer: 1
+      },
+      {
+        q: "5. Which service is used as the cache in the stack?",
+        options: ["Redis", "MySQL", "MongoDB", "Gunicorn"],
+        answer: 0
+      },
+      {
+        q: "6. What does 'build: ./app' mean in docker-compose.yml?",
+        options: [
+          "Pull image from Docker Hub only",
+          "Build the image using the Dockerfile in ./app",
+          "Start app in debug mode",
+          "Copy files to Redis"
+        ],
+        answer: 1
+      },
+      {
+        q: "7. What is the purpose of depends_on in Docker Compose?",
+        options: [
+          "Encrypt environment variables",
+          "Control startup dependency order",
+          "Expose ports automatically",
+          "Scale containers"
+        ],
+        answer: 1
+      },
+      {
+        q: "8. What does condition: service_healthy do?",
+        options: [
+          "Waits until the service healthcheck passes",
+          "Restarts unhealthy containers forever",
+          "Disables networking",
+          "Deletes failed containers"
+        ],
+        answer: 0
+      },
+      {
+        q: "9. Which command is used to check if PostgreSQL is ready in the healthcheck?",
+        options: ["redis-cli ping", "curl localhost", "pg_isready -U postgres", "ps aux"],
+        answer: 2
+      },
+      {
+        q: "10. What is the role of a healthcheck in Docker Compose?",
+        options: [
+          "To change image tags",
+          "To monitor if a service is ready/healthy",
+          "To create Docker volumes",
+          "To map host ports"
+        ],
+        answer: 1
+      },
+      {
+        q: "11. What does restart: always do?",
+        options: [
+          "Restarts the container whenever it stops",
+          "Restarts only during image build",
+          "Prevents container restart",
+          "Restarts only Redis"
+        ],
+        answer: 0
+      },
+      {
+        q: "12. What does restart: on-failure do?",
+        options: [
+          "Restarts only when the container exits with an error",
+          "Restarts on every system boot only",
+          "Never restarts containers",
+          "Restarts only if ports are free"
+        ],
+        answer: 0
+      },
+      {
+        q: "13. Why are named volumes used for databases?",
+        options: [
+          "To make images smaller",
+          "To persist data outside the container lifecycle",
+          "To speed up builds only",
+          "To expose container ports"
+        ],
+        answer: 1
+      },
+      {
+        q: "14. Which PostgreSQL path is commonly mounted for persistent data?",
+        options: [
+          "/var/log/postgresql",
+          "/etc/postgresql",
+          "/var/lib/postgresql/data",
+          "/usr/share/postgresql"
+        ],
+        answer: 2
+      },
+      {
+        q: "15. Why define explicit networks in Compose?",
+        options: [
+          "To make networking intentional and organized",
+          "To disable service communication",
+          "To replace Docker images",
+          "To remove labels"
+        ],
+        answer: 0
+      },
+      {
+        q: "16. What do labels help with in Docker Compose?",
+        options: [
+          "Metadata, organization, and identification",
+          "Compiling Python code",
+          "Increasing CPU automatically",
+          "Removing networks"
+        ],
+        answer: 0
+      },
+      {
+        q: "17. What does this mapping mean: 5000:5000?",
+        options: [
+          "Container port 5000 maps to host port 5000",
+          "Host port 80 maps to container port 5000",
+          "Two containers share one IP",
+          "Postgres listens on Redis port"
+        ],
+        answer: 0
+      },
+      {
+        q: "18. Why does simple scaling of the web service break with fixed port mapping?",
+        options: [
+          "Multiple replicas try to bind the same host port",
+          "Redis does not support scaling",
+          "Postgres blocks all traffic",
+          "Docker Compose only supports one service"
+        ],
+        answer: 0
+      },
+      {
+        q: "19. Which command is used to scale the web service to 3 replicas?",
+        options: [
+          "docker compose scale web=3",
+          "docker compose up --scale web=3",
+          "docker run --web=3",
+          "docker compose build web=3"
+        ],
+        answer: 1
+      },
+      {
+        q: "20. What is a common solution for scaling web replicas with one public endpoint?",
+        options: [
+          "Use a reverse proxy or load balancer",
+          "Delete port mappings",
+          "Remove Redis",
+          "Use only one container"
+        ],
+        answer: 0
+      },
+      {
+        q: "21. Which environment variable was used for the database hostname in the Flask app?",
+        options: ["POSTGRES_DB", "DB_HOST", "CACHE_PORT", "APP_VOLUME"],
+        answer: 1
+      },
+      {
+        q: "22. Which environment variable was used for the Redis hostname in the Flask app?",
+        options: ["REDIS_HOST", "DB_PORT", "WEB_HOST", "CACHE_USER"],
+        answer: 0
+      },
+      {
+        q: "23. What does docker compose up --build do?",
+        options: [
+          "Stops and removes everything",
+          "Builds images before starting services",
+          "Only shows logs",
+          "Creates volumes only"
+        ],
+        answer: 1
+      },
+      {
+        q: "24. Which service name can the Flask app use to reach PostgreSQL over the Compose network?",
+        options: ["localhost", "127.0.0.1", "db", "postgresql.local"],
+        answer: 2
+      },
+      {
+        q: "25. What is the main advantage of Docker Compose in this lab?",
+        options: [
+          "It manages app, database, and cache together from one file",
+          "It replaces Python programming",
+          "It removes the need for Docker images",
+          "It only works for Redis"
+        ],
+        answer: 0
+      }
+    ];
+
+    const questionsContainer = document.getElementById('questions');
+
+    quizData.forEach((item, index) => {
+      const block = document.createElement('div');
+      block.className = 'question';
+      block.innerHTML = `
+        <h3>${item.q}</h3>
+        ${item.options.map((opt, i) => `
+          <label>
+            <input type="radio" name="q${index}" value="${i}"> ${opt}
+          </label>
+        `).join('')}
+      `;
+      questionsContainer.appendChild(block);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      let output = '<h2>Quiz Result</h2>';
+
+      quizData.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected && Number(selected.value) === item.answer) {
+          score++;
+        }
+      });
+
+      output += `<p><strong>Your Score: ${score} / ${quizData.length}</strong></p>`;
+      output += '<div class="answer-key"><h3>Answer Key</h3><ol>';
+
+      quizData.forEach((item) => {
+        output += `<li>${item.options[item.answer]}</li>`;
+      });
+
+      output += '</ol><p class="muted">Review the questions above to compare your choices with the correct answers.</p></div>';
+
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.innerHTML = output;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      const result = document.getElementById('result');
+      result.style.display = 'none';
+      result.innerHTML = '';
+    }
+  </script>
+</body>
+</html>

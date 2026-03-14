@@ -1,0 +1,36 @@
+
+services:                                         # Defines the set of services (containers) that Docker Compose will run
+
+  web:                                            # Service name for the web application container
+    build: ./app                                  # Build the image for this service using the Dockerfile located in the ./app directory
+
+    ports:                                        # Port mapping between the host machine and the container
+      - "5000:5000"                               # Map host port 5000 to container port 5000 so the app is accessible at http://localhost:5000
+
+    depends_on:                                   # Defines service startup dependencies
+      db:                                         # The web service depends on the database service
+        condition: service_healthy                # Wait until the database healthcheck passes before starting the web service
+
+    environment:                                  # Environment variables passed into the web container
+      DB_HOST: db                                 # Hostname the web app will use to connect to the database service
+      REDIS_HOST: redis                           # Hostname the web app will use to connect to the Redis cache service
+
+
+  db:                                             # Service name for the PostgreSQL database container
+    image: postgres:15                            # Use the official PostgreSQL version 15 image from Docker Hub
+
+    environment:                                  # Environment variables used to initialize PostgreSQL
+      POSTGRES_USER: postgres                     # Default PostgreSQL username created when the container starts
+      POSTGRES_PASSWORD: postgres                 # Password for the PostgreSQL user (for development/testing)
+      POSTGRES_DB: appdb                          # Database that PostgreSQL will automatically create on startup
+
+    healthcheck:                                  # Defines how Docker checks whether the database container is ready
+      test: ["CMD-SHELL", "pg_isready -U postgres"] # Command used to check if PostgreSQL is accepting connections
+      interval: 10s                               # Run the healthcheck every 10 seconds
+      timeout: 5s                                 # If the healthcheck command takes longer than 5 seconds, mark it as failed
+      retries: 5                                  # Mark the container as unhealthy after 5 consecutive failed checks
+
+
+  redis:                                          # Service name for the Redis cache container
+    image: redis:7                                # Use the official Redis version 7 image from Docker Hub
+

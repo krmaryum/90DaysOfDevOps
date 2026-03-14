@@ -1,0 +1,23 @@
+services:                               # Start the services section; all containers are defined here
+
+  web:                                  # Define the web service (Flask app container)
+    build: ./app                        # Build the web image from the ./app folder using its Dockerfile
+
+    ports:                              # Define port mappings between host and container
+      - 5000:5000                       # Map host port 5000 to container port 5000
+
+    environment:                        # Define environment variables for the web container
+      DB_HOST: db                       # Tell the Flask app to use the db service as the database host
+      REDIS_HOST: redis                 # Tell the Flask app to use the redis service as the Redis host
+
+  db:                                   # Define the database service
+    image: postgres:15                  # Use the official PostgreSQL version 15 image
+
+    environment:                        # Define environment variables used by PostgreSQL on startup
+      POSTGRES_USER: postgres           # Create/use the PostgreSQL user named postgres
+      POSTGRES_PASSWORD: postgres       # Set the password for the postgres user
+      POSTGRES_DB: appdb                # Create a database named appdb when the container starts
+
+  redis:                                # Define the Redis service
+    image: redis:7                      # Use the official Redis version 7 image
+

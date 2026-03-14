@@ -1,0 +1,45 @@
+services:
+  web:
+    build: ./app
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+    networks:
+      - app_network
+    labels:
+      com.example.project: "task-1"
+      com.example.service: "web"
+      com.example.role: "flask-app"
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: appdb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    labels:
+      com.example.project: "task-1"
+      com.example.service: "db"
+      com.example.role: "postgres"
+
+  redis:
+    image: redis:7
+    networks:
+      - app_network
+    labels:
+      com.example.project: "task-1"
+      com.example.service: "redis"
+      com.example.role: "cache"
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  db_data:

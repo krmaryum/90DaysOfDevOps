@@ -1,0 +1,53 @@
+services:                                           # Defines all services (containers) in this application stack
+
+  web:                                              # Web application service
+    build: ./app                                    # Build the image from the Dockerfile inside the ./app folder
+    ports:                                          # Port mapping between host and container
+      - "5000:5000"                                 # Expose container port 5000 on host port 5000
+    depends_on:                                     # Define service dependency rules for startup
+      db:                                           # The web service depends on the database service
+        condition: service_healthy                  # Start web only after the database passes its healthcheck
+    environment:                                    # Environment variables passed into the web container
+      DB_HOST: db                                   # Hostname used by the app to connect to PostgreSQL
+      REDIS_HOST: redis                             # Hostname used by the app to connect to Redis
+    networks:                                       # Attach this service to specific Docker networks
+      - app_network                                 # Connect web service to the custom app-network
+    labels:                                         # Metadata labels used for organization and identification
+      project: "day-34"                             # Label to identify the overall project
+      service: "web"                                # Label to identify this container as the web service
+
+  db:                                               # PostgreSQL database service
+    image: postgres:15                              # Use the official PostgreSQL version 15 image
+    restart: always                                 # Always restart the container if it stops or crashes
+    environment:                                    # Environment variables used to initialize PostgreSQL
+      POSTGRES_USER: postgres                       # Create the default PostgreSQL user named postgres
+      POSTGRES_PASSWORD: postgres                   # Set the password for the postgres user
+      POSTGRES_DB: appdb                            # Create a default database named appdb at startup
+    healthcheck:                                    # Defines how Docker checks if PostgreSQL is ready
+      test: ["CMD-SHELL", "pg_isready -U postgres"] # Run pg_isready to verify PostgreSQL is accepting connections
+      interval: 10s                                 # Run the healthcheck every 10 seconds
+      timeout: 5s                                   # Fail one healthcheck attempt if it takes more than 5 seconds
+      retries: 5                                    # Mark container as unhealthy after 5 failed healthchecks
+    volumes:                                        # Mount storage into the container
+      - db_data:/var/lib/postgresql/data            # Store PostgreSQL data in the named volume db-data
+    networks:                                       # Attach this service to specific Docker networks
+      - app_network                                 # Connect database service to the custom app-network
+    labels:                                         # Metadata labels for organization and identification
+      project: "day-34"                             # Label to identify the overall project
+      service: "database"                           # Label to identify this container as the database service
+
+  redis:                                            # Redis cache service
+    image: redis:7                                  # Use the official Redis version 7 image
+    networks:                                       # Attach this service to specific Docker networks
+      - app_network                                 # Connect Redis service to the custom app-network
+    labels:                                         # Metadata labels for organization and identification
+      project: "day-34"                             # Label to identify the overall project
+      service: "cache"                              # Label to identify this container as the cache service
+
+networks:                                           # Define custom Docker networks explicitly
+  app_network:                                      # Custom network shared by all services
+    driver: bridge                                  # Use the default bridge network driver
+
+volumes:                                            # Define named Docker volumes explicitly
+  db_data:                                          # Named volume used to persist PostgreSQL database data
+
