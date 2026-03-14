@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 35 MCQs - Multi-Stage Builds & Docker Hub</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --warn: #f59e0b;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+    h1, h2, h3 { margin-top: 0; }
+    .subtitle { color: var(--muted); }
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    button {
+      background: var(--accent);
+      color: #062033;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .status {
+      margin: 16px 0 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .pill {
+      background: rgba(31,41,55,0.95);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .quiz-card {
+      background: rgba(17,24,39,0.95);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .question-number {
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .question-text {
+      font-size: 1.08rem;
+      margin-bottom: 14px;
+    }
+    .option {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .option:hover { border-color: var(--accent); }
+    .option input { margin-right: 10px; }
+    .correct { border-color: var(--good); background: rgba(34,197,94,0.12); }
+    .incorrect { border-color: var(--bad); background: rgba(239,68,68,0.12); }
+    .explanation {
+      margin-top: 12px;
+      padding: 12px;
+      border-left: 4px solid var(--accent);
+      background: rgba(56,189,248,0.08);
+      border-radius: 8px;
+      display: none;
+    }
+    .result {
+      position: sticky;
+      bottom: 16px;
+      background: rgba(15,23,42,0.96);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      backdrop-filter: blur(8px);
+      margin-top: 24px;
+    }
+    .score {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .small { color: var(--muted); font-size: 0.95rem; }
+    code {
+      background: rgba(148,163,184,0.12);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Day 35 MCQs</h1>
+      <p class="subtitle">Multi-Stage Builds & Docker Hub — 25 multiple choice questions based on your Day 35 work.</p>
+      <div class="toolbar">
+        <button onclick="submitQuiz()">Submit Quiz</button>
+        <button class="secondary" onclick="resetQuiz()">Reset</button>
+        <button class="secondary" onclick="showAnswers()">Show Answers</button>
+      </div>
+      <div class="status">
+        <div class="pill"><strong>Topics</strong><br><span class="small">Single-stage, multi-stage, Docker Hub, tags, best practices</span></div>
+        <div class="pill"><strong>Total Questions</strong><br><span class="small">25 MCQs</span></div>
+        <div class="pill"><strong>Level</strong><br><span class="small">Beginner to interview-focused</span></div>
+      </div>
+    </section>
+
+    <div id="quiz"></div>
+
+    <section class="result" id="resultBox">
+      <div class="score">Score: <span id="score">0</span>/25</div>
+      <div class="small" id="message">Choose your answers and press Submit Quiz.</div>
+    </section>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "What is the main purpose of a multi-stage Docker build?",
+        options: [
+          "To increase the image size",
+          "To separate build and runtime stages for smaller images",
+          "To avoid using Docker Hub",
+          "To replace Docker Compose"
+        ],
+        answer: 1,
+        explanation: "Multi-stage builds separate the build environment from the runtime environment so the final image contains only what is needed to run the app."
+      },
+      {
+        q: "Which Dockerfile syntax names a build stage?",
+        options: [
+          "FROM node:18 AS builder",
+          "BUILD node:18 builder",
+          "STAGE builder FROM node:18",
+          "FROM builder:node18"
+        ],
+        answer: 0,
+        explanation: "A named stage uses the syntax <code>FROM image AS stage_name</code>."
+      },
+      {
+        q: "Which command copies files from one stage to another?",
+        options: [
+          "MOVE --from=builder",
+          "COPY --from=builder",
+          "ADD --stage=builder",
+          "TRANSFER --from=builder"
+        ],
+        answer: 1,
+        explanation: "The correct syntax is <code>COPY --from=builder source destination</code>."
+      },
+      {
+        q: "In your Day 35 work, the single-stage image size was approximately:",
+        options: [
+          "44.9MB",
+          "180MB",
+          "386MB",
+          "1.56GB"
+        ],
+        answer: 3,
+        explanation: "Your recorded single-stage image disk usage was about 1.56GB."
+      },
+      {
+        q: "In your multi-stage build, the optimized image size was approximately:",
+        options: [
+          "180MB",
+          "1.56GB",
+          "700MB",
+          "2GB"
+        ],
+        answer: 0,
+        explanation: "Your multi-stage image disk usage was about 180MB."
+      },
+      {
+        q: "Why was the multi-stage image much smaller?",
+        options: [
+          "It removed the application code",
+          "It used more layers",
+          "It excluded unnecessary build tools and files from the final image",
+          "It disabled Docker caching"
+        ],
+        answer: 2,
+        explanation: "The final stage contains only runtime files, not the full build environment."
+      },
+      {
+        q: "Which base image is usually smaller for Node.js containers?",
+        options: [
+          "ubuntu",
+          "node:18-alpine",
+          "debian-full",
+          "windows-servercore"
+        ],
+        answer: 1,
+        explanation: "Alpine-based images are typically much smaller than full Ubuntu or Debian images."
+      },
+      {
+        q: "What does <code>docker login</code> do?",
+        options: [
+          "Builds an image",
+          "Removes local containers",
+          "Authenticates you with a container registry",
+          "Runs Docker in root mode"
+        ],
+        answer: 2,
+        explanation: "<code>docker login</code> authenticates your terminal session with Docker Hub or another registry."
+      },
+      {
+        q: "What is the correct format for tagging an image before pushing to Docker Hub?",
+        options: [
+          "image-name/username/tag",
+          "username/image-name:tag",
+          "tag:username/image-name",
+          "dockerhub:image-name:username"
+        ],
+        answer: 1,
+        explanation: "Docker Hub tags use the format <code>username/repository:tag</code>."
+      },
+      {
+        q: "Which command uploads an image to Docker Hub?",
+        options: [
+          "docker upload",
+          "docker publish",
+          "docker push",
+          "docker export"
+        ],
+        answer: 2,
+        explanation: "<code>docker push</code> uploads a tagged image to a registry such as Docker Hub."
+      },
+      {
+        q: "Why should you use a non-root user inside a container?",
+        options: [
+          "To make the image larger",
+          "To improve security",
+          "To prevent image tagging",
+          "To speed up npm install"
+        ],
+        answer: 1,
+        explanation: "Running as a non-root user reduces the impact of a compromise and is a common security best practice."
+      },
+      {
+        q: "Which Dockerfile instruction sets the user that a container runs as?",
+        options: [
+          "ACCOUNT",
+          "RUNAS",
+          "USER",
+          "LOGIN"
+        ],
+        answer: 2,
+        explanation: "The <code>USER</code> instruction sets the user for subsequent commands and container runtime."
+      },
+      {
+        q: "Why is using a specific base image tag better than using <code>latest</code>?",
+        options: [
+          "It makes the image colorful",
+          "It creates more layers",
+          "It makes builds reproducible and predictable",
+          "It avoids Docker Hub login"
+        ],
+        answer: 2,
+        explanation: "Specific version tags help ensure the same build today and tomorrow."
+      },
+      {
+        q: "Which of the following is a good example of a specific base image tag?",
+        options: [
+          "node:latest",
+          "node:newest",
+          "node:18.20.4-alpine3.20",
+          "node:any"
+        ],
+        answer: 2,
+        explanation: "A specific tag includes an exact version and often a distro variant, like Alpine."
+      },
+      {
+        q: "What is one benefit of combining RUN commands?",
+        options: [
+          "It reduces unnecessary layers",
+          "It disables caching forever",
+          "It removes the need for CMD",
+          "It automatically pushes to Docker Hub"
+        ],
+        answer: 0,
+        explanation: "Combining related commands can reduce the number of layers and keep Dockerfiles cleaner."
+      },
+      {
+        q: "If you run <code>docker pull krmaryum/day35-node-app</code> without a tag, which tag is used by default?",
+        options: [
+          "v1",
+          "stable",
+          "latest",
+          "prod"
+        ],
+        answer: 2,
+        explanation: "Docker uses the <code>latest</code> tag by default when no tag is specified."
+      },
+      {
+        q: "What happens if you pull a specific tag like <code>:v1</code>?",
+        options: [
+          "Docker pulls exactly that version",
+          "Docker always replaces it with latest",
+          "Docker ignores the tag",
+          "Docker builds the image locally"
+        ],
+        answer: 0,
+        explanation: "A specific tag points to a specific image version."
+      },
+      {
+        q: "Why are Docker image tags useful?",
+        options: [
+          "They help manage versions of images",
+          "They remove the need for repositories",
+          "They only work for private images",
+          "They increase vulnerabilities"
+        ],
+        answer: 0,
+        explanation: "Tags let teams keep multiple versions like <code>v1</code>, <code>v2</code>, and <code>latest</code>."
+      },
+      {
+        q: "Which command verifies that an image can be downloaded from Docker Hub after deleting it locally?",
+        options: [
+          "docker rm image-name",
+          "docker pull username/repo:tag",
+          "docker inspect push",
+          "docker copy username/repo"
+        ],
+        answer: 1,
+        explanation: "After removing a local image, <code>docker pull</code> confirms it can be retrieved from the registry."
+      },
+      {
+        q: "Which stage should usually contain only runtime files?",
+        options: [
+          "The builder stage",
+          "The final stage",
+          "The first RUN layer",
+          "The Docker Hub stage"
+        ],
+        answer: 1,
+        explanation: "The final stage should be kept minimal and include only what is needed to run the app."
+      },
+      {
+        q: "What is the main reason interviewers like asking about multi-stage builds?",
+        options: [
+          "Because they make images bigger",
+          "Because they show understanding of optimization and production practices",
+          "Because Docker Hub does not support them",
+          "Because they are only for Java apps"
+        ],
+        answer: 1,
+        explanation: "Multi-stage builds demonstrate practical knowledge of image optimization, security, and deployment readiness."
+      },
+      {
+        q: "Which command builds an image from a Dockerfile?",
+        options: [
+          "docker create",
+          "docker build",
+          "docker compose up",
+          "docker copy"
+        ],
+        answer: 1,
+        explanation: "<code>docker build</code> creates an image from a Dockerfile and build context."
+      },
+      {
+        q: "What was one clear security improvement in Task 5?",
+        options: [
+          "Using Docker Desktop dark mode",
+          "Running the container as appuser instead of root",
+          "Removing CMD from the Dockerfile",
+          "Using only one FROM instruction"
+        ],
+        answer: 1,
+        explanation: "Task 5 added a non-root user such as <code>appuser</code> for better security."
+      },
+      {
+        q: "Which statement about single-stage builds is most accurate?",
+        options: [
+          "They are often simpler but usually larger",
+          "They are always better for production",
+          "They cannot run Node.js apps",
+          "They are required for Docker Hub"
+        ],
+        answer: 0,
+        explanation: "Single-stage builds are simpler for learning, but they usually produce larger images."
+      },
+      {
+        q: "What is the best overall takeaway from Day 35?",
+        options: [
+          "Use the biggest base image possible",
+          "Avoid version tags",
+          "Build smaller, safer, versioned images and publish them properly",
+          "Always run containers as root"
+        ],
+        answer: 2,
+        explanation: "Day 35 focused on creating optimized, secure, versioned images and sharing them through Docker Hub."
+      }
+    ];
+
+    const quizEl = document.getElementById('quiz');
+
+    function renderQuiz() {
+      quizEl.innerHTML = questions.map((item, qIndex) => `
+        <section class="quiz-card" id="card-${qIndex}">
+          <div class="question-number">Question ${qIndex + 1}</div>
+          <div class="question-text">${item.q}</div>
+          ${item.options.map((opt, oIndex) => `
+            <label class="option" id="q${qIndex}-o${oIndex}">
+              <input type="radio" name="q${qIndex}" value="${oIndex}">
+              <span>${opt}</span>
+            </label>
+          `).join('')}
+          <div class="explanation" id="exp-${qIndex}">${item.explanation}</div>
+        </section>
+      `).join('');
+      document.getElementById('score').textContent = '0';
+      document.getElementById('message').textContent = 'Choose your answers and press Submit Quiz.';
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((item, qIndex) => {
+        const selected = document.querySelector(`input[name="q${qIndex}"]:checked`);
+        item.options.forEach((_, oIndex) => {
+          document.getElementById(`q${qIndex}-o${oIndex}`).classList.remove('correct', 'incorrect');
+        });
+        const exp = document.getElementById(`exp-${qIndex}`);
+        exp.style.display = 'block';
+
+        if (selected) {
+          const selectedIndex = Number(selected.value);
+          if (selectedIndex === item.answer) {
+            score++;
+            document.getElementById(`q${qIndex}-o${selectedIndex}`).classList.add('correct');
+          } else {
+            document.getElementById(`q${qIndex}-o${selectedIndex}`).classList.add('incorrect');
+            document.getElementById(`q${qIndex}-o${item.answer}`).classList.add('correct');
+          }
+        } else {
+          document.getElementById(`q${qIndex}-o${item.answer}`).classList.add('correct');
+        }
+      });
+
+      document.getElementById('score').textContent = String(score);
+      let message = '';
+      if (score === 25) message = 'Excellent — perfect score!';
+      else if (score >= 20) message = 'Very strong work — interview ready.';
+      else if (score >= 15) message = 'Good job — revise a few concepts and try again.';
+      else message = 'Keep practicing — review the explanations and retake the quiz.';
+      document.getElementById('message').textContent = message;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showAnswers() {
+      questions.forEach((item, qIndex) => {
+        item.options.forEach((_, oIndex) => {
+          document.getElementById(`q${qIndex}-o${oIndex}`).classList.remove('correct', 'incorrect');
+        });
+        document.getElementById(`q${qIndex}-o${item.answer}`).classList.add('correct');
+        document.getElementById(`exp-${qIndex}`).style.display = 'block';
+      });
+      document.getElementById('message').textContent = 'Answers are now highlighted in green.';
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
