@@ -97,7 +97,7 @@ Create file:
 
 [This file's explaination line by line](md/dockerfile_explanation)
 
-[docker-compose-plain.yml](task-1-plain-files/docker-compose.yml)
+[docker-compose-plain.yml](task-1/Dockerfile)
 
 ```dockerfile
 FROM python:3.11-slim
