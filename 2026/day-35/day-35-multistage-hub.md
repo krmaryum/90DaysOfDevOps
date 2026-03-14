@@ -5,6 +5,8 @@ Multi-stage builds are how real teams ship small, secure images. Docker Hub is h
 
 [Dockerfile stages Explanatione and multi stage](md/dockerfile_stages_explanation.md)
 
+- [Task 1: The Problem with Large Images](#task-1-the-problem-with-large-images)
+
 - [Task 2: Multi-Stage Build](#task-2--multi-stage-build)
 
 - [Task 3: Push Image to Docker Hub](#task-3-push-image-to-docker-hub)
