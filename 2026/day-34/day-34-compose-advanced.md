@@ -55,7 +55,7 @@ Create file: `2026/day-34/docker-compose.yml`
 with inline comments on nearly every line
 [This file's explaination line by line](md/docker_compose_services_explanation.md)
 
-[This is plain YAML file link](task-1-plain-files/docker-compose.yml)
+[This is plain YAML file link](task-1/docker-compose-plain.yml)
 
 ```YAML
 services:                               # Start the services section; all containers are defined here
