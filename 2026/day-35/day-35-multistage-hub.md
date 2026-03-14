@@ -5,6 +5,16 @@ Multi-stage builds are how real teams ship small, secure images. Docker Hub is h
 
 [Dockerfile stages Explanatione and multi stage](md/dockerfile_stages_explanation.md)
 
+- [Task 2: Multi-Stage Build](#task-2--multi-stage-build)
+
+- [Task 3: Push Image to Docker Hub](#task-3-push-image-to-docker-hub)
+
+- [Task 4: Docker Hub Repository](#task-4-docker-hub-repository)
+
+- [Task 5: Image Best Practices](#task-5-image-best-practices)
+
+- [Final Results](#final-results)
+
 ## Key Differences
 
 | Feature          | Single Stage | Multi Stage   |
