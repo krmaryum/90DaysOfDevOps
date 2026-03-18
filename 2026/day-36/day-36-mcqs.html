@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 36 MCQ Quiz - Docker Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f8;
+      color: #222;
+    }
+    .container {
+      max-width: 950px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+    h1, h2 {
+      margin-top: 0;
+    }
+    .question {
+      margin-bottom: 22px;
+      padding: 16px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    #result {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #eef6ff;
+      font-weight: bold;
+    }
+    .answer-key {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+    }
+    .muted {
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 36 - Docker Project MCQ Quiz</h1>
+    <p class="muted">Topic: Dockerizing a full Node.js Express app with MongoDB, Dockerfile, Docker Compose, Docker Hub, README, and fresh-flow testing.</p>
+    <form id="quizForm"></form>
+    <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+    <button type="button" onclick="resetQuiz()">Reset</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What app stack was chosen for Day 36?",
+        options: ["Python Flask with PostgreSQL", "Node.js Express with MongoDB", "Static HTML with Redis", "Django with SQLite"],
+        answer: 1
+      },
+      {
+        q: "2. What is the main purpose of a Dockerfile?",
+        options: ["To store container logs", "To define how to build a Docker image", "To manage Git branches", "To write SQL queries"],
+        answer: 1
+      },
+      {
+        q: "3. Which base image was used to keep the Node.js image small?",
+        options: ["node:20-windows", "node:20-full", "node:20-alpine", "ubuntu:latest"],
+        answer: 2
+      },
+      {
+        q: "4. Why is Alpine commonly used in Docker images?",
+        options: ["It includes all IDE tools", "It is lightweight", "It is only for databases", "It replaces Docker Compose"],
+        answer: 1
+      },
+      {
+        q: "5. Why was a non-root user added in the Dockerfile?",
+        options: ["To improve security", "To increase RAM", "To enable GitHub push", "To avoid using .env files"],
+        answer: 0
+      },
+      {
+        q: "6. What does COPY package*.json ./ before npm install help with?",
+        options: ["Healthchecks", "Docker layer caching", "Port mapping", "Volume mounting"],
+        answer: 1
+      },
+      {
+        q: "7. Which command installs only production dependencies in the Dockerfile?",
+        options: ["npm dev", "npm install --omit=dev", "npm install all", "npm install --full"],
+        answer: 1
+      },
+      {
+        q: "8. What is the purpose of a .dockerignore file?",
+        options: ["To stop Docker Engine", "To ignore files from image build context", "To replace package.json", "To expose ports"],
+        answer: 1
+      },
+      {
+        q: "9. Which file was used to define multiple services together?",
+        options: ["README.md", "server.js", "docker-compose.yml", ".gitignore"],
+        answer: 2
+      },
+      {
+        q: "10. In this project, which two main services were defined in Compose?",
+        options: ["app and mongo", "nginx and redis", "postgres and flask", "node and mysql-client"],
+        answer: 0
+      },
+      {
+        q: "11. What hostname should the app use to connect to MongoDB inside Docker Compose?",
+        options: ["localhost", "127.0.0.1", "mongo", "dockerhost"],
+        answer: 2
+      },
+      {
+        q: "12. What was the purpose of the named volume mongo_data?",
+        options: ["To store app logs only", "To persist MongoDB data", "To expose port 3000", "To build images faster"],
+        answer: 1
+      },
+      {
+        q: "13. Why was a custom network added in Docker Compose?",
+        options: ["To let containers communicate", "To create Git repositories", "To replace Docker Hub", "To remove MongoDB"],
+        answer: 0
+      },
+      {
+        q: "14. What file stored configuration like PORT and MONGO_URI?",
+        options: ["routes.js", ".env", "Docker Hub", "index.lock"],
+        answer: 1
+      },
+      {
+        q: "15. What does depends_on with condition: service_healthy help with?",
+        options: ["It shrinks image size", "It waits until the database is healthy", "It publishes the image", "It creates README.md"],
+        answer: 1
+      },
+      {
+        q: "16. What healthcheck command was used for MongoDB?",
+        options: ["curl localhost:27017", "ping mongo", "mongosh --eval db.adminCommand('ping')", "npm ping"],
+        answer: 2
+      },
+      {
+        q: "17. What route returned the message 'Task Manager API is running'?",
+        options: ["GET /", "POST /tasks", "GET /mongo", "PUT /health"],
+        answer: 0
+      },
+      {
+        q: "18. What was the purpose of the /health route?",
+        options: ["Delete the database", "Return app health status", "Push image to Docker Hub", "Build MongoDB"],
+        answer: 1
+      },
+      {
+        q: "19. Which command starts services defined in docker-compose.yml?",
+        options: ["docker run app", "docker build up", "docker compose up", "docker image start"],
+        answer: 2
+      },
+      {
+        q: "20. Which command was used to tag the image for Docker Hub?",
+        options: ["docker login task-manager-api", "docker tag task-manager-api krmaryum/task-manager-api:latest", "docker save task-manager-api", "docker config tag app"],
+        answer: 1
+      },
+      {
+        q: "21. Which command pushes the image to Docker Hub?",
+        options: ["docker ship", "docker publish", "docker push krmaryum/task-manager-api:latest", "docker send image"],
+        answer: 2
+      },
+      {
+        q: "22. What should README.md include for this task?",
+        options: ["Only Docker Hub password", "What the app does and how to run it", "Only screenshots", "Only Git history"],
+        answer: 1
+      },
+      {
+        q: "23. For fresh-flow testing, what was changed in Compose for the app service?",
+        options: ["build: . was replaced with image: krmaryum/task-manager-api:latest", "mongo was removed", "The network was deleted", "Ports were removed"],
+        answer: 0
+      },
+      {
+        q: "24. What was the goal of removing local images and containers in Task 5?",
+        options: ["To simulate a fresh machine", "To delete the project forever", "To stop using Docker Hub", "To uninstall Node.js"],
+        answer: 0
+      },
+      {
+        q: "25. What proves the whole setup worked after pulling fresh from Docker Hub?",
+        options: ["The README opened", "curl http://localhost:3000 returned the running message", "Git status was clean", "The browser theme changed"],
+        answer: 1
+      }
+    ];
+
+    const quizForm = document.getElementById("quizForm");
+
+    questions.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      let html = `<p>${item.q}</p>`;
+      item.options.forEach((opt, i) => {
+        html += `
+          <label>
+            <input type="radio" name="q${index}" value="${i}">
+            ${opt}
+          </label>
+        `;
+      });
+      div.innerHTML = html;
+      quizForm.appendChild(div);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      let output = "";
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const chosen = selected ? Number(selected.value) : -1;
+        if (chosen === item.answer) score++;
+        output += `<div>${item.q}<br><strong>Correct Answer:</strong> ${item.options[item.answer]}</div><br>`;
+      });
+
+      const percent = ((score / questions.length) * 100).toFixed(0);
+      document.getElementById("result").innerHTML = `
+        <h2>Your Score: ${score} / ${questions.length} (${percent}%)</h2>
+        <div class="answer-key">
+          <h3>Answer Key</h3>
+          ${output}
+        </div>
+      `;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+      document.getElementById("result").innerHTML = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
