@@ -1,3 +1,14 @@
+# Day 36 – Docker Project
+
+## Table of Contents
+
+1. [Task 1: Pick Your App](#task-1-pick-your-app)
+2. [Task 2: Write the Dockerfile](#task-2-write-the-dockerfile)
+3. [Task 3: Add Docker Compose](#task-3-add-docker-compose)
+4. [Task 4: Ship It](#task-4-ship-it)
+5. [Task 5: Test the Whole Flow](#task-5-test-the-whole-flow)
+
+
 ## Task 1: Pick Your App
 **Pick: Node.js Express app with MongoDB**
 
