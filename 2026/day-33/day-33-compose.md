@@ -119,7 +119,7 @@ docker compose up -d
 
 | Check            | Expected Result        |
 |------------------|----------------------|
-| WordPress data   | Still exists ✅       |
+| WordPress data   | Still exists       |
 | Database         | Persistent via volume |
 
 
@@ -142,7 +142,7 @@ docker compose up -d
 | Rebuild images                | docker compose up --build        |
 
 
-![T4.1](screenshots/T4.1.JPG)
+![T4](screenshots/T4.JPG)
 
 
 ---
