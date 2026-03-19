@@ -93,7 +93,7 @@ docker volume ls
 docker volume inspect mysql-data
 ```
 
-~[T2](screenshots/T2.JPG)
+![T2](screenshots/T2.JPG)
 
 - Volume list output
 - Data still present after container recreation
