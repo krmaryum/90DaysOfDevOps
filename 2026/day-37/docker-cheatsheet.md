@@ -1,81 +1,123 @@
-# Day 37 – Docker Revision & Cheat Sheet
-## Docker Cheat Sheet
+# Docker Commands Cheat Sheet
 
-## Container Commands
-docker run -it ubuntu bash        # Run container interactively
-docker run -d nginx               # Run container in background
-docker ps                         # List running containers
-docker ps -a                      # List all containers
-docker stop <id>                  # Stop container
-docker start <id>                 # Start container
-docker rm <id>                    # Remove container
-docker exec -it <id> bash         # Exec into container
-docker logs <id>                  # View logs
+## Running Containers
+
+| Task | Command |
+|------|---------|
+| Run container | `docker run nginx` |
+| Run detached | `docker run -d nginx` |
+| Run with name | `docker run --name my-nginx -d nginx` |
+| Port mapping | `docker run -p 8080:80 nginx` |
+| Environment variable | `docker run -e NODE_ENV=production my-app` |
+| Multiple env vars | `docker run -e DB_HOST=localhost -e DB_PORT=5432 my-app` |
+| Bind mount volume | `docker run -v $(pwd):/app my-app` |
+| Named volume | `docker run -v my-volume:/data my-app` |
+| Interactive shell | `docker run -it ubuntu bash` |
+| Auto-remove on stop | `docker run --rm nginx` |
+| Set restart policy | `docker run --restart=always nginx` |
+| Limit memory | `docker run -m 512m nginx` |
+| Limit CPU | `docker run --cpus="1.5" nginx` |
+
+---
+
+## Managing Containers
+
+| Task | Command |
+|------|---------|
+| List running containers | `docker ps` |
+| List all containers | `docker ps -a` |
+| Stop container | `docker stop <container_id>` |
+| Start container | `docker start <container_id>` |
+| Remove container | `docker rm <container_id>` |
+| Exec into container | `docker exec -it <container_id> bash` |
+| View logs | `docker logs <container_id>` |
+| Attach to running container | `docker attach <container_id>` |
+| Inspect container | `docker inspect <container_id>` |
+| Copy files to container | `docker cp localfile <container_id>:/path` |
 
 ---
 
 ## Image Commands
-docker build -t app:v1 .          # Build image
-docker images                     # List images
-docker pull nginx                 # Pull image from Docker Hub
-docker push username/app:v1       # Push image to Docker Hub
-docker rmi <id>                   # Remove image
-docker tag app:v1 username/app:v1 # Tag image
+
+| Task | Command |
+|------|---------|
+| Build image | `docker build -t my-app:v1 .` |
+| List images | `docker images` |
+| Pull image | `docker pull nginx` |
+| Push image | `docker push username/my-app:v1` |
+| Remove image | `docker rmi <image_id>` |
+| Tag image | `docker tag my-app:v1 username/my-app:v1` |
+| Inspect image | `docker inspect <image_id>` |
+| History of image | `docker history <image_id>` |
 
 ---
 
-## Volume Commands
-docker volume create my-vol       # Create volume
-docker volume ls                  # List volumes
-docker volume inspect my-vol      # Inspect volume
-docker volume rm my-vol           # Remove volume
+## Volumes
+
+| Task | Command |
+|------|---------|
+| Create volume | `docker volume create my-vol` |
+| List volumes | `docker volume ls` |
+| Inspect volume | `docker volume inspect my-vol` |
+| Remove volume | `docker volume rm my-vol` |
+| Prune unused volumes | `docker volume prune` |
 
 ---
 
-## Network Commands
-docker network create app-net     # Create network
-docker network ls                 # List networks
-docker network inspect app-net    # Inspect network
-docker network connect app-net c1 # Connect container to network
+## Networks
+
+| Task | Command |
+|------|---------|
+| Create network | `docker network create app-net` |
+| List networks | `docker network ls` |
+| Inspect network | `docker network inspect app-net` |
+| Connect container to network | `docker network connect app-net <container>` |
+| Disconnect container | `docker network disconnect app-net <container>` |
 
 ---
 
 ## Docker Compose
-docker compose up -d              # Start services
-docker compose down               # Stop services
-docker compose ps                 # List services
-docker compose logs               # View logs
-docker compose build              # Build services
+
+| Task | Command |
+|------|---------|
+| Start services | `docker compose up -d` |
+| Stop services | `docker compose down` |
+| Stop & remove volumes | `docker compose down -v` |
+| List services | `docker compose ps` |
+| Build services | `docker compose build` |
+| View logs | `docker compose logs` |
+| Recreate services | `docker compose up -d --build` |
+| Scale a service | `docker compose up -d --scale web=3` |
 
 ---
 
-## Cleanup Commands
-docker system df                  # Show disk usage
-docker system prune               # Remove unused data
-docker volume prune               # Remove unused volumes
-docker image prune                # Remove unused images
+## Cleanup & System
+
+| Task | Command |
+|------|---------|
+| Remove unused containers, networks, images | `docker system prune` |
+| Show disk usage | `docker system df` |
+| Remove unused images | `docker image prune` |
+| Remove unused volumes | `docker volume prune` |
+| Remove all stopped containers | `docker container prune` |
+| Remove all unused networks | `docker network prune` |
 
 ---
 
 ## Dockerfile Instructions
-FROM node:18-alpine              # Base image
-WORKDIR /app                     # Set working directory
-COPY . .                         # Copy files
-RUN npm install                  # Install dependencies
-EXPOSE 3000                      # Expose port
-CMD ["node", "index.js"]         # Default command
-ENTRYPOINT ["node"]              # Fixed executable
 
----
-
-## Common Flags
--d       # Detached mode
--it      # Interactive terminal
--p       # Port mapping (host:container)
--v       # Volume mount
---name   # Assign container name
---env    # Set environment variable
-
----
-
-
+| Instruction | Purpose |
+|-------------|---------|
+| FROM | Set base image |
+| WORKDIR | Set working directory |
+| COPY | Copy files/folders into image |
+| ADD | Copy files + supports URLs & auto-extract |
+| RUN | Execute command during build |
+| CMD | Default command when container starts |
+| ENTRYPOINT | Fixed executable command |
+| EXPOSE | Inform about port used |
+| ENV | Set environment variable inside image |
+| ARG | Build-time argument |
+| USER | Switch user |
+| VOLUME | Declare mount point for volumes |
+| HEALTHCHECK | Set health check for container |
