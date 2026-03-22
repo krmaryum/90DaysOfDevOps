@@ -1,0 +1,31 @@
+# .dockerignore File Explanation
+
+node_modules
+# Excludes the local node_modules folder from being sent to the Docker build context
+# Dependencies will be installed inside the container instead
+# Prevents large image size and avoids OS compatibility issues
+
+npm-debug.log
+# Excludes npm debug log files
+# These are generated only when npm errors occur and are not needed in the image
+
+Dockerfile
+# Prevents the Dockerfile itself from being copied into the image
+# Not required inside the running container
+
+docker-compose.yml
+# Excludes compose file from the image
+# It is only used to orchestrate containers, not needed inside them
+
+.git
+# Excludes Git history and metadata
+# Reduces image size and avoids leaking repository history
+
+.gitignore
+# Not needed inside the container
+# Only relevant for Git, not for application runtime
+
+.env
+# Excludes environment variables file
+# Prevents sensitive data (passwords, secrets) from being baked into the image
+# Instead, variables should be injected at runtime (via docker-compose or CLI)
