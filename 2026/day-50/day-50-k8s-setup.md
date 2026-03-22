@@ -9,6 +9,9 @@
 - [Task 5: Explore My Cluster](#task-5-explore-my-cluster)
 - [Task 6: Practice Cluster Lifecycle](#task-6-practice-cluster-lifecycle)
 
+[All day-50 Commands](day_50_k_8_s_commands.md)
+
+
 ## Task-1: Recalling the memeories
 
 ### 1. Why was Kubernetes created?
