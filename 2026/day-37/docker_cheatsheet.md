@@ -1,5 +1,43 @@
 # 🐳 Docker Cheat Sheet
 
+## Quick Commands Table (Day 37 – Docker)
+
+| Category | Command | Description |
+|----------|--------|-------------|
+| System Check | `docker --version` | Check Docker version |
+| System Info | `docker info` | Show Docker system details |
+| Images | `docker pull <image>` | Download image from Docker Hub |
+| Images | `docker images` | List all images |
+| Images | `docker rmi <image>` | Remove image |
+| Containers | `docker run <image>` | Create + start container |
+| Containers | `docker run -it <image> bash` | Run interactive container |
+| Containers | `docker run -d <image>` | Run container in background |
+| Ports | `docker run -p 8080:80 <image>` | Map host port to container |
+| Containers | `docker ps` | List running containers |
+| Containers | `docker ps -a` | List all containers |
+| Containers | `docker stop <container>` | Stop container |
+| Containers | `docker start <container>` | Start container |
+| Containers | `docker rm <container>` | Remove container |
+| Build | `docker build -t my-app .` | Build image from Dockerfile |
+| Volumes | `docker volume create <name>` | Create named volume |
+| Volumes | `docker run -v <vol>:/path` | Attach volume to container |
+| Volumes | `docker run -v $(pwd):/app` | Bind mount local directory |
+| Network | `docker network ls` | List networks |
+| Network | `docker network create <name>` | Create custom network |
+| Network | `docker run --network <name>` | Connect container to network |
+| Compose | `docker-compose up` | Start services |
+| Compose | `docker-compose up -d` | Start in background |
+| Compose | `docker-compose down` | Stop services |
+| Compose | `docker compose down -v` | Stop + remove volumes |
+| Debug | `docker logs <container>` | View container logs |
+| Debug | `docker exec -it <container> bash` | Enter running container |
+| Debug | `docker inspect <container>` | Show container details |
+| Cleanup | `docker system prune` | Remove unused resources |
+| Cleanup | `docker system prune -a` | Remove all unused data |
+| Disk | `docker system df` | Check Docker disk usage |
+| Danger | `docker rm $(docker ps -qa)` | Remove ALL containers ⚠️ |
+| Danger | `docker rmi $(docker images -q)` | Remove ALL images ⚠️ |
+
 ## 🔹 Core Concepts
 
 - **Image** → Blueprint (read-only)
