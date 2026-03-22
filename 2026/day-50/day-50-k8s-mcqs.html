@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 50 Kubernetes MCQs</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #141b34;
+      --panel-2: #1a2342;
+      --text: #e9eefc;
+      --muted: #aeb8d4;
+      --accent: #6ea8fe;
+      --good: #2ecc71;
+      --bad: #ff6b6b;
+      --warn: #f7c948;
+      --border: #2b3762;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0b1020, #101735 45%, #0b1020);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #172246, #111833);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.25);
+      margin-bottom: 24px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+    }
+    .sub {
+      color: var(--muted);
+      margin: 0;
+    }
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0 6px;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--accent);
+      color: #08101f;
+    }
+    button.secondary {
+      background: #243156;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .scorebar {
+      margin-top: 14px;
+      font-weight: 700;
+      color: var(--warn);
+    }
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+    .card {
+      background: rgba(20,27,52,.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .question h3 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.05rem;
+    }
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--panel-2);
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 12px;
+      cursor: pointer;
+    }
+    .option:hover {
+      border-color: var(--accent);
+    }
+    .option input {
+      margin-top: 3px;
+    }
+    .result {
+      margin-top: 12px;
+      font-weight: 700;
+    }
+    .result.good { color: var(--good); }
+    .result.bad { color: var(--bad); }
+    .explanation {
+      margin-top: 8px;
+      color: var(--muted);
+      background: #101833;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Day 50 — Kubernetes MCQs</h1>
+      <p class="sub">25 practice questions based on your Day 50 Kubernetes notes: architecture, control plane, worker nodes, kubeconfig, kind, kubectl, lifecycle, and kube-system components.</p>
+      <div class="toolbar">
+        <button onclick="checkAnswers()">Check Answers</button>
+        <button class="secondary" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+      <div id="scorebar" class="scorebar">Score: 0 / 25</div>
+    </section>
+
+    <main class="grid">
+      
+    <section class="card question" data-answer="1">
+      <h3>Q1. Why was Kubernetes created?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q1" value="0"> <span>A. To replace Linux with a container OS</span></label>
+<label class="option"><input type="radio" name="q1" value="1"> <span>B. To manage containers at scale across multiple servers</span></label>
+<label class="option"><input type="radio" name="q1" value="2"> <span>C. To build Docker images faster</span></label>
+<label class="option"><input type="radio" name="q1" value="3"> <span>D. To remove the need for YAML files</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> Docker can run containers, but Kubernetes was created to orchestrate many containers across multiple machines.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q2. Which company originally created Kubernetes?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q2" value="0"> <span>A. Amazon</span></label>
+<label class="option"><input type="radio" name="q2" value="1"> <span>B. Microsoft</span></label>
+<label class="option"><input type="radio" name="q2" value="2"> <span>C. Google</span></label>
+<label class="option"><input type="radio" name="q2" value="3"> <span>D. Docker Inc.</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> Kubernetes was created by Google and inspired by its internal systems.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q3. Kubernetes was inspired by which internal Google system?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q3" value="0"> <span>A. Jenkins</span></label>
+<label class="option"><input type="radio" name="q3" value="1"> <span>B. Borg</span></label>
+<label class="option"><input type="radio" name="q3" value="2"> <span>C. Mesos</span></label>
+<label class="option"><input type="radio" name="q3" value="3"> <span>D. Nomad</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> Kubernetes was inspired by Google&#x27;s internal cluster manager called Borg.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q4. What does the word &#x27;Kubernetes&#x27; mean?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q4" value="0"> <span>A. Database</span></label>
+<label class="option"><input type="radio" name="q4" value="1"> <span>B. Container</span></label>
+<label class="option"><input type="radio" name="q4" value="2"> <span>C. Helmsman</span></label>
+<label class="option"><input type="radio" name="q4" value="3"> <span>D. Scheduler</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> Kubernetes means &#x27;helmsman&#x27; or ship captain.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q5. What is the main entry point to a Kubernetes cluster?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q5" value="0"> <span>A. Scheduler</span></label>
+<label class="option"><input type="radio" name="q5" value="1"> <span>B. API Server</span></label>
+<label class="option"><input type="radio" name="q5" value="2"> <span>C. etcd</span></label>
+<label class="option"><input type="radio" name="q5" value="3"> <span>D. kubelet</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> All cluster commands go through the API Server.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q6. What is etcd used for in Kubernetes?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q6" value="0"> <span>A. Running containers</span></label>
+<label class="option"><input type="radio" name="q6" value="1"> <span>B. Load balancing internet traffic</span></label>
+<label class="option"><input type="radio" name="q6" value="2"> <span>C. Storing cluster state and metadata</span></label>
+<label class="option"><input type="radio" name="q6" value="3"> <span>D. Building YAML files</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> etcd is the key-value store that holds the cluster&#x27;s state.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q7. Which control plane component decides where a new Pod should run?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q7" value="0"> <span>A. kubelet</span></label>
+<label class="option"><input type="radio" name="q7" value="1"> <span>B. Controller Manager</span></label>
+<label class="option"><input type="radio" name="q7" value="2"> <span>C. Scheduler</span></label>
+<label class="option"><input type="radio" name="q7" value="3"> <span>D. CoreDNS</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> The Scheduler selects the most suitable node for a new Pod.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q8. What does the Controller Manager do?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q8" value="0"> <span>A. Writes Dockerfiles</span></label>
+<label class="option"><input type="radio" name="q8" value="1"> <span>B. Makes actual state match desired state</span></label>
+<label class="option"><input type="radio" name="q8" value="2"> <span>C. Creates Linux users</span></label>
+<label class="option"><input type="radio" name="q8" value="3"> <span>D. Stores logs in etcd</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> The Controller Manager continuously works to keep the cluster in the desired state.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q9. What is the smallest deployable unit in Kubernetes?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q9" value="0"> <span>A. Container</span></label>
+<label class="option"><input type="radio" name="q9" value="1"> <span>B. Namespace</span></label>
+<label class="option"><input type="radio" name="q9" value="2"> <span>C. Pod</span></label>
+<label class="option"><input type="radio" name="q9" value="3"> <span>D. Service</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> A Pod is the smallest deployable unit in Kubernetes.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q10. Kubernetes mainly manages which object directly?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q10" value="0"> <span>A. Dockerfiles</span></label>
+<label class="option"><input type="radio" name="q10" value="1"> <span>B. Pods</span></label>
+<label class="option"><input type="radio" name="q10" value="2"> <span>C. Images</span></label>
+<label class="option"><input type="radio" name="q10" value="3"> <span>D. VM snapshots</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> Kubernetes works with Pods, not individual containers directly.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q11. What is meant by &#x27;desired state&#x27; in Kubernetes?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q11" value="0"> <span>A. The number of CPUs on a node</span></label>
+<label class="option"><input type="radio" name="q11" value="1"> <span>B. A manual list of Docker commands</span></label>
+<label class="option"><input type="radio" name="q11" value="2"> <span>C. The state you define that Kubernetes tries to maintain</span></label>
+<label class="option"><input type="radio" name="q11" value="3"> <span>D. The current logs of a running Pod</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> You define what you want, and Kubernetes works to keep the cluster in that state.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q12. When you run &#x27;kubectl apply -f pod.yaml&#x27;, which component receives the request first?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q12" value="0"> <span>A. etcd</span></label>
+<label class="option"><input type="radio" name="q12" value="1"> <span>B. kubelet</span></label>
+<label class="option"><input type="radio" name="q12" value="2"> <span>C. API Server</span></label>
+<label class="option"><input type="radio" name="q12" value="3"> <span>D. kube-proxy</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> kubectl sends the request to the Kubernetes API Server.</div>
+    </section>
+    
+    <section class="card question" data-answer="0">
+      <h3>Q13. Which node component talks to the API Server and manages Pods on that node?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q13" value="0"> <span>A. kubelet</span></label>
+<label class="option"><input type="radio" name="q13" value="1"> <span>B. kube-proxy</span></label>
+<label class="option"><input type="radio" name="q13" value="2"> <span>C. CoreDNS</span></label>
+<label class="option"><input type="radio" name="q13" value="3"> <span>D. Scheduler</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> kubelet is the node agent that watches the API Server and manages local Pods.</div>
+    </section>
+    
+    <section class="card question" data-answer="0">
+      <h3>Q14. What does kube-proxy mainly handle?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q14" value="0"> <span>A. Networking rules and service communication</span></label>
+<label class="option"><input type="radio" name="q14" value="1"> <span>B. Storing secrets in etcd</span></label>
+<label class="option"><input type="radio" name="q14" value="2"> <span>C. Building container images</span></label>
+<label class="option"><input type="radio" name="q14" value="3"> <span>D. Running the control plane</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> kube-proxy manages networking rules so Pods and Services can communicate.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q15. What is the job of the container runtime on a worker node?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q15" value="0"> <span>A. Scheduling Pods</span></label>
+<label class="option"><input type="radio" name="q15" value="1"> <span>B. Actually running containers</span></label>
+<label class="option"><input type="radio" name="q15" value="2"> <span>C. Managing namespaces</span></label>
+<label class="option"><input type="radio" name="q15" value="3"> <span>D. Storing cluster backups</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> The container runtime, such as containerd or CRI-O, starts and runs containers.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q16. What usually happens if the API Server goes down?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q16" value="0"> <span>A. Running Pods instantly disappear</span></label>
+<label class="option"><input type="radio" name="q16" value="1"> <span>B. kubectl and cluster changes stop working, but existing Pods may continue running</span></label>
+<label class="option"><input type="radio" name="q16" value="2"> <span>C. All kube-system Pods are deleted</span></label>
+<label class="option"><input type="radio" name="q16" value="3"> <span>D. Worker node CPUs are reset</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> Without the API Server, new operations fail, but existing workloads may keep running for some time.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q17. What happens if a worker node goes down?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q17" value="0"> <span>A. Nothing changes</span></label>
+<label class="option"><input type="radio" name="q17" value="1"> <span>B. The cluster deletes etcd</span></label>
+<label class="option"><input type="radio" name="q17" value="2"> <span>C. Pods on that node are lost and Kubernetes can reschedule replacements elsewhere</span></label>
+<label class="option"><input type="radio" name="q17" value="3"> <span>D. kubectl is uninstalled automatically</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> Kubernetes detects the mismatch and recreates Pods on healthy nodes if needed.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q18. If etcd data is completely lost and no backup exists, what is the best description?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q18" value="0"> <span>A. Only logs are lost</span></label>
+<label class="option"><input type="radio" name="q18" value="1"> <span>B. The cluster loses its source of truth and may need to be rebuilt</span></label>
+<label class="option"><input type="radio" name="q18" value="2"> <span>C. Only kube-proxy stops working</span></label>
+<label class="option"><input type="radio" name="q18" value="3"> <span>D. Containers become permanently read-only</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> etcd stores the cluster state. Losing it means losing the cluster&#x27;s memory.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q19. What is kubectl?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q19" value="0"> <span>A. A browser plugin</span></label>
+<label class="option"><input type="radio" name="q19" value="1"> <span>B. A CLI tool used to communicate with Kubernetes</span></label>
+<label class="option"><input type="radio" name="q19" value="2"> <span>C. A Linux kernel module</span></label>
+<label class="option"><input type="radio" name="q19" value="3"> <span>D. A Docker replacement</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> kubectl is the command-line tool used to interact with a Kubernetes cluster.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q20. Where is kubeconfig typically stored on Linux?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q20" value="0"> <span>A. /etc/kubernetes/config</span></label>
+<label class="option"><input type="radio" name="q20" value="1"> <span>B. ~/.kube/config</span></label>
+<label class="option"><input type="radio" name="q20" value="2"> <span>C. /usr/local/bin/kubeconfig</span></label>
+<label class="option"><input type="radio" name="q20" value="3"> <span>D. ~/.config/kind</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> The default kubeconfig location is ~/.kube/config.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q21. What does a kubeconfig file contain?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q21" value="0"> <span>A. Only logs and metrics</span></label>
+<label class="option"><input type="radio" name="q21" value="1"> <span>B. Cluster endpoints, users/credentials, and contexts</span></label>
+<label class="option"><input type="radio" name="q21" value="2"> <span>C. Only Docker image names</span></label>
+<label class="option"><input type="radio" name="q21" value="3"> <span>D. Only service ports</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> kubeconfig stores how kubectl connects and authenticates to clusters.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q22. How does kubectl know which cluster to use when multiple clusters exist?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q22" value="0"> <span>A. It always picks the newest one</span></label>
+<label class="option"><input type="radio" name="q22" value="1"> <span>B. It reads the current context from kubeconfig</span></label>
+<label class="option"><input type="radio" name="q22" value="2"> <span>C. It asks Docker every time</span></label>
+<label class="option"><input type="radio" name="q22" value="3"> <span>D. It uses the last node name you described</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> kubectl uses the current context defined in kubeconfig.</div>
+    </section>
+    
+    <section class="card question" data-answer="1">
+      <h3>Q23. Which local Kubernetes option did you choose for Day 50 and why?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q23" value="0"> <span>A. minikube, because it does not need Docker</span></label>
+<label class="option"><input type="radio" name="q23" value="1"> <span>B. kind, because it runs Kubernetes nodes as Docker containers and is lightweight</span></label>
+<label class="option"><input type="radio" name="q23" value="2"> <span>C. OpenShift, because it is simpler than kind</span></label>
+<label class="option"><input type="radio" name="q23" value="3"> <span>D. k3s, because it is built into kubectl</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> kind is lightweight and runs Kubernetes nodes as Docker containers, which makes it great for local learning.</div>
+    </section>
+    
+    <section class="card question" data-answer="2">
+      <h3>Q24. What does the command &#x27;kubectl get pods -A&#x27; do?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q24" value="0"> <span>A. Shows Pods only in the default namespace</span></label>
+<label class="option"><input type="radio" name="q24" value="1"> <span>B. Deletes all Pods</span></label>
+<label class="option"><input type="radio" name="q24" value="2"> <span>C. Lists Pods across all namespaces</span></label>
+<label class="option"><input type="radio" name="q24" value="3"> <span>D. Shows only failed Pods</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> The -A flag means all namespaces.</div>
+    </section>
+    
+    <section class="card question" data-answer="0">
+      <h3>Q25. Which of the following commonly appears in the &#x27;kube-system&#x27; namespace?</h3>
+      <div class="options">
+        <label class="option"><input type="radio" name="q25" value="0"> <span>A. kube-apiserver, etcd, kube-scheduler, kube-controller-manager</span></label>
+<label class="option"><input type="radio" name="q25" value="1"> <span>B. Only user application Pods</span></label>
+<label class="option"><input type="radio" name="q25" value="2"> <span>C. Only Docker images</span></label>
+<label class="option"><input type="radio" name="q25" value="3"> <span>D. Only YAML manifests</span></label>
+      </div>
+      <div class="result" hidden></div>
+      <div class="explanation" hidden><strong>Explanation:</strong> The kube-system namespace contains important cluster system components.</div>
+    </section>
+    
+    </main>
+
+    <div class="footer">Built for Day 50 revision — Kubernetes fundamentals.</div>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      const questions = document.querySelectorAll('.question');
+      let score = 0;
+
+      questions.forEach((q) => {
+        const answer = q.dataset.answer;
+        const selected = q.querySelector('input[type="radio"]:checked');
+        const result = q.querySelector('.result');
+        const explanation = q.querySelector('.explanation');
+
+        result.hidden = false;
+        explanation.hidden = false;
+
+        if (!selected) {
+          result.textContent = 'Not answered';
+          result.className = 'result bad';
+          return;
+        }
+
+        if (selected.value === answer) {
+          result.textContent = 'Correct';
+          result.className = 'result good';
+          score++;
+        } else {
+          const correctLetter = String.fromCharCode(65 + Number(answer));
+          result.textContent = 'Incorrect — correct answer is ' + correctLetter;
+          result.className = 'result bad';
+        }
+      });
+
+      document.getElementById('scorebar').textContent = `Score: ${score} / 25`;
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach((input) => input.checked = false);
+      document.querySelectorAll('.result, .explanation').forEach((el) => {
+        el.hidden = true;
+        if (el.classList.contains('result')) el.textContent = '';
+      });
+      document.getElementById('scorebar').textContent = 'Score: 0 / 25';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
