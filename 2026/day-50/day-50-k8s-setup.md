@@ -1,3 +1,12 @@
+## Table of Contents
+
+- [Task 1: Recall Kubernetes Story](#task-1-recall-kubernetes-story)
+- [Task 2: Kubernetes Architecture](#task-2-draw-the-kubernetes-architecture)
+- [Task 3: Install kubectl](#task-3-install-kubectl)
+- [Task 4: Set Up Your Local Cluster](#task-4-set-up-your-local-cluster)
+- [Task 5: Explore My Cluster](#task-5-explore-my-cluster)
+- [Task 6: Practice Cluster Lifecycle](#task-6-practice-cluster-lifecycle)
+
 ## Task-1: Recalling the memeories
 
 ### 1. Why was Kubernetes created?
