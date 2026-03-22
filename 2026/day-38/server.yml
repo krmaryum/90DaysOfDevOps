@@ -1,0 +1,20 @@
+---
+server:
+  name: prod-server
+  ip: 192.168.1.10
+  port: 8080
+database:
+  host: localhost
+  name: prod_db
+  credentials:
+    user: admin
+    password: secure123
+startup_script_block: |
+  echo "Starting server..."
+  service nginx start
+  echo "Server started successfully"
+
+startup_script_folded: >
+  echo "Starting server..." &&
+  service nginx start &&
+  echo "Server started successfully"-

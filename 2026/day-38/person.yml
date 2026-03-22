@@ -1,0 +1,12 @@
+---
+name: Sabir Hussain
+role: Systems Engineer
+experience_years: 5
+learning: true
+tools:
+  - Docker
+  - Kubernetes
+  - Git
+  - Jenkins
+  - Terraform
+hobbies: [golf, travelling]
