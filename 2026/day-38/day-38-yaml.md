@@ -84,7 +84,7 @@ database:
 **Notes:**
 
 * YAML **does not allow tabs**. 
-* YAML **very particular on indentation**
+* YAML is **very particular on indentation**
 
 ---
 
