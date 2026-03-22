@@ -194,7 +194,7 @@ jobs:
   - Database and email credentials
 - These are securely stored in GitHub Secrets and injected during runtime
 
-### Steps (What it does)
+### Steps
 
 1. Checkout Code
    - Uses actions/checkout to pull the latest code from the repository
