@@ -1,5 +1,29 @@
 # Day 50 — Kubernetes Commands (With Inline Comments)
 
+## 📊 Quick Commands Table (Day 50)
+
+| Category | Command | Description |
+|----------|--------|-------------|
+| System Check | `nproc` | Check number of CPU cores |
+| System Check | `free -h` | Check memory usage |
+| kubectl Install | `kubectl version --client` | Verify kubectl installation |
+| kind Install | `kind --version` | Verify kind installation |
+| Cluster Create | `kind create cluster --config kind-config.yml` | Create cluster from config |
+| Cluster Verify | `kubectl get nodes` | Check cluster nodes status |
+| Cluster Info | `kubectl cluster-info` | Show API server & services |
+| Node Details | `kubectl describe node <node-name>` | Detailed node info |
+| Namespaces | `kubectl get namespaces` | List all namespaces |
+| Pods (All) | `kubectl get pods -A` | List all pods across namespaces |
+| System Pods | `kubectl get pods -n kube-system` | List system components |
+| Pods with Node | `kubectl get pods -n kube-system -o wide` | Show pod placement |
+| Delete Cluster | `kind delete cluster --name <name>` | Delete cluster |
+| Recreate Cluster | `kind create cluster --name <name>` | Create new cluster |
+| Context Check | `kubectl config current-context` | Show active cluster |
+| Context List | `kubectl config get-contexts` | List all clusters |
+| kubeconfig View | `kubectl config view` | Show full config |
+| Debug Docker | `docker ps` | Show running containers |
+| Help | `kubectl help` | Show kubectl help |
+
 ---
 
 ## 🧠 System Check (Before Kubernetes)
