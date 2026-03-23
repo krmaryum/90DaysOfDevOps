@@ -1,0 +1,17 @@
+apiVersion: v1                    # Kubernetes API version
+kind: Pod                         # Resource type (Pod = single container or group of containers)
+metadata:
+  name: busybox-pod               # Name of the Pod
+  labels:
+    app: busybox                  # Label to identify the app
+    environment: dev              # Label to indicate environment (dev/test/prod)
+
+spec:                             # Desired state of the Pod
+  containers:
+  - name: busybox                 # Name of the container
+    image: busybox:latest         # Lightweight BusyBox image (commonly used for testing/debugging)
+    command:                      # Command to run inside the container
+      - "sh"                      # Use shell
+      - "-c"                      # Pass command as string
+      - "echo Hello from BusyBox && sleep 3600"
+      # Prints a message, then keeps container alive for 1 hour (3600 seconds)

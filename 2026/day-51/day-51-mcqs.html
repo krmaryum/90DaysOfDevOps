@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 51 - Kubernetes Pods MCQs</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#111827;
+      --muted:#94a3b8;
+      --text:#e5e7eb;
+      --accent:#22c55e;
+      --accent2:#38bdf8;
+      --wrong:#ef4444;
+      --border:#1f2937;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(135deg,#020617,#0f172a 45%,#111827);
+      color:var(--text);
+      line-height:1.5;
+    }
+    .wrap{
+      max-width:1000px;
+      margin:0 auto;
+      padding:32px 18px 60px;
+    }
+    .hero{
+      background:rgba(17,24,39,.9);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:28px;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+      margin-bottom:22px;
+    }
+    h1,h2,h3{margin:0 0 12px}
+    .sub{color:var(--muted); margin-top:8px}
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+    button{
+      border:none;
+      border-radius:12px;
+      padding:12px 18px;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .primary{background:var(--accent); color:#052e16}
+    .secondary{background:#1e293b; color:var(--text); border:1px solid #334155}
+    button:hover{transform:translateY(-1px)}
+    .meta{
+      margin-top:14px;
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .qcard{
+      background:rgba(17,24,39,.96);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:22px;
+      margin:18px 0;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+    }
+    .qtitle{
+      font-size:18px;
+      font-weight:700;
+      margin-bottom:14px;
+    }
+    .options{
+      display:grid;
+      gap:10px;
+    }
+    label.option{
+      display:block;
+      border:1px solid #334155;
+      background:#0b1220;
+      padding:12px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    label.option:hover{
+      border-color:#475569;
+      background:#101827;
+    }
+    input[type="radio"]{
+      margin-right:10px;
+      accent-color:var(--accent2);
+    }
+    .result{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:12px;
+      display:none;
+      font-size:14px;
+    }
+    .correct{background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.4); color:#bbf7d0}
+    .incorrect{background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.4); color:#fecaca}
+    .scorebox{
+      display:none;
+      margin:24px 0;
+      background:rgba(17,24,39,.96);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:24px;
+      text-align:center;
+    }
+    .score{
+      font-size:38px;
+      font-weight:800;
+      color:#86efac;
+    }
+    .foot{
+      margin-top:24px;
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+    }
+    .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#0b1220;
+      border:1px solid #334155;
+      font-size:12px;
+      color:#cbd5e1;
+      margin-right:8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Day 51 – Kubernetes Pods and Manifests MCQs</h1>
+      <p class="sub">25 multiple-choice questions based on Pods, manifests, labels, dry-run validation, imperative vs declarative commands, and cleanup.</p>
+      <div>
+        <span class="tag">Kubernetes</span>
+        <span class="tag">Pods</span>
+        <span class="tag">YAML</span>
+        <span class="tag">MCQ Practice</span>
+      </div>
+      <div class="controls">
+        <button class="primary" onclick="submitQuiz()">Submit Quiz</button>
+        <button class="secondary" onclick="resetQuiz()">Reset</button>
+      </div>
+      <div class="meta">
+        <span>Total Questions: <strong>25</strong></span>
+        <span>Passing Target: <strong>20/25</strong></span>
+      </div>
+    </section>
+
+    <div id="quiz"></div>
+
+    <div class="scorebox" id="scoreBox">
+      <h2>Your Score</h2>
+      <div class="score" id="scoreText">0 / 25</div>
+      <p id="scoreMsg"></p>
+    </div>
+
+    <p class="foot">Built for Day 51 practice – Kubernetes Manifests and Your First Pods.</p>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "Which field in a Kubernetes manifest specifies the resource type?",
+        options: ["apiVersion", "metadata", "kind", "spec"],
+        answer: 2,
+        explanation: "The 'kind' field tells Kubernetes what resource you are defining, such as Pod, Deployment, or Service."
+      },
+      {
+        q: "What is the correct apiVersion for a basic Pod manifest?",
+        options: ["apps/v1", "batch/v1", "networking.k8s.io/v1", "v1"],
+        answer: 3,
+        explanation: "Pods use apiVersion: v1."
+      },
+      {
+        q: "Which top-level field contains the desired state of a Pod?",
+        options: ["metadata", "spec", "status", "labels"],
+        answer: 1,
+        explanation: "The 'spec' field defines what containers to run, which images to use, ports, commands, and more."
+      },
+      {
+        q: "What command creates or updates a resource from a YAML file?",
+        options: ["kubectl run -f file.yaml", "kubectl create pod file.yaml", "kubectl apply -f file.yaml", "kubectl exec -f file.yaml"],
+        answer: 2,
+        explanation: "kubectl apply -f <file> is the declarative way to create or update resources."
+      },
+      {
+        q: "What does 'kubectl get pods -o wide' show in addition to the default output?",
+        options: ["Only logs", "Pod IP and Node information", "Container shell access", "Secrets and configmaps"],
+        answer: 1,
+        explanation: "The wide output includes extra details like Pod IP and the Node where the Pod is running."
+      },
+      {
+        q: "Which command is most useful to see Pod events for debugging?",
+        options: ["kubectl logs <pod>", "kubectl exec <pod>", "kubectl describe pod <pod>", "kubectl scale pod <pod>"],
+        answer: 2,
+        explanation: "kubectl describe pod shows details and recent events such as pulling images, scheduling, and failures."
+      },
+      {
+        q: "Why was a custom command added to the BusyBox Pod?",
+        options: ["To expose port 80", "To keep the container running", "To create a Deployment", "To assign an IP manually"],
+        answer: 1,
+        explanation: "BusyBox exits quickly unless it is given a command that keeps it alive, such as sleep 3600."
+      },
+      {
+        q: "What would likely happen if the BusyBox Pod had no long-running command?",
+        options: ["It would become a Service", "It would switch to Nginx", "It would exit and may go into CrashLoopBackOff", "It would auto-scale"],
+        answer: 2,
+        explanation: "Without a long-running process, the container exits immediately and Kubernetes keeps restarting it."
+      },
+      {
+        q: "Which command shows container stdout/stderr for a Pod?",
+        options: ["kubectl logs <pod>", "kubectl print <pod>", "kubectl inspect <pod>", "kubectl output <pod>"],
+        answer: 0,
+        explanation: "kubectl logs displays the container logs."
+      },
+      {
+        q: "Which command gives you a shell inside a running Pod?",
+        options: ["kubectl shell <pod>", "kubectl exec -it <pod> -- /bin/sh", "kubectl attach <pod> shell", "kubectl ssh <pod>"],
+        answer: 1,
+        explanation: "kubectl exec -it <pod> -- /bin/sh is commonly used to open a shell in a container."
+      },
+      {
+        q: "Which statement best describes labels in Kubernetes?",
+        options: ["They have fixed meanings built into Kubernetes", "They are key-value pairs used for organization and selection", "They are required for all Pods", "They replace metadata.name"],
+        answer: 1,
+        explanation: "Labels are arbitrary key-value pairs used to organize and select resources."
+      },
+      {
+        q: "What command lists Pods along with their labels?",
+        options: ["kubectl get pods --labels", "kubectl get pods --show-labels", "kubectl describe pods --labels", "kubectl labels get pods"],
+        answer: 1,
+        explanation: "kubectl get pods --show-labels displays labels in the output."
+      },
+      {
+        q: "How do you filter Pods by a label such as app=nginx?",
+        options: ["kubectl get pods --app=nginx", "kubectl get pods -f app=nginx", "kubectl get pods -l app=nginx", "kubectl get pods --label app=nginx"],
+        answer: 2,
+        explanation: "The -l flag is used for label selectors."
+      },
+      {
+        q: "Which command adds a label to an existing Pod?",
+        options: ["kubectl annotate pod nginx-pod environment=production", "kubectl label pod nginx-pod environment=production", "kubectl add label nginx-pod environment=production", "kubectl patch label nginx-pod environment=production"],
+        answer: 1,
+        explanation: "kubectl label pod <name> key=value adds or updates a label."
+      },
+      {
+        q: "How do you remove the label 'environment' from nginx-pod?",
+        options: ["kubectl label pod nginx-pod environment=", "kubectl remove label nginx-pod environment", "kubectl label pod nginx-pod environment-", "kubectl delete label pod nginx-pod environment"],
+        answer: 2,
+        explanation: "Appending a minus sign removes the label: kubectl label pod nginx-pod environment-"
+      },
+      {
+        q: "Which approach is declarative?",
+        options: ["kubectl run redis-pod --image=redis:latest", "kubectl apply -f nginx-pod.yaml", "kubectl exec -it nginx-pod -- /bin/sh", "kubectl logs nginx-pod"],
+        answer: 1,
+        explanation: "Declarative Kubernetes means describing the desired state in YAML and applying it."
+      },
+      {
+        q: "Which approach is imperative?",
+        options: ["Writing a Pod YAML and applying it", "Using kubectl run to create a Pod directly", "Using GitOps", "Storing manifests in version control"],
+        answer: 1,
+        explanation: "Imperative commands directly tell Kubernetes what to do right now."
+      },
+      {
+        q: "What command prints the full YAML of a live Pod?",
+        options: ["kubectl show pod redis-pod", "kubectl get pod redis-pod -o yaml", "kubectl export pod redis-pod", "kubectl print pod redis-pod yaml"],
+        answer: 1,
+        explanation: "kubectl get pod <name> -o yaml shows the full live resource definition."
+      },
+      {
+        q: "What is a common use of '--dry-run=client -o yaml'?",
+        options: ["To delete Pods faster", "To generate a manifest template without creating the resource", "To restart a Deployment", "To open a shell in a Pod"],
+        answer: 1,
+        explanation: "It is often used to scaffold YAML quickly and then customize it."
+      },
+      {
+        q: "Which validation mode checks against the Kubernetes API server schema?",
+        options: ["--dry-run=client", "--dry-run=server", "--validate=false", "--output=wide"],
+        answer: 1,
+        explanation: "Server-side dry-run validates using the API server, so it is stricter and more accurate."
+      },
+      {
+        q: "What error should you expect if the required image field is missing and you use server-side validation?",
+        options: ["spec.containers[0].image: Required value", "pod image pulled successfully", "metadata.name missing", "No error at all"],
+        answer: 0,
+        explanation: "Server-side validation catches the missing required image field."
+      },
+      {
+        q: "Why might '--dry-run=client' not catch a missing image field?",
+        options: ["Because client-side validation is only basic", "Because Pods do not need images", "Because metadata overrides spec", "Because kubectl ignores YAML"],
+        answer: 0,
+        explanation: "Client-side dry-run mainly checks syntax/basic structure, not the full server schema."
+      },
+      {
+        q: "What happens when you delete a standalone Pod?",
+        options: ["It is recreated automatically by default", "It becomes a Deployment", "It is gone unless managed by a controller", "It is converted to a ReplicaSet"],
+        answer: 2,
+        explanation: "A standalone Pod is removed permanently unless another controller is managing it."
+      },
+      {
+        q: "Which command deletes all Pods in the current namespace?",
+        options: ["kubectl remove pods --all", "kubectl delete pods --all", "kubectl clear pods", "kubectl erase pods --all"],
+        answer: 1,
+        explanation: "kubectl delete pods --all removes all Pods in the current namespace."
+      },
+      {
+        q: "Why are Deployments preferred over bare Pods in production?",
+        options: ["Deployments make Pods smaller", "Deployments automatically recreate and manage Pods", "Deployments remove the need for labels", "Deployments do not use YAML"],
+        answer: 1,
+        explanation: "Deployments manage Pods through controllers, making workloads self-healing and easier to update."
+      }
+    ];
+
+    const quiz = document.getElementById("quiz");
+
+    function renderQuiz() {
+      quiz.innerHTML = "";
+      questions.forEach((item, index) => {
+        const card = document.createElement("section");
+        card.className = "qcard";
+        card.innerHTML = `
+          <div class="qtitle">${index + 1}. ${item.q}</div>
+          <div class="options">
+            ${item.options.map((opt, i) => `
+              <label class="option">
+                <input type="radio" name="q${index}" value="${i}">
+                ${opt}
+              </label>
+            `).join("")}
+          </div>
+          <div class="result" id="result-${index}"></div>
+        `;
+        quiz.appendChild(card);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const result = document.getElementById(`result-${index}`);
+        result.style.display = "block";
+
+        if (selected && Number(selected.value) === item.answer) {
+          score++;
+          result.className = "result correct";
+          result.innerHTML = `✅ Correct. ${item.explanation}`;
+        } else {
+          result.className = "result incorrect";
+          const correctAnswer = item.options[item.answer];
+          result.innerHTML = `❌ Incorrect. Correct answer: <strong>${correctAnswer}</strong>. ${item.explanation}`;
+        }
+      });
+
+      const scoreBox = document.getElementById("scoreBox");
+      const scoreText = document.getElementById("scoreText");
+      const scoreMsg = document.getElementById("scoreMsg");
+
+      scoreText.textContent = `${score} / ${questions.length}`;
+      if (score === questions.length) {
+        scoreMsg.textContent = "Outstanding — perfect score!";
+      } else if (score >= 20) {
+        scoreMsg.textContent = "Great job — you have a strong grip on Day 51 concepts.";
+      } else if (score >= 15) {
+        scoreMsg.textContent = "Nice work — review a few areas and you’ll be even stronger.";
+      } else {
+        scoreMsg.textContent = "Good start — go through the notes once more and try again.";
+      }
+      scoreBox.style.display = "block";
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
+      document.querySelectorAll('.result').forEach(r => {
+        r.style.display = "none";
+        r.className = "result";
+        r.innerHTML = "";
+      });
+      document.getElementById("scoreBox").style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
