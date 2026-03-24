@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 52 MCQs - Kubernetes Namespaces and Deployments</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --warn: #f59e0b;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #020617, #0f172a 35%, #111827 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.28);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+    .hero p {
+      margin: 6px 0;
+      color: var(--muted);
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .badge {
+      background: #082f49;
+      color: #bae6fd;
+      border: 1px solid #0ea5e9;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 0 24px;
+    }
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #082f49; }
+    .secondary { background: #1e293b; color: var(--text); border: 1px solid var(--border); }
+    .success { background: var(--good); color: white; }
+    .quiz-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .card {
+      background: rgba(31, 41, 55, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.2);
+    }
+    .q-head {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .q-num {
+      min-width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--accent);
+    }
+    .q-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    label.option {
+      display: block;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #111827;
+      cursor: pointer;
+    }
+    label.option:hover { border-color: #64748b; }
+    input[type="radio"] { margin-right: 10px; }
+    .explanation {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      display: none;
+      font-size: 0.96rem;
+    }
+    .correct {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+    }
+    .incorrect {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+    }
+    .result {
+      position: sticky;
+      top: 10px;
+      z-index: 5;
+      background: rgba(2, 6, 23, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .result h2 {
+      margin: 0 0 8px;
+    }
+    .result p { margin: 6px 0; color: var(--muted); }
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 0 10px;
+    }
+    .tiny {
+      color: var(--warn);
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 1.55rem; }
+      .container { padding: 16px; }
+      .card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Day 52 – Kubernetes Namespaces and Deployments</h1>
+      <p>25 multiple-choice questions based on namespaces, Deployments, self-healing, scaling, rolling updates, rollbacks, and cleanup.</p>
+      <p>Select one answer for each question, then press <strong>Submit Quiz</strong> to see your score and explanations.</p>
+      <div class="badge-row">
+        <span class="badge">25 MCQs</span>
+        <span class="badge">Instant Scoring</span>
+        <span class="badge">Answer Explanations</span>
+        <span class="badge">Day 52 Revision</span>
+      </div>
+    </section>
+
+    <div class="result" id="resultBox">
+      <h2 id="scoreTitle">Your Score</h2>
+      <p id="scoreText"></p>
+      <p id="scoreMsg"></p>
+    </div>
+
+    <div class="toolbar">
+      <button class="primary" onclick="submitQuiz()">Submit Quiz</button>
+      <button class="secondary" onclick="resetQuiz()">Reset Quiz</button>
+      <button class="success" onclick="showAnswers()">Show Answers</button>
+    </div>
+
+    <main class="quiz-grid" id="quiz"></main>
+
+    <div class="footer">
+      Built for Day 52 practice — Kubernetes Namespaces and Deployments.
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "What is the main purpose of a Kubernetes namespace?",
+        options: [
+          "To increase CPU performance",
+          "To organize and isolate resources in a cluster",
+          "To replace Deployments",
+          "To expose Pods to the internet"
+        ],
+        answer: 1,
+        explanation: "Namespaces logically separate resources inside the same cluster, helping with organization, isolation, and avoiding naming conflicts."
+      },
+      {
+        q: "Which namespace is used by default when you do not specify one?",
+        options: ["kube-system", "default", "kube-public", "production"],
+        answer: 1,
+        explanation: "If you do not pass -n <namespace>, Kubernetes uses the default namespace."
+      },
+      {
+        q: "Which namespace contains core Kubernetes system components like CoreDNS and kube-apiserver?",
+        options: ["kube-public", "kube-system", "default", "dev"],
+        answer: 1,
+        explanation: "kube-system contains critical cluster components such as CoreDNS, scheduler, API server, and controller manager."
+      },
+      {
+        q: "Which command lists Pods across all namespaces?",
+        options: [
+          "kubectl get pods",
+          "kubectl get pods -n default",
+          "kubectl get pods -A",
+          "kubectl pods all"
+        ],
+        answer: 2,
+        explanation: "The -A or --all-namespaces flag lists resources across every namespace."
+      },
+      {
+        q: "What happens when you run kubectl get pods without -n or -A?",
+        options: [
+          "It shows Pods from all namespaces",
+          "It shows Pods only from default namespace",
+          "It shows only kube-system Pods",
+          "It fails automatically"
+        ],
+        answer: 1,
+        explanation: "Without -n or -A, kubectl looks in the default namespace only."
+      },
+      {
+        q: "Which API version is correct for a Deployment?",
+        options: ["v1", "apps/v1", "batch/v1", "networking.k8s.io/v1"],
+        answer: 1,
+        explanation: "Deployments belong to the apps/v1 API group."
+      },
+      {
+        q: "Which field tells Kubernetes how many identical Pods should be maintained by a Deployment?",
+        options: ["containers", "replicas", "ports", "metadata"],
+        answer: 1,
+        explanation: "spec.replicas defines the desired number of Pod replicas."
+      },
+      {
+        q: "In a Deployment, selector.matchLabels must match which field?",
+        options: [
+          "metadata.name",
+          "template.metadata.labels",
+          "spec.containers.name",
+          "namespace name"
+        ],
+        answer: 1,
+        explanation: "The selector must match the labels on the Pod template, otherwise the Deployment will not manage those Pods."
+      },
+      {
+        q: "What is the template section in a Deployment manifest?",
+        options: [
+          "A Service definition",
+          "A Pod blueprint used to create Pods",
+          "A ReplicaSet name",
+          "A namespace policy"
+        ],
+        answer: 1,
+        explanation: "The template section contains the Pod specification that the Deployment uses to create Pods."
+      },
+      {
+        q: "What is a key difference between a standalone Pod and a Deployment-managed Pod?",
+        options: [
+          "Standalone Pods use images but Deployments do not",
+          "Deployment-managed Pods are recreated if deleted",
+          "Standalone Pods can only run in kube-system",
+          "Deployments cannot run multiple replicas"
+        ],
+        answer: 1,
+        explanation: "A Deployment maintains desired state through a ReplicaSet, so deleted Pods are recreated automatically."
+      },
+      {
+        q: "If you delete one Pod managed by a Deployment with 3 replicas, what will Kubernetes do?",
+        options: [
+          "Nothing",
+          "Delete the Deployment",
+          "Create a replacement Pod",
+          "Scale to zero"
+        ],
+        answer: 2,
+        explanation: "The ReplicaSet notices the desired count is lower than expected and creates a replacement Pod."
+      },
+      {
+        q: "Will the replacement Pod usually have the same name as the deleted Pod?",
+        options: ["Yes, always", "No, it gets a different unique name", "Only in kube-system", "Only after rollback"],
+        answer: 1,
+        explanation: "Pods are ephemeral. The replacement is a newly created Pod and receives a new unique name."
+      },
+      {
+        q: "Which command quickly scales a Deployment to 5 replicas?",
+        options: [
+          "kubectl set replicas nginx-deployment 5",
+          "kubectl scale deployment nginx-deployment --replicas=5 -n dev",
+          "kubectl apply replicas=5",
+          "kubectl rollout scale nginx-deployment"
+        ],
+        answer: 1,
+        explanation: "kubectl scale is the imperative way to adjust replica count quickly."
+      },
+      {
+        q: "What happens when you scale a Deployment up from 3 to 5 replicas?",
+        options: [
+          "Kubernetes deletes two Pods",
+          "Kubernetes creates two additional Pods",
+          "The namespace is recreated",
+          "Only the image version changes"
+        ],
+        answer: 1,
+        explanation: "Scaling up increases the desired count, so Kubernetes creates more Pods."
+      },
+      {
+        q: "What happens when you scale a Deployment down from 5 to 2 replicas?",
+        options: [
+          "Kubernetes leaves all 5 Pods running",
+          "Kubernetes deletes the Deployment",
+          "Kubernetes terminates the extra Pods",
+          "Kubernetes changes the namespace"
+        ],
+        answer: 2,
+        explanation: "When desired replicas decrease, Kubernetes removes extra Pods until current state matches desired state."
+      },
+      {
+        q: "Which of the following is the declarative way to scale a Deployment?",
+        options: [
+          "Edit replicas in YAML and run kubectl apply -f",
+          "Use kubectl exec into a Pod",
+          "Delete the namespace",
+          "Use kubectl logs"
+        ],
+        answer: 0,
+        explanation: "Declarative scaling means changing replicas in the manifest and applying it again."
+      },
+      {
+        q: "What does the READY column like 3/3 mean in kubectl get deployments?",
+        options: [
+          "3 Pods are scheduled on 3 nodes",
+          "3 Pods are ready out of 3 desired",
+          "3 images were downloaded",
+          "3 namespaces are active"
+        ],
+        answer: 1,
+        explanation: "READY indicates how many Pods are ready compared to how many are desired."
+      },
+      {
+        q: "What does the UP-TO-DATE column in deployment output mean?",
+        options: [
+          "Pods running the latest deployment spec",
+          "Pods exposed by a Service",
+          "Namespaces recently created",
+          "Images stored in etcd"
+        ],
+        answer: 0,
+        explanation: "UP-TO-DATE shows how many Pods are running the latest configuration or image."
+      },
+      {
+        q: "What does the AVAILABLE column in deployment output represent?",
+        options: [
+          "Number of free worker nodes",
+          "Number of Pods available to serve traffic",
+          "Number of volumes attached",
+          "Number of namespaces with Pods"
+        ],
+        answer: 1,
+        explanation: "AVAILABLE counts Pods that are ready and available for serving traffic."
+      },
+      {
+        q: "Which command updates the container image in a Deployment without editing the YAML file manually?",
+        options: [
+          "kubectl set image deployment/nginx-deployment nginx=nginx:1.25 -n dev",
+          "kubectl change image nginx-deployment",
+          "kubectl edit namespace dev",
+          "kubectl update pod nginx"
+        ],
+        answer: 0,
+        explanation: "kubectl set image is the quick imperative way to change a Deployment's container image."
+      },
+      {
+        q: "What is a rolling update?",
+        options: [
+          "Deleting all Pods at once and recreating them later",
+          "Gradually replacing old Pods with new ones",
+          "Removing namespaces automatically",
+          "Copying logs between Pods"
+        ],
+        answer: 1,
+        explanation: "A rolling update replaces Pods step by step, helping keep the application available."
+      },
+      {
+        q: "Why do rolling updates usually avoid downtime?",
+        options: [
+          "Because old Pods stay until new Pods become healthy",
+          "Because Kubernetes pauses the cluster",
+          "Because namespaces disable traffic",
+          "Because Deployments never restart Pods"
+        ],
+        answer: 0,
+        explanation: "Kubernetes waits for new Pods to become ready before removing old ones, keeping the application available."
+      },
+      {
+        q: "Which command shows the rollout history of a Deployment?",
+        options: [
+          "kubectl get history deployment/nginx-deployment",
+          "kubectl rollout history deployment/nginx-deployment -n dev",
+          "kubectl logs deployment/nginx-deployment",
+          "kubectl describe rs history"
+        ],
+        answer: 1,
+        explanation: "kubectl rollout history displays revisions created by Deployment changes."
+      },
+      {
+        q: "Which command rolls a Deployment back to its previous revision?",
+        options: [
+          "kubectl rollback deployment/nginx-deployment",
+          "kubectl rollout undo deployment/nginx-deployment -n dev",
+          "kubectl delete deployment/nginx-deployment",
+          "kubectl get revisions -n dev"
+        ],
+        answer: 1,
+        explanation: "kubectl rollout undo reverts the Deployment to the prior revision."
+      },
+      {
+        q: "What happens when you delete a namespace such as dev?",
+        options: [
+          "Only the namespace name is deleted, resources stay",
+          "All resources inside that namespace are removed",
+          "Only Deployments are deleted but Pods stay",
+          "Nothing happens until cluster restart"
+        ],
+        answer: 1,
+        explanation: "Deleting a namespace deletes the resources inside it, which is why it must be done carefully."
+      }
+    ];
+
+    const quizEl = document.getElementById('quiz');
+
+    function renderQuiz() {
+      quizEl.innerHTML = questions.map((item, index) => `
+        <section class="card" id="q${index + 1}">
+          <div class="q-head">
+            <div class="q-num">${index + 1}</div>
+            <div>
+              <h3 class="q-title">${item.q}</h3>
+            </div>
+          </div>
+          <div class="options">
+            ${item.options.map((opt, optIndex) => `
+              <label class="option">
+                <input type="radio" name="q${index}" value="${optIndex}">
+                ${String.fromCharCode(65 + optIndex)}. ${opt}
+              </label>
+            `).join('')}
+          </div>
+          <div class="explanation" id="exp${index}"></div>
+        </section>
+      `).join('');
+    }
+
+    function submitQuiz(showAll = false) {
+      let score = 0;
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const exp = document.getElementById(`exp${index}`);
+        const chosen = selected ? Number(selected.value) : null;
+        const correctLetter = String.fromCharCode(65 + item.answer);
+        const correctText = item.options[item.answer];
+
+        exp.style.display = 'block';
+        if (chosen === item.answer) {
+          score++;
+          exp.className = 'explanation correct';
+          exp.innerHTML = `<strong>Correct.</strong> ${item.explanation}<br><strong>Answer:</strong> ${correctLetter}. ${correctText}`;
+        } else {
+          exp.className = 'explanation incorrect';
+          exp.innerHTML = `<strong>${showAll && chosen === null ? 'Answer shown.' : 'Incorrect.'}</strong> ${item.explanation}<br><strong>Correct answer:</strong> ${correctLetter}. ${correctText}`;
+        }
+      });
+
+      if (!showAll) {
+        const percent = Math.round((score / questions.length) * 100);
+        const resultBox = document.getElementById('resultBox');
+        const scoreTitle = document.getElementById('scoreTitle');
+        const scoreText = document.getElementById('scoreText');
+        const scoreMsg = document.getElementById('scoreMsg');
+        resultBox.style.display = 'block';
+        scoreTitle.textContent = 'Your Score';
+        scoreText.textContent = `${score} / ${questions.length} (${percent}%)`;
+        scoreMsg.textContent = percent >= 80
+          ? 'Excellent work. You understand Day 52 really well.'
+          : percent >= 60
+            ? 'Nice job. A quick revision of scaling and rollbacks will make this even stronger.'
+            : 'Good start. Review namespaces, Deployments, and rolling updates once more and try again.';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function showAnswers() {
+      submitQuiz(true);
+      const resultBox = document.getElementById('resultBox');
+      resultBox.style.display = 'block';
+      document.getElementById('scoreTitle').textContent = 'Answer Key Displayed';
+      document.getElementById('scoreText').textContent = 'All correct answers and explanations are now visible.';
+      document.getElementById('scoreMsg').textContent = 'Use this mode for revision after attempting the quiz yourself.';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+      document.querySelectorAll('.explanation').forEach(exp => {
+        exp.style.display = 'none';
+        exp.className = 'explanation';
+        exp.innerHTML = '';
+      });
+      document.getElementById('resultBox').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
