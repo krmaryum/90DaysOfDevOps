@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 53 MCQ Quiz - Kubernetes Services</title>
+  <style>
+    :root{
+      --bg:#0f172a; --panel:#111827; --card:#1f2937; --text:#e5e7eb; --muted:#94a3b8;
+      --accent:#38bdf8; --good:#22c55e; --bad:#ef4444; --warn:#f59e0b; --border:#334155;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--text);
+      background:linear-gradient(180deg,#0b1220,#0f172a 35%,#111827);
+      line-height:1.5;
+    }
+    .container{max-width:1100px;margin:0 auto;padding:32px 18px 60px}
+    .hero,.toolbar,.result,.question-card{
+      background:rgba(17,24,39,.92); border:1px solid var(--border); border-radius:18px;
+      box-shadow:0 10px 28px rgba(0,0,0,.22);
+    }
+    .hero{padding:26px;margin-bottom:22px}
+    .badge{
+      display:inline-block; padding:6px 10px; border-radius:999px; font-size:.9rem;
+      background:rgba(56,189,248,.12); color:var(--accent); border:1px solid rgba(56,189,248,.35);
+      margin-bottom:12px;
+    }
+    h1{margin:0 0 8px; font-size:2rem}
+    .subtitle{margin:0; color:var(--muted)}
+    .toolbar,.result{padding:18px; margin:16px 0 24px}
+    .toolbar{display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center}
+    .stats{color:var(--muted)}
+    .btn{
+      border:none; border-radius:12px; padding:12px 18px; font-size:1rem; cursor:pointer;
+      transition:transform .05s ease, opacity .2s ease; margin-right:8px;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{background:var(--accent); color:#082f49; font-weight:700}
+    .btn-secondary{background:#374151; color:var(--text); border:1px solid var(--border)}
+    .question-card{padding:18px; margin-bottom:18px}
+    .q-head{display:flex; gap:12px; align-items:flex-start; margin-bottom:12px}
+    .q-num{
+      min-width:38px; height:38px; border-radius:50%; display:grid; place-items:center;
+      background:rgba(56,189,248,.15); color:var(--accent); font-weight:700;
+      border:1px solid rgba(56,189,248,.35);
+    }
+    .question{font-size:1.02rem; margin:2px 0 0}
+    .options{display:grid; gap:10px; margin-top:10px}
+    label.option{
+      display:block; padding:12px 14px; border:1px solid var(--border); background:#111827;
+      border-radius:12px; cursor:pointer;
+    }
+    label.option:hover{border-color:#475569}
+    label.option.correct{border-color:rgba(34,197,94,.85); background:rgba(34,197,94,.12)}
+    label.option.incorrect{border-color:rgba(239,68,68,.85); background:rgba(239,68,68,.12)}
+    label.option.missed{border-color:rgba(245,158,11,.85); background:rgba(245,158,11,.12)}
+    input[type=radio]{margin-right:10px; transform:translateY(1px)}
+    .explanation{
+      display:none; margin-top:12px; padding:12px 14px; border-radius:12px;
+      background:rgba(15,23,42,.75); border:1px dashed #475569; color:#dbeafe;
+    }
+    .show{display:block}
+    .score{font-size:1.35rem; font-weight:700; margin-bottom:8px}
+    .summary,.legend,.footer-note,.small{color:var(--muted)}
+    .footer-note{text-align:center; margin-top:28px; font-size:.92rem}
+    @media (max-width:700px){
+      h1{font-size:1.65rem}
+      .toolbar{flex-direction:column; align-items:stretch}
+      .btn{width:100%; margin-right:0; margin-bottom:8px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <div class="badge">Interactive Quiz • Day 53</div>
+      <h1>Kubernetes Services - 25 MCQs</h1>
+      <p class="subtitle">Practice ClusterIP, NodePort, LoadBalancer, DNS, selectors, endpoints, and cleanup with instant scoring and explanations.</p>
+    </section>
+
+    <section class="toolbar">
+      <div class="stats"><strong>25 Questions</strong> • Topic: <strong>Kubernetes Services</strong></div>
+      <div>
+        <button class="btn btn-primary" onclick="submitQuiz()">Submit Quiz</button>
+        <button class="btn btn-secondary" onclick="resetQuiz()">Reset</button>
+      </div>
+    </section>
+
+    <section id="result" class="result" style="display:none;">
+      <div id="score" class="score"></div>
+      <div id="summary" class="summary"></div>
+      <div class="legend">Green = correct selection, Red = incorrect selection, Yellow = correct answer you missed.</div>
+    </section>
+
+    <div id="quiz"></div>
+
+    <div class="footer-note">Built for Day 53 practice. Focus on understanding why Services exist, not just memorizing commands.</div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "Why are Kubernetes Services needed?",
+        options: [
+          "To shrink container images",
+          "To provide a stable endpoint and balance traffic across Pods",
+          "To automatically create namespaces",
+          "To replace Deployments"
+        ],
+        answer: 1,
+        explanation: "Services solve the problem of changing Pod IPs and provide a stable IP/DNS name with load balancing."
+      },
+      {
+        q: "What is the default Service type in Kubernetes?",
+        options: ["NodePort", "ClusterIP", "LoadBalancer", "ExternalName"],
+        answer: 1,
+        explanation: "ClusterIP is the default Service type and is reachable only from inside the cluster."
+      },
+      {
+        q: "What usually happens to a Pod IP when the Pod is restarted or replaced?",
+        options: ["It stays permanently the same", "It becomes the node IP", "It usually changes", "It becomes the service IP"],
+        answer: 2,
+        explanation: "Pod IPs are not stable. New or restarted Pods often get new IP addresses."
+      },
+      {
+        q: "Which field in a Service is used to match target Pods?",
+        options: ["selector", "metadata.name", "namespace", "restartPolicy"],
+        answer: 0,
+        explanation: "The selector matches labels on Pods. If labels do not match, the Service sends traffic to nothing."
+      },
+      {
+        q: "In a Service spec, what does port mean?",
+        options: ["The port the Pod listens on", "The port the Service listens on", "The NodePort on the node", "The kubelet port"],
+        answer: 1,
+        explanation: "port is the port exposed by the Service itself."
+      },
+      {
+        q: "In a Service spec, what does targetPort mean?",
+        options: ["The cloud load balancer port", "The DNS server port", "The Pod/container port receiving traffic", "The API server port"],
+        answer: 2,
+        explanation: "targetPort is the port on the Pod/container where the Service forwards traffic."
+      },
+      {
+        q: "Which Service type is intended for internal communication only?",
+        options: ["ClusterIP", "NodePort", "LoadBalancer", "Ingress"],
+        answer: 0,
+        explanation: "ClusterIP is only reachable from within the cluster."
+      },
+      {
+        q: "A NodePort Service exposes the application on:",
+        options: ["Only one selected node", "A fixed port on every node", "Only the control plane IP", "Only the Pod IP"],
+        answer: 1,
+        explanation: "NodePort opens a port on every node in the cluster."
+      },
+      {
+        q: "What is the valid default Kubernetes NodePort range?",
+        options: ["1000-9999", "20000-25000", "30000-32767", "32768-65535"],
+        answer: 2,
+        explanation: "By default, NodePort values must be within 30000-32767."
+      },
+      {
+        q: "What does a LoadBalancer Service do in a cloud environment?",
+        options: ["Creates a new namespace", "Creates a real external load balancer", "Changes Pod labels", "Disables NodePort"],
+        answer: 1,
+        explanation: "In AWS, GCP, or Azure, a LoadBalancer Service can provision a real external load balancer."
+      },
+      {
+        q: "Why does EXTERNAL-IP often remain <pending> for a LoadBalancer Service on a local Kind or Minikube setup?",
+        options: ["Because the selector is wrong", "Because nginx is not running", "Because there is no cloud provider integration", "Because Pod IPs are stable"],
+        answer: 2,
+        explanation: "Local clusters usually do not have a cloud provider to provision an actual external load balancer."
+      },
+      {
+        q: "What is the full Kubernetes DNS format for a Service?",
+        options: [
+          "<service>.<namespace>.svc.cluster.local",
+          "<namespace>.<service>.cluster.local",
+          "<service>.cluster.<namespace>.local",
+          "<service>.default.cluster"
+        ],
+        answer: 0,
+        explanation: "The full Service DNS name is <service-name>.<namespace>.svc.cluster.local."
+      },
+      {
+        q: "Within the same namespace, which name is commonly enough to access a Service?",
+        options: ["Only the full FQDN", "Only the Pod IP", "The short service name", "The node hostname"],
+        answer: 2,
+        explanation: "Within the same namespace, the short service name usually works because of Kubernetes DNS search paths."
+      },
+      {
+        q: "Which command helps verify the IPs a Service is routing traffic to?",
+        options: ["kubectl get configmap", "kubectl get endpoints <service-name>", "kubectl logs kube-dns", "kubectl top pods"],
+        answer: 1,
+        explanation: "Endpoints show the Pod IPs currently backing the Service."
+      },
+      {
+        q: "What are Endpoints in Kubernetes Services?",
+        options: [
+          "The public IPs of cloud providers",
+          "The list of Pod IPs and ports a Service routes to",
+          "The list of nodes in the cluster",
+          "The logs of a Service"
+        ],
+        answer: 1,
+        explanation: "Endpoints represent the actual Pod IPs and ports selected behind a Service."
+      },
+      {
+        q: "Which command shows full Service details including selectors and endpoints?",
+        options: ["kubectl inspect service", "kubectl describe service <name>", "kubectl expose service", "kubectl edit service <name> --summary"],
+        answer: 1,
+        explanation: "kubectl describe service <name> shows detailed configuration and endpoint information."
+      },
+      {
+        q: "How do you test a ClusterIP Service from inside the cluster?",
+        options: [
+          "Use curl from your laptop directly",
+          "Run a temporary Pod and access the Service name from there",
+          "Ping the node IP from outside",
+          "Restart the Deployment"
+        ],
+        answer: 1,
+        explanation: "ClusterIP is internal-only, so you test it from another Pod inside the cluster."
+      },
+      {
+        q: "If a Service selector does not match any Pods, what happens?",
+        options: [
+          "The Service automatically creates Pods",
+          "The Service routes traffic nowhere",
+          "Kubernetes deletes the Service",
+          "The Service becomes a LoadBalancer"
+        ],
+        answer: 1,
+        explanation: "Without matching Pods, the Service has no endpoints and cannot forward traffic."
+      },
+      {
+        q: "Which command can create a temporary busybox Pod for testing connectivity?",
+        options: [
+          "kubectl init busybox",
+          "kubectl run test-client --image=busybox:latest --rm -it --restart=Never -- sh",
+          "kubectl create node busybox",
+          "kubectl exec busybox"
+        ],
+        answer: 1,
+        explanation: "kubectl run with --rm -it --restart=Never is a common way to create a temporary debug Pod."
+      },
+      {
+        q: "When you run wget -qO- http://web-app-clusterip inside a test Pod and get the Nginx page, what does it prove?",
+        options: [
+          "The node is unreachable",
+          "DNS, Service routing, and Pod communication are working",
+          "The LoadBalancer is public",
+          "The Pod IP is stable"
+        ],
+        answer: 1,
+        explanation: "It confirms the Service resolved correctly and traffic reached one of the backing Pods."
+      },
+      {
+        q: "Which statement about Service hierarchy is correct?",
+        options: [
+          "ClusterIP creates LoadBalancer automatically",
+          "LoadBalancer creates a NodePort, which creates a ClusterIP",
+          "NodePort removes ClusterIP",
+          "Services do not build on each other"
+        ],
+        answer: 1,
+        explanation: "A LoadBalancer Service includes a NodePort and a ClusterIP underneath."
+      },
+      {
+        q: "What would you typically use for production external traffic in a cloud environment?",
+        options: ["ClusterIP", "NodePort", "LoadBalancer", "Pod IP directly"],
+        answer: 2,
+        explanation: "LoadBalancer is intended for production-style external access in cloud environments."
+      },
+      {
+        q: "Which Service type would you commonly use for development or direct external testing via <NodeIP>:<NodePort>?",
+        options: ["ClusterIP", "NodePort", "LoadBalancer", "ExternalName"],
+        answer: 1,
+        explanation: "NodePort exposes a service externally through each node on a fixed high port."
+      },
+      {
+        q: "What is the main advantage of using a Service DNS name over direct Pod IPs?",
+        options: [
+          "DNS names make Pods restart faster",
+          "DNS names stay stable even when Pod IPs change",
+          "DNS names disable load balancing",
+          "DNS names remove the need for labels"
+        ],
+        answer: 1,
+        explanation: "Service names remain stable, while Pods can come and go with different IPs."
+      },
+      {
+        q: "After cleaning up all Day 53 resources, what should remain in the default namespace?",
+        options: [
+          "The web-app Deployment",
+          "The web-app-nodeport Service",
+          "Only the built-in kubernetes Service",
+          "All Pods but no Services"
+        ],
+        answer: 2,
+        explanation: "After cleanup, only the default kubernetes Service should remain."
+      }
+    ];
+
+    const quizEl = document.getElementById('quiz');
+
+    function buildQuiz() {
+      quizEl.innerHTML = '';
+      questions.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+
+        const optionsHtml = item.options.map((opt, i) => `
+          <label class="option" id="q${index}_opt${i}">
+            <input type="radio" name="q${index}" value="${i}">
+            ${String.fromCharCode(65 + i)}. ${opt}
+          </label>
+        `).join('');
+
+        card.innerHTML = `
+          <div class="q-head">
+            <div class="q-num">${index + 1}</div>
+            <div class="question">${item.q}</div>
+          </div>
+          <div class="options">${optionsHtml}</div>
+          <div class="explanation" id="exp${index}"></div>
+        `;
+        quizEl.appendChild(card);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const explanation = document.getElementById(`exp${index}`);
+        item.options.forEach((_, i) => {
+          const label = document.getElementById(`q${index}_opt${i}`);
+          label.classList.remove('correct', 'incorrect', 'missed');
+        });
+
+        if (selected) {
+          const val = parseInt(selected.value, 10);
+          if (val === item.answer) {
+            score++;
+            document.getElementById(`q${index}_opt${val}`).classList.add('correct');
+          } else {
+            document.getElementById(`q${index}_opt${val}`).classList.add('incorrect');
+            document.getElementById(`q${index}_opt${item.answer}`).classList.add('missed');
+          }
+        } else {
+          document.getElementById(`q${index}_opt${item.answer}`).classList.add('missed');
+        }
+
+        explanation.innerHTML = `<strong>Answer:</strong> ${String.fromCharCode(65 + item.answer)}. ${item.options[item.answer]}<br><strong>Why:</strong> ${item.explanation}`;
+        explanation.classList.add('show');
+      });
+
+      const percent = Math.round((score / questions.length) * 100);
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('score').textContent = `Score: ${score} / ${questions.length} (${percent}%)`;
+
+      let note = "Good effort.";
+      if (percent === 100) note = "Perfect score. Outstanding work.";
+      else if (percent >= 80) note = "Strong understanding of Kubernetes Services.";
+      else if (percent >= 60) note = "Nice progress. Review DNS, endpoints, and service types once more.";
+      else note = "Keep practicing. Focus on selectors, service types, and traffic flow.";
+
+      document.getElementById('summary').textContent = note;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      buildQuiz();
+      document.getElementById('result').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    buildQuiz();
+  </script>
+</body>
+</html>
