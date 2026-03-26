@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 54 MCQs - Kubernetes ConfigMaps and Secrets</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 980px;
+      margin: 32px auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 32px;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+      color: #111827;
+    }
+    .subtitle {
+      color: #4b5563;
+      margin-bottom: 24px;
+    }
+    .info {
+      background: #eef6ff;
+      border-left: 5px solid #2563eb;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+    }
+    .question {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 18px;
+      background: #fafafa;
+    }
+    .question h3 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+    }
+    .option {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin: 8px 0;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .option:hover {
+      background: #f3f4f6;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .primary {
+      background: #2563eb;
+      color: white;
+    }
+    .secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      display: none;
+    }
+    .correct {
+      background: #ecfdf5 !important;
+      border: 1px solid #10b981;
+    }
+    .incorrect {
+      background: #fef2f2 !important;
+      border: 1px solid #ef4444;
+    }
+    .explanation {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f3f4f6;
+      font-size: 0.95rem;
+      display: none;
+    }
+    .footer {
+      margin-top: 28px;
+      color: #6b7280;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 54 – Kubernetes ConfigMaps and Secrets MCQs</h1>
+    <p class="subtitle">25 practice questions based on your Day 54 notes.</p>
+
+    <div class="info">
+      Select one answer for each question, then click <strong>Check Answers</strong> to see your score and explanations.
+    </div>
+
+    <form id="quizForm"></form>
+
+    <div class="controls">
+      <button type="button" class="primary" onclick="checkAnswers()">Check Answers</button>
+      <button type="button" class="secondary" onclick="resetQuiz()">Reset</button>
+    </div>
+
+    <div id="result" class="result"></div>
+
+    <div class="footer">Built from Day 54 – Kubernetes ConfigMaps and Secrets.</div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What is the main purpose of a ConfigMap in Kubernetes?",
+        options: [
+          "To store container images",
+          "To store non-sensitive configuration data",
+          "To encrypt passwords",
+          "To replace Deployments"
+        ],
+        answer: 1,
+        explanation: "ConfigMaps store non-sensitive configuration such as ports, modes, feature flags, and config files."
+      },
+      {
+        q: "2. What is the main purpose of a Secret in Kubernetes?",
+        options: [
+          "To store sensitive information like passwords and API keys",
+          "To expose Pods externally",
+          "To scale Deployments",
+          "To create namespaces"
+        ],
+        answer: 0,
+        explanation: "Secrets are intended for sensitive values such as credentials, tokens, and keys."
+      },
+      {
+        q: "3. Which command creates a ConfigMap from literal values?",
+        options: [
+          "kubectl apply configmap --literal",
+          "kubectl create configmap app-config --from-literal=KEY=VALUE",
+          "kubectl make configmap app-config",
+          "kubectl get configmap --from-literal"
+        ],
+        answer: 1,
+        explanation: "The correct syntax is kubectl create configmap <name> --from-literal=KEY=VALUE."
+      },
+      {
+        q: "4. In Day 54, which values were stored in app-config?",
+        options: [
+          "DB_USER, DB_PASSWORD, DB_PORT",
+          "APP_ENV, APP_DEBUG, APP_PORT",
+          "NAMESPACE, POD_NAME, NODE_IP",
+          "LOG_LEVEL, CACHE_SIZE, TIMEOUT"
+        ],
+        answer: 1,
+        explanation: "The ConfigMap app-config stored APP_ENV=production, APP_DEBUG=false, and APP_PORT=8080."
+      },
+      {
+        q: "5. How is ConfigMap data typically stored in Kubernetes?",
+        options: [
+          "As encrypted binary blobs only",
+          "As plain text key-value data",
+          "Only as base64 strings",
+          "As Docker secrets"
+        ],
+        answer: 1,
+        explanation: "ConfigMap data is stored as plain text key-value data."
+      },
+      {
+        q: "6. Which command creates a ConfigMap from a file?",
+        options: [
+          "kubectl create filemap nginx-config --from-file=default.conf",
+          "kubectl create configmap nginx-config --from-file=default.conf=default.conf",
+          "kubectl apply configmap nginx-config --file=default.conf",
+          "kubectl get configmap nginx-config --from-file"
+        ],
+        answer: 1,
+        explanation: "Day 54 used kubectl create configmap nginx-config --from-file=default.conf=default.conf."
+      },
+      {
+        q: "7. When a ConfigMap is mounted as a volume, what does each key become?",
+        options: [
+          "A Pod label",
+          "A secret token",
+          "A file",
+          "A namespace"
+        ],
+        answer: 2,
+        explanation: "Each key becomes a file when the ConfigMap is mounted as a volume."
+      },
+      {
+        q: "8. In the nginx-config ConfigMap, what was the key name used?",
+        options: [
+          "nginx.conf",
+          "app.conf",
+          "default.conf",
+          "config.yaml"
+        ],
+        answer: 2,
+        explanation: "The key name was default.conf, which became the mounted filename."
+      },
+      {
+        q: "9. Which path was used to mount nginx-config inside the Nginx Pod?",
+        options: [
+          "/var/log/nginx",
+          "/etc/nginx/conf.d",
+          "/usr/share/nginx/html",
+          "/etc/config/nginx"
+        ],
+        answer: 1,
+        explanation: "The ConfigMap was mounted at /etc/nginx/conf.d."
+      },
+      {
+        q: "10. What did the /health endpoint return in the custom Nginx config?",
+        options: [
+          "ok",
+          "up",
+          "200",
+          "healthy"
+        ],
+        answer: 3,
+        explanation: "The custom Nginx config returned the text healthy for /health."
+      },
+      {
+        q: "11. Which field injects all keys from a ConfigMap as environment variables?",
+        options: [
+          "envAll",
+          "envFrom",
+          "volumeFrom",
+          "configRef"
+        ],
+        answer: 1,
+        explanation: "envFrom with configMapRef injects all keys from a ConfigMap."
+      },
+      {
+        q: "12. Which field injects one specific Secret key as an environment variable?",
+        options: [
+          "secretKeyRef",
+          "envFrom",
+          "mountSecret",
+          "secretMountRef"
+        ],
+        answer: 0,
+        explanation: "secretKeyRef is used to inject a single Secret key into an environment variable."
+      },
+      {
+        q: "13. Which Secret was created in Day 54?",
+        options: [
+          "nginx-secret",
+          "db-credentials",
+          "cluster-secret",
+          "api-auth"
+        ],
+        answer: 1,
+        explanation: "The Secret created in Day 54 was named db-credentials."
+      },
+      {
+        q: "14. Which values were stored in the db-credentials Secret?",
+        options: [
+          "APP_ENV and APP_PORT",
+          "DB_USER and DB_PASSWORD",
+          "TOKEN and CERT",
+          "HOST and PORT"
+        ],
+        answer: 1,
+        explanation: "The Secret stored DB_USER=admin and DB_PASSWORD=s3cureP@ssw0rd."
+      },
+      {
+        q: "15. How are Secret values shown in kubectl get secret -o yaml?",
+        options: [
+          "As plain text only",
+          "As base64-encoded values",
+          "As AES-encrypted values",
+          "As hidden values with ****"
+        ],
+        answer: 1,
+        explanation: "In YAML output, Secret data appears as base64-encoded strings."
+      },
+      {
+        q: "16. What does base64 provide for Kubernetes Secrets?",
+        options: [
+          "Strong encryption",
+          "Network isolation",
+          "Encoding, not encryption",
+          "Automatic access control"
+        ],
+        answer: 2,
+        explanation: "Base64 is only encoding. It does not provide real security by itself."
+      },
+      {
+        q: "17. Which command can decode a base64 Secret value?",
+        options: [
+          "echo '<value>' | base64 --decode",
+          "kubectl decode secret",
+          "cat <value> | decrypt",
+          "secretctl reveal <value>"
+        ],
+        answer: 0,
+        explanation: "Day 54 used echo '<base64-value>' | base64 --decode."
+      },
+      {
+        q: "18. When a Secret is mounted as a volume, what form do the file contents have inside the container?",
+        options: [
+          "Still base64-encoded",
+          "Compressed",
+          "Decoded plaintext",
+          "Hex encoded"
+        ],
+        answer: 2,
+        explanation: "Mounted Secret files contain decoded plaintext values inside the container."
+      },
+      {
+        q: "19. What was the mount path for the db-credentials Secret in the Pod?",
+        options: [
+          "/etc/secrets/db",
+          "/etc/db-credentials",
+          "/var/secret/db",
+          "/opt/credentials"
+        ],
+        answer: 1,
+        explanation: "The Secret was mounted at /etc/db-credentials."
+      },
+      {
+        q: "20. Why was readOnly: true used for the Secret volume?",
+        options: [
+          "To improve security and prevent accidental modification",
+          "To make the Pod start faster",
+          "Because Secrets cannot be mounted otherwise",
+          "To enable external access"
+        ],
+        answer: 0,
+        explanation: "readOnly: true is a best practice for Secret volumes."
+      },
+      {
+        q: "21. Which ConfigMap was used to demonstrate live update propagation?",
+        options: [
+          "app-config",
+          "nginx-config",
+          "live-config",
+          "runtime-config"
+        ],
+        answer: 2,
+        explanation: "The live update demo used a ConfigMap named live-config."
+      },
+      {
+        q: "22. What key was stored in live-config?",
+        options: [
+          "status",
+          "message",
+          "health",
+          "response"
+        ],
+        answer: 1,
+        explanation: "The key used in live-config was message."
+      },
+      {
+        q: "23. What change was applied to live-config using kubectl patch?",
+        options: [
+          "message changed from world to hello",
+          "port changed from 80 to 8080",
+          "message changed from hello to world",
+          "debug changed from false to true"
+        ],
+        answer: 2,
+        explanation: "The ConfigMap was patched so message changed from hello to world."
+      },
+      {
+        q: "24. Which ConfigMap/Secret consumption method updates automatically in a running Pod?",
+        options: [
+          "Environment variables",
+          "Volume mounts",
+          "Container args only",
+          "Pod labels"
+        ],
+        answer: 1,
+        explanation: "Volume-mounted ConfigMaps update automatically after a short delay. Environment variables do not."
+      },
+      {
+        q: "25. After cleanup, which ConfigMap remained in the namespace?",
+        options: [
+          "app-config",
+          "nginx-config",
+          "live-config",
+          "kube-root-ca.crt"
+        ],
+        answer: 3,
+        explanation: "After cleanup, the default Kubernetes-generated ConfigMap kube-root-ca.crt remained."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+
+    questions.forEach((item, index) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'question';
+      wrapper.id = `question-${index}`;
+
+      const title = document.createElement('h3');
+      title.textContent = item.q;
+      wrapper.appendChild(title);
+
+      item.options.forEach((option, optIndex) => {
+        const label = document.createElement('label');
+        label.className = 'option';
+
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = `q${index}`;
+        input.value = optIndex;
+
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(option));
+        wrapper.appendChild(label);
+      });
+
+      const explanation = document.createElement('div');
+      explanation.className = 'explanation';
+      explanation.id = `explanation-${index}`;
+      wrapper.appendChild(explanation);
+
+      quizForm.appendChild(wrapper);
+    });
+
+    function checkAnswers() {
+      let score = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const questionBox = document.getElementById(`question-${index}`);
+        const labels = questionBox.querySelectorAll('.option');
+        const explanation = document.getElementById(`explanation-${index}`);
+
+        labels.forEach(label => {
+          label.classList.remove('correct', 'incorrect');
+        });
+
+        if (selected) {
+          const selectedValue = Number(selected.value);
+          if (selectedValue === item.answer) {
+            score++;
+            labels[selectedValue].classList.add('correct');
+          } else {
+            labels[selectedValue].classList.add('incorrect');
+            labels[item.answer].classList.add('correct');
+          }
+        } else {
+          labels[item.answer].classList.add('correct');
+        }
+
+        explanation.style.display = 'block';
+        explanation.innerHTML = `<strong>Answer:</strong> ${item.options[item.answer]}<br><strong>Explanation:</strong> ${item.explanation}`;
+      });
+
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.innerHTML = `<h2>Your Score: ${score} / ${questions.length}</h2><p>${score === questions.length ? 'Excellent work!' : score >= 20 ? 'Great job! You have a strong understanding of Day 54.' : score >= 14 ? 'Nice effort. Review the explanations and try again.' : 'Keep practicing. Review your Day 54 notes and retry.'}</p>`;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      document.getElementById('quizForm').reset();
+      document.querySelectorAll('.option').forEach(el => el.classList.remove('correct', 'incorrect'));
+      document.querySelectorAll('.explanation').forEach(el => {
+        el.style.display = 'none';
+        el.innerHTML = '';
+      });
+      const result = document.getElementById('result');
+      result.style.display = 'none';
+      result.innerHTML = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
