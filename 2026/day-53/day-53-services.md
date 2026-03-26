@@ -24,14 +24,6 @@
 
 ---
 
-## 🔥 Quick Tip
-
-* Click on **Go** to jump directly to the section
-* Make sure headings match exactly for links to work
-
----
-
-
 ## Project Overview
 
 In Kubernetes, Pods are temporary and their IP addresses are not stable. When a Pod restarts or gets replaced, its IP changes. Also, a Deployment runs multiple Pods, so it becomes unclear which Pod IP to connect to.
