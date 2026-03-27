@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 55 MCQs - PV and PVC</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f3f6fb;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 32px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: #4b5563;
+      margin-bottom: 18px;
+    }
+    .note {
+      background: #eef6ff;
+      border: 1px solid #bfdbfe;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-bottom: 22px;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .primary { background: #2563eb; color: white; }
+    .secondary { background: #e5e7eb; color: #111827; }
+    .score {
+      font-weight: bold;
+      margin: 10px 0 24px;
+      font-size: 18px;
+    }
+    .question-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+      background: #fafafa;
+    }
+    .question-title {
+      font-weight: bold;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+    }
+    .option:hover {
+      background: #f9fafb;
+    }
+    .option input {
+      margin-top: 3px;
+    }
+    .result {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    .correct { color: #166534; }
+    .incorrect { color: #b91c1c; }
+    .explanation {
+      margin-top: 8px;
+      color: #374151;
+      line-height: 1.5;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 55 - MCQs</h1>
+    <div class="subtitle">Persistent Volumes (PV) and Persistent Volume Claims (PVC)</div>
+
+    <div class="note">
+      25 beginner-friendly MCQs with clickable choices. Select answers and use <strong>Check Answers</strong> to see score and explanations.
+    </div>
+
+    <div class="controls">
+      <button class="primary" onclick="checkAnswers()">Check Answers</button>
+      <button class="secondary" onclick="resetQuiz()">Reset</button>
+    </div>
+
+    <div class="score" id="scoreBox">Score: 0 / 25</div>
+
+    
+    <div class="question-card" id="card1">
+      <div class="question-title">1. Why is persistent storage needed in Kubernetes?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q1" value="0">
+          <span><strong>A.</strong> Because Pods never restart</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q1" value="1">
+          <span><strong>B.</strong> Because container storage is ephemeral</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q1" value="2">
+          <span><strong>C.</strong> Because Services store data permanently</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q1" value="3">
+          <span><strong>D.</strong> Because Deployments delete nodes</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result1"></div>
+      <div class="explanation" id="explanation1"></div>
+    </div>
+    
+    <div class="question-card" id="card2">
+      <div class="question-title">2. Which volume type was used to demonstrate data loss in Day 55?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q2" value="0">
+          <span><strong>A.</strong> hostPath</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q2" value="1">
+          <span><strong>B.</strong> configMap</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q2" value="2">
+          <span><strong>C.</strong> emptyDir</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q2" value="3">
+          <span><strong>D.</strong> secret</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result2"></div>
+      <div class="explanation" id="explanation2"></div>
+    </div>
+    
+    <div class="question-card" id="card3">
+      <div class="question-title">3. What happens to an `emptyDir` volume when the Pod is deleted?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q3" value="0">
+          <span><strong>A.</strong> It becomes Bound</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q3" value="1">
+          <span><strong>B.</strong> It is retained permanently</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q3" value="2">
+          <span><strong>C.</strong> It is moved to another node</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q3" value="3">
+          <span><strong>D.</strong> It is deleted</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result3"></div>
+      <div class="explanation" id="explanation3"></div>
+    </div>
+    
+    <div class="question-card" id="card4">
+      <div class="question-title">4. A PersistentVolume (PV) is:</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q4" value="0">
+          <span><strong>A.</strong> A namespaced request for storage</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q4" value="1">
+          <span><strong>B.</strong> A cluster-wide storage resource</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q4" value="2">
+          <span><strong>C.</strong> A Pod-specific temp folder</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q4" value="3">
+          <span><strong>D.</strong> A Secret used for disk access</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result4"></div>
+      <div class="explanation" id="explanation4"></div>
+    </div>
+    
+    <div class="question-card" id="card5">
+      <div class="question-title">5. A PersistentVolumeClaim (PVC) is:</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q5" value="0">
+          <span><strong>A.</strong> The actual storage device</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q5" value="1">
+          <span><strong>B.</strong> A StorageClass</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q5" value="2">
+          <span><strong>C.</strong> A request for storage</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q5" value="3">
+          <span><strong>D.</strong> A type of Pod</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result5"></div>
+      <div class="explanation" id="explanation5"></div>
+    </div>
+    
+    <div class="question-card" id="card6">
+      <div class="question-title">6. Which sequence correctly shows the storage relationship?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q6" value="0">
+          <span><strong>A.</strong> Pod → PV → PVC</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q6" value="1">
+          <span><strong>B.</strong> PVC → Pod → PV</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q6" value="2">
+          <span><strong>C.</strong> Pod → PVC → PV</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q6" value="3">
+          <span><strong>D.</strong> PV → Pod → PVC</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result6"></div>
+      <div class="explanation" id="explanation6"></div>
+    </div>
+    
+    <div class="question-card" id="card7">
+      <div class="question-title">7. In static provisioning, who creates the PV?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q7" value="0">
+          <span><strong>A.</strong> Kubernetes automatically</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q7" value="1">
+          <span><strong>B.</strong> The application container</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q7" value="2">
+          <span><strong>C.</strong> The admin/user manually</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q7" value="3">
+          <span><strong>D.</strong> The ServiceAccount</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result7"></div>
+      <div class="explanation" id="explanation7"></div>
+    </div>
+    
+    <div class="question-card" id="card8">
+      <div class="question-title">8. Which field disables dynamic provisioning in a static setup?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q8" value="0">
+          <span><strong>A.</strong> hostPath: {}</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q8" value="1">
+          <span><strong>B.</strong> storageClassName: ""</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q8" value="2">
+          <span><strong>C.</strong> restartPolicy: Never</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q8" value="3">
+          <span><strong>D.</strong> volumeMode: Block</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result8"></div>
+      <div class="explanation" id="explanation8"></div>
+    </div>
+    
+    <div class="question-card" id="card9">
+      <div class="question-title">9. What was the status of the manual PV right after creation?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q9" value="0">
+          <span><strong>A.</strong> Released</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q9" value="1">
+          <span><strong>B.</strong> Pending</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q9" value="2">
+          <span><strong>C.</strong> Available</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q9" value="3">
+          <span><strong>D.</strong> Lost</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result9"></div>
+      <div class="explanation" id="explanation9"></div>
+    </div>
+    
+    <div class="question-card" id="card10">
+      <div class="question-title">10. The PVC in Day 55 requested how much storage?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q10" value="0">
+          <span><strong>A.</strong> 100Mi</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q10" value="1">
+          <span><strong>B.</strong> 500Mi</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q10" value="2">
+          <span><strong>C.</strong> 1Gi</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q10" value="3">
+          <span><strong>D.</strong> 2Gi</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result10"></div>
+      <div class="explanation" id="explanation10"></div>
+    </div>
+    
+    <div class="question-card" id="card11">
+      <div class="question-title">11. The manual PV capacity in Day 55 was:</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q11" value="0">
+          <span><strong>A.</strong> 256Mi</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q11" value="1">
+          <span><strong>B.</strong> 500Mi</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q11" value="2">
+          <span><strong>C.</strong> 1Gi</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q11" value="3">
+          <span><strong>D.</strong> 5Gi</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result11"></div>
+      <div class="explanation" id="explanation11"></div>
+    </div>
+    
+    <div class="question-card" id="card12">
+      <div class="question-title">12. Why could the PVC bind to the manual PV?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q12" value="0">
+          <span><strong>A.</strong> Because the Pod name matched</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q12" value="1">
+          <span><strong>B.</strong> Because capacity and access mode matched</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q12" value="2">
+          <span><strong>C.</strong> Because the Secret name matched</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q12" value="3">
+          <span><strong>D.</strong> Because the image was busybox</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result12"></div>
+      <div class="explanation" id="explanation12"></div>
+    </div>
+    
+    <div class="question-card" id="card13">
+      <div class="question-title">13. What does the VOLUME column in `kubectl get pvc` show?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q13" value="0">
+          <span><strong>A.</strong> The node name</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q13" value="1">
+          <span><strong>B.</strong> The container image</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q13" value="2">
+          <span><strong>C.</strong> The bound PV name</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q13" value="3">
+          <span><strong>D.</strong> The namespace</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result13"></div>
+      <div class="explanation" id="explanation13"></div>
+    </div>
+    
+    <div class="question-card" id="card14">
+      <div class="question-title">14. Which access mode means read-write by a single node?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q14" value="0">
+          <span><strong>A.</strong> ROX</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q14" value="1">
+          <span><strong>B.</strong> RWX</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q14" value="2">
+          <span><strong>C.</strong> RWO</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q14" value="3">
+          <span><strong>D.</strong> RWD</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result14"></div>
+      <div class="explanation" id="explanation14"></div>
+    </div>
+    
+    <div class="question-card" id="card15">
+      <div class="question-title">15. Which access mode means read-only by many nodes?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q15" value="0">
+          <span><strong>A.</strong> RWO</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q15" value="1">
+          <span><strong>B.</strong> ROX</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q15" value="2">
+          <span><strong>C.</strong> RWX</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q15" value="3">
+          <span><strong>D.</strong> RWM</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result15"></div>
+      <div class="explanation" id="explanation15"></div>
+    </div>
+    
+    <div class="question-card" id="card16">
+      <div class="question-title">16. Which access mode means read-write by many nodes?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q16" value="0">
+          <span><strong>A.</strong> RWX</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q16" value="1">
+          <span><strong>B.</strong> ROX</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q16" value="2">
+          <span><strong>C.</strong> RWO</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q16" value="3">
+          <span><strong>D.</strong> RYZ</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result16"></div>
+      <div class="explanation" id="explanation16"></div>
+    </div>
+    
+    <div class="question-card" id="card17">
+      <div class="question-title">17. Which reclaim policy keeps the PV and data after PVC deletion?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q17" value="0">
+          <span><strong>A.</strong> Delete</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q17" value="1">
+          <span><strong>B.</strong> Retain</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q17" value="2">
+          <span><strong>C.</strong> Remove</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q17" value="3">
+          <span><strong>D.</strong> PreserveOnce</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result17"></div>
+      <div class="explanation" id="explanation17"></div>
+    </div>
+    
+    <div class="question-card" id="card18">
+      <div class="question-title">18. Which reclaim policy automatically removes the dynamic PV after PVC deletion?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q18" value="0">
+          <span><strong>A.</strong> Retain</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q18" value="1">
+          <span><strong>B.</strong> Hold</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q18" value="2">
+          <span><strong>C.</strong> Delete</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q18" value="3">
+          <span><strong>D.</strong> Keep</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result18"></div>
+      <div class="explanation" id="explanation18"></div>
+    </div>
+    
+    <div class="question-card" id="card19">
+      <div class="question-title">19. What was the default StorageClass name in your cluster?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q19" value="0">
+          <span><strong>A.</strong> local-storage</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q19" value="1">
+          <span><strong>B.</strong> hostpath</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q19" value="2">
+          <span><strong>C.</strong> manual</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q19" value="3">
+          <span><strong>D.</strong> standard</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result19"></div>
+      <div class="explanation" id="explanation19"></div>
+    </div>
+    
+    <div class="question-card" id="card20">
+      <div class="question-title">20. Why did `pvc-dynamic` stay Pending at first?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q20" value="0">
+          <span><strong>A.</strong> The namespace was wrong</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q20" value="1">
+          <span><strong>B.</strong> The Pod had not yet consumed it</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q20" value="2">
+          <span><strong>C.</strong> The Secret was missing</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q20" value="3">
+          <span><strong>D.</strong> The cluster had too many Services</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result20"></div>
+      <div class="explanation" id="explanation20"></div>
+    </div>
+    
+    <div class="question-card" id="card21">
+      <div class="question-title">21. Which component automatically created a PV during dynamic provisioning?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q21" value="0">
+          <span><strong>A.</strong> ConfigMap</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q21" value="1">
+          <span><strong>B.</strong> Deployment</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q21" value="2">
+          <span><strong>C.</strong> StorageClass provisioner</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q21" value="3">
+          <span><strong>D.</strong> Service</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result21"></div>
+      <div class="explanation" id="explanation21"></div>
+    </div>
+    
+    <div class="question-card" id="card22">
+      <div class="question-title">22. Which PV was manually created in Day 55?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q22" value="0">
+          <span><strong>A.</strong> pvc-dynamic</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q22" value="1">
+          <span><strong>B.</strong> pv-static-demo</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q22" value="2">
+          <span><strong>C.</strong> pvc-demo</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q22" value="3">
+          <span><strong>D.</strong> standard</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result22"></div>
+      <div class="explanation" id="explanation22"></div>
+    </div>
+    
+    <div class="question-card" id="card23">
+      <div class="question-title">23. Which PV name pattern identified the dynamically created PV?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q23" value="0">
+          <span><strong>A.</strong> pv-static-demo</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q23" value="1">
+          <span><strong>B.</strong> config-pv</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q23" value="2">
+          <span><strong>C.</strong> pvc-....</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q23" value="3">
+          <span><strong>D.</strong> dynamic-storage</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result23"></div>
+      <div class="explanation" id="explanation23"></div>
+    </div>
+    
+    <div class="question-card" id="card24">
+      <div class="question-title">24. After deleting the manual PVC, what status did the manual PV show?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q24" value="0">
+          <span><strong>A.</strong> Bound</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q24" value="1">
+          <span><strong>B.</strong> Available</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q24" value="2">
+          <span><strong>C.</strong> Released</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q24" value="3">
+          <span><strong>D.</strong> Pending</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result24"></div>
+      <div class="explanation" id="explanation24"></div>
+    </div>
+    
+    <div class="question-card" id="card25">
+      <div class="question-title">25. Why is `hostPath` acceptable for learning but not recommended for production?</div>
+      <div class="options">
+        
+        <label class="option">
+          <input type="radio" name="q25" value="0">
+          <span><strong>A.</strong> Because it only works with Secrets</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q25" value="1">
+          <span><strong>B.</strong> Because it depends on node-local storage</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q25" value="2">
+          <span><strong>C.</strong> Because it creates StorageClasses automatically</span>
+        </label>
+        
+        <label class="option">
+          <input type="radio" name="q25" value="3">
+          <span><strong>D.</strong> Because it disables PVCs</span>
+        </label>
+        
+      </div>
+      <div class="result" id="result25"></div>
+      <div class="explanation" id="explanation25"></div>
+    </div>
+    
+  </div>
+
+  <script>
+    const answers = [1, 2, 3, 1, 2, 2, 2, 1, 2, 1, 2, 1, 2, 2, 1, 0, 1, 2, 3, 1, 2, 1, 2, 2, 1];
+    const explanations = ['Container filesystem data is lost when a Pod is deleted or recreated.', '`emptyDir` exists only for the life of the Pod.', 'The data in `emptyDir` is removed along with the Pod.', 'PVs are cluster-level storage resources in Kubernetes.', 'A PVC requests storage and binds to a matching PV.', 'A Pod uses a PVC, and the PVC binds to a PV.', 'Static provisioning means the PV is created manually first.', 'An empty string for `storageClassName` disables dynamic provisioning.', 'A PV with no claim bound to it shows `Available`.', 'The PVC was created with a request for `500Mi`.', 'The PersistentVolume was created with capacity `1Gi`.', 'Kubernetes matched the PVC and PV using requested size and access mode.', 'The VOLUME column shows the name of the PV bound to that PVC.', 'RWO stands for `ReadWriteOnce`.', 'ROX stands for `ReadOnlyMany`.', 'RWX stands for `ReadWriteMany`.', 'With `Retain`, the PV remains after the claim is deleted.', 'The dynamically provisioned PV used the `Delete` reclaim policy.', 'The cluster output showed `standard (default)`.', 'The StorageClass used `WaitForFirstConsumer`, so binding happened only after a Pod used the PVC.', 'Dynamic provisioning is handled through the StorageClass provisioner.', '`pv-static-demo` was the manually created static PV.', 'The dynamic PV had an auto-generated name beginning with `pvc-`.', 'Because its reclaim policy was `Retain`, the PV moved to `Released`.', '`hostPath` stores data on one node, so it is not portable or reliable for production workloads.'];
+
+    function checkAnswers() {
+      let score = 0;
+      for (let i = 1; i <= answers.length; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const result = document.getElementById(`result${i}`);
+        const explanation = document.getElementById(`explanation${i}`);
+        if (!selected) {
+          result.className = "result incorrect";
+          result.textContent = "Not answered";
+          explanation.textContent = "Choose one option to check this question.";
+          continue;
+        }
+        const selectedValue = Number(selected.value);
+        const correctValue = answers[i - 1];
+        if (selectedValue === correctValue) {
+          score++;
+          result.className = "result correct";
+          result.textContent = "Correct";
+        } else {
+          result.className = "result incorrect";
+          const correctLetter = ["A","B","C","D"][correctValue];
+          result.textContent = `Incorrect — Correct answer: ${correctLetter}`;
+        }
+        explanation.textContent = explanations[i - 1];
+      }
+      document.getElementById("scoreBox").textContent = `Score: ${score} / ${answers.length}`;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+      document.querySelectorAll('.result').forEach(el => {
+        el.textContent = "";
+        el.className = "result";
+      });
+      document.querySelectorAll('.explanation').forEach(el => el.textContent = "");
+      document.getElementById("scoreBox").textContent = `Score: 0 / ${answers.length}`;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
