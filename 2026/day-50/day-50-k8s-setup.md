@@ -140,6 +140,8 @@ kube-proxy
 - Container Runtime
  - Runs containers (containerd, CRI-O)
 
+### [kind & kubectl Explanation](md/kind_and_kubectl.md)
+
 ### What Happens: `kubectl apply -f pod.yml
 1. Run:
 ```bash
