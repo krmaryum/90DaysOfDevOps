@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 56 - Kubernetes StatefulSets MCQs</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #cbd5e1;
+      --text: #f8fafc;
+      --accent: #38bdf8;
+      --accent2: #22c55e;
+      --danger: #ef4444;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #020617, #0f172a, #111827);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      margin-bottom: 22px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin: 0;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .primary { background: var(--accent); color: #082f49; }
+    .secondary { background: #1e293b; color: var(--text); border: 1px solid var(--border); }
+    .scorebox {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: none;
+    }
+    .question {
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    }
+    .qnum {
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .question h3 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .option {
+      display: block;
+      margin: 10px 0;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0b1220;
+      transition: 0.2s ease;
+    }
+    .option:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .option input {
+      margin-right: 10px;
+    }
+    .correct {
+      border-color: var(--accent2) !important;
+      background: rgba(34, 197, 94, 0.12) !important;
+    }
+    .incorrect {
+      border-color: var(--danger) !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+    }
+    .explanation {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-left: 4px solid var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 8px;
+      display: none;
+      color: #e2e8f0;
+    }
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 12px 0 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #bae6fd;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    @media (max-width: 700px) {
+      h1 { font-size: 1.5rem; }
+      .question { padding: 16px; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Day 56 – Kubernetes StatefulSets MCQs</h1>
+      <p class="subtitle">25 practice questions covering Deployments vs StatefulSets, Headless Services, stable DNS, volumeClaimTemplates, scaling, persistence, and cleanup.</p>
+      <div class="badge">Interactive Quiz • 25 Questions • Instant Score</div>
+      <div class="controls">
+        <button class="primary" onclick="submitQuiz()">Submit Quiz</button>
+        <button class="secondary" onclick="resetQuiz()">Reset</button>
+      </div>
+      <div id="scorebox" class="scorebox"></div>
+    </section>
+
+    <form id="quizForm"></form>
+
+    <div class="footer">
+      Built for Day 56 practice — Kubernetes StatefulSets
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. Which Kubernetes workload is designed for stateful applications?",
+        options: ["DaemonSet", "Deployment", "StatefulSet", "ReplicaSet"],
+        answer: 2,
+        explanation: "StatefulSet is specifically designed for workloads that need stable identity, ordered deployment, and persistent storage."
+      },
+      {
+        q: "2. Which of the following best describes a stateless application?",
+        options: ["It stores unique data locally and depends on pod identity", "Each request is independent and any replica can serve it", "It requires stable DNS names for each pod", "It always needs a dedicated PVC per pod"],
+        answer: 1,
+        explanation: "Stateless applications treat replicas as interchangeable, and requests do not depend on previous session state within the pod."
+      },
+      {
+        q: "3. Why are Deployments not ideal for database clusters?",
+        options: ["They use too much CPU", "They cannot run more than 2 replicas", "They give pods random identities and do not guarantee ordered startup", "They do not support Services"],
+        answer: 2,
+        explanation: "Database clusters often need stable pod identity, stable network names, and predictable ordering."
+      },
+      {
+        q: "4. What is the main purpose of a Headless Service in a StatefulSet setup?",
+        options: ["To create a load balancer IP", "To hide pod IPs", "To provide individual DNS records for each pod", "To auto-delete PVCs"],
+        answer: 2,
+        explanation: "A Headless Service does not load-balance to one virtual IP. Instead, it exposes DNS records for individual pods."
+      },
+      {
+        q: "5. What value makes a Service headless?",
+        options: ["type: NodePort", "clusterIP: None", "externalIPs: []", "sessionAffinity: None"],
+        answer: 1,
+        explanation: "Setting clusterIP: None creates a Headless Service."
+      },
+      {
+        q: "6. In a StatefulSet, pod names are usually:",
+        options: ["Random and changing", "Stable and ordered like web-0, web-1, web-2", "Based on node names", "Generated from the service IP"],
+        answer: 1,
+        explanation: "StatefulSet pods receive stable ordinal names, which are preserved across recreation."
+      },
+      {
+        q: "7. Which command is the short form for checking StatefulSets?",
+        options: ["kubectl get st", "kubectl get sfs", "kubectl get sts", "kubectl get state"],
+        answer: 2,
+        explanation: "The short name for StatefulSets is sts."
+      },
+      {
+        q: "8. What is the correct DNS pattern for a StatefulSet pod?",
+        options: ["<service>.<pod>.<namespace>.svc", "<pod-name>.<service-name>.<namespace>.svc.cluster.local", "<namespace>.<pod>.<service>.cluster.local", "<pod>.<namespace>.svc"],
+        answer: 1,
+        explanation: "The standard pod DNS name with a Headless Service is <pod-name>.<service-name>.<namespace>.svc.cluster.local."
+      },
+      {
+        q: "9. In a StatefulSet manifest, which field must point to the existing Headless Service?",
+        options: ["serviceRef", "headlessService", "serviceName", "dnsName"],
+        answer: 2,
+        explanation: "The serviceName field in the StatefulSet must match the Headless Service."
+      },
+      {
+        q: "10. What is the purpose of volumeClaimTemplates in a StatefulSet?",
+        options: ["To share one PVC among all pods", "To generate a separate PVC for each pod", "To create only ephemeral storage", "To delete storage on pod restart"],
+        answer: 1,
+        explanation: "volumeClaimTemplates automatically create a dedicated PVC for each pod replica."
+      },
+      {
+        q: "11. If the template name is web-data and the pod name is web-0, what is the PVC name?",
+        options: ["web-0-web-data", "web-data-web-0", "pvc-web-data-0", "web-data-0"],
+        answer: 1,
+        explanation: "PVC names follow the pattern <template-name>-<pod-name>."
+      },
+      {
+        q: "12. Which access mode was requested in the Day 56 StatefulSet example?",
+        options: ["ReadOnlyMany", "ReadWriteMany", "ReadWriteOnce", "ReadMostlyOnce"],
+        answer: 2,
+        explanation: "The example uses ReadWriteOnce for each PVC."
+      },
+      {
+        q: "13. What storage size was requested in the volumeClaimTemplates example?",
+        options: ["10Mi", "50Mi", "100Mi", "1Gi"],
+        answer: 2,
+        explanation: "The Day 56 task specifies 100Mi of storage."
+      },
+      {
+        q: "14. How are StatefulSet pods created when replicas are set to 3?",
+        options: ["All at once", "Random order", "Ordered: web-0, then web-1, then web-2", "Highest ordinal first"],
+        answer: 2,
+        explanation: "StatefulSet pods are created in ascending ordinal order."
+      },
+      {
+        q: "15. How are StatefulSet pods terminated during scale-down?",
+        options: ["In creation order", "Random order", "Reverse order: highest ordinal first", "All at once"],
+        answer: 2,
+        explanation: "Scale-down happens in reverse order to protect application consistency."
+      },
+      {
+        q: "16. What should nslookup for web-0.<service>.default.svc.cluster.local return?",
+        options: ["The node IP", "The Service cluster IP", "The individual pod IP for web-0", "The kube-dns IP only"],
+        answer: 2,
+        explanation: "With a Headless Service, pod DNS names resolve directly to the corresponding pod IP."
+      },
+      {
+        q: "17. Which command helps compare pod DNS results with actual pod IP addresses?",
+        options: ["kubectl get pods -o wide", "kubectl describe svc", "kubectl logs", "kubectl api-resources"],
+        answer: 0,
+        explanation: "kubectl get pods -o wide shows each pod IP, which can be compared with nslookup results."
+      },
+      {
+        q: "18. What happens to data written inside web-0 when the pod is deleted and recreated in a StatefulSet?",
+        options: ["It is always lost", "It survives because the same PVC is reattached", "It moves to web-1 automatically", "It becomes part of the Headless Service"],
+        answer: 1,
+        explanation: "The recreated pod with the same identity reconnects to its existing PVC, so the data persists."
+      },
+      {
+        q: "19. Why is stable storage important for stateful applications?",
+        options: ["It reduces YAML size", "It avoids the need for Services", "It preserves data across pod restarts and recreation", "It makes pods start in parallel"],
+        answer: 2,
+        explanation: "Stateful applications depend on durable storage that survives restarts and rescheduling."
+      },
+      {
+        q: "20. After scaling a StatefulSet from 3 replicas to 5, which new pods should appear?",
+        options: ["web-5 and web-6", "web-3 and web-4", "web-a and web-b", "web-1-copy and web-2-copy"],
+        answer: 1,
+        explanation: "Scaling from 3 to 5 adds web-3 and web-4."
+      },
+      {
+        q: "21. After scaling back down from 5 replicas to 3, how many PVCs should still exist?",
+        options: ["3", "2", "5", "0"],
+        answer: 2,
+        explanation: "PVCs are retained after scale-down to preserve data for future scale-up."
+      },
+      {
+        q: "22. What happens to PVCs when you delete the StatefulSet?",
+        options: ["They are deleted automatically", "They remain unless you delete them manually", "They are renamed", "They become ConfigMaps"],
+        answer: 1,
+        explanation: "By default, deleting a StatefulSet does not delete its PVCs."
+      },
+      {
+        q: "23. Why does Kubernetes keep PVCs after StatefulSet deletion or scale-down?",
+        options: ["To increase cluster speed", "To avoid accidental data loss", "To reduce DNS lookups", "To convert them into Services"],
+        answer: 1,
+        explanation: "Keeping PVCs is a safety feature that protects persistent data."
+      },
+      {
+        q: "24. Which workload is usually a better choice for nginx web servers in a basic stateless setup?",
+        options: ["StatefulSet", "Job", "Deployment", "CronJob"],
+        answer: 2,
+        explanation: "Nginx in a typical stateless web-serving setup is better managed with a Deployment."
+      },
+      {
+        q: "25. Which combination best summarizes why databases often need StatefulSets?",
+        options: ["Random names, shared IP, temporary storage", "Stable identity, stable DNS, ordered startup, persistent storage", "Parallel deletion, changing PVCs, one hostname", "NodePort, Ingress, ConfigMap only"],
+        answer: 1,
+        explanation: "StatefulSets are valuable for databases because they provide stable names, per-pod DNS, ordered operations, and durable storage."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+
+    questions.forEach((item, index) => {
+      const block = document.createElement('section');
+      block.className = 'question';
+      block.innerHTML = `
+        <div class="qnum">Question ${index + 1}</div>
+        <h3>${item.q}</h3>
+        ${item.options.map((opt, i) => `
+          <label class="option" id="q${index}_opt${i}">
+            <input type="radio" name="q${index}" value="${i}">
+            ${opt}
+          </label>
+        `).join('')}
+        <div class="explanation" id="exp${index}"><strong>Explanation:</strong> ${item.explanation}</div>
+      `;
+      quizForm.appendChild(block);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        item.options.forEach((_, i) => {
+          const label = document.getElementById(`q${index}_opt${i}`);
+          label.classList.remove('correct', 'incorrect');
+        });
+
+        if (selected) {
+          const chosen = Number(selected.value);
+          if (chosen === item.answer) {
+            score++;
+            document.getElementById(`q${index}_opt${chosen}`).classList.add('correct');
+          } else {
+            document.getElementById(`q${index}_opt${chosen}`).classList.add('incorrect');
+            document.getElementById(`q${index}_opt${item.answer}`).classList.add('correct');
+          }
+        } else {
+          document.getElementById(`q${index}_opt${item.answer}`).classList.add('correct');
+        }
+
+        document.getElementById(`exp${index}`).style.display = 'block';
+      });
+
+      const percent = Math.round((score / questions.length) * 100);
+      const scorebox = document.getElementById('scorebox');
+      let message = "Good effort!";
+      if (percent >= 90) message = "Excellent work!";
+      else if (percent >= 75) message = "Great job!";
+      else if (percent >= 60) message = "Nice progress!";
+      else message = "Keep practicing — you’re getting there.";
+
+      scorebox.style.display = 'block';
+      scorebox.innerHTML = `<strong>Your Score:</strong> ${score} / ${questions.length} (${percent}%)<br>${message}`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      document.getElementById('quizForm').reset();
+      questions.forEach((item, index) => {
+        item.options.forEach((_, i) => {
+          const label = document.getElementById(`q${index}_opt${i}`);
+          label.classList.remove('correct', 'incorrect');
+        });
+        document.getElementById(`exp${index}`).style.display = 'none';
+      });
+      const scorebox = document.getElementById('scorebox');
+      scorebox.style.display = 'none';
+      scorebox.innerHTML = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
