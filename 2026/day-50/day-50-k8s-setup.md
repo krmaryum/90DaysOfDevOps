@@ -100,6 +100,14 @@ Meaning:
 
 **It steers and manages containers** like a captain controls a ship.
 
+### Kubernetes Key Definitions
+
+- **Container**: A lightweight, portable unit that packages an application and its dependencies to run consistently anywhere.  
+- **Pod**: The smallest deployable unit in Kubernetes that runs one or more containers sharing the same network and storage.  
+- **Node**: A machine (virtual or physical) that provides resources to run pods in a Kubernetes cluster.  
+
+**Bonus**: Containers run inside pods, and pods run on nodes in Kubernetes.
+
 ## Task-2 Draw the Kubernetes Architecture
 [kubernetes_architecture](md/kubernetes_architecture.md)
 
