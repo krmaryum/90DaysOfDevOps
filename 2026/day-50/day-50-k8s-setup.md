@@ -450,6 +450,44 @@ kubectl get pods -n kube-system
 - `kube-proxy-...` → kube-proxy
   - networking rules on each node
 
+
+## Core Concepts
+
+| Concept   | Definition |
+|----------|------------|
+| Cluster  | A group of nodes managed by Kubernetes that work together to run applications. |
+| Node     | A machine (virtual or physical) that provides resources to run pods. |
+| Pod      | The smallest deployable unit; runs one or more containers sharing network/storage. |
+| Container| Lightweight unit packaging an app and its dependencies. |
+
+**Bonus**: Cluster → Nodes → Pods → Containers
+
+---
+
+## Key Features
+
+| Feature         | Purpose |
+|----------------|--------|
+| Deployment     | Manages application deployment and updates. |
+| Scaling        | Adjusts the number of pods. |
+| Load Balancing | Distributes traffic across pods. |
+| Self-healing   | Restarts or replaces failed pods. |
+
+---
+
+## Tools
+
+| Tool    | Description |
+|---------|------------|
+| kind    | Runs local Kubernetes clusters using Docker. |
+| kubectl | CLI tool to manage Kubernetes clusters. |
+
+---
+
+## Architecture (1-liner)
+
+Kubernetes automates deployment, scaling, load balancing, and self-healing of containerized applications.
+
 Note:
 Control plane components (API server, scheduler, controller manager, etcd)
 run as pods inside kube-system namespace in kind clusters.
