@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 57 MCQs – Resource Requests, Limits, and Probes</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #020617, #0f172a 20%, #111827 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+    .hero {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+    }
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 18px;
+    }
+    button {
+      background: var(--accent);
+      color: #082f49;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .score {
+      margin-left: auto;
+      background: rgba(56, 189, 248, 0.12);
+      color: #bae6fd;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+    .card {
+      background: rgba(31, 41, 55, 0.88);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+    .qhead {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .qhead h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .badge {
+      min-width: 52px;
+      text-align: center;
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.55);
+      cursor: pointer;
+    }
+    .option input {
+      margin-top: 3px;
+    }
+    .card.correct {
+      border-color: rgba(34, 197, 94, 0.7);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.25), 0 8px 24px rgba(0,0,0,0.18);
+    }
+    .card.incorrect {
+      border-color: rgba(239, 68, 68, 0.7);
+      box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2), 0 8px 24px rgba(0,0,0,0.18);
+    }
+    .result {
+      margin-top: 14px;
+      font-weight: 700;
+    }
+    .result.good { color: #86efac; }
+    .result.bad { color: #fca5a5; }
+    details {
+      margin-top: 12px;
+      border-top: 1px dashed var(--border);
+      padding-top: 12px;
+    }
+    summary {
+      cursor: pointer;
+      color: #93c5fd;
+      font-weight: 700;
+    }
+    .footer {
+      margin-top: 28px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 700px) {
+      .score { margin-left: 0; }
+      .qhead { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>Day 57 MCQs – Resource Requests, Limits, and Probes</h1>
+      <p>25 multiple-choice questions based on Day 57: resource requests, limits, OOMKilled behavior, Pending Pods, and Kubernetes probes.</p>
+      <div class="toolbar">
+        <button onclick="checkAnswers()">Check Answers</button>
+        <button class="secondary" onclick="resetQuiz()">Reset</button>
+        <div class="score" id="scoreBox">Score: 0 / 25</div>
+      </div>
+    </header>
+
+    <main class="grid">
+      
+    <section class="card" id="q1">
+      <div class="qhead">
+        <span class="badge">Q1</span>
+        <h2>What is the main purpose of resource requests in Kubernetes?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q1" value="0"> <span>To define the maximum usage allowed</span></label><label class="option"><input type="radio" name="q1" value="1"> <span>To reserve the minimum resources needed for scheduling</span></label><label class="option"><input type="radio" name="q1" value="2"> <span>To restart unhealthy containers</span></label><label class="option"><input type="radio" name="q1" value="3"> <span>To expose Pods as Services</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Requests define the minimum CPU and memory Kubernetes uses when scheduling a Pod onto a node.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q2">
+      <div class="qhead">
+        <span class="badge">Q2</span>
+        <h2>What is the main purpose of resource limits in Kubernetes?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q2" value="0"> <span>To define the maximum resources a container can use</span></label><label class="option"><input type="radio" name="q2" value="1"> <span>To select a node manually</span></label><label class="option"><input type="radio" name="q2" value="2"> <span>To enable service discovery</span></label><label class="option"><input type="radio" name="q2" value="3"> <span>To create persistent storage</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Limits are enforced at runtime and prevent a container from using more than the configured CPU or memory.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q3">
+      <div class="qhead">
+        <span class="badge">Q3</span>
+        <h2>Which resource is compressible in Kubernetes?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q3" value="0"> <span>Memory</span></label><label class="option"><input type="radio" name="q3" value="1"> <span>CPU</span></label><label class="option"><input type="radio" name="q3" value="2"> <span>Storage</span></label><label class="option"><input type="radio" name="q3" value="3"> <span>Network</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>CPU is compressible, so when a container exceeds its CPU limit it is usually throttled instead of killed.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q4">
+      <div class="qhead">
+        <span class="badge">Q4</span>
+        <h2>Which resource is incompressible in Kubernetes?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q4" value="0"> <span>CPU</span></label><label class="option"><input type="radio" name="q4" value="1"> <span>Memory</span></label><label class="option"><input type="radio" name="q4" value="2"> <span>Ephemeral storage</span></label><label class="option"><input type="radio" name="q4" value="3"> <span>Bandwidth</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Memory is incompressible, so exceeding the memory limit can result in the container being killed.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q5">
+      <div class="qhead">
+        <span class="badge">Q5</span>
+        <h2>A Pod with requests lower than limits belongs to which QoS class?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q5" value="0"> <span>Guaranteed</span></label><label class="option"><input type="radio" name="q5" value="1"> <span>Burstable</span></label><label class="option"><input type="radio" name="q5" value="2"> <span>BestEffort</span></label><label class="option"><input type="radio" name="q5" value="3"> <span>Static</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>If requests and limits are set but are not equal, Kubernetes assigns the Pod to the Burstable QoS class.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q6">
+      <div class="qhead">
+        <span class="badge">Q6</span>
+        <h2>A Pod with no requests or limits set belongs to which QoS class?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q6" value="0"> <span>Guaranteed</span></label><label class="option"><input type="radio" name="q6" value="1"> <span>Burstable</span></label><label class="option"><input type="radio" name="q6" value="2"> <span>BestEffort</span></label><label class="option"><input type="radio" name="q6" value="3"> <span>Standard</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Pods with no resource requests or limits are classified as BestEffort.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q7">
+      <div class="qhead">
+        <span class="badge">Q7</span>
+        <h2>If requests are equal to limits for CPU and memory, the QoS class is:</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q7" value="0"> <span>Burstable</span></label><label class="option"><input type="radio" name="q7" value="1"> <span>BestEffort</span></label><label class="option"><input type="radio" name="q7" value="2"> <span>Guaranteed</span></label><label class="option"><input type="radio" name="q7" value="3"> <span>Pinned</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>A Pod is Guaranteed only when CPU and memory requests exactly match their limits.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q8">
+      <div class="qhead">
+        <span class="badge">Q8</span>
+        <h2>What does 100m CPU mean?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q8" value="0"> <span>100 CPU cores</span></label><label class="option"><input type="radio" name="q8" value="1"> <span>1 CPU core</span></label><label class="option"><input type="radio" name="q8" value="2"> <span>0.1 CPU core</span></label><label class="option"><input type="radio" name="q8" value="3"> <span>100 milibytes of CPU</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>CPU in Kubernetes uses millicores, so 100m means one-tenth of a CPU core.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q9">
+      <div class="qhead">
+        <span class="badge">Q9</span>
+        <h2>What does an OOMKilled container usually indicate?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q9" value="0"> <span>The Pod exceeded its CPU limit</span></label><label class="option"><input type="radio" name="q9" value="1"> <span>The Pod exceeded its memory limit</span></label><label class="option"><input type="radio" name="q9" value="2"> <span>The Service endpoint was removed</span></label><label class="option"><input type="radio" name="q9" value="3"> <span>The image pull failed</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>OOMKilled means the container used too much memory and was terminated.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q10">
+      <div class="qhead">
+        <span class="badge">Q10</span>
+        <h2>What exit code is commonly associated with an OOMKilled container?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q10" value="0"> <span>0</span></label><label class="option"><input type="radio" name="q10" value="1"> <span>1</span></label><label class="option"><input type="radio" name="q10" value="2"> <span>137</span></label><label class="option"><input type="radio" name="q10" value="3"> <span>255</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Exit code 137 usually means the process was killed with SIGKILL, which is common for OOMKilled containers.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q11">
+      <div class="qhead">
+        <span class="badge">Q11</span>
+        <h2>Why can a Pod stay in Pending state forever?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q11" value="0"> <span>Because the readiness probe failed</span></label><label class="option"><input type="radio" name="q11" value="1"> <span>Because the image tag is latest</span></label><label class="option"><input type="radio" name="q11" value="2"> <span>Because no node has enough requested resources</span></label><label class="option"><input type="radio" name="q11" value="3"> <span>Because the container restarted too many times</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>If no node can satisfy the resource requests, the scheduler leaves the Pod in Pending.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q12">
+      <div class="qhead">
+        <span class="badge">Q12</span>
+        <h2>Which command is most useful for checking why a Pod is Pending?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q12" value="0"> <span>kubectl logs &lt;pod&gt;</span></label><label class="option"><input type="radio" name="q12" value="1"> <span>kubectl describe pod &lt;pod&gt;</span></label><label class="option"><input type="radio" name="q12" value="2"> <span>kubectl exec &lt;pod&gt; -- sh</span></label><label class="option"><input type="radio" name="q12" value="3"> <span>kubectl get configmap</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>The Events section in kubectl describe pod usually explains scheduling failures.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q13">
+      <div class="qhead">
+        <span class="badge">Q13</span>
+        <h2>What does a liveness probe do when it fails repeatedly?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q13" value="0"> <span>Removes the Pod from Service endpoints only</span></label><label class="option"><input type="radio" name="q13" value="1"> <span>Restarts the container</span></label><label class="option"><input type="radio" name="q13" value="2"> <span>Deletes the Service</span></label><label class="option"><input type="radio" name="q13" value="3"> <span>Scales the Deployment down</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Repeated liveness probe failures cause Kubernetes to restart the container.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q14">
+      <div class="qhead">
+        <span class="badge">Q14</span>
+        <h2>What does a readiness probe control?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q14" value="0"> <span>Container restarts</span></label><label class="option"><input type="radio" name="q14" value="1"> <span>Pod scheduling to nodes</span></label><label class="option"><input type="radio" name="q14" value="2"> <span>Whether the Pod receives traffic</span></label><label class="option"><input type="radio" name="q14" value="3"> <span>Persistent volume creation</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Readiness probes decide whether a Pod should be included in Service endpoints and receive traffic.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q15">
+      <div class="qhead">
+        <span class="badge">Q15</span>
+        <h2>What happens when a readiness probe fails?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q15" value="0"> <span>The container is restarted immediately</span></label><label class="option"><input type="radio" name="q15" value="1"> <span>The Pod is removed from Service endpoints</span></label><label class="option"><input type="radio" name="q15" value="2"> <span>The Pod is deleted</span></label><label class="option"><input type="radio" name="q15" value="3"> <span>The node is drained</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>A readiness failure marks the Pod as NotReady and removes it from endpoints, but does not restart it.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q16">
+      <div class="qhead">
+        <span class="badge">Q16</span>
+        <h2>What happens when a startup probe is running?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q16" value="0"> <span>Liveness and readiness probes are disabled until startup succeeds</span></label><label class="option"><input type="radio" name="q16" value="1"> <span>The Pod is automatically exposed as a Service</span></label><label class="option"><input type="radio" name="q16" value="2"> <span>The node scheduler is paused</span></label><label class="option"><input type="radio" name="q16" value="3"> <span>All other Pods are evicted</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Startup probes give slow applications time to initialize by delaying liveness and readiness checks.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q17">
+      <div class="qhead">
+        <span class="badge">Q17</span>
+        <h2>Why is a startup probe useful?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q17" value="0"> <span>It makes image pulls faster</span></label><label class="option"><input type="radio" name="q17" value="1"> <span>It prevents slow-starting containers from being restarted too early</span></label><label class="option"><input type="radio" name="q17" value="2"> <span>It increases CPU limits automatically</span></label><label class="option"><input type="radio" name="q17" value="3"> <span>It creates Endpoints objects</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Startup probes protect slow-starting applications from premature restarts.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q18">
+      <div class="qhead">
+        <span class="badge">Q18</span>
+        <h2>If a startup probe has periodSeconds: 5 and failureThreshold: 12, how much startup time is allowed?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q18" value="0"> <span>12 seconds</span></label><label class="option"><input type="radio" name="q18" value="1"> <span>17 seconds</span></label><label class="option"><input type="radio" name="q18" value="2"> <span>60 seconds</span></label><label class="option"><input type="radio" name="q18" value="3"> <span>120 seconds</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>The startup budget is periodSeconds multiplied by failureThreshold, which is 5 × 12 = 60 seconds.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q19">
+      <div class="qhead">
+        <span class="badge">Q19</span>
+        <h2>If the startup probe failureThreshold were too low, what would most likely happen?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q19" value="0"> <span>The container could restart before finishing startup</span></label><label class="option"><input type="radio" name="q19" value="1"> <span>The Pod would become Guaranteed QoS</span></label><label class="option"><input type="radio" name="q19" value="2"> <span>The Service would expose port 443 automatically</span></label><label class="option"><input type="radio" name="q19" value="3"> <span>The Pod would gain more memory</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>A low startup probe threshold can cause the container to be killed before it completes initialization.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q20">
+      <div class="qhead">
+        <span class="badge">Q20</span>
+        <h2>Which probe type was used in the Day 57 liveness example?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q20" value="0"> <span>httpGet</span></label><label class="option"><input type="radio" name="q20" value="1"> <span>tcpSocket</span></label><label class="option"><input type="radio" name="q20" value="2"> <span>exec</span></label><label class="option"><input type="radio" name="q20" value="3"> <span>grpc</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>The liveness probe used exec to run cat /tmp/healthy.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q21">
+      <div class="qhead">
+        <span class="badge">Q21</span>
+        <h2>Which probe type was used in the Day 57 readiness example?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q21" value="0"> <span>exec</span></label><label class="option"><input type="radio" name="q21" value="1"> <span>httpGet</span></label><label class="option"><input type="radio" name="q21" value="2"> <span>tcpSocket</span></label><label class="option"><input type="radio" name="q21" value="3"> <span>NodePort</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>The readiness probe used httpGet on path / and port 80.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q22">
+      <div class="qhead">
+        <span class="badge">Q22</span>
+        <h2>What command was used to expose the readiness Pod as a Service?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q22" value="0"> <span>kubectl port-forward pod/readiness-demo 80:80</span></label><label class="option"><input type="radio" name="q22" value="1"> <span>kubectl create service clusterip readiness-demo --tcp=80:80</span></label><label class="option"><input type="radio" name="q22" value="2"> <span>kubectl expose pod readiness-demo --port=80 --name=readiness-svc</span></label><label class="option"><input type="radio" name="q22" value="3"> <span>kubectl apply -f readiness-svc.yaml</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>The Service in the lab was created with kubectl expose pod readiness-demo --port=80 --name=readiness-svc.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q23">
+      <div class="qhead">
+        <span class="badge">Q23</span>
+        <h2>In the readiness probe task, what change caused the probe to fail?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q23" value="0"> <span>Deleting /tmp/healthy</span></label><label class="option"><input type="radio" name="q23" value="1"> <span>Deleting /usr/share/nginx/html/index.html</span></label><label class="option"><input type="radio" name="q23" value="2"> <span>Removing the container image</span></label><label class="option"><input type="radio" name="q23" value="3"> <span>Reducing CPU requests</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>The readiness check failed after deleting nginx&#x27;s index.html file.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q24">
+      <div class="qhead">
+        <span class="badge">Q24</span>
+        <h2>What did the endpoints of readiness-svc become after readiness failed?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q24" value="0"> <span>The Pod IP stayed listed</span></label><label class="option"><input type="radio" name="q24" value="1"> <span>They scaled to two IPs</span></label><label class="option"><input type="radio" name="q24" value="2"> <span>They became empty</span></label><label class="option"><input type="radio" name="q24" value="3"> <span>They changed to NodePort</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>When the Pod became NotReady, the Service endpoints became empty.</p>
+      </details>
+    </section>
+    
+    <section class="card" id="q25">
+      <div class="qhead">
+        <span class="badge">Q25</span>
+        <h2>Why is cleanup important after completing the Day 57 lab?</h2>
+      </div>
+      <div class="options">
+        <label class="option"><input type="radio" name="q25" value="0"> <span>It increases probe speed</span></label><label class="option"><input type="radio" name="q25" value="1"> <span>It frees cluster resources and prevents conflicts in future labs</span></label><label class="option"><input type="radio" name="q25" value="2"> <span>It changes QoS to Guaranteed</span></label><label class="option"><input type="radio" name="q25" value="3"> <span>It makes Services external</span></label>
+      </div>
+      <details class="explanation">
+        <summary>Show explanation</summary>
+        <p>Deleting old Pods and Services keeps the cluster clean and avoids interference with later exercises.</p>
+      </details>
+    </section>
+    
+    </main>
+
+    <p class="footer">Built for Day 57 practice.</p>
+  </div>
+
+  <script>
+    const answers = {'q1': 1, 'q2': 0, 'q3': 1, 'q4': 1, 'q5': 1, 'q6': 2, 'q7': 2, 'q8': 2, 'q9': 1, 'q10': 2, 'q11': 2, 'q12': 1, 'q13': 1, 'q14': 2, 'q15': 1, 'q16': 0, 'q17': 1, 'q18': 2, 'q19': 0, 'q20': 2, 'q21': 1, 'q22': 2, 'q23': 1, 'q24': 2, 'q25': 1};
+
+    function checkAnswers() {
+      let score = 0;
+      for (const [name, correct] of Object.entries(answers)) {
+        const selected = document.querySelector(`input[name="${name}"]:checked`);
+        const card = document.getElementById(name);
+        let result = card.querySelector('.result');
+        if (!result) {
+          result = document.createElement('div');
+          result.className = 'result';
+          card.appendChild(result);
+        }
+        card.classList.remove('correct', 'incorrect');
+
+        if (selected && Number(selected.value) === correct) {
+          score++;
+          card.classList.add('correct');
+          result.className = 'result good';
+          result.textContent = 'Correct';
+        } else {
+          card.classList.add('incorrect');
+          result.className = 'result bad';
+          const correctText = card.querySelector(`input[name="${name}"][value="${correct}"]`).parentElement.innerText.trim();
+          result.textContent = `Incorrect. Correct answer: ${correctText}`;
+        }
+      }
+      document.getElementById('scoreBox').textContent = `Score: ${score} / 25`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+      document.querySelectorAll('.card').forEach(card => {
+        card.classList.remove('correct', 'incorrect');
+        const result = card.querySelector('.result');
+        if (result) result.remove();
+        const details = card.querySelector('details');
+        if (details) details.open = false;
+      });
+      document.getElementById('scoreBox').textContent = 'Score: 0 / 25';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
