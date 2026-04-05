@@ -11,6 +11,8 @@
 
 [All day-50 Commands](day_50_k_8_s_commands.md)
 
+[What is Manifest?](md/kubernetes_manifest_explained.md)
+
 ## Quick Commands Table (Day 50)
 
 | Category | Command | Description |
