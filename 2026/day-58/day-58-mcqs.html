@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 58 MCQs - Metrics Server and HPA</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #cbd5e1;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0f172a, #111827);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+    h1, h2 { margin-top: 0; }
+    .hero, .card {
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .hero { margin-bottom: 22px; }
+    .meta { color: var(--muted); font-size: 0.96rem; }
+    .question {
+      margin-bottom: 18px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.8);
+    }
+    .question h3 { margin: 0 0 12px; font-size: 1.05rem; }
+    label {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 12px;
+      border: 1px solid #374151;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    label:hover {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+    input[type="radio"] { margin-right: 10px; }
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 24px 0 10px;
+    }
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background: var(--accent);
+      color: #082f49;
+    }
+    button.secondary {
+      background: #1f2937;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .result {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.92);
+      display: none;
+    }
+    .explanation {
+      margin-top: 10px;
+      padding: 12px;
+      border-left: 4px solid var(--accent);
+      background: rgba(30, 41, 59, 0.65);
+      border-radius: 8px;
+      display: none;
+      color: var(--muted);
+    }
+    .correct {
+      border-color: rgba(34, 197, 94, 0.65) !important;
+      background: rgba(34, 197, 94, 0.12) !important;
+    }
+    .incorrect {
+      border-color: rgba(239, 68, 68, 0.65) !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+    }
+    .footer-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .score-big {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #f8fafc;
+    }
+    code {
+      background: #0b1220;
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #bae6fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Day 58 - Metrics Server and HPA</h1>
+      <p class="meta">25 interactive MCQs based on Metrics Server, <code>kubectl top</code>, CPU requests, imperative HPA, declarative HPA with <code>autoscaling/v2</code>, autoscaling behavior, and cleanup.</p>
+    </div>
+
+    <div class="card">
+      <h2>Quiz</h2>
+      <form id="quizForm"></form>
+
+      <div class="controls">
+        <button type="button" onclick="submitQuiz()">Check Answers</button>
+        <button type="button" class="secondary" onclick="resetQuiz()">Reset</button>
+      </div>
+
+      <div class="result" id="resultBox"></div>
+      <div class="footer-note">Tip: This quiz matches your Day 58 flow, including Metrics Server installation, HPA scaling, and <code>autoscaling/v2</code> behavior settings.</div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What is the main purpose of Metrics Server in Kubernetes?",
+        options: [
+          "To store container images inside the cluster",
+          "To collect real-time CPU and memory usage from nodes and Pods",
+          "To replace kube-apiserver",
+          "To expose Services externally"
+        ],
+        answer: 1,
+        explanation: "Metrics Server provides current CPU and memory usage for nodes and Pods. Commands like kubectl top and HPA depend on it."
+      },
+      {
+        q: "2. Which command verifies node resource usage after Metrics Server is installed?",
+        options: [
+          "kubectl describe nodes",
+          "kubectl logs nodes",
+          "kubectl top nodes",
+          "kubectl get metrics"
+        ],
+        answer: 2,
+        explanation: "kubectl top nodes shows live node CPU and memory usage from the Metrics API."
+      },
+      {
+        q: "3. Which command shows real-time resource usage for Pods across all namespaces?",
+        options: [
+          "kubectl get pods -A",
+          "kubectl top pods -A",
+          "kubectl describe pods -A",
+          "kubectl logs pods -A"
+        ],
+        answer: 1,
+        explanation: "kubectl top pods -A displays actual CPU and memory usage for Pods in all namespaces."
+      },
+      {
+        q: "4. In a local kind cluster, which flag is often added to Metrics Server for kubelet communication?",
+        options: [
+          "--insecure-skip-kubelet",
+          "--allow-http",
+          "--kubelet-insecure-tls",
+          "--skip-node-auth"
+        ],
+        answer: 2,
+        explanation: "Local clusters such as kind often need --kubelet-insecure-tls so Metrics Server can scrape kubelet metrics."
+      },
+      {
+        q: "5. kubectl top shows which kind of data?",
+        options: [
+          "Configured requests and limits",
+          "Real-time usage",
+          "Pod logs",
+          "Deployment rollout history"
+        ],
+        answer: 1,
+        explanation: "kubectl top shows current resource usage, not the configured requests or limits."
+      },
+      {
+        q: "6. HPA requires which resource field to calculate CPU utilization percentages?",
+        options: [
+          "resources.limits.memory",
+          "resources.requests.cpu",
+          "resources.limits.cpu only",
+          "resources.requests.memory only"
+        ],
+        answer: 1,
+        explanation: "HPA uses current CPU usage relative to requested CPU. Without resources.requests.cpu, utilization can show as unknown."
+      },
+      {
+        q: "7. Which image was ultimately used successfully on the arm64 kind cluster for the php-apache Deployment?",
+        options: [
+          "registry.k8s.io/hpa-example",
+          "nginx:latest",
+          "php:8.2-apache",
+          "httpd:2.4"
+        ],
+        answer: 2,
+        explanation: "The original hpa-example image hit an exec format error on arm64, so php:8.2-apache was used instead."
+      },
+      {
+        q: "8. Why did the original registry.k8s.io/hpa-example image fail in this environment?",
+        options: [
+          "The Service was missing",
+          "The Pod had no CPU request",
+          "Architecture mismatch caused exec format error",
+          "The namespace was wrong"
+        ],
+        answer: 2,
+        explanation: "The arm64 node could not run that image correctly, producing an exec format error."
+      },
+      {
+        q: "9. What was the configured CPU request for the php-apache container?",
+        options: [
+          "50m",
+          "100m",
+          "200m",
+          "500m"
+        ],
+        answer: 2,
+        explanation: "The Deployment used resources.requests.cpu: 200m so HPA could calculate utilization."
+      },
+      {
+        q: "10. If a Pod uses 50m CPU and its CPU request is 200m, what is its CPU utilization?",
+        options: [
+          "25%",
+          "50%",
+          "75%",
+          "200%"
+        ],
+        answer: 0,
+        explanation: "Utilization = current usage / request = 50m / 200m = 25%."
+      },
+      {
+        q: "11. Which command exposed the Deployment as a Service?",
+        options: [
+          "kubectl create service php-apache --port=80",
+          "kubectl expose deployment php-apache --port=80",
+          "kubectl port-forward deployment/php-apache 80:80",
+          "kubectl service expose php-apache"
+        ],
+        answer: 1,
+        explanation: "kubectl expose deployment php-apache --port=80 created the ClusterIP Service."
+      },
+      {
+        q: "12. What does the HPA TARGETS column represent?",
+        options: [
+          "Current CPU request and current memory limit",
+          "Current utilization versus target utilization",
+          "Desired replicas versus max replicas",
+          "Node capacity versus pod usage"
+        ],
+        answer: 1,
+        explanation: "For CPU-based HPA, TARGETS displays current CPU utilization as a percentage of request versus the configured target."
+      },
+      {
+        q: "13. In the lab, what did the TARGETS column show after HPA was created and metrics settled?",
+        options: [
+          "cpu: 100%/50%",
+          "cpu: 0%/50%",
+          "cpu: <unknown>/50%",
+          "cpu: 200m/50m"
+        ],
+        answer: 1,
+        explanation: "The HPA showed cpu: 0%/50% because current usage was very low at that moment."
+      },
+      {
+        q: "14. Which command was used to create the HPA imperatively?",
+        options: [
+          "kubectl create hpa php-apache --cpu=50",
+          "kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10",
+          "kubectl scale deployment php-apache --replicas=10",
+          "kubectl apply -f hpa.yaml"
+        ],
+        answer: 1,
+        explanation: "The imperative command used was kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10."
+      },
+      {
+        q: "15. During load testing, what caused the HPA to increase replicas?",
+        options: [
+          "Memory usage exceeded 50%",
+          "CPU utilization rose above the 50% target",
+          "The Service type changed",
+          "The Metrics Server restarted"
+        ],
+        answer: 1,
+        explanation: "The HPA scaled up after CPU utilization increased above the configured 50% target."
+      },
+      {
+        q: "16. How many replicas did the HPA scale to under load in the lab?",
+        options: [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        answer: 1,
+        explanation: "Under load, the HPA scaled the Deployment from 1 replica to 2 replicas."
+      },
+      {
+        q: "17. Which Pod was used to generate continuous HTTP load?",
+        options: [
+          "metrics-server",
+          "php-apache",
+          "busybox load-generator",
+          "coredns"
+        ],
+        answer: 2,
+        explanation: "A BusyBox Pod named load-generator repeatedly requested the php-apache Service."
+      },
+      {
+        q: "18. Which command started the load generator?",
+        options: [
+          "kubectl run load-generator --image=busybox:1.36 --restart=Never -- /bin/sh -c \"while true; do wget -q -O- http://php-apache; done\"",
+          "kubectl create pod load-generator --image=busybox",
+          "kubectl exec php-apache -- wget http://php-apache",
+          "kubectl top pods --watch"
+        ],
+        answer: 0,
+        explanation: "The lab used a BusyBox Pod running a loop with wget to generate repeated HTTP requests."
+      },
+      {
+        q: "19. What is one reason scale-down is slower than scale-up by default in this lab?",
+        options: [
+          "Metrics Server updates only once per hour",
+          "There is a 300-second stabilization window for scale-down",
+          "Scale-down works only on StatefulSets",
+          "kubectl top cannot report low CPU values"
+        ],
+        answer: 1,
+        explanation: "The declarative HPA used a 300-second scale-down stabilization window to avoid rapid downscaling."
+      },
+      {
+        q: "20. Which API version was used for the declarative HPA manifest?",
+        options: [
+          "autoscaling/v1",
+          "autoscaling/v2",
+          "apps/v1",
+          "policy/v1"
+        ],
+        answer: 1,
+        explanation: "The advanced YAML-based HPA used autoscaling/v2."
+      },
+      {
+        q: "21. What extra capability does autoscaling/v2 provide compared with a basic imperative HPA setup?",
+        options: [
+          "It can delete Deployments automatically",
+          "It supports multiple metrics and fine-grained behavior settings",
+          "It removes the need for Metrics Server",
+          "It only works with memory metrics"
+        ],
+        answer: 1,
+        explanation: "autoscaling/v2 supports multiple metrics and customizable scaling behavior."
+      },
+      {
+        q: "22. In the declarative HPA, what did scaleUp.stabilizationWindowSeconds equal?",
+        options: [
+          "0",
+          "15",
+          "50",
+          "300"
+        ],
+        answer: 0,
+        explanation: "Scale-up had a stabilization window of 0 seconds, allowing a fast response."
+      },
+      {
+        q: "23. In the declarative HPA, what did scaleDown.stabilizationWindowSeconds equal?",
+        options: [
+          "0",
+          "15",
+          "50",
+          "300"
+        ],
+        answer: 3,
+        explanation: "Scale-down was configured with a 300-second stabilization window."
+      },
+      {
+        q: "24. What does the HPA behavior section control?",
+        options: [
+          "Container image architecture",
+          "Service DNS names",
+          "Scaling speed, stabilization timing, and policy limits",
+          "Pod log retention"
+        ],
+        answer: 2,
+        explanation: "The behavior section controls how quickly the HPA scales up or down and how aggressively replica changes are applied."
+      },
+      {
+        q: "25. During cleanup, which component was intentionally left installed?",
+        options: [
+          "php-apache Deployment",
+          "load-generator Pod",
+          "Metrics Server",
+          "HPA object"
+        ],
+        answer: 2,
+        explanation: "The HPA, Service, Deployment, and load-generator were removed, but Metrics Server remained installed."
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+
+    questions.forEach((item, index) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "question";
+      wrapper.innerHTML = `<h3>${item.q}</h3>`;
+
+      item.options.forEach((opt, optIndex) => {
+        const id = `q${index}_o${optIndex}`;
+        const label = document.createElement("label");
+        label.setAttribute("for", id);
+        label.innerHTML = `<input type="radio" name="q${index}" id="${id}" value="${optIndex}"> ${opt}`;
+        wrapper.appendChild(label);
+      });
+
+      const exp = document.createElement("div");
+      exp.className = "explanation";
+      exp.id = `exp${index}`;
+      exp.textContent = item.explanation;
+      wrapper.appendChild(exp);
+
+      form.appendChild(wrapper);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      const blocks = document.querySelectorAll(".question");
+
+      blocks.forEach((block, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const labels = block.querySelectorAll("label");
+        const exp = document.getElementById(`exp${index}`);
+
+        labels.forEach((l, i) => {
+          l.classList.remove("correct", "incorrect");
+          if (i === questions[index].answer) l.classList.add("correct");
+        });
+
+        if (selected) {
+          const chosen = Number(selected.value);
+          if (chosen === questions[index].answer) {
+            score++;
+          } else {
+            labels[chosen].classList.add("incorrect");
+          }
+        }
+
+        exp.style.display = "block";
+      });
+
+      const percent = Math.round((score / questions.length) * 100);
+      const result = document.getElementById("resultBox");
+      result.style.display = "block";
+      result.innerHTML = `
+        <div class="score-big">Score: ${score} / ${questions.length} (${percent}%)</div>
+        <p>${percent >= 80 ? "Excellent work." : percent >= 60 ? "Nice progress." : "Good start — review the explanations and try again."}</p>
+      `;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+      document.querySelectorAll("label").forEach(l => l.classList.remove("correct", "incorrect"));
+      document.querySelectorAll(".explanation").forEach(e => e.style.display = "none");
+      const result = document.getElementById("resultBox");
+      result.style.display = "none";
+      result.innerHTML = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
