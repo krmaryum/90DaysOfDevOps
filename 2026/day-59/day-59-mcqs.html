@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 59 MCQs - Helm Kubernetes Package Manager</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #cbd5e1;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0f172a, #111827);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+    h1, h2 { margin-top: 0; }
+    .hero, .card {
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .hero { margin-bottom: 22px; }
+    .meta { color: var(--muted); font-size: 0.96rem; }
+    .question {
+      margin-bottom: 18px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.8);
+    }
+    .question h3 { margin: 0 0 12px; font-size: 1.05rem; }
+    label {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 12px;
+      border: 1px solid #374151;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    label:hover {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+    input[type="radio"] { margin-right: 10px; }
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 24px 0 10px;
+    }
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background: var(--accent);
+      color: #082f49;
+    }
+    button.secondary {
+      background: #1f2937;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .result {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.92);
+      display: none;
+    }
+    .explanation {
+      margin-top: 10px;
+      padding: 12px;
+      border-left: 4px solid var(--accent);
+      background: rgba(30, 41, 59, 0.65);
+      border-radius: 8px;
+      display: none;
+      color: var(--muted);
+    }
+    .correct {
+      border-color: rgba(34, 197, 94, 0.65) !important;
+      background: rgba(34, 197, 94, 0.12) !important;
+    }
+    .incorrect {
+      border-color: rgba(239, 68, 68, 0.65) !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+    }
+    .footer-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .score-big {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #f8fafc;
+    }
+    code {
+      background: #0b1220;
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #bae6fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Day 59 - Helm Kubernetes Package Manager</h1>
+      <p class="meta">25 interactive MCQs based on Helm installation, repositories, chart deployment, values customization, upgrades, rollbacks, custom chart creation, Go templating, and cleanup.</p>
+    </div>
+
+    <div class="card">
+      <h2>Quiz</h2>
+      <form id="quizForm"></form>
+
+      <div class="controls">
+        <button type="button" onclick="submitQuiz()">Check Answers</button>
+        <button type="button" class="secondary" onclick="resetQuiz()">Reset</button>
+      </div>
+
+      <div class="result" id="resultBox"></div>
+      <div class="footer-note">Tip: This quiz follows your Day 59 flow: install Helm, add Bitnami repo, deploy nginx, customize values, upgrade and rollback, create a custom chart, then clean up.</div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What is Helm primarily used for in Kubernetes?",
+        options: [
+          "To replace kubectl completely",
+          "To act as a package manager for Kubernetes applications",
+          "To build container images",
+          "To monitor node metrics"
+        ],
+        answer: 1,
+        explanation: "Helm is commonly described as the package manager for Kubernetes because it packages, installs, upgrades, and rolls back applications."
+      },
+      {
+        q: "2. Which of the following is one of Helm’s three core concepts?",
+        options: [
+          "Namespace",
+          "ReplicaSet",
+          "Chart",
+          "IngressClass"
+        ],
+        answer: 2,
+        explanation: "The three core concepts highlighted in the lab are Chart, Release, and Repository."
+      },
+      {
+        q: "3. In Helm, what is a Release?",
+        options: [
+          "A collection of Kubernetes nodes",
+          "A specific installed instance of a chart",
+          "A YAML validator",
+          "A container registry"
+        ],
+        answer: 1,
+        explanation: "A release is a deployed instance of a chart in your cluster."
+      },
+      {
+        q: "4. What is a Repository in Helm?",
+        options: [
+          "A collection of charts",
+          "A collection of Pods",
+          "A storage backend for PVCs",
+          "A Deployment controller"
+        ],
+        answer: 0,
+        explanation: "A repository stores and distributes charts, similar to how package repositories distribute software packages."
+      },
+      {
+        q: "5. Which command verifies the installed Helm version?",
+        options: [
+          "helm env",
+          "helm status",
+          "helm version",
+          "helm repo list"
+        ],
+        answer: 2,
+        explanation: "helm version prints the Helm client version information."
+      },
+      {
+        q: "6. Which command adds the Bitnami chart repository?",
+        options: [
+          "helm repo add bitnami https://charts.bitnami.com/bitnami",
+          "helm install bitnami/nginx",
+          "kubectl repo add bitnami",
+          "helm add repo bitnami"
+        ],
+        answer: 0,
+        explanation: "helm repo add bitnami https://charts.bitnami.com/bitnami registers the Bitnami repository locally."
+      },
+      {
+        q: "7. What does helm repo update do?",
+        options: [
+          "It upgrades all installed releases",
+          "It refreshes local repository index information",
+          "It deletes old charts",
+          "It restarts Helm"
+        ],
+        answer: 1,
+        explanation: "helm repo update fetches the latest chart index from configured repositories."
+      },
+      {
+        q: "8. Which command searches available charts in configured repositories?",
+        options: [
+          "helm search repo",
+          "helm find chart",
+          "kubectl search repo",
+          "helm inspect repo"
+        ],
+        answer: 0,
+        explanation: "helm search repo searches the chart indexes you have added locally."
+      },
+      {
+        q: "9. In the lab, which command installed nginx from Bitnami?",
+        options: [
+          "kubectl apply -f nginx.yaml",
+          "helm install my-nginx bitnami/nginx",
+          "helm create nginx",
+          "helm repo install nginx"
+        ],
+        answer: 1,
+        explanation: "The nginx chart was installed using helm install my-nginx bitnami/nginx."
+      },
+      {
+        q: "10. After installing my-nginx, how many Pods were running for that release?",
+        options: [
+          "0",
+          "1",
+          "3",
+          "5"
+        ],
+        answer: 1,
+        explanation: "The installed Bitnami nginx release initially ran with 1 Pod."
+      },
+      {
+        q: "11. What Service type was created for my-nginx in the lab?",
+        options: [
+          "ClusterIP",
+          "NodePort",
+          "LoadBalancer",
+          "ExternalName"
+        ],
+        answer: 2,
+        explanation: "kubectl get svc showed my-nginx as a LoadBalancer service."
+      },
+      {
+        q: "12. Which command shows all rendered Kubernetes manifests for a release?",
+        options: [
+          "helm get manifest my-nginx",
+          "helm get pods my-nginx",
+          "helm describe my-nginx",
+          "kubectl get manifests my-nginx"
+        ],
+        answer: 0,
+        explanation: "helm get manifest prints the YAML that Helm rendered and applied for a release."
+      },
+      {
+        q: "13. Which command shows the default configurable values of a chart without installing it?",
+        options: [
+          "helm get values bitnami/nginx",
+          "helm show values bitnami/nginx",
+          "helm template values bitnami/nginx",
+          "helm lint bitnami/nginx"
+        ],
+        answer: 1,
+        explanation: "helm show values displays the chart’s default values.yaml content."
+      },
+      {
+        q: "14. Which flag is best for quick single-value overrides during install or upgrade?",
+        options: [
+          "--all",
+          "--set",
+          "--lint",
+          "--show-only"
+        ],
+        answer: 1,
+        explanation: "--set is used for quick inline overrides such as replicaCount=3 or service.type=NodePort."
+      },
+      {
+        q: "15. In the lab, nginx-custom was installed with which settings?",
+        options: [
+          "replicaCount=1 and service.type=ClusterIP",
+          "replicaCount=2 and service.type=LoadBalancer",
+          "replicaCount=3 and service.type=NodePort",
+          "replicaCount=5 and service.type=ExternalName"
+        ],
+        answer: 2,
+        explanation: "nginx-custom was installed using --set replicaCount=3 --set service.type=NodePort."
+      },
+      {
+        q: "16. Why is using a values file generally better than a long series of --set flags for larger deployments?",
+        options: [
+          "Because values files disable templating",
+          "Because values files are reusable and easier to manage",
+          "Because Helm refuses more than two --set flags",
+          "Because values files automatically create namespaces"
+        ],
+        answer: 1,
+        explanation: "A values file is easier to read, reuse, and maintain for real projects and multiple environments."
+      },
+      {
+        q: "17. Which command shows the applied overrides for a release?",
+        options: [
+          "helm get values <release-name>",
+          "helm repo update <release-name>",
+          "kubectl get values <release-name>",
+          "helm show values <release-name>"
+        ],
+        answer: 0,
+        explanation: "helm get values shows the user-supplied values for a release, and --all shows computed values too."
+      },
+      {
+        q: "18. What happened when my-nginx was upgraded with --set replicaCount=5?",
+        options: [
+          "The chart was deleted and reinstalled from scratch",
+          "A new release name was created",
+          "Revision 2 was created with 5 replicas",
+          "The service type changed to NodePort automatically"
+        ],
+        answer: 2,
+        explanation: "helm upgrade created revision 2 for my-nginx and changed the replica count to 5."
+      },
+      {
+        q: "19. What is the purpose of helm history my-nginx?",
+        options: [
+          "To show chart repository URLs",
+          "To display revision history for the release",
+          "To print Pod logs",
+          "To edit values interactively"
+        ],
+        answer: 1,
+        explanation: "helm history lists release revisions, statuses, timestamps, and descriptions."
+      },
+      {
+        q: "20. After rolling back my-nginx to revision 1, how many revisions existed in total?",
+        options: [
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        answer: 2,
+        explanation: "Rollback created revision 3 rather than overwriting revision 2, so the release had 3 revisions total."
+      },
+      {
+        q: "21. Which command scaffolds a brand-new custom Helm chart?",
+        options: [
+          "helm template my-app",
+          "helm create my-app",
+          "helm init my-app",
+          "kubectl create chart my-app"
+        ],
+        answer: 1,
+        explanation: "helm create my-app generates the standard chart structure including Chart.yaml, values.yaml, and templates."
+      },
+      {
+        q: "22. In Helm templates, what does {{ .Values.replicaCount }} refer to?",
+        options: [
+          "The chart name",
+          "The release namespace",
+          "A value read from values.yaml",
+          "The number of nodes in the cluster"
+        ],
+        answer: 2,
+        explanation: "The .Values object exposes values from values.yaml and any overrides passed during install or upgrade."
+      },
+      {
+        q: "23. What was the custom image configured in my-app values.yaml?",
+        options: [
+          "nginx:latest",
+          "nginx:1.25",
+          "bitnami/nginx:latest",
+          "apache:2.4"
+        ],
+        answer: 1,
+        explanation: "The custom chart values were edited to use repository nginx with tag 1.25."
+      },
+      {
+        q: "24. What does helm lint my-app do?",
+        options: [
+          "Installs the chart in dry-run mode",
+          "Validates chart structure and basic correctness",
+          "Deletes broken resources",
+          "Shows the release history"
+        ],
+        answer: 1,
+        explanation: "helm lint checks the chart for structural problems and common issues before installation."
+      },
+      {
+        q: "25. After final cleanup in the lab, what should helm list show?",
+        options: [
+          "All previous releases in deployed state",
+          "One release named my-app",
+          "Zero active releases",
+          "Only Bitnami repository entries"
+        ],
+        answer: 2,
+        explanation: "After uninstalling all releases, helm list should show no active releases."
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+
+    questions.forEach((item, index) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "question";
+      wrapper.innerHTML = `<h3>${item.q}</h3>`;
+
+      item.options.forEach((opt, optIndex) => {
+        const id = `q${index}_o${optIndex}`;
+        const label = document.createElement("label");
+        label.setAttribute("for", id);
+        label.innerHTML = `<input type="radio" name="q${index}" id="${id}" value="${optIndex}"> ${opt}`;
+        wrapper.appendChild(label);
+      });
+
+      const exp = document.createElement("div");
+      exp.className = "explanation";
+      exp.id = `exp${index}`;
+      exp.textContent = item.explanation;
+      wrapper.appendChild(exp);
+
+      form.appendChild(wrapper);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      const blocks = document.querySelectorAll(".question");
+
+      blocks.forEach((block, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const labels = block.querySelectorAll("label");
+        const exp = document.getElementById(`exp${index}`);
+
+        labels.forEach((l, i) => {
+          l.classList.remove("correct", "incorrect");
+          if (i === questions[index].answer) l.classList.add("correct");
+        });
+
+        if (selected) {
+          const chosen = Number(selected.value);
+          if (chosen === questions[index].answer) {
+            score++;
+          } else {
+            labels[chosen].classList.add("incorrect");
+          }
+        }
+
+        exp.style.display = "block";
+      });
+
+      const percent = Math.round((score / questions.length) * 100);
+      const result = document.getElementById("resultBox");
+      result.style.display = "block";
+      result.innerHTML = `
+        <div class="score-big">Score: ${score} / ${questions.length} (${percent}%)</div>
+        <p>${percent >= 80 ? "Excellent work." : percent >= 60 ? "Nice progress." : "Good start — review the explanations and try again."}</p>
+      `;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+      document.querySelectorAll("label").forEach(l => l.classList.remove("correct", "incorrect"));
+      document.querySelectorAll(".explanation").forEach(e => e.style.display = "none");
+      const result = document.getElementById("resultBox");
+      result.style.display = "none";
+      result.innerHTML = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
