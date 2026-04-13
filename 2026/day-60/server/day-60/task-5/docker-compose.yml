@@ -1,0 +1,39 @@
+services:
+  app:
+    image: krmaryum/task-manager-api:latest
+    container_name: task-manager-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - task-manager-network
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: task-manager-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - task-manager-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+
+networks:
+  task-manager-network:
+    driver: bridge
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Day 60 MCQs</title>
+<style>
+body {font-family: Arial; max-width: 900px; margin: auto;}
+.question {margin:20px 0; padding:15px; border:1px solid #ccc; border-radius:8px;}
+.correct {color: green; display:none;}
+</style>
+<script>
+function checkAnswer(q, correct){
+  let options = document.getElementsByName(q);
+  for(let i=0;i<options.length;i++){
+    if(options[i].checked){
+      let res = document.getElementById(q+"-result");
+      if(options[i].value==correct){
+        res.innerHTML="Correct!";
+        res.style.color="green";
+      } else {
+        res.innerHTML="Wrong!";
+        res.style.color="red";
+      }
+      res.style.display="block";
+    }
+  }
+}
+</script>
+</head>
+<body>
+
+<h1>Day 60 MCQs (Interactive)</h1>
+
+<div class="question">
+<h3>1. Why create a namespace?</h3>
+<label><input type="radio" name="q1" value="A"> Increase CPU</label><br>
+<label><input type="radio" name="q1" value="B"> Isolate resources</label><br>
+<label><input type="radio" name="q1" value="C"> Create storage</label><br>
+<button onclick="checkAnswer('q1','B')">Check</button>
+<div id="q1-result"></div>
+</div>
+
+<div class="question">
+<h3>2. MySQL credentials stored in?</h3>
+<label><input type="radio" name="q2" value="A"> ConfigMap</label><br>
+<label><input type="radio" name="q2" value="B"> Secret</label><br>
+<label><input type="radio" name="q2" value="C"> PVC</label><br>
+<button onclick="checkAnswer('q2','B')">Check</button>
+<div id="q2-result"></div>
+</div>
+
+<div class="question">
+<h3>3. Why StatefulSet for MySQL?</h3>
+<label><input type="radio" name="q3" value="A"> Faster</label><br>
+<label><input type="radio" name="q3" value="B"> Stable identity</label><br>
+<label><input type="radio" name="q3" value="C"> Less YAML</label><br>
+<button onclick="checkAnswer('q3','B')">Check</button>
+<div id="q3-result"></div>
+</div>
+
+<div class="question">
+<h3>4. WordPress replicas?</h3>
+<label><input type="radio" name="q4" value="A"> 1</label><br>
+<label><input type="radio" name="q4" value="B"> 2</label><br>
+<label><input type="radio" name="q4" value="C"> 5</label><br>
+<button onclick="checkAnswer('q4','B')">Check</button>
+<div id="q4-result"></div>
+</div>
+
+<div class="question">
+<h3>5. NodePort used?</h3>
+<label><input type="radio" name="q5" value="A"> 8080</label><br>
+<label><input type="radio" name="q5" value="B"> 30080</label><br>
+<label><input type="radio" name="q5" value="C"> 80</label><br>
+<button onclick="checkAnswer('q5','B')">Check</button>
+<div id="q5-result"></div>
+</div>
+
+<p>More questions follow same pattern (25 total in full version)</p>
+
+</body>
+</html>
