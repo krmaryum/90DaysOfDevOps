@@ -217,10 +217,10 @@ the local environment can communicate with AWS services securely.
 
 ### Objectives
 
--   Install Terraform on the system\
--   Verify Terraform installation\
--   Install AWS CLI\
--   Configure AWS credentials using IAM user\
+-   Install Terraform on the system
+-   Verify Terraform installation
+-   Install AWS CLI
+-   Configure AWS credentials using IAM user
 -   Verify AWS access using CLI
 
 ------------------------------------------------------------------------
@@ -411,10 +411,10 @@ terraform plan      # Preview infrastructure changes
 terraform apply     # Create resources on AWS
 ```
 
-[terraform init Explained](md/terraform_init.md)
-[terraform fmt Explained](md/terraform-fmt.md)
-[terraform validate Explained](md/terraform_validate.md)
-[terraform plan Explained](md/terraform_plan.md)
+[terraform init Explained](md/terraform_init.md)\
+[terraform fmt Explained](md/terraform-fmt.md)\
+[terraform validate Explained](md/terraform_validate.md)\
+[terraform plan Explained](md/terraform_plan.md)\
 [terraform apply Explained](md/terraform_apply.md)
 
 ------------------------------------------------------------------------
@@ -453,9 +453,9 @@ The S3 bucket was verified in the AWS S3 console, confirming that Terraform succ
 
 ### Key Learning
 
--   Terraform uses providers to interact with cloud services\
--   S3 bucket names must be globally unique and follow naming rules\
--   Terraform workflow: init → plan → apply\
+-   Terraform uses providers to interact with cloud services
+-   S3 bucket names must be globally unique and follow naming rules
+-   Terraform workflow: init → plan → apply
 -   `.terraform/` directory stores provider plugins and dependencies
 
 ------------------------------------------------------------------------
@@ -472,8 +472,8 @@ resources.
 
 The `.terraform/` directory contains:
 
--   Provider plugins\
--   Dependency files\
+-   Provider plugins
+-   Dependency files
 -   Metadata required for Terraform execution
 
 It acts as the working directory for Terraform.
@@ -500,11 +500,11 @@ new resources while managing infrastructure as code.
 
 ### Objectives
 
--   Add an EC2 instance resource to the configuration\
--   Use a valid AMI for the selected region\
--   Set instance type to `t2.micro` (as per task)\
--   Add a Name tag\
--   Run Terraform lifecycle commands\
+-   Add an EC2 instance resource to the configuration
+-   Use a valid AMI for the selected region
+-   Set instance type to `t2.micro` (as per task)
+-   Add a Name tag
+-   Run Terraform lifecycle commands
 -   Verify the instance in AWS
 
 Note: In actual execution, t3.micro was used instead of t2.micro.
@@ -575,8 +575,8 @@ Apply complete! Resources: 1 added
 
 The EC2 instance was verified in the AWS EC2 console:
 
--   Instance state: running\
--   Instance type: t2.micro\
+-   Instance state: running
+-   Instance type: t2.micro
 -   Name tag: TerraWeek-Day1
 
 SSH access was also successfully tested using the generated key pair.
@@ -585,9 +585,9 @@ SSH access was also successfully tested using the generated key pair.
 
 ### Key Learning
 
--   Terraform allows incremental infrastructure updates\
--   EC2 instances can be provisioned using simple configuration\
--   Tags help identify resources in AWS\
+-   Terraform allows incremental infrastructure updates
+-   EC2 instances can be provisioned using simple configuration
+-   Tags help identify resources in AWS
 -   Terraform workflow remains consistent (init → plan → apply)
 
 ------------------------------------------------------------------------
@@ -598,10 +598,10 @@ Terraform uses a **state file (`terraform.tfstate`)** to track resources
 it manages.
 
 -   The state file records previously created resources (like the S3
-    bucket)\
+    bucket)
 -   During `terraform plan`, Terraform compares:
-    -   configuration files\
-    -   state file\
+    -   configuration files
+    -   state file
     -   actual AWS resources
 
 If a resource already exists in the state and matches the configuration,
@@ -637,9 +637,9 @@ source of truth for all resources created by Terraform.
 
 ### Objectives
 
--   Inspect the Terraform state file\
--   Use Terraform state commands\
--   Understand how Terraform tracks resources\
+-   Inspect the Terraform state file
+-   Use Terraform state commands
+-   Understand how Terraform tracks resources
 -   Learn best practices for handling the state file
 
 ------------------------------------------------------------------------
@@ -697,10 +697,10 @@ Terraform state, including IDs, configuration, and metadata.
 The Terraform state file (`terraform.tfstate`) stores detailed
 information about each resource, including:
 
--   Resource type and name\
--   Resource IDs (e.g., instance ID, VPC ID)\
--   Attributes (IP addresses, ARNs, configuration values)\
--   Dependencies between resources\
+-   Resource type and name
+-   Resource IDs (e.g., instance ID, VPC ID)
+-   Attributes (IP addresses, ARNs, configuration values)
+-   Dependencies between resources
 -   Metadata required for Terraform operations
 
 It acts as a mapping between Terraform configuration and real
@@ -712,10 +712,10 @@ infrastructure.
 
 The state file should not be edited manually because:
 
--   It can easily become corrupted\
--   It may cause Terraform to lose track of resources\
+-   It can easily become corrupted
+-   It may cause Terraform to lose track of resources
 -   Incorrect changes can lead to duplicate resources or accidental
-    deletion\
+    deletion
 -   It may break future Terraform operations
 
 ------------------------------------------------------------------------
@@ -725,20 +725,27 @@ The state file should not be edited manually because:
 The state file should not be committed to Git because:
 
 -   It may contain sensitive information (IP addresses, resource IDs,
-    metadata)\
--   It can create conflicts when multiple users modify infrastructure\
+    metadata)
+-   It can create conflicts when multiple users modify infrastructure
 -   It is environment-specific and not reusable
 
 In real-world scenarios, a remote backend (such as AWS S3) should be
 used to store state securely.
 
+### And add this to .gitignore:
+```bash
+echo "terra-automate-key" >> .gitignore
+echo "*.tfstate" >> .gitignore
+echo "*.tfstate.backup" >> ..gitignore
+```
+
 ------------------------------------------------------------------------
 
 ### Key Learning
 
--   Terraform is state-driven\
--   The state file is the source of truth\
--   All Terraform operations depend on the state file\
+-   Terraform is state-driven
+-   The state file is the source of truth
+-   All Terraform operations depend on the state file
 -   Proper handling of the state file is critical for reliable
     infrastructure management
 
@@ -765,10 +772,10 @@ destroyed and verified.
 
 ### Objectives
 
--   Modify an existing Terraform resource\
--   Understand Terraform plan symbols (`+`, `-`, `~`)\
--   Apply changes to infrastructure\
--   Destroy all resources\
+-   Modify an existing Terraform resource
+-   Understand Terraform plan symbols (`+`, `-`, `~`)
+-   Apply changes to infrastructure
+-   Destroy all resources
 -   Verify cleanup in AWS
 
 These symbols help quickly understand what Terraform will do before applying changes.
@@ -810,8 +817,8 @@ Output:
 
 ### Understanding Plan Symbols
 
--   `+` → Resource will be created\
--   `-` → Resource will be destroyed\
+-   `+` → Resource will be created
+-   `-` → Resource will be destroyed
 -   `~` → Resource will be updated in place
 
 ------------------------------------------------------------------------
@@ -871,10 +878,10 @@ Output:
 
 ### Key Learning
 
--   Terraform detects changes using the state file\
--   Tag updates result in in-place changes\
--   `terraform plan` helps preview changes\
--   State is tracked per directory\
+-   Terraform detects changes using the state file
+-   Tag updates result in in-place changes
+-   `terraform plan` helps preview changes
+-   State is tracked per directory
 -   All resources must be destroyed to avoid costs
 
 ------------------------------------------------------------------------
