@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 61 MCQs - Terraform Introduction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f8;
+      color: #222;
+    }
+    .container {
+      max-width: 980px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      color: #1f3c88;
+    }
+    .subtitle {
+      margin-top: -8px;
+      color: #555;
+      margin-bottom: 24px;
+    }
+    .question {
+      border: 1px solid #e3e7ee;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 18px;
+      background: #fafbfc;
+    }
+    .question h3 {
+      margin: 0 0 12px 0;
+      font-size: 18px;
+    }
+    .option {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #d9e0ea;
+      cursor: pointer;
+    }
+    .option input {
+      margin-right: 10px;
+    }
+    .controls {
+      position: sticky;
+      bottom: 0;
+      background: #fff;
+      padding-top: 16px;
+      border-top: 1px solid #e3e7ee;
+      margin-top: 22px;
+    }
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #1f3c88;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background: #17306d;
+    }
+    #result {
+      margin-top: 14px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .correct {
+      border-color: #1c9c5a !important;
+      background: #e9f9ef !important;
+    }
+    .wrong {
+      border-color: #d64545 !important;
+      background: #fdeeee !important;
+    }
+    .explanation {
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #eef4ff;
+      border-left: 4px solid #1f3c88;
+      border-radius: 6px;
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+    .footer-note {
+      margin-top: 16px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 61 MCQs - Terraform Introduction</h1>
+    <p class="subtitle">25 multiple-choice questions based on Infrastructure as Code, Terraform basics, AWS provider usage, state, planning, applying, and destroying resources.</p>
+
+    <form id="quizForm"></form>
+
+    <div class="controls">
+      <button type="button" onclick="submitQuiz()">Submit Answers</button>
+      <button type="button" onclick="resetQuiz()">Reset</button>
+      <div id="result"></div>
+      <div class="footer-note">Each question has one correct answer.</div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What does Infrastructure as Code (IaC) mean?",
+        options: [
+          "Managing infrastructure manually through the cloud console",
+          "Managing infrastructure using configuration files and code",
+          "Writing application code for web servers only",
+          "Using only shell scripts for deployment"
+        ],
+        answer: 1,
+        explanation: "IaC means provisioning and managing infrastructure through code or configuration files instead of manual console-based setup."
+      },
+      {
+        q: "2. Why is IaC important in DevOps?",
+        options: [
+          "It makes infrastructure slower to create",
+          "It removes the need for version control",
+          "It improves automation, consistency, and repeatability",
+          "It works only for local development"
+        ],
+        answer: 2,
+        explanation: "IaC supports automation, repeatability, consistency, and collaboration, which are core DevOps goals."
+      },
+      {
+        q: "3. Which Terraform command downloads the required provider plugins?",
+        options: [
+          "terraform apply",
+          "terraform init",
+          "terraform show",
+          "terraform destroy"
+        ],
+        answer: 1,
+        explanation: "terraform init initializes the working directory and downloads required providers."
+      },
+      {
+        q: "4. Which command is used to preview what Terraform will do before making changes?",
+        options: [
+          "terraform validate",
+          "terraform state list",
+          "terraform plan",
+          "terraform fmt"
+        ],
+        answer: 2,
+        explanation: "terraform plan shows an execution plan without applying changes."
+      },
+      {
+        q: "5. Which command actually creates or updates infrastructure?",
+        options: [
+          "terraform apply",
+          "terraform init",
+          "terraform show",
+          "terraform fmt"
+        ],
+        answer: 0,
+        explanation: "terraform apply executes the planned actions and changes infrastructure."
+      },
+      {
+        q: "6. What is the purpose of terraform fmt?",
+        options: [
+          "To destroy old resources",
+          "To format Terraform files into standard style",
+          "To install AWS CLI",
+          "To encrypt the state file"
+        ],
+        answer: 1,
+        explanation: "terraform fmt auto-formats Terraform configuration files for readability and consistency."
+      },
+      {
+        q: "7. What does terraform validate do?",
+        options: [
+          "Checks syntax and basic configuration validity",
+          "Creates the resources automatically",
+          "Shows the current AWS bill",
+          "Deletes invalid resources"
+        ],
+        answer: 0,
+        explanation: "terraform validate checks whether the configuration is syntactically valid."
+      },
+      {
+        q: "8. Which block tells Terraform which provider and version to use?",
+        options: [
+          "resource block",
+          "provider block",
+          "terraform block with required_providers",
+          "output block"
+        ],
+        answer: 2,
+        explanation: "The terraform block with required_providers specifies the provider source and version."
+      },
+      {
+        q: "9. In a provider block for AWS, which argument is most important for selecting where resources are created?",
+        options: [
+          "bucket",
+          "ami",
+          "region",
+          "count"
+        ],
+        answer: 2,
+        explanation: "The region argument decides the AWS region where resources will be managed."
+      },
+      {
+        q: "10. Why must an S3 bucket name be globally unique?",
+        options: [
+          "Because S3 bucket names are unique only within one EC2 instance",
+          "Because bucket names are shared across all AWS accounts and regions in the S3 namespace",
+          "Because Terraform requires all resource names to be globally unique",
+          "Because only one S3 bucket can exist per account"
+        ],
+        answer: 1,
+        explanation: "S3 bucket names exist in a global namespace, so the name must be unique across AWS."
+      },
+      {
+        q: "11. AMI IDs are region-specific. What does that mean?",
+        options: [
+          "The same AMI ID can always be used in every AWS region",
+          "AMI IDs work only with S3",
+          "The AMI ID must match the region where the EC2 instance is created",
+          "AMI IDs are not used for EC2"
+        ],
+        answer: 2,
+        explanation: "AMI IDs vary by region, so you must use an AMI that exists in the chosen AWS region."
+      },
+      {
+        q: "12. Which file stores Terraform's record of managed infrastructure?",
+        options: [
+          ".terraform.lock.hcl",
+          "terraform.tfstate",
+          "main.tf",
+          ".gitignore"
+        ],
+        answer: 1,
+        explanation: "terraform.tfstate is the main state file that tracks managed resources."
+      },
+      {
+        q: "13. What does terraform show display?",
+        options: [
+          "A human-readable view of the current state",
+          "Only provider versions",
+          "Only syntax errors",
+          "Only hidden files"
+        ],
+        answer: 0,
+        explanation: "terraform show presents the current state and resource details in a readable format."
+      },
+      {
+        q: "14. What does terraform state list return?",
+        options: [
+          "A list of Git branches",
+          "A list of all resources Terraform currently manages",
+          "A list of AWS regions",
+          "A list of failed commands"
+        ],
+        answer: 1,
+        explanation: "terraform state list prints the addresses of all resources tracked in state."
+      },
+      {
+        q: "15. What does terraform state show aws_instance.my_instance do?",
+        options: [
+          "Creates a new EC2 instance named my_instance",
+          "Shows detailed state information for that specific resource",
+          "Deletes the resource from AWS",
+          "Renames the instance"
+        ],
+        answer: 1,
+        explanation: "terraform state show displays detailed state information about one resource."
+      },
+      {
+        q: "16. Why should you avoid manually editing terraform.tfstate?",
+        options: [
+          "Because it is read-only",
+          "Because manual edits can corrupt state and break resource tracking",
+          "Because Terraform immediately deletes it",
+          "Because AWS blocks access to it"
+        ],
+        answer: 1,
+        explanation: "Manual state edits can cause Terraform to lose track of resources or act incorrectly."
+      },
+      {
+        q: "17. Why should terraform.tfstate usually not be committed to Git?",
+        options: [
+          "It is too small to be useful",
+          "It may contain sensitive and environment-specific information",
+          "Git does not support JSON files",
+          "It is only used on Windows"
+        ],
+        answer: 1,
+        explanation: "State files may contain sensitive or environment-specific data and can cause collaboration conflicts."
+      },
+      {
+        q: "18. In terraform plan output, what does the symbol '+' mean?",
+        options: [
+          "Destroy resource",
+          "Update in-place",
+          "Create resource",
+          "Ignore resource"
+        ],
+        answer: 2,
+        explanation: "The '+' symbol means Terraform plans to create a resource."
+      },
+      {
+        q: "19. In terraform plan output, what does the symbol '~' mean?",
+        options: [
+          "Update a resource in place",
+          "Delete the resource",
+          "Create a duplicate resource",
+          "Lock the state file"
+        ],
+        answer: 0,
+        explanation: "The '~' symbol indicates an in-place modification."
+      },
+      {
+        q: "20. In terraform plan output, what does the symbol '-' mean?",
+        options: [
+          "Update the resource tag only",
+          "Move the resource",
+          "Destroy the resource",
+          "Refresh provider plugin"
+        ],
+        answer: 2,
+        explanation: "The '-' symbol indicates Terraform will destroy the resource."
+      },
+      {
+        q: "21. If you only change an EC2 tag from 'TerraWeek-Day1' to 'TerraWeek-Modified', what kind of change is this usually?",
+        options: [
+          "A full destroy and recreate",
+          "An in-place update",
+          "A provider reinstallation",
+          "A backend migration"
+        ],
+        answer: 1,
+        explanation: "Tag-only changes are usually applied as in-place updates."
+      },
+      {
+        q: "22. What does terraform destroy do?",
+        options: [
+          "Formats Terraform files",
+          "Deletes all infrastructure in the current AWS account",
+          "Destroys resources tracked by the current Terraform state",
+          "Deletes only the state file"
+        ],
+        answer: 2,
+        explanation: "terraform destroy removes the resources tracked by the current working directory's state."
+      },
+      {
+        q: "23. If Task 3 and Task 4 are in separate directories, why might destroy need to be run in both places?",
+        options: [
+          "Because Terraform tracks state separately per working directory",
+          "Because AWS requires two destroy commands",
+          "Because S3 cannot be destroyed by Terraform",
+          "Because EC2 can only be destroyed from the console"
+        ],
+        answer: 0,
+        explanation: "Each directory typically has its own state, so resources tracked in different directories must be destroyed from each relevant state."
+      },
+      {
+        q: "24. Which AWS CLI command was used to verify configured credentials?",
+        options: [
+          "aws s3 ls",
+          "aws configure list",
+          "aws sts get-caller-identity",
+          "aws ec2 describe-instances"
+        ],
+        answer: 2,
+        explanation: "aws sts get-caller-identity confirms which AWS identity is currently authenticated."
+      },
+      {
+        q: "25. What is the main benefit of Terraform being declarative?",
+        options: [
+          "You describe the desired end state and Terraform figures out the steps",
+          "You must write every API call manually",
+          "It works only with AWS",
+          "It removes the need for planning"
+        ],
+        answer: 0,
+        explanation: "Declarative means you specify what you want, and Terraform determines how to achieve it."
+      }
+    ];
+
+    const quizForm = document.getElementById("quizForm");
+
+    questions.forEach((item, index) => {
+      const block = document.createElement("div");
+      block.className = "question";
+      block.id = `q${index}`;
+
+      let optionsHtml = "";
+      item.options.forEach((opt, i) => {
+        optionsHtml += `
+          <label class="option" id="q${index}_opt${i}">
+            <input type="radio" name="q${index}" value="${i}">
+            ${opt}
+          </label>
+        `;
+      });
+
+      block.innerHTML = `
+        <h3>${item.q}</h3>
+        ${optionsHtml}
+        <div class="explanation" id="exp${index}">${item.explanation}</div>
+      `;
+
+      quizForm.appendChild(block);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const explanation = document.getElementById(`exp${index}`);
+
+        item.options.forEach((_, i) => {
+          const optionEl = document.getElementById(`q${index}_opt${i}`);
+          optionEl.classList.remove("correct", "wrong");
+        });
+
+        if (selected) {
+          const chosen = parseInt(selected.value);
+          const correctEl = document.getElementById(`q${index}_opt${item.answer}`);
+
+          if (chosen === item.answer) {
+            score++;
+            correctEl.classList.add("correct");
+          } else {
+            document.getElementById(`q${index}_opt${chosen}`).classList.add("wrong");
+            correctEl.classList.add("correct");
+          }
+        } else {
+          document.getElementById(`q${index}_opt${item.answer}`).classList.add("correct");
+        }
+
+        explanation.classList.add("show");
+      });
+
+      document.getElementById("result").textContent = `Your Score: ${score} / ${questions.length}`;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+      document.getElementById("result").textContent = "";
+
+      questions.forEach((item, index) => {
+        item.options.forEach((_, i) => {
+          const optionEl = document.getElementById(`q${index}_opt${i}`);
+          optionEl.classList.remove("correct", "wrong");
+        });
+        document.getElementById(`exp${index}`).classList.remove("show");
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
