@@ -47,6 +47,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic" {
 
 # EC2 instance
 resource "aws_instance" "my_instance" {
+  # count                  = 2   # 👈 ADD HERE
   ami                    = "ami-07062e2a343acc423"
   instance_type          = "t3.micro"
   key_name               = aws_key_pair.my_key_pair.key_name
@@ -59,6 +60,6 @@ resource "aws_instance" "my_instance" {
 
   tags = {
     Name = "TerraWeek-Modified"
+    # Name = "terra-auto-server-${count.index}"  # 👈 update name
   }
 }
-
