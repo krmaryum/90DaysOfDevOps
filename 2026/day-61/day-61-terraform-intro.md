@@ -738,6 +738,11 @@ echo "terra-automate-key" >> .gitignore
 echo "*.tfstate" >> .gitignore
 echo "*.tfstate.backup" >> ..gitignore
 ```
+OR
+
+```bash
+echo -e "terra-automate-key\n*.tfstate\n*.tfstate.backup" >> .gitignore
+```
 
 ------------------------------------------------------------------------
 
