@@ -1,5 +1,14 @@
 $ErrorActionPreference = "Stop"
 
+# Always run from the folder where this script is saved
+Set-Location -Path $PSScriptRoot
+
+# Terraform command fallback
+$terraformCmd = "terraform"
+if (-not (Get-Command terraform -ErrorAction SilentlyContinue)) {
+    $terraformCmd = "C:\terraform\terraform.exe"
+}
+
 $keyName = "terra-automate-key"
 $publicKey = "$keyName.pub"
 
@@ -21,7 +30,7 @@ if ((Test-Path $keyName) -or (Test-Path $publicKey)) {
 
 if (-not (Test-Path $keyName)) {
     Write-Host "Creating SSH key..."
-    ssh-keygen -t ed25519 -f ".\$keyName" -N '""' -C "terraform-key"
+    ssh-keygen -t ed25519 -f ".\$keyName" -C "terraform-key"
     Write-Host "SSH key created."
 }
 
@@ -32,23 +41,23 @@ Write-Host ""
 Write-Host "===== STEP 2: Terraform Execution ====="
 
 Write-Host "Initializing Terraform..."
-terraform init
+& $terraformCmd init
 
 Write-Host "Validating Terraform..."
-terraform validate
+& $terraformCmd validate
 
 Write-Host "Planning Terraform changes..."
-terraform plan
+& $terraformCmd plan
 
 Write-Host "Applying Terraform..."
-terraform apply -auto-approve
+& $terraformCmd apply -auto-approve
 
 Write-Host ""
 Write-Host "===== STEP 3: Fetch Public IP ====="
 
 $publicIp = ""
 try {
-    $publicIp = (terraform output -raw public_ip).Trim()
+    $publicIp = (& $terraformCmd output -raw public_ip).Trim()
 }
 catch {
     $publicIp = ""
