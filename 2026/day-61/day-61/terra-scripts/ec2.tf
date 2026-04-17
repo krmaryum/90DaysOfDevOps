@@ -60,7 +60,7 @@ resource "aws_instance" "my_instance" {
 
   tags = {
     Name = "TerraWeek-Modified"
-    # Name = "terra-auto-server-${count.index}"  # 👈 update name
+    # Name = "terra-auto-server-${count.index}"  # 👈 update name	
   }
 }
 

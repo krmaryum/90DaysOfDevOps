@@ -100,6 +100,10 @@ terra-automate-key
 *.tfstate
 *.tfstate.backup
 
+```bash
+echo -e "terra-automate-key\n*.tfstate\n*.tfstate.backup" >> .gitignore
+```
+
 ---
 
 ## 🔁 Terraform Workflow
