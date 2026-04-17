@@ -866,6 +866,8 @@ Output:
 
     Destroy complete! Resources: 1 destroyed.
 
+<img src="./screenshots/Screenshot 2026-04-16 191316.png" width="400">
+
 ------------------------------------------------------------------------
 
 ### Verification
