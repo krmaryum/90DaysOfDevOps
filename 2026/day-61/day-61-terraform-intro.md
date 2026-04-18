@@ -274,6 +274,8 @@ This confirms Terraform is installed and working correctly.
 
 ### Install AWS CLI
 
+[Install AWS CLI for Windows](md/aws_cli_windows.md)
+
 AWS CLI was installed and verified using:
 
 ``` bash
