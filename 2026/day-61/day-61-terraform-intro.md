@@ -337,9 +337,9 @@ AWS account.
 
 ### Key Learning
 
--   Terraform requires valid AWS credentials to provision resources\
--   AWS CLI acts as a bridge between local system and AWS\
--   IAM users with programmatic access are required for Terraform\
+-   Terraform requires valid AWS credentials to provision resources
+-   AWS CLI acts as a bridge between local system and AWS
+-   IAM users with programmatic access are required for Terraform
 -   Verifying access before provisioning prevents deployment errors
 
 ------------------------------------------------------------------------
@@ -364,11 +364,11 @@ Infrastructure as Code (IaC) to create real cloud resources.
 
 ### Objectives
 
--   Create a Terraform project directory\
--   Write a Terraform configuration file\
--   Configure AWS provider\
--   Create an S3 bucket resource\
--   Run Terraform lifecycle commands\
+-   Create a Terraform project directory
+-   Write a Terraform configuration file
+-   Configure AWS provider
+-   Create an S3 bucket resource
+-   Run Terraform lifecycle commands
 -   Verify resource creation in AWS
 
 ------------------------------------------------------------------------
@@ -389,6 +389,8 @@ main.tf
 ------------------------------------------------------------------------
 
 ### Terraform Configuration
+
+[Get Help from Terraform site](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket)
 
 ``` hcl
 
@@ -513,6 +515,8 @@ Note: In actual execution, t3.micro was used instead of t2.micro.
 ------------------------------------------------------------------------
 
 ### Terraform Configuration (Simplified for Task)
+
+[Terraform Configuration Terraform Link](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance)
 
 [Detailed one](tf/ec2.tf)
 
@@ -738,7 +742,7 @@ used to store state securely.
 ```bash
 echo "terra-automate-key" >> .gitignore
 echo "*.tfstate" >> .gitignore
-echo "*.tfstate.backup" >> ..gitignore
+echo "*.tfstate.backup" >> .gitignore
 ```
 OR
 
