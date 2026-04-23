@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 68 - Ansible MCQ Quiz</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --border: #374151;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .container { width: min(1000px, 92%); margin: 32px auto 60px; }
+    .hero {
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.25);
+      margin-bottom: 24px;
+    }
+    h1, h2, h3 { margin-top: 0; }
+    .subtitle { color: var(--muted); margin-bottom: 0; }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .info-box {
+      background: rgba(31,41,55,.85);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .quiz-card {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.18);
+    }
+    .question-number {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      letter-spacing: .03em;
+    }
+    .question-text { font-size: 1.08rem; margin-bottom: 14px; }
+    .option {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .option:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .option input { margin-right: 10px; }
+    .controls {
+      position: sticky;
+      bottom: 0;
+      background: rgba(2,6,23,.96);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      backdrop-filter: blur(8px);
+    }
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .btn-primary { background: var(--accent); color: #082f49; }
+    .btn-secondary { background: #334155; color: white; }
+    .btn:hover { transform: translateY(-1px); opacity: .95; }
+    .result {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(17,24,39,.92);
+      display: none;
+    }
+    .explanation {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      display: none;
+      background: rgba(2,6,23,.45);
+      border: 1px dashed var(--border);
+    }
+    .correct { border-color: rgba(34,197,94,.8) !important; background: rgba(34,197,94,.12) !important; }
+    .incorrect { border-color: rgba(239,68,68,.8) !important; background: rgba(239,68,68,.12) !important; }
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .88rem;
+      margin-right: 8px;
+    }
+    .footer-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    @media (max-width: 640px) { .controls { position: static; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Day 68 - Ansible MCQ Quiz</h1>
+      <p class="subtitle">25 multiple-choice questions based on your Day 68 project: Ansible basics, inventory, groups, patterns, ad-hoc commands, ansible.cfg, and Terraform integration.</p>
+      <div class="info-grid">
+        <div class="info-box"><strong>Format:</strong><br>25 MCQs</div>
+        <div class="info-box"><strong>Topics:</strong><br>Ansible, inventory, ad-hoc commands, groups, patterns</div>
+        <div class="info-box"><strong>Level:</strong><br>Beginner to junior DevOps</div>
+        <div class="info-box"><strong>Goal:</strong><br>Revise your full Day 68 project</div>
+      </div>
+    </section>
+
+    <form id="quizForm"></form>
+
+    <div class="controls">
+      <div>
+        <span class="pill">25 Questions</span>
+        <span class="pill">Auto grading</span>
+        <span class="pill">Explanations included</span>
+      </div>
+      <div>
+        <button class="btn btn-secondary" type="button" onclick="resetQuiz()">Reset</button>
+        <button class="btn btn-primary" type="button" onclick="submitQuiz()">Submit Quiz</button>
+      </div>
+    </div>
+
+    <div id="result" class="result"></div>
+    <p class="footer-note">Built for Day 68 revision: Terraform + Ansible + Inventory + Patterns + Ad-hoc Commands.</p>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "What is the main purpose of Ansible in your Day 68 project?",
+        options: ["Provision AWS VPCs", "Configure and manage servers after provisioning", "Replace SSH completely", "Create AMIs automatically"],
+        answer: 1,
+        explanation: "Terraform provisions infrastructure. Ansible is then used to configure and manage the created servers." },
+      { q: "What does 'agentless' mean in Ansible?",
+        options: ["It does not need internet access", "It does not need Python", "It does not require an agent installed on managed nodes", "It cannot run remotely"],
+        answer: 2,
+        explanation: "Ansible connects over SSH and does not require a separate agent service on the target machines." },
+      { q: "Which machine acts as the control node in your setup?",
+        options: ["Amazon Linux EC2", "Red Hat EC2", "Ubuntu 24.04 on WSL running on your laptop", "AWS CloudShell only"],
+        answer: 2,
+        explanation: "Your local laptop running Ubuntu inside WSL is the control node where Ansible is installed." },
+      { q: "Which tool was used to provision the EC2 instances in the project?",
+        options: ["Ansible", "Terraform", "Docker", "Kubernetes"],
+        answer: 1,
+        explanation: "Terraform was used to create the EC2 infrastructure." },
+      { q: "How many EC2 managed nodes were created in the lab?",
+        options: ["2", "3", "4", "5"],
+        answer: 1,
+        explanation: "The lab includes three managed nodes: Ubuntu, Red Hat, and Amazon Linux." },
+      { q: "Which of the following is the correct host name for the Ubuntu node?",
+        options: ["ubuntu_web", "worker-ubuntu", "application", "all_servers"],
+        answer: 1,
+        explanation: "worker-ubuntu is the host name, while ubuntu_web is the inventory group." },
+      { q: "Which inventory group represents the Ubuntu server role?",
+        options: ["worker-ubuntu", "servers", "ubuntu_web", "application"],
+        answer: 2,
+        explanation: "ubuntu_web is the logical group name for the Ubuntu host." },
+      { q: "What does an inventory file do in Ansible?",
+        options: ["Stores Terraform state", "Lists managed hosts and connection details", "Generates SSH keys", "Creates security groups"],
+        answer: 1,
+        explanation: "The inventory file tells Ansible which hosts to manage and how to connect to them." },
+      { q: "In your inventory, what variable was used to define the SSH key for all hosts?",
+        options: ["ansible_remote_key", "ansible_ssh_private_key_file", "private_key", "ssh_key_path"],
+        answer: 1,
+        explanation: "You used ansible_ssh_private_key_file in [all:vars]." },
+      { q: "Why did you create generate_inventory.sh?",
+        options: ["To create EC2 instances", "To install Ansible", "To update inventory.ini dynamically from Terraform output", "To replace ansible.cfg"],
+        answer: 2,
+        explanation: "Because EC2 public IPs can change, the script regenerates inventory.ini from Terraform output." },
+      { q: "Which tool is required by generate_inventory.sh to parse Terraform JSON output?",
+        options: ["awk", "sed", "jq", "curl"],
+        answer: 2,
+        explanation: "jq is used to read and parse Terraform's JSON output." },
+      { q: "What is the purpose of ansible.cfg in your project?",
+        options: ["To create playbooks automatically", "To define default Ansible behavior such as inventory path", "To store EC2 metadata", "To install Python on remote nodes"],
+        answer: 1,
+        explanation: "ansible.cfg reduces repeated CLI options by setting defaults like inventory, timeout, and host key checking." },
+      { q: "What does host_key_checking = False help with in a lab environment?",
+        options: ["Speeds up Terraform apply", "Avoids first-time SSH host key prompts", "Disables SSH encryption", "Skips package installation"],
+        answer: 1,
+        explanation: "It avoids interactive SSH host key verification, which is common in dynamic lab environments." },
+      { q: "What does this command do? ansible all -m ping",
+        options: ["Pings the internet from each host", "Checks Ansible connectivity to all hosts", "Runs ICMP ping from the control node", "Restarts all servers"],
+        answer: 1,
+        explanation: "The Ansible ping module checks whether Ansible can successfully connect and execute on the hosts." },
+      { q: "What is the output you expect from a successful Ansible ping?",
+        options: ["icmp_seq=1", "pong", "ssh connected", "200 OK"],
+        answer: 1,
+        explanation: "A successful Ansible ping returns 'ping': 'pong'." },
+      { q: "Which module is better for a simple command like uptime?",
+        options: ["shell", "service", "command", "copy"],
+        answer: 2,
+        explanation: "The command module is appropriate for simple commands without shell-specific features." },
+      { q: "What is the main difference between the command and shell modules?",
+        options: ["command supports pipes, shell does not", "shell supports pipes/redirection, command does not", "command installs packages, shell copies files", "There is no difference"],
+        answer: 1,
+        explanation: "shell supports features like pipes and redirects, while command runs simple commands safely." },
+      { q: "What does --become do in Ansible?",
+        options: ["Changes inventory group", "Runs tasks with elevated privileges", "Creates a new SSH key", "Switches from Ubuntu to Red Hat hosts"],
+        answer: 1,
+        explanation: "--become is used for privilege escalation, similar to sudo." },
+      { q: "Why is --become required for package installation tasks?",
+        options: ["Because package managers require root privileges", "Because SSH only works with root", "Because ansible.cfg requires it", "Because inventory.ini cannot store passwords"],
+        answer: 0,
+        explanation: "Installing packages usually requires administrative privileges." },
+      { q: "Which package module is appropriate for Ubuntu?",
+        options: ["yum", "dnf", "apt", "rpm"],
+        answer: 2,
+        explanation: "Ubuntu uses the apt module." },
+      { q: "Which package module is commonly used for Red Hat or Amazon Linux in your project?",
+        options: ["apt", "snap", "yum", "pip"],
+        answer: 2,
+        explanation: "You used yum for Red Hat and Amazon Linux examples." },
+      { q: "What is the purpose of [application:children] in inventory?",
+        options: ["Creates a new host", "Creates a variable group", "Creates a parent group containing other groups", "Defines SSH usernames"],
+        answer: 2,
+        explanation: "The :children syntax creates a group of groups." },
+      { q: "In your setup, the application group contains which child groups?",
+        options: ["ubuntu_web and redhat_app", "redhat_app and amz_db", "servers and amz_db", "worker-ubuntu and worker-redhat"],
+        answer: 0,
+        explanation: "application contains ubuntu_web and redhat_app." },
+      { q: "What does the pattern 'all:!amz_db' mean?",
+        options: ["Only Amazon DB hosts", "All hosts plus amz_db", "All hosts except the amz_db group", "All groups inside amz_db"],
+        answer: 2,
+        explanation: "The ! operator excludes a group from the selection." },
+      { q: "Which statement best describes the overall Day 68 workflow?",
+        options: ["Ansible provisions infrastructure and Terraform runs ad-hoc commands", "Terraform provisions infrastructure, scripts automate setup, and Ansible configures hosts", "jq replaces inventory files and ansible.cfg replaces Terraform", "SSH alone performs all provisioning and configuration"],
+        answer: 1,
+        explanation: "Your project combines Terraform for provisioning, shell scripts for automation, and Ansible for configuration management." }
+    ];
+
+    const quizForm = document.getElementById("quizForm");
+    questions.forEach((item, index) => {
+      const card = document.createElement("section");
+      card.className = "quiz-card";
+      let optionsHtml = "";
+      item.options.forEach((opt, i) => {
+        optionsHtml += `
+          <label class="option" id="q${index}_opt${i}">
+            <input type="radio" name="q${index}" value="${i}">
+            ${opt}
+          </label>
+        `;
+      });
+      card.innerHTML = `
+        <div class="question-number">Question ${index + 1}</div>
+        <div class="question-text">${item.q}</div>
+        ${optionsHtml}
+        <div class="explanation" id="exp${index}"><strong>Explanation:</strong> ${item.explanation}</div>
+      `;
+      quizForm.appendChild(card);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const explanation = document.getElementById(`exp${index}`);
+        item.options.forEach((_, i) => {
+          document.getElementById(`q${index}_opt${i}`).classList.remove("correct", "incorrect");
+        });
+        if (selected) {
+          const selectedValue = parseInt(selected.value, 10);
+          const correctLabel = document.getElementById(`q${index}_opt${item.answer}`);
+          if (selectedValue === item.answer) {
+            score++;
+            correctLabel.classList.add("correct");
+          } else {
+            document.getElementById(`q${index}_opt${selectedValue}`).classList.add("incorrect");
+            correctLabel.classList.add("correct");
+          }
+        } else {
+          document.getElementById(`q${index}_opt${item.answer}`).classList.add("correct");
+        }
+        explanation.style.display = "block";
+      });
+      const percent = Math.round((score / questions.length) * 100);
+      let message = "";
+      if (percent >= 90) message = "Excellent work. You are very ready to discuss Day 68 confidently.";
+      else if (percent >= 75) message = "Strong result. A little more revision and you are interview-ready.";
+      else if (percent >= 60) message = "Good base. Review inventory, patterns, and ad-hoc commands once more.";
+      else message = "Keep revising. Focus on Ansible basics, inventory structure, and command usage.";
+      const result = document.getElementById("result");
+      result.style.display = "block";
+      result.innerHTML = `<h2>Your Score: ${score} / ${questions.length} (${percent}%)</h2><p>${message}</p>`;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+      document.querySelectorAll('.option').forEach(el => el.classList.remove('correct', 'incorrect'));
+      document.querySelectorAll('.explanation').forEach(el => el.style.display = 'none');
+      const result = document.getElementById("result");
+      result.style.display = "none";
+      result.innerHTML = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>

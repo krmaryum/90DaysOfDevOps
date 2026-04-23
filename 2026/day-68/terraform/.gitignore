@@ -1,0 +1,18 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# SSH keys
+terra-automate-key
+terra-automate-key.pub
+*.pem
+*.key
+
+# Optional local files
+variables
+*.backup
+
+# Recommended add
+crash.log
+*.tfvars
