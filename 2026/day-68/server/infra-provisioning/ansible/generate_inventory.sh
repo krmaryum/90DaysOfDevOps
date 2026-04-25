@@ -49,11 +49,12 @@ fi
   echo "[application:children]"
   echo "ubuntu_web"
   echo "redhat_app"
-  
+
   echo
   echo "[all_servers:children]"
   echo "application"
   echo "amz_db"
+
 } > "$OUTPUT_FILE"
 
 rm -f "$TEMP_FILE"

@@ -468,6 +468,7 @@ In your setup:
 So:
 
 variables.tf = inputs
+
 ec2.tf = implementation
 
 
