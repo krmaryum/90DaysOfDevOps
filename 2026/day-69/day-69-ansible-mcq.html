@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 69 - Ansible Playbooks and Modules MCQ Quiz</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --red: #ef4444;
+      --border: #1f2937;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #111827);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 28px;
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--accent);
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .question-card {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+    }
+
+    .question-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      margin-bottom: 14px;
+      color: #f8fafc;
+    }
+
+    .options label {
+      display: block;
+      padding: 10px 12px;
+      margin: 8px 0;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      background: #0b1220;
+    }
+
+    .options label:hover {
+      border-color: var(--accent);
+      background: #0f1b2d;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    .answer {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .correct {
+      border: 1px solid rgba(34,197,94,.6);
+      background: rgba(34,197,94,.12);
+      color: #bbf7d0;
+    }
+
+    .incorrect {
+      border: 1px solid rgba(239,68,68,.6);
+      background: rgba(239,68,68,.12);
+      color: #fecaca;
+    }
+
+    .controls {
+      position: sticky;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid var(--border);
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      backdrop-filter: blur(8px);
+    }
+
+    button {
+      background: var(--accent);
+      color: #00111c;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    .secondary {
+      background: #334155;
+      color: var(--text);
+    }
+
+    #scoreBox {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin: 24px 0;
+      padding: 18px;
+      border-radius: 14px;
+      background: #0b1220;
+      border: 1px solid var(--border);
+      display: none;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 28px;
+      font-size: 0.9rem;
+    }
+
+    code {
+      background: #020617;
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #bae6fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Day 69 - Ansible Playbooks and Modules</h1>
+      <p class="subtitle">25 Multiple Choice Questions | Playbooks, Modules, Handlers, Dry Run, Multi-Play</p>
+      <p class="note">Select one answer for each question, then click <strong>Submit Quiz</strong>.</p>
+    </header>
+
+    <div id="quiz"></div>
+
+    <div id="scoreBox"></div>
+
+    <div class="controls">
+      <button onclick="submitQuiz()">Submit Quiz</button>
+      <button class="secondary" onclick="resetQuiz()">Reset</button>
+      <button class="secondary" onclick="showAnswers()">Show Answers</button>
+    </div>
+
+    <footer>
+      Created for Day 69 Ansible practice.
+    </footer>
+  </div>
+
+<script>
+const questions = [
+  {
+    q: "1. What is the main purpose of an Ansible playbook?",
+    options: [
+      "To manually SSH into servers",
+      "To define desired system state using YAML automation",
+      "To replace Terraform state files",
+      "To create AWS accounts"
+    ],
+    answer: 1,
+    explanation: "A playbook defines desired state such as packages, services, files, and configuration."
+  },
+  {
+    q: "2. Which file format is used for Ansible playbooks?",
+    options: ["JSON", "XML", "YAML", "CSV"],
+    answer: 2,
+    explanation: "Ansible playbooks are written in YAML."
+  },
+  {
+    q: "3. What does <code>hosts: ubuntu_web</code> mean in a playbook?",
+    options: [
+      "Run the play locally only",
+      "Run the play on the inventory group named ubuntu_web",
+      "Create a new host called ubuntu_web",
+      "Install Ubuntu on all servers"
+    ],
+    answer: 1,
+    explanation: "The hosts field targets an inventory group or host."
+  },
+  {
+    q: "4. What does <code>become: true</code> do?",
+    options: [
+      "Runs tasks with privilege escalation",
+      "Disables SSH",
+      "Turns off facts gathering",
+      "Runs tasks only in check mode"
+    ],
+    answer: 0,
+    explanation: "become: true allows tasks to run with elevated privileges, like sudo."
+  },
+  {
+    q: "5. Which module should be used to install packages on Ubuntu?",
+    options: ["yum", "apt", "copy", "lineinfile"],
+    answer: 1,
+    explanation: "The apt module is used for Debian/Ubuntu package management."
+  },
+  {
+    q: "6. Which module should be used to install packages on RedHat or Amazon Linux?",
+    options: ["apt", "yum", "service", "debug"],
+    answer: 1,
+    explanation: "yum is used for RedHat-family systems, including many Amazon Linux setups."
+  },
+  {
+    q: "7. What does <code>state: present</code> mean for a package?",
+    options: [
+      "Remove the package",
+      "Install the package if missing",
+      "Restart the package",
+      "Stop the package"
+    ],
+    answer: 1,
+    explanation: "state: present ensures the package exists."
+  },
+  {
+    q: "8. Which module is used to start and enable Nginx?",
+    options: ["service", "copy", "file", "command"],
+    answer: 0,
+    explanation: "The service module manages service state and boot enablement."
+  },
+  {
+    q: "9. What does <code>enabled: true</code> mean in the service module?",
+    options: [
+      "Start service only once",
+      "Enable service to start on boot",
+      "Disable firewall",
+      "Install service package"
+    ],
+    answer: 1,
+    explanation: "enabled: true ensures the service starts automatically after reboot."
+  },
+  {
+    q: "10. What is idempotency in Ansible?",
+    options: [
+      "A playbook fails every second run",
+      "Running the same playbook repeatedly only changes what needs changing",
+      "Ansible deletes previous tasks",
+      "Handlers always restart services"
+    ],
+    answer: 1,
+    explanation: "Idempotency means repeated runs converge to the same state without unnecessary changes."
+  },
+  {
+    q: "11. Which module copies files from the control node to managed nodes?",
+    options: ["file", "copy", "fetch", "debug"],
+    answer: 1,
+    explanation: "The copy module transfers files or content to managed nodes."
+  },
+  {
+    q: "12. Which module creates directories and manages permissions?",
+    options: ["file", "service", "apt", "shell"],
+    answer: 0,
+    explanation: "The file module manages files, directories, symlinks, ownership, and permissions."
+  },
+  {
+    q: "13. What is the correct way to use a variable as a file owner?",
+    options: [
+      "owner: {{ ansible_user }}",
+      "owner: ansible_user",
+      "owner: \"{{ ansible_user }}\"",
+      "owner: $ansible_user"
+    ],
+    answer: 2,
+    explanation: "Jinja2 variables should be quoted in YAML: owner: \"{{ ansible_user }}\"."
+  },
+  {
+    q: "14. Which module should be preferred for simple commands without pipes?",
+    options: ["shell", "command", "copy", "template"],
+    answer: 1,
+    explanation: "The command module is safer and preferred when shell features are not needed."
+  },
+  {
+    q: "15. Why was <code>shell</code> used for <code>ps aux | wc -l</code>?",
+    options: [
+      "Because apt cannot run commands",
+      "Because it uses a pipe",
+      "Because command is deprecated",
+      "Because debug requires shell"
+    ],
+    answer: 1,
+    explanation: "Pipes are shell features, so the shell module is needed."
+  },
+  {
+    q: "16. What does <code>register</code> do?",
+    options: [
+      "Creates an inventory group",
+      "Saves task output into a variable",
+      "Restarts services",
+      "Disables facts"
+    ],
+    answer: 1,
+    explanation: "register stores the result of a task for later use."
+  },
+  {
+    q: "17. Which module prints variables or messages?",
+    options: ["debug", "copy", "service", "yum"],
+    answer: 0,
+    explanation: "debug displays variables, messages, and task output."
+  },
+  {
+    q: "18. What does <code>lineinfile</code> do?",
+    options: [
+      "Creates a whole directory tree",
+      "Ensures a specific line exists or is changed in a file",
+      "Downloads files from internet",
+      "Runs a shell script"
+    ],
+    answer: 1,
+    explanation: "lineinfile manages a single line in a file."
+  },
+  {
+    q: "19. What is the purpose of a handler?",
+    options: [
+      "Run every task twice",
+      "Run only when notified by a changed task",
+      "Disable idempotency",
+      "Replace inventory variables"
+    ],
+    answer: 1,
+    explanation: "Handlers run only when notified, usually to restart or reload services."
+  },
+  {
+    q: "20. When do handlers run by default?",
+    options: [
+      "Before facts gathering",
+      "Immediately before every task",
+      "At the end of the play",
+      "Only during syntax-check"
+    ],
+    answer: 2,
+    explanation: "Handlers run at the end of a play after being notified."
+  },
+  {
+    q: "21. What triggers a handler?",
+    options: [
+      "A notify statement from a changed task",
+      "Every ok task",
+      "Every failed task",
+      "The inventory file"
+    ],
+    answer: 0,
+    explanation: "notify triggers a handler only when the notifying task changes."
+  },
+  {
+    q: "22. What does <code>--check</code> do?",
+    options: [
+      "Deletes changed files",
+      "Runs a dry run without applying changes",
+      "Shows only inventory hosts",
+      "Increases verbosity"
+    ],
+    answer: 1,
+    explanation: "--check previews what would change without making changes."
+  },
+  {
+    q: "23. What does <code>--diff</code> show?",
+    options: [
+      "The difference between two inventories",
+      "Before and after file content changes",
+      "The SSH key fingerprint only",
+      "Only failed tasks"
+    ],
+    answer: 1,
+    explanation: "--diff shows before/after changes, especially for files."
+  },
+  {
+    q: "24. What is the purpose of <code>--list-hosts</code>?",
+    options: [
+      "Install packages on hosts",
+      "Show targeted hosts without running tasks",
+      "Restart all services",
+      "Create a host group"
+    ],
+    answer: 1,
+    explanation: "--list-hosts shows which hosts would be targeted."
+  },
+  {
+    q: "25. Why use multiple plays in one playbook?",
+    options: [
+      "To run the same task on localhost only",
+      "To target different server roles with different tasks",
+      "To disable handlers",
+      "To avoid using inventory"
+    ],
+    answer: 1,
+    explanation: "Multiple plays let you configure web, app, and database groups separately."
+  }
+];
+
+function renderQuiz() {
+  const quiz = document.getElementById("quiz");
+  quiz.innerHTML = "";
+  questions.forEach((item, i) => {
+    const card = document.createElement("div");
+    card.className = "question-card";
+    card.innerHTML = `
+      <div class="question-title">${item.q}</div>
+      <div class="options">
+        ${item.options.map((opt, idx) => `
+          <label>
+            <input type="radio" name="q${i}" value="${idx}" />
+            ${String.fromCharCode(65 + idx)}. ${opt}
+          </label>
+        `).join("")}
+      </div>
+      <div id="answer-${i}" class="answer"></div>
+    `;
+    quiz.appendChild(card);
+  });
+}
+
+function submitQuiz() {
+  let score = 0;
+  questions.forEach((item, i) => {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    const answerBox = document.getElementById(`answer-${i}`);
+    answerBox.style.display = "block";
+
+    if (selected && Number(selected.value) === item.answer) {
+      score++;
+      answerBox.className = "answer correct";
+      answerBox.innerHTML = `✅ Correct. ${item.explanation}`;
+    } else {
+      answerBox.className = "answer incorrect";
+      const correctText = item.options[item.answer];
+      answerBox.innerHTML = `❌ Incorrect. Correct answer: <strong>${String.fromCharCode(65 + item.answer)}. ${correctText}</strong><br>${item.explanation}`;
+    }
+  });
+
+  const scoreBox = document.getElementById("scoreBox");
+  scoreBox.style.display = "block";
+  scoreBox.innerHTML = `Your Score: ${score} / ${questions.length}`;
+  window.scrollTo({ top: scoreBox.offsetTop - 20, behavior: "smooth" });
+}
+
+function showAnswers() {
+  questions.forEach((item, i) => {
+    const answerBox = document.getElementById(`answer-${i}`);
+    answerBox.style.display = "block";
+    answerBox.className = "answer correct";
+    answerBox.innerHTML = `✅ Correct answer: <strong>${String.fromCharCode(65 + item.answer)}. ${item.options[item.answer]}</strong><br>${item.explanation}`;
+  });
+}
+
+function resetQuiz() {
+  document.querySelectorAll("input[type='radio']").forEach(r => r.checked = false);
+  document.querySelectorAll(".answer").forEach(a => {
+    a.style.display = "none";
+    a.innerHTML = "";
+  });
+  document.getElementById("scoreBox").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+renderQuiz();
+</script>
+</body>
+</html>

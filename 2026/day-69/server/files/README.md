@@ -1,0 +1,1 @@
+Ubuntu sometimes uses user `www-data`, while RedHat/Amazon often uses `nginx`. Since you installed Nginx across all OS families, this config may work better if you set the user line based on OS later. For Task 4 learning, you can test this first.

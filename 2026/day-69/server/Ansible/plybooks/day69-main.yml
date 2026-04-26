@@ -1,0 +1,9 @@
+---
+- import_playbook: playbooks/multi-pkgs-install.yml
+- import_playbook: playbooks/multi-pkgs-install_redhat.yml
+- import_playbook: playbooks/nginx_install_all_OS_family.yml
+- import_playbook: playbooks/copy_file.yml
+- import_playbook: playbooks/create_directory.yml
+- import_playbook: playbooks/check_disk_space.yml
+- import_playbook: playbooks/count_processes.yml
+- import_playbook: playbooks/lineinfile_timezone.yml

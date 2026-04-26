@@ -1,0 +1,79 @@
+---
+- name: Practice essential Ansible modules on all servers
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Install multiple packages on ubuntu
+      apt:
+        name:
+          - git
+          - curl
+          - wget
+          #- tree
+        state: present
+        update_cache: true  # sudo apt update
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Install multiple packages on RedHat / Amazon Linux
+      yum:
+        name:
+          - git
+          #- curl
+          - wget
+          - tree
+        state: present
+        # update_cache: true # update_cache is not valid for yum
+      when: ansible_facts['os_family'] == "RedHat"
+
+
+    - name: Install Nginx on Ubuntu
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+      when: "'ubuntu_web' in group_names"
+
+    - name: Ensure Nginx is Running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+      when: "'ubuntu_web' in group_names"
+
+    - name: Copy Text file
+      copy:
+          src: apps/pub-ips.txt
+          dest: /tmp/pub-ips.txt
+          owner: root
+          group: root
+          mode: '0644'
+
+    - name: Create Application directory
+      file:
+        path: /opt/myapp
+        state: directory
+        owner: "{{ ansible_user }}"
+        mode: '0755'
+
+    - name: Check disk Space
+      command: df -h
+      register: disk_output  # register = save output to variable , disk_output.stdout = actual result
+
+    - name: Print disk Space
+      debug:                 # Used to print variables/output OR Prints output
+        var: disk_output.stdout_lines   # stdout → one paragraph , stdout_lines → bullet points
+
+    - name: Count Running processes
+      shell: ps aux | wc -l
+      register: process_count
+
+    - name: Show process Count
+      debug:
+        msg: "Total processes: {{ process_count.stdout }}"  # Jinja2 variable syntax and must be quoted("").
+
+    - name: Set timezone in environment
+      lineinfile:           # add/update a line and ensure a line exists in a file
+        path: /etc/environment
+        line: 'TZ=America/Chicago'
+        create: true

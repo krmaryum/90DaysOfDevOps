@@ -1,0 +1,14 @@
+---
+- name: multi-pkgs-install_redhat
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: multi-pkgs-install
+      yum:                      # apt(name=[git, curl, wget], state=present)   ✅  , apt([git, curl, wget])   ❌
+        name:
+          - git
+          - curl
+          - wget
+        state: present
+      when: ansible_facts['os_family'] == "redhat"

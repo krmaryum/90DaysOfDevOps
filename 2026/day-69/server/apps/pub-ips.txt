@@ -1,0 +1,3 @@
+"worker-amazon" = "3.141.104.239"
+  "worker-redhat" = "18.188.119.200"
+  "worker-ubuntu" = "3.134.107.36"
