@@ -1,0 +1,314 @@
+Script started on 2026-04-29 19:09:45-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ exitansible-playbook playbooks/conditional-demo.yml --check
+[?2004l[1;35m[WARNING]: Found duplicate mapping key 'when'.[0m
+[1;35mOrigin: /home/khalid/shubham/day-70/ansible-practice/playbooks/conditional-demo.yml:23:7[0m
+[1;35m[0m
+[1;35m21         - "'amz_db' in group_names"[0m
+[1;35m22[0m
+[1;35m23       when:[0m
+[1;35m         ^ column 7[0m
+[1;35m[0m
+[1;35mUsing last defined value only.[0m
+[1;35m[0m
+
+PLAY [Conditional tasks demo] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Install Nginx only on Ubuntu web servers] ********************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [DB server detected] ******************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "This is database server"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Show warning on low memery hosts] ****************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+
+TASK [Run only Amazon Linux] ***************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "This is an Amazon Linux machine"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Run only on Ubuntu] ******************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "This is an Ubuntu machine"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Run only in production] **************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Multiple conditions AND] *************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "web server with enough memory"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [OR conditions] ***********************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "Either web or app server"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": "Either web or app server"[0m
+[0;32m}[0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=4   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=5   [0m rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=3   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=6   [0m rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    [0;36mskipped=3   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible-playbook playbooks/conditional-demo.yml --check
+[?2004l[1;35m[WARNING]: Found duplicate mapping key 'when'.[0m
+[1;35mOrigin: /home/khalid/shubham/day-70/ansible-practice/playbooks/conditional-demo.yml:24:7[0m
+[1;35m[0m
+[1;35m22         - ansible_facts['os_family'] == "RedHat"[0m
+[1;35m23[0m
+[1;35m24       when:[0m
+[1;35m         ^ column 7[0m
+[1;35m[0m
+[1;35mUsing last defined value only.[0m
+[1;35m[0m
+
+PLAY [Conditional tasks demo] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+[1;35m[WARNING]: sftp transfer mechanism failed on [3.138.156.131]. Use ANSIBLE_DEBUG=1 to see detailed information[0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Install Nginx only on Ubuntu web servers] ********************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [DB server detected] ******************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "This is database server"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Show warning on low memery hosts] ****************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+
+TASK [Run only Amazon Linux] ***************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "This is an Amazon Linux machine"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Run only on Ubuntu] ******************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "This is an Ubuntu machine"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Run only in production] **************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Multiple conditions AND] *************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "web server with enough memory"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [OR conditions] ***********************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "Either web or app server"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": "Either web or app server"[0m
+[0;32m}[0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=4   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=5   [0m rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=3   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=6   [0m rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    [0;36mskipped=3   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible-playbook playbooks/conditional-demo.yml --check
+[?2004l
+PLAY [Conditional tasks demo] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Install Nginx only on Ubuntu web servers] ********************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [DB server detected] ******************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "This is database server"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Show warning on low memery hosts] ****************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+
+TASK [Run only Amazon Linux] ***************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "This is an Amazon Linux machine"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Run only on Ubuntu] ******************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "This is an Ubuntu machine"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Run only in production] **************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Multiple conditions AND] *************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "web server with enough memory"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [OR conditions] ***********************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "Either web or app server"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": "Either web or app server"[0m
+[0;32m}[0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=4   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=5   [0m rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=3   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=6   [0m rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    [0;36mskipped=3   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible-playbook playbooks/conditional-demo.yml --check[K[K[K[K[K[K[K
+[?2004l
+PLAY [Conditional tasks demo] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Install Nginx only on Ubuntu web servers] ********************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [DB server detected] ******************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "This is database server"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Show warning on low memery hosts] ****************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": "WARNING: This host has less than 1GB RAM"[0m
+[0;32m}[0m
+
+TASK [Run only Amazon Linux] ***************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": "This is an Amazon Linux machine"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Run only on Ubuntu] ******************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "This is an Ubuntu machine"[0m
+[0;32m}[0m
+
+TASK [Run only in production] **************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Multiple conditions AND] *************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "web server with enough memory"[0m
+[0;32m}[0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [OR conditions] ***********************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": "Either web or app server"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": "Either web or app server"[0m
+[0;32m}[0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=4   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=5   [0m rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=3   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=6   [0m rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    [0;36mskipped=3   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ e[Kexit
+[?2004lexit
+
+Script done on 2026-04-29 19:17:36-05:00 [COMMAND_EXIT_CODE="0"]

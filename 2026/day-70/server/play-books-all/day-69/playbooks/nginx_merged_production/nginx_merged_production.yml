@@ -1,0 +1,92 @@
+---
+- name: Install and configure Nginx on multiple OS families
+  hosts: all_servers
+  become: true
+  gather_facts: true
+
+  vars:
+    nginx_package_name: nginx
+    nginx_service_name: nginx
+    nginx_conf_path: /etc/nginx/nginx.conf
+    nginx_web_root: /usr/share/nginx/html
+    nginx_user: "{{ 'www-data' if ansible_facts['os_family'] == 'Debian' else 'nginx' }}"
+
+  tasks:
+    - name: Install Nginx
+      package:
+        name: "{{ nginx_package_name }}"
+        state: present
+
+    - name: Ensure Nginx web root exists
+      file:
+        path: "{{ nginx_web_root }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Deploy custom Nginx configuration
+      copy:
+        dest: "{{ nginx_conf_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+        backup: true
+        content: |
+          user {{ nginx_user }};
+          worker_processes auto;
+
+          events {
+              worker_connections 1024;
+          }
+
+          http {
+              include       /etc/nginx/mime.types;
+              default_type  application/octet-stream;
+
+              sendfile on;
+              keepalive_timeout 65;
+
+              server {
+                  listen 80;
+                  server_name _;
+
+                  location / {
+                      root {{ nginx_web_root }};
+                      index index.html index.htm;
+                  }
+              }
+          }
+        validate: "nginx -t -c %s"
+      notify: Restart Nginx
+
+    - name: Deploy custom index page
+      copy:
+        dest: "{{ nginx_web_root }}/index.html"
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Managed by Ansible</title>
+          </head>
+          <body>
+              <h1>Managed by Ansible</h1>
+              <p>Server: {{ inventory_hostname }}</p>
+              <p>OS Family: {{ ansible_facts['os_family'] }}</p>
+          </body>
+          </html>
+
+    - name: Ensure Nginx is started and enabled
+      service:
+        name: "{{ nginx_service_name }}"
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: "{{ nginx_service_name }}"
+        state: restarted

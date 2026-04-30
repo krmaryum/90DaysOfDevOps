@@ -1,0 +1,11 @@
+---
+- name: Add a custom Nginx homepage in Ubuntu
+  hosts: ubuntu_web
+  become: true
+
+
+  tasks:
+    - name: Create custom Nginx homepage
+      copy:
+        content: "<h1>Deployed by Ansible - Day 69</h1>\n"
+        dest: /var/www/html/index.nginx-debian.html

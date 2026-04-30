@@ -1,0 +1,545 @@
+Script started on 2026-04-29 22:20:19-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ls -l
+[?2004ltotal 28
+-rw-r--r-- 1 khalid khalid    0 Apr 29 22:20 abc.txt
+-rw-r--r-- 1 khalid khalid  185 Apr 29 22:19 ansible.cfg
+drwxr-xr-x 2 khalid khalid 4096 Apr 27 19:40 [0m[01;34mgroup_vars[0m
+drwxr-xr-x 2 khalid khalid 4096 Apr 27 18:54 [01;34mhost_vars[0m
+-rw-r--r-- 1 khalid khalid  468 Apr 29 22:19 inventory.ini
+drwxr-xr-x 2 khalid khalid 4096 Apr 29 22:18 [01;34mplaybooks[0m
+-rw------- 1 khalid khalid  399 Apr 26 20:47 terra-automate-key
+-rw-r--r-- 1 khalid khalid   95 Apr 26 20:47 terra-automate-key.pub
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible-playbook playbooks/;[Kloops-demo.yml --check
+[?2004l
+PLAY [Loops demo] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Create multiple users] ***************************************************
+[1;35m[WARNING]: Deprecation warnings can be disabled by setting `deprecation_warnings=False` in ansible.cfg.[0m
+[0;35m[DEPRECATION WARNING]: INJECT_FACTS_AS_VARS default to `True` is deprecated, top-level facts will not be auto injected after the change. This feature will be removed from ansible-core version 2.24.[0m
+[0;35mOrigin: /home/khalid/shubham/day-70/ansible-practice/playbooks/loops-demo.yml:10:17[0m
+[0;35m[0m
+[0;35m 8     users:[0m
+[0;35m 9       - name: deploy[0m
+[0;35m10         groups: "{{ 'wheel' if ansible_os_family == 'RedHat' else 'sudo' }}"[0m
+[0;35m                   ^ column 17[0m
+[0;35m[0m
+[0;35mUse `ansible_facts["fact_name"]` (no `ansible_` prefix) instead.[0m
+[0;35m[0m
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'deploy', 'groups': 'sudo'})[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'deploy', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'deploy', 'groups': 'wheel'})[0m
+[1;35m[WARNING]: sftp transfer mechanism failed on [18.117.251.51]. Use ANSIBLE_DEBUG=1 to see detailed information[0m
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'monitor', 'groups': 'sudo'})[0m
+[1;35m[WARNING]: sftp transfer mechanism failed on [3.150.111.3]. Use ANSIBLE_DEBUG=1 to see detailed information[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'monitor', 'groups': 'wheel'})[0m
+[1;35m[WARNING]: sftp transfer mechanism failed on [3.142.47.26]. Use ANSIBLE_DEBUG=1 to see detailed information[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'monitor', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'appuser', 'groups': 'users'})[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'appuser', 'groups': 'users'})[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'appuser', 'groups': 'users'})[0m
+
+TASK [Create multiple directories] *********************************************
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/tmp)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/tmp)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/tmp)[0m
+
+TASK [Install packages on RedHat] **********************************************
+[0;36mskipping: [worker-ubuntu] => (item=git) [0m
+[0;36mskipping: [worker-ubuntu] => (item=unzip) [0m
+[0;36mskipping: [worker-ubuntu] => (item=jq) [0m
+[0;36mskipping: [worker-ubuntu] => (item=wget) [0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;33mchanged: [worker-redhat] => (item=git)[0m
+[0;33mchanged: [worker-redhat] => (item=unzip)[0m
+[0;33mchanged: [worker-amazon] => (item=git)[0m
+[0;32mok: [worker-redhat] => (item=jq)[0m
+[0;32mok: [worker-amazon] => (item=unzip)[0m
+[0;33mchanged: [worker-redhat] => (item=wget)[0m
+[0;32mok: [worker-amazon] => (item=jq)[0m
+[0;32mok: [worker-amazon] => (item=wget)[0m
+
+TASK [Install packages on Ubuntu] **********************************************
+[0;36mskipping: [worker-amazon] => (item=git) [0m
+[0;36mskipping: [worker-amazon] => (item=unzip) [0m
+[0;36mskipping: [worker-amazon] => (item=jq) [0m
+[0;36mskipping: [worker-amazon] => (item=wget) [0m
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat] => (item=git) [0m
+[0;36mskipping: [worker-redhat] => (item=unzip) [0m
+[0;36mskipping: [worker-redhat] => (item=jq) [0m
+[0;36mskipping: [worker-redhat] => (item=wget) [0m
+[0;36mskipping: [worker-redhat][0m
+[0;32mok: [worker-ubuntu] => (item=git)[0m
+[0;33mchanged: [worker-ubuntu] => (item=unzip)[0m
+[0;32mok: [worker-ubuntu] => (item=jq)[0m
+[0;32mok: [worker-ubuntu] => (item=wget)[0m
+
+TASK [Print each user created] *************************************************
+[0;32mok: [worker-amazon] => (item={'name': 'deploy', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user deploy in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item={'name': 'monitor', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user monitor in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'deploy', 'groups': 'sudo'}) => {[0m
+[0;32m    "msg": "Created user deploy in group sudo"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'monitor', 'groups': 'sudo'}) => {[0m
+[0;32m    "msg": "Created user monitor in group sudo"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'deploy', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user deploy in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'monitor', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user monitor in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+
+TASK [Print each packages] *****************************************************
+[0;32mok: [worker-amazon] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-amazon[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+[0;33mworker-redhat[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [A[K[Kansible-playbook playbooks/loops-demo.yml --check
+[?2004l
+PLAY [Loops demo] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Create multiple users] ***************************************************
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'deploy', 'groups': 'sudo'})[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'deploy', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'deploy', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'monitor', 'groups': 'sudo'})[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'monitor', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'appuser', 'groups': 'users'})[0m
+[1;35m[WARNING]: sftp transfer mechanism failed on [3.150.111.3]. Use ANSIBLE_DEBUG=1 to see detailed information[0m
+[1;35m[WARNING]: scp transfer mechanism failed on [3.150.111.3]. Use ANSIBLE_DEBUG=1 to see detailed information[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'monitor', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'appuser', 'groups': 'users'})[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'appuser', 'groups': 'users'})[0m
+
+TASK [Create multiple directories] *********************************************
+[0;33mchanged: [worker-amazon] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/tmp)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/tmp)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/tmp)[0m
+
+TASK [Install packages on RedHat] **********************************************
+[0;36mskipping: [worker-ubuntu] => (item=git) [0m
+[0;36mskipping: [worker-ubuntu] => (item=unzip) [0m
+[0;36mskipping: [worker-ubuntu] => (item=jq) [0m
+[0;36mskipping: [worker-ubuntu] => (item=wget) [0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;33mchanged: [worker-amazon] => (item=git)[0m
+[0;32mok: [worker-amazon] => (item=unzip)[0m
+[0;33mchanged: [worker-redhat] => (item=git)[0m
+[0;32mok: [worker-amazon] => (item=jq)[0m
+[0;32mok: [worker-amazon] => (item=wget)[0m
+[0;33mchanged: [worker-redhat] => (item=unzip)[0m
+[0;32mok: [worker-redhat] => (item=jq)[0m
+[0;33mchanged: [worker-redhat] => (item=wget)[0m
+
+TASK [Install packages on Ubuntu] **********************************************
+[0;36mskipping: [worker-amazon] => (item=git) [0m
+[0;36mskipping: [worker-amazon] => (item=unzip) [0m
+[0;36mskipping: [worker-amazon] => (item=jq) [0m
+[0;36mskipping: [worker-amazon] => (item=wget) [0m
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat] => (item=git) [0m
+[0;36mskipping: [worker-redhat] => (item=unzip) [0m
+[0;36mskipping: [worker-redhat] => (item=jq) [0m
+[0;36mskipping: [worker-redhat] => (item=wget) [0m
+[0;36mskipping: [worker-redhat][0m
+[0;32mok: [worker-ubuntu] => (item=git)[0m
+[0;33mchanged: [worker-ubuntu] => (item=unzip)[0m
+[0;32mok: [worker-ubuntu] => (item=jq)[0m
+[0;32mok: [worker-ubuntu] => (item=wget)[0m
+
+TASK [Print each user created] *************************************************
+[0;32mok: [worker-amazon] => (item={'name': 'deploy', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user deploy in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'deploy', 'groups': 'sudo'}) => {[0m
+[0;32m    "msg": "Created user deploy in group sudo"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item={'name': 'monitor', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user monitor in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'monitor', 'groups': 'sudo'}) => {[0m
+[0;32m    "msg": "Created user monitor in group sudo"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'deploy', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user deploy in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'monitor', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user monitor in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+
+TASK [Print each packages] *****************************************************
+[0;32mok: [worker-amazon] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-amazon[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+[0;33mworker-redhat[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ cat ansible.cfg 
+[?2004l[defaults]
+inventory = inventory.ini
+# private_key_file = ./terra-automate-key    # I commented it bcz it is already in inventory file
+host_key_checking = False
+timeout = 30
+forks = 10
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ cat <<EOF >> ansible.cfg 
+[?2004l[?2004h> [ssh_connections]
+[?2004l[?2004h> cat <<EOF >> ansible.cfg 
+[ssh_connections]
+[A[A[C[C[C[C[C[C[9P
+[K
+[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kansible-playbook playbooks/loops-demo.yml --check[C[C[K^C[?2004l[?2004h[?2004l
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ cat <<EOF >> ansible.cfg  
+[ssh_connections]
+^C[?2004l[?2004h[?2004l
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ cat <<EOF >> ansible.cfg 
+[?2004l[?2004h> [ssh_connections[K]
+[?2004l[?2004h> scp_if_ssh=True
+[?2004l[?2004h> EOF
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ cat <<EOF >> ansible.cfg  
+[ssh_connection]
+scp_if_ssh=True
+EOF
+[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cs]
+[K
+[K
+[K[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K
+[K[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansible-playbook playbooks/loops-demo.yml --check[K[K[K[K[K[K[K[K
+[?2004l
+PLAY [Loops demo] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Create multiple users] ***************************************************
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'deploy', 'groups': 'sudo'})[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'deploy', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'deploy', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'monitor', 'groups': 'sudo'})[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'monitor', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'monitor', 'groups': 'wheel'})[0m
+[0;33mchanged: [worker-ubuntu] => (item={'name': 'appuser', 'groups': 'users'})[0m
+[0;33mchanged: [worker-amazon] => (item={'name': 'appuser', 'groups': 'users'})[0m
+[0;33mchanged: [worker-redhat] => (item={'name': 'appuser', 'groups': 'users'})[0m
+
+TASK [Create multiple directories] *********************************************
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/logs)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/config)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/data)[0m
+[0;33mchanged: [worker-ubuntu] => (item=/opt/app/tmp)[0m
+[0;33mchanged: [worker-amazon] => (item=/opt/app/tmp)[0m
+[0;33mchanged: [worker-redhat] => (item=/opt/app/tmp)[0m
+
+TASK [Install packages on RedHat] **********************************************
+[0;36mskipping: [worker-ubuntu] => (item=git) [0m
+[0;36mskipping: [worker-ubuntu] => (item=unzip) [0m
+[0;36mskipping: [worker-ubuntu] => (item=jq) [0m
+[0;36mskipping: [worker-ubuntu] => (item=wget) [0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;33mchanged: [worker-redhat] => (item=git)[0m
+[0;33mchanged: [worker-amazon] => (item=git)[0m
+[0;32mok: [worker-amazon] => (item=unzip)[0m
+[0;33mchanged: [worker-redhat] => (item=unzip)[0m
+[0;32mok: [worker-amazon] => (item=jq)[0m
+[0;32mok: [worker-redhat] => (item=jq)[0m
+[0;32mok: [worker-amazon] => (item=wget)[0m
+[0;33mchanged: [worker-redhat] => (item=wget)[0m
+
+TASK [Install packages on Ubuntu] **********************************************
+[0;36mskipping: [worker-amazon] => (item=git) [0m
+[0;36mskipping: [worker-amazon] => (item=unzip) [0m
+[0;36mskipping: [worker-amazon] => (item=jq) [0m
+[0;36mskipping: [worker-amazon] => (item=wget) [0m
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat] => (item=git) [0m
+[0;36mskipping: [worker-redhat] => (item=unzip) [0m
+[0;36mskipping: [worker-redhat] => (item=jq) [0m
+[0;36mskipping: [worker-redhat] => (item=wget) [0m
+[0;36mskipping: [worker-redhat][0m
+[0;32mok: [worker-ubuntu] => (item=git)[0m
+[0;33mchanged: [worker-ubuntu] => (item=unzip)[0m
+[0;32mok: [worker-ubuntu] => (item=jq)[0m
+[0;32mok: [worker-ubuntu] => (item=wget)[0m
+
+TASK [Print each user created] *************************************************
+[0;32mok: [worker-amazon] => (item={'name': 'deploy', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user deploy in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item={'name': 'monitor', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user monitor in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'deploy', 'groups': 'sudo'}) => {[0m
+[0;32m    "msg": "Created user deploy in group sudo"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'monitor', 'groups': 'sudo'}) => {[0m
+[0;32m    "msg": "Created user monitor in group sudo"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'deploy', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user deploy in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'monitor', 'groups': 'wheel'}) => {[0m
+[0;32m    "msg": "Created user monitor in group wheel"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item={'name': 'appuser', 'groups': 'users'}) => {[0m
+[0;32m    "msg": "Created user appuser in group users"[0m
+[0;32m}[0m
+
+TASK [Print each packages] *****************************************************
+[0;32mok: [worker-amazon] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-amazon] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=git) => {[0m
+[0;32m    "msg": "Packages Installed git"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=unzip) => {[0m
+[0;32m    "msg": "Packages Installed unzip"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=jq) => {[0m
+[0;32m    "msg": "Packages Installed jq"[0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => (item=wget) => {[0m
+[0;32m    "msg": "Packages Installed wget"[0m
+[0;32m}[0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-amazon[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+[0;33mworker-redhat[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=3   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible-playbook playbooks/loops-demo.yml[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C playboo[1Pks/loops-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C playbook[1Ps/loops-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C playbooks[1P/loops-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C playbooks/[1Ploops-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C playbooks/l[1Poops-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C playbooks/lo[C[1Pps-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C playbooks/loo[1Pps-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C playbooks/loop[1Ps-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C[C playbooks/loops[1P-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C[C playbooks/loops-[1Pdemo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C[C playbooks/loops-d[1Pemo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C[C playbooks/loops-de[1Pmo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C[C playbooks/loops-dem[1Po.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C playbooks/loops-demo[1P.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C playbooks/loops-demo.[1Pyml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C playbooks/loops-demo.y[1Pml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ c playbooks/loops-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [Ca playbooks/loops-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[Ct playbooks/loops-demo.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [C[C[C
+
+[?2004l---
+- name: Loops demo
+  hosts: all_servers
+  become: true
+  gather_facts: true
+
+  vars:
+    users:
+      - name: deploy
+        groups: "{{ 'wheel' if ansible_facts['os_family'] == 'RedHat' else 'sudo' }}"
+      - name: monitor
+        groups: "{{ 'wheel' if ansible_facts['os_family'] == 'RedHat' else 'sudo' }}"
+      - name: appuser
+        groups: users
+
+    directories:
+      - /opt/app/logs
+      - /opt/app/config
+      - /opt/app/data
+      - /opt/app/tmp
+
+    packages:
+      - git
+      - unzip
+      - jq
+      - wget
+
+  tasks:
+    - name: Create multiple users
+      user:
+        name: "{{ item.name }}"
+        groups: "{{ item.groups }}"
+        state: present
+      loop: "{{ users }}"
+
+    - name: Create multiple directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop: "{{ directories }}"
+
+    - name: Install packages on RedHat
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Install packages on Ubuntu
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      loop: "{{ packages }}"
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Print each user created
+      debug:
+        msg: "Created user {{ item.name }} in group {{ item.groups }}"
+      loop: "{{ users }}" 
+
+    - name: Print each packages
+      debug:
+        msg: "Packages Installed {{ item }}"
+      loop: "{{ packages }}"
+    
+
+
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ exit
+[?2004lexit
+
+Script done on 2026-04-29 22:43:54-05:00 [COMMAND_EXIT_CODE="0"]

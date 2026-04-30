@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 70 - Ansible MCQs</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f7fb; margin:0; padding:20px; color:#1f2937; }
+    .container { max-width:1000px; margin:auto; background:#fff; padding:28px; border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,.08); }
+    h1 { text-align:center; color:#0f172a; margin-bottom:10px; }
+    .subtitle { text-align:center; color:#475569; margin-bottom:30px; }
+    .question { border:1px solid #e5e7eb; border-radius:12px; padding:18px; margin-bottom:18px; background:#fafafa; }
+    .question h3 { margin-top:0; color:#111827; }
+    label { display:block; margin:8px 0; padding:9px; border-radius:8px; cursor:pointer; background:#fff; border:1px solid #e5e7eb; }
+    label:hover { background:#eef6ff; }
+    button { display:block; margin:28px auto 10px; padding:14px 26px; background:#2563eb; color:white; border:0; border-radius:10px; font-size:16px; cursor:pointer; }
+    button:hover { background:#1d4ed8; }
+    #result { text-align:center; font-size:22px; font-weight:bold; margin-top:20px; }
+    .correct { background:#dcfce7 !important; border-color:#22c55e !important; }
+    .wrong { background:#fee2e2 !important; border-color:#ef4444 !important; }
+    .answer { display:none; margin-top:10px; padding:10px; border-left:4px solid #2563eb; background:#eff6ff; color:#1e3a8a; border-radius:6px; }
+    .footer { text-align:center; color:#64748b; margin-top:30px; font-size:14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 70 - Ansible MCQs</h1>
+    <p class="subtitle">Variables, Facts, Conditionals, Loops, Register and Debug</p>
+    <form id="quizForm">
+      
+      <div class="question">
+        <h3>1. What is the main purpose of variables in Ansible?</h3>
+        <label><input type="radio" name="q1" value="a"> To hardcode values permanently</label>
+<label><input type="radio" name="q1" value="b"> To make playbooks reusable and dynamic</label>
+<label><input type="radio" name="q1" value="c"> To disable facts</label>
+<label><input type="radio" name="q1" value="d"> To replace inventory files</label>
+        <div class="answer">Correct answer: B — Variables make playbooks flexible and reusable.</div>
+      </div>
+
+      <div class="question">
+        <h3>2. Which syntax is used to reference a variable in Ansible?</h3>
+        <label><input type="radio" name="q2" value="a"> $variable</label>
+<label><input type="radio" name="q2" value="b"> {{ variable }}</label>
+<label><input type="radio" name="q2" value="c"> %variable%</label>
+<label><input type="radio" name="q2" value="d"> @variable</label>
+        <div class="answer">Correct answer: B — Ansible uses Jinja syntax like {{ variable }}.</div>
+      </div>
+
+      <div class="question">
+        <h3>3. Which variable source has the highest precedence?</h3>
+        <label><input type="radio" name="q3" value="a"> group_vars/all.yml</label>
+<label><input type="radio" name="q3" value="b"> playbook vars</label>
+<label><input type="radio" name="q3" value="c"> extra vars using -e</label>
+<label><input type="radio" name="q3" value="d"> role defaults</label>
+        <div class="answer">Correct answer: C — Extra vars passed with -e override all others.</div>
+      </div>
+
+      <div class="question">
+        <h3>4. What does group_vars/all.yml apply to?</h3>
+        <label><input type="radio" name="q4" value="a"> Only one host</label>
+<label><input type="radio" name="q4" value="b"> Only web servers</label>
+<label><input type="radio" name="q4" value="c"> Every host in the inventory</label>
+<label><input type="radio" name="q4" value="d"> Only localhost</label>
+        <div class="answer">Correct answer: C — group_vars/all.yml applies to all hosts.</div>
+      </div>
+
+      <div class="question">
+        <h3>5. What does host_vars/worker-ubuntu.yml apply to?</h3>
+        <label><input type="radio" name="q5" value="a"> All Ubuntu hosts automatically</label>
+<label><input type="radio" name="q5" value="b"> Only the host named worker-ubuntu</label>
+<label><input type="radio" name="q5" value="c"> All web groups</label>
+<label><input type="radio" name="q5" value="d"> Only database servers</label>
+        <div class="answer">Correct answer: B — host_vars files apply to the matching hostname.</div>
+      </div>
+
+      <div class="question">
+        <h3>6. If group_vars defines max_connections: 1000 and host_vars defines max_connections: 2000, which value is used?</h3>
+        <label><input type="radio" name="q6" value="a"> 1000</label>
+<label><input type="radio" name="q6" value="b"> 2000</label>
+<label><input type="radio" name="q6" value="c"> Both values</label>
+<label><input type="radio" name="q6" value="d"> Ansible fails</label>
+        <div class="answer">Correct answer: B — host_vars override group_vars.</div>
+      </div>
+
+      <div class="question">
+        <h3>7. What module gathers Ansible facts from a host?</h3>
+        <label><input type="radio" name="q7" value="a"> copy</label>
+<label><input type="radio" name="q7" value="b"> setup</label>
+<label><input type="radio" name="q7" value="c"> yum</label>
+<label><input type="radio" name="q7" value="d"> debug</label>
+        <div class="answer">Correct answer: B — The setup module gathers facts.</div>
+      </div>
+
+      <div class="question">
+        <h3>8. Which fact is useful for selecting apt or yum?</h3>
+        <label><input type="radio" name="q8" value="a"> ansible_facts['os_family']</label>
+<label><input type="radio" name="q8" value="b"> inventory_hostname</label>
+<label><input type="radio" name="q8" value="c"> group_names</label>
+<label><input type="radio" name="q8" value="d"> app_port</label>
+        <div class="answer">Correct answer: A — os_family helps identify Debian or RedHat families.</div>
+      </div>
+
+      <div class="question">
+        <h3>9. Which fact usually contains the private IP address?</h3>
+        <label><input type="radio" name="q9" value="a"> ansible_host</label>
+<label><input type="radio" name="q9" value="b"> ansible_facts['default_ipv4']['address']</label>
+<label><input type="radio" name="q9" value="c"> group_names</label>
+<label><input type="radio" name="q9" value="d"> inventory_hostname</label>
+        <div class="answer">Correct answer: B — default_ipv4.address usually shows the private IP.</div>
+      </div>
+
+      <div class="question">
+        <h3>10. What does inventory_hostname represent?</h3>
+        <label><input type="radio" name="q10" value="a"> The public IP only</label>
+<label><input type="radio" name="q10" value="b"> The hostname as defined in inventory</label>
+<label><input type="radio" name="q10" value="c"> The OS name</label>
+<label><input type="radio" name="q10" value="d"> The package manager</label>
+        <div class="answer">Correct answer: B — inventory_hostname is the host name from inventory.</div>
+      </div>
+
+      <div class="question">
+        <h3>11. What is group_names?</h3>
+        <label><input type="radio" name="q11" value="a"> A list of groups the current host belongs to</label>
+<label><input type="radio" name="q11" value="b"> A list of packages</label>
+<label><input type="radio" name="q11" value="c"> A list of users</label>
+<label><input type="radio" name="q11" value="d"> A disk report</label>
+        <div class="answer">Correct answer: A — group_names contains all groups for the current host.</div>
+      </div>
+
+      <div class="question">
+        <h3>12. Which keyword controls whether a task runs?</h3>
+        <label><input type="radio" name="q12" value="a"> register</label>
+<label><input type="radio" name="q12" value="b"> loop</label>
+<label><input type="radio" name="q12" value="c"> when</label>
+<label><input type="radio" name="q12" value="d"> vars</label>
+        <div class="answer">Correct answer: C — when controls conditional execution.</div>
+      </div>
+
+      <div class="question">
+        <h3>13. Which is the correct syntax for multiple AND conditions?</h3>
+        <label><input type="radio" name="q13" value="a"> Write when twice in one task</label>
+<label><input type="radio" name="q13" value="b"> when: condition1, condition2</label>
+<label><input type="radio" name="q13" value="c"> when: [condition1 OR condition2]</label>
+<label><input type="radio" name="q13" value="d"> One when with a list of conditions</label>
+        <div class="answer">Correct answer: D — Multiple AND conditions can be written as a list under one when.</div>
+      </div>
+
+      <div class="question">
+        <h3>14. What happens if a when condition is false?</h3>
+        <label><input type="radio" name="q14" value="a"> The task fails</label>
+<label><input type="radio" name="q14" value="b"> The task is skipped</label>
+<label><input type="radio" name="q14" value="c"> The host is deleted</label>
+<label><input type="radio" name="q14" value="d"> The playbook always stops</label>
+        <div class="answer">Correct answer: B — Ansible skips tasks when the condition is false.</div>
+      </div>
+
+      <div class="question">
+        <h3>15. What does loop do?</h3>
+        <label><input type="radio" name="q15" value="a"> Repeats a task for multiple items</label>
+<label><input type="radio" name="q15" value="b"> Stops a playbook</label>
+<label><input type="radio" name="q15" value="c"> Gathers facts</label>
+<label><input type="radio" name="q15" value="d"> Creates inventory groups</label>
+        <div class="answer">Correct answer: A — loop repeats the task for each item.</div>
+      </div>
+
+      <div class="question">
+        <h3>16. What variable represents the current item inside a loop?</h3>
+        <label><input type="radio" name="q16" value="a"> current</label>
+<label><input type="radio" name="q16" value="b"> index</label>
+<label><input type="radio" name="q16" value="c"> item</label>
+<label><input type="radio" name="q16" value="d"> host</label>
+        <div class="answer">Correct answer: C — item is the current loop value.</div>
+      </div>
+
+      <div class="question">
+        <h3>17. What is the modern replacement for with_items?</h3>
+        <label><input type="radio" name="q17" value="a"> repeat</label>
+<label><input type="radio" name="q17" value="b"> loop</label>
+<label><input type="radio" name="q17" value="c"> iterate</label>
+<label><input type="radio" name="q17" value="d"> until</label>
+        <div class="answer">Correct answer: B — loop is the modern recommended syntax.</div>
+      </div>
+
+      <div class="question">
+        <h3>18. Which keyword stores output from a task?</h3>
+        <label><input type="radio" name="q18" value="a"> save</label>
+<label><input type="radio" name="q18" value="b"> output</label>
+<label><input type="radio" name="q18" value="c"> register</label>
+<label><input type="radio" name="q18" value="d"> result</label>
+        <div class="answer">Correct answer: C — register stores task results.</div>
+      </div>
+
+      <div class="question">
+        <h3>19. Which property contains normal command output from a registered result?</h3>
+        <label><input type="radio" name="q19" value="a"> stderr</label>
+<label><input type="radio" name="q19" value="b"> stdout</label>
+<label><input type="radio" name="q19" value="c"> rc_only</label>
+<label><input type="radio" name="q19" value="d"> facts</label>
+        <div class="answer">Correct answer: B — stdout contains the command output.</div>
+      </div>
+
+      <div class="question">
+        <h3>20. What does stdout_lines provide?</h3>
+        <label><input type="radio" name="q20" value="a"> Output split into a list of lines</label>
+<label><input type="radio" name="q20" value="b"> Only error output</label>
+<label><input type="radio" name="q20" value="c"> Only return code</label>
+<label><input type="radio" name="q20" value="d"> Inventory group names</label>
+        <div class="answer">Correct answer: A — stdout_lines gives output as a list.</div>
+      </div>
+
+      <div class="question">
+        <h3>21. Why use changed_when: false for report commands?</h3>
+        <label><input type="radio" name="q21" value="a"> To hide errors</label>
+<label><input type="radio" name="q21" value="b"> To mark read-only commands as not changing the system</label>
+<label><input type="radio" name="q21" value="c"> To disable SSH</label>
+<label><input type="radio" name="q21" value="d"> To delete output</label>
+        <div class="answer">Correct answer: B — Read-only commands should not be marked changed.</div>
+      </div>
+
+      <div class="question">
+        <h3>22. Which module can save a report file on a remote server?</h3>
+        <label><input type="radio" name="q22" value="a"> copy</label>
+<label><input type="radio" name="q22" value="b"> debug</label>
+<label><input type="radio" name="q22" value="c"> setup</label>
+<label><input type="radio" name="q22" value="d"> yum</label>
+        <div class="answer">Correct answer: A — The copy module can write content to a file.</div>
+      </div>
+
+      <div class="question">
+        <h3>23. What does the default() filter help with?</h3>
+        <label><input type="radio" name="q23" value="a"> It deletes variables</label>
+<label><input type="radio" name="q23" value="b"> It provides a fallback value when data is missing</label>
+<label><input type="radio" name="q23" value="c"> It disables facts</label>
+<label><input type="radio" name="q23" value="d"> It creates users</label>
+        <div class="answer">Correct answer: B — default() prevents failures when values are missing.</div>
+      </div>
+
+      <div class="question">
+        <h3>24. In YAML, what does > do in a multi-line msg?</h3>
+        <label><input type="radio" name="q24" value="a"> Keeps every line break</label>
+<label><input type="radio" name="q24" value="b"> Converts multiple lines into one folded line</label>
+<label><input type="radio" name="q24" value="c"> Starts a loop</label>
+<label><input type="radio" name="q24" value="d"> Registers output</label>
+        <div class="answer">Correct answer: B — > is a folded block scalar.</div>
+      </div>
+
+      <div class="question">
+        <h3>25. What is the biggest benefit of Day 70 concepts together?</h3>
+        <label><input type="radio" name="q25" value="a"> Static playbooks only</label>
+<label><input type="radio" name="q25" value="b"> Playbooks that adapt to hosts, OS, groups, and environment</label>
+<label><input type="radio" name="q25" value="c"> Removing inventory completely</label>
+<label><input type="radio" name="q25" value="d"> Avoiding YAML</label>
+        <div class="answer">Correct answer: B — Variables, facts, conditionals and loops create adaptive automation.</div>
+      </div>
+
+      <button type="button" onclick="checkAnswers()">Submit Quiz</button>
+    </form>
+    <div id="result"></div>
+    <div class="footer">Day 70 | 90 Days of DevOps | Ansible Smart Playbooks</div>
+  </div>
+  <script>
+    const answers = {q1: 'b', q2: 'b', q3: 'c', q4: 'c', q5: 'b', q6: 'b', q7: 'b', q8: 'a', q9: 'b', q10: 'b', q11: 'a', q12: 'c', q13: 'd', q14: 'b', q15: 'a', q16: 'c', q17: 'b', q18: 'c', q19: 'b', q20: 'a', q21: 'b', q22: 'a', q23: 'b', q24: 'b', q25: 'b'};
+    function checkAnswers() {
+      let score = 0;
+      const total = Object.keys(answers).length;
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        const first = document.querySelector(`input[name="${q}"]`);
+        const questionDiv = first.closest(".question");
+        const labels = questionDiv.querySelectorAll("label");
+        const answerBox = questionDiv.querySelector(".answer");
+        labels.forEach(label => {
+          label.classList.remove("correct", "wrong");
+          const input = label.querySelector("input");
+          if (input.value === answers[q]) label.classList.add("correct");
+          if (selected && input.checked && input.value !== answers[q]) label.classList.add("wrong");
+        });
+        if (selected && selected.value === answers[q]) score++;
+        answerBox.style.display = "block";
+      }
+      const result = document.getElementById("result");
+      result.innerHTML = `You scored ${score} out of ${total}`;
+      result.style.color = score >= 20 ? "#16a34a" : score >= 14 ? "#ca8a04" : "#dc2626";
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>

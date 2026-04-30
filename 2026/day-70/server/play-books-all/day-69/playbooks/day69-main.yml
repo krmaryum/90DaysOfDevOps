@@ -1,0 +1,10 @@
+---
+- import_playbook: multi-pkgs-install_ubuntu.yml
+- import_playbook: multi-pkgs-install_redhat.yml
+- import_playbook: nginx_install_all_OS_family.yml
+- import_playbook: copy_to_server.yml
+- import_playbook: directory_create.yml
+- import_playbook: disk_space.yml
+- import_playbook: process_count.yml
+- import_playbook: pub_ip.yml
+- import_playbook: lineinfile_timezone.yml
