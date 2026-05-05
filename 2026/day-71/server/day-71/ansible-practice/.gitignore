@@ -1,0 +1,20 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Sensitive values
+*.tfvars
+*.tfvars.json
+
+# SSH keys
+terra-automate-key
+terra-automate-key.pub
+*.pem
+*.key
+
+# Optional local files
+variables
+*.backup
+.vault_pass

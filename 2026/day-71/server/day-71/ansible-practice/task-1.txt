@@ -1,0 +1,321 @@
+Script started on 2026-05-01 19:00:35-05:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-playbook -i in[27m[7mv[27m[7mentory.ini playbooks/template-demo.yml --diff[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook -i inventory.ini playbooks/template-demo.yml --diff[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpl[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpla[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cplay[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cplayb[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cplaybo[C[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cplayboo[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C playbo[1@o[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l[0;31m[ERROR]: YAML parsing failed: While parsing a quoted scalar found unknown escape character.[0m
+[0;31mOrigin: /home/khalid/shubham/day-71/ansible-practice/playbooks/template-demo.yml:39:135[0m
+[0;31m[0m
+[0;31m37     - name: Deploy index page[0m
+[0;31m38       copy:[0m
+[0;31m39         content: "<h1>{{ app_name }}</h1><p>Host: {{ ansible_facts['hostname'] }} | IP: {{ ansible_facts['default_...[0m
+[0;31m[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook playbooks/template-demo.yml --diff
+[?2004l
+PLAY [Deploy Nginx with template] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Install Nginx] ***********************************************************
+The following additional packages will be installed:
+  nginx-common
+Suggested packages:
+  fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  nginx nginx-common
+0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [Remove default nginx site] ***********************************************
+[0;31m--- before[0m
+[0;31m[0m[0;32m+++ after[0m
+[0;32m[0m[0;36m@@ -1,4 +1,4 @@[0m
+[0;36m[0m {
+     "path": "/etc/nginx/sites-enabled/default",
+[0;31m-    "state": "link"[0m
+[0;31m[0m[0;32m+    "state": "absent"[0m
+[0;32m[0m }
+
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [Create web root] *********************************************************
+[0;31m--- before[0m
+[0;31m[0m[0;32m+++ after[0m
+[0;32m[0m[0;36m@@ -1,4 +1,4 @@[0m
+[0;36m[0m {
+     "path": "/var/www/terraweek-app",
+[0;31m-    "state": "absent"[0m
+[0;31m[0m[0;32m+    "state": "directory"[0m
+[0;32m[0m }
+
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [Deploy vhost config from template] ***************************************
+[0;31m--- before[0m
+[0;31m[0m[0;32m+++ after: /home/khalid/.ansible/tmp/ansible-local-1244955id6mn3/tmp0f2qiy9l/nginx-vhost.conf.j2[0m
+[0;32m[0m[0;36m@@ -0,0 +1,15 @@[0m
+[0;36m[0m[0;32m+# Managed by Ansible -- do not edit manually[0m
+[0;32m[0m[0;32m+server {[0m
+[0;32m[0m[0;32m+    listen 80;[0m
+[0;32m[0m[0;32m+    server_name ip-172-31-41-1;[0m
+[0;32m[0m[0;32m+[0m
+[0;32m[0m[0;32m+    root /var/www/terraweek-app;[0m
+[0;32m[0m[0;32m+    index index.html;[0m
+[0;32m[0m[0;32m+[0m
+[0;32m[0m[0;32m+    location / {[0m
+[0;32m[0m[0;32m+        try_files $uri $uri/ =404;[0m
+[0;32m[0m[0;32m+    }[0m
+[0;32m[0m[0;32m+[0m
+[0;32m[0m[0;32m+    access_log /var/log/nginx/terraweek-app_access.log;[0m
+[0;32m[0m[0;32m+    error_log /var/log/nginx/terraweek-app_error.log;[0m
+[0;32m[0m[0;32m+}[0m
+[0;32m[0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [Deploy index page] *******************************************************
+[0;31m--- before[0m
+[0;31m[0m[0;32m+++ after: /var/www/terraweek-app/index.html[0m
+[0;32m[0m[0;36m@@ -0,0 +1 @@[0m
+[0;36m[0m[0;32m+<h1>terraweek-app</h1><p>Host: ip-172-31-41-1 | IP: 172.31.41.1</p>[0m
+[0;32m\ No newline at end of file[0m
+[0;32m[0m
+[0;33mchanged: [worker-ubuntu][0m
+
+RUNNING HANDLER [Restart Nginx] ************************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-ubuntu[0m              : [0;32mok=7   [0m [0;33mchanged=6   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook playbooks/template-demo.yml --diff
+[?2004l
+PLAY [Deploy Nginx with template] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Install Nginx] ***********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Remove default nginx site] ***********************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Create web root] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Deploy vhost config from template] ***************************************
+[0;31m--- before: /etc/nginx/conf.d/terraweek-app.conf[0m
+[0;31m[0m[0;32m+++ after: /home/khalid/.ansible/tmp/ansible-local-12635nrx2zgm5/tmp4rd_sb8_/nginx-vhost.conf.j2[0m
+[0;32m[0m[0;36m@@ -2,7 +2,7 @@[0m
+[0;36m[0m server {
+     listen 80;
+     server_name ip-172-31-41-1;
+[0;31m-[0m
+[0;31m[0m[0;32m+    server_name 18.223.1.123;[0m
+[0;32m[0m     root /var/www/terraweek-app;
+     index index.html;
+ 
+
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [Deploy index page] *******************************************************
+[0;32mok: [worker-ubuntu][0m
+
+RUNNING HANDLER [Restart Nginx] ************************************************
+[1;35m[WARNING]: sftp transfer mechanism failed on [18.223.1.123]. Use ANSIBLE_DEBUG=1 to see detailed information[0m
+[0;33mchanged: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-ubuntu[0m              : [0;32mok=7   [0m [0;33mchanged=2   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook playbooks/template-demo.yml --diff
+[?2004l[0;31m[ERROR]: YAML parsing failed: While parsing a block mapping did not find expected key.[0m
+[0;31mOrigin: /home/khalid/shubham/day-71/ansible-practice/playbooks/template-demo.yml:40:16[0m
+[0;31m[0m
+[0;31m38       copy:[0m
+[0;31m39         content: "<h1>{{ app_name }}</h1><p>Host: {{ ansible_facts['hostname'] }} | IP: {{ ansible_facts['default_...[0m
+[0;31m40         dest: "/var/www/{{ app_name }}/index.html"[0m
+[0;31m                  ^ column 16[0m
+[0;31m[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook playbooks/template-demo.yml --diff
+[?2004l[0;31m[ERROR]: YAML parsing failed: Colons in unquoted values must be followed by a non-space character.[0m
+[0;31mOrigin: /home/khalid/shubham/day-71/ansible-practice/playbooks/template-demo.yml:39:49[0m
+[0;31m[0m
+[0;31m37     - name: Deploy index page[0m
+[0;31m38       copy:[0m
+[0;31m39         content: "<h1>{{ app_name }}</h1><p>Host: {{ ansible_facts['hostname'] }} | IP: {{ ansible_facts['default_...[0m
+[0;31m                                                   ^ column 49[0m
+[0;31m[0m
+[0;31m[0m
+[0;31mFor example:[0m
+[0;31m[0m
+[0;31m    raw: echo 'name: ansible'[0m
+[0;31m[0m
+[0;31mShould be:[0m
+[0;31m[0m
+[0;31m    raw: "echo 'name: ansible'"[0m
+[0;31m[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook playbooks/template-demo.yml --diff
+[?2004l
+PLAY [Deploy Nginx with template] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Install Nginx] ***********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Remove default nginx site] ***********************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Create web root] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Deploy vhost config from template] ***************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Deploy index page] *******************************************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-ubuntu[0m              : [0;32mok=6   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible -i inventory.i[27m[7mn[27m[7mi ubuntu_web -m shell -a "cat /etc/nginx/conf.d/terraweek-app.conf" --become[27m[Aansible -i inventory.ini ubuntu_web -m shell -a "cat /etc/nginx/conf.d/terraweek-app.conf" --become[C[C[1P[1P[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cub[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cubu[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cubun[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cubunt[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cubuntu[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cubuntu_[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cubuntu_w[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cubuntu_we[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[Cubuntu_web[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[Cubuntu_web [1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[Cubuntu_web -[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[Cubuntu_web -m[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[Cubuntu_web -m [1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[Cubuntu_web -m s[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[Cubuntu_web -m sh[1P[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C ubuntu_web -m s[1@h[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C
+
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33m# Managed by Ansible -- do not edit manually[0m
+[0;33mserver {[0m
+[0;33m    listen 80;[0m
+[0;33m    server_name ip-172-31-41-1;[0m
+[0;33m    server_name 18.223.1.123;[0m
+[0;33m    root /var/www/terraweek-app;[0m
+[0;33m    index index.html;[0m
+[0;33m[0m
+[0;33m    location / {[0m
+[0;33m        try_files $uri $uri/ =404;[0m
+[0;33m    }[0m
+[0;33m[0m
+[0;33m    access_log /var/log/nginx/terraweek-app_access.log;[0m
+[0;33m    error_log /var/log/nginx/terraweek-app_error.log;[0m
+[0;33m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [K]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible ubuntu_web -m shell -a "cat /etc/nginx/conf.d/terraweek-app.conf" --become
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33m# Managed by Ansible -- do not edit manually[0m
+[0;33mserver {[0m
+[0;33m    listen 80;[0m
+[0;33m    server_name ip-172-31-41-1;[0m
+[0;33m    server_name 18.223.1.123;[0m
+[0;33m    root /var/www/terraweek-app;[0m
+[0;33m    index index.html;[0m
+[0;33m[0m
+[0;33m    location / {[0m
+[0;33m        try_files $uri $uri/ =404;[0m
+[0;33m    }[0m
+[0;33m[0m
+[0;33m    access_log /var/log/nginx/terraweek-app_access.log;[0m
+[0;33m    error_log /var/log/nginx/terraweek-app_error.log;[0m
+[0;33m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [K]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ curl http://[7mcurl http:[27m[7m/[27m[7m/18.223.1.123[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[Ccurl http://18.223.1.123[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chttp://[1P18.223.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chttp://1[1P8.223.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chttp://18[1P.223.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[Chttp://18.[1P223.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[Chttp://18.2[C[1P3.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[Chttp://18.22[1P3.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[Chttp://18.223[1P.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[Chttp://18.223.[1P1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[Chttp://18.223.1[1P.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[Chttp://18.223.1.[1P123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[Chttp://18.223.1.1[1P23[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[Cttp://18.223.1.12[1P3[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[Chttp://18.223.1.123[K[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[Chttp://18.223.1.123 [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Phttp://18.223.1.123
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Phttp://18.223.1.123[1Phttp://18.223.1.123
+[?2004lbash: http://18.223.1.123: No such file or directory
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ http://18.223.1.123chttp://18.223.1.123uhttp://18.223.1.123rhttp://18.223.1.123 [A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[Clhttp://18.223.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C http://18.223.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C
+
+[?2004l<h1>terraweek-app</h1><p>Host: ip-172-31-41-1 | IP: 172.31.41.1</p>[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ curl http://18.223.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [3Phttp://18.223.1.123
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansible ubuntu_web -m shell -a "cat /etc/nginx/conf.d/terraweek-app.conf" --become[A[C[C[C-playbook playbo[31Poks/template-demo.yml --diff
+[?2004l
+PLAY [Deploy Nginx with template] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Install Nginx] ***********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Remove default nginx site] ***********************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Create web root] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Deploy vhost config from template] ***************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Deploy index page] *******************************************************
+[0;31m--- before: /var/www/terraweek-app/index.html[0m
+[0;31m[0m[0;32m+++ after: /var/www/terraweek-app/index.html[0m
+[0;32m[0m[0;36m@@ -1 +1,2 @@[0m
+[0;36m[0m[0;31m-<h1>terraweek-app</h1><p>Host: ip-172-31-41-1 | IP: 172.31.41.1</p>[0m
+[0;31m\ No newline at end of file[0m
+[0;31m[0m[0;32m+"<h1>terraweek-app</h1>[0m
+[0;32m[0m[0;32m+<p>Host: ip-172-31-41-1 | IP: 172.31.41.1</p>"[0m
+[0;32m[0m
+[0;33mchanged: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook playbooks/template-demo.yml --diff[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ curl http://18.223.1.123[K
+[?2004l"<h1>terraweek-app</h1>
+<p>Host: ip-172-31-41-1 | IP: 172.31.41.1</p>"
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mcurl -s http://18.223.[27m[7m1[27m[7m.1 | xmllint --format -[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ curl -s http://18.223.1.1 | xmllint --format -
+[?2004lCommand 'xmllint' not found, but can be installed with:
+sudo snap install libxml2        # version 2.9.9+pkg-0333, or
+sudo apt  install libxml2-utils  # version 2.9.14+dfsg-1.3ubuntu3.7
+See 'snap info libxml2' for additional versions.
+
+^C
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7msudo apt  install libx[27m[7mm[27m[7ml2-utils[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ sudo apt  install libxml2-utils
+[?2004lReading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 0%Reading state information... Done
+The following NEW packages will be installed:
+  libxml2-utils
+0 upgraded, 1 newly installed, 0 to remove and 50 not upgraded.
+Need to get 39.1 kB of archives.
+After this operation, 288 kB of additional disk space will be used.
+[33m0% [Working][0m            Get:1 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libxml2-utils arm64 2.9.14+dfsg-1.3ubuntu3.7 [39.1 kB]
+[33m29% [1 libxml2-utils 14.2 kB/39.1 kB 36%][0m[33m                                         100% [Working][0m              Fetched 39.1 kB in 0s (84.3 kB/s)
+
+7[0;48r8[1ASelecting previously unselected package libxml2-utils.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 108999 files and directories currently installed.)
+Preparing to unpack .../libxml2-utils_2.9.14+dfsg-1.3ubuntu3.7_arm64.deb ...
+7[49;0f[42m[30mProgress: [  0%][49m[39m [........................................................] 87[49;0f[42m[30mProgress: [ 20%][49m[39m [###########.............................................] 8Unpacking libxml2-utils (2.9.14+dfsg-1.3ubuntu3.7) ...
+7[49;0f[42m[30mProgress: [ 40%][49m[39m [######################..................................] 8Setting up libxml2-utils (2.9.14+dfsg-1.3ubuntu3.7) ...
+7[49;0f[42m[30mProgress: [ 60%][49m[39m [#################################.......................] 87[49;0f[42m[30mProgress: [ 80%][49m[39m [############################################............] 8Processing triggers for man-db (2.12.0-4build2) ...
+
+7[0;49r8[1A[J[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ sudo apt  install libxml2-utils[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ curl -s http://18.223.1.1 | xmllint --format -
+[?2004l-:1: parser error : Document is empty
+
+^
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ curl -s http://18.223.1.1 | xmllint --format -[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ sudo apt  install libxm[15Pl2-utils[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ curl -s http://18.223.1.1 | xmllint --format -[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[Chttp://18.223.1.123[K
+[?2004l"<h1>terraweek-app</h1>
+<p>Host: ip-172-31-41-1 | IP: 172.31.41.1</p>"
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mIdempotency Check[27m[1PIdempotency Chec[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcurl http://18.223.1.123[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C-s http://18.223.1.1 | xmllint --format -[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ sudo apt  install libxm[15Pl2-utils[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ curl -s http://18.223.1.1 | xmllint --format -[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[Chttp://18.223.1.123[K[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook playbooks/template-demo.yml --diff[K[K[K[K[K[K[K
+[?2004l
+PLAY [Deploy Nginx with template] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Install Nginx] ***********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Remove default nginx site] ***********************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Create web root] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Deploy vhost config from template] ***************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Deploy index page] *******************************************************
+[1;35m[WARNING]: sftp transfer mechanism failed on [18.223.1.123]. Use ANSIBLE_DEBUG=1 to see detailed information[0m
+[0;32mok: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-ubuntu[0m              : [0;32mok=6   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ exit
+[?2004lexit
+
+Script done on 2026-05-01 20:14:42-05:00 [COMMAND_EXIT_CODE="0"]

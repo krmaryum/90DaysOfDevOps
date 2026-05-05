@@ -1,0 +1,16 @@
+---
+- name: Check Disk Space
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Check Disk Space
+      command: df -h
+      register: disk_output # register = save output to variable , disk_output.stdout = actual result
+
+    - name: Print Disk Space 
+      debug:                              # Used to print variables/output OR Prints output
+        var: disk_output.stdout_lines
+        #msg: "{{ disk_output.stdout_lines }}"     # stdout → one paragraph , stdout_lines → bullet points
+
+

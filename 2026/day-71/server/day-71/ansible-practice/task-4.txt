@@ -1,0 +1,741 @@
+Script started on 2026-05-03 19:41:52-05:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy search  dockert[K[K[A[K]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy search docker
+[?2004l[?1h=[m
+Found 1564 roles matching your search. Showing first 1000.[m
+[m
+ Name                                                       Description[m
+ ----                                                       -----------[m
+ 0x28d.docker_ce                                            Ansible role for Docker CE[m
+ 0x646e78.docker_debian                                     Install docker-ce on Debian[m
+ 10forge.docker                                             Install and configure docker-ce.[m
+ 14rcole.molecule_docker_ci                                 Manage the creation and destruction of container resources for running molecule in a container runti[m[7m>[27m
+ 1632314.docker_compose_deploy                              Role for deploying any docker-compose container[m
+ 1632314.minecraft_server_docker                            Generates a minecraft server inside a docker container[m
+ 1it.docker-run                                             Ansible role to build and run docker containers docker-compose like style[m
+ 6nsh.docker                                                Install and configure Docker[m
+ aadl.docker-nginx-alpine                                   Ansible role to manage and run the alpine nginx docker container.[m
+ aadl.docker-php-fpm-alpine                                 Ansible role to manage and run the alpine php docker container.[m
+ codingbunch.docker-registry                                Private registry server for Docker[m
+ abaez.docker                                               Install docker with docker-compose for RedHat, Debian, and Suse variants.[m
+ abarrak.docker_server_role                                 Ansible role to install and expose docker server on RHEL[m
+ abdullahjajja.docker                                       Rancher-2.1.1 installation[m
+ abessifi.docker                                            Install docker in variant GNU/Linux servers.[m
+ abessifi.docker-osb                                        Create and configure Docker image/container for OSB[m
+ abhisheksafui.docker_debian                                Ansible role to install docker in a debian system[m
+ aboveops.ct_docker_exporter                                Ansible role deploys docker exporter container[m
+ acandid.docker                                             Install Docker Redhat/CentOS 7 and Debian 10[m
+ acehko.docker                                              Ansible role that installs Docker and Docker Compose.[m
+ acrom18.docker-machine                                     Wrapper for creating and deleting hosts via Docker Machine. Plus a dynamic inventory. This is a fork[m[7m>[27m
+ acropia.docker                                             Install Docker Engine on CentOS Linux 7[m
+ adamus1red.ansible_role_docker                             Docker for Linux.[m
+ adarnimrod.docker                                          Provision Docker engine[m
+ adfinis-sygroup.docker                                     Install docker on a host[m
+ admingagan.ansible_docker_role                             Role for a Test Demo on Ansible Galaxy to install Docker CE[m
+ AdnanHodzic.docker-compose                                 Install and setup Docker and Docker Compose on any version of Debian and Ubuntu Linux system.[m
+ AdopteUnOps.clean-docker-host                              A role to clean a docker host.[m
+ AdopteUnOps.docker                                         Install docker on ubuntu hosts[m
+ AdopteUnOps.docker-login                                   Performs docker login[m
+ AdopteUnOps.mysql-docker                                   Ansible role to run a mysql container.[m
+ adzumatokaku.docker_role                                   docker instalation[m
+ AerisCloud.docker                                          Ansible Docker Playbook Role[m
+ AerisCloud.docker-manage                                   Maintain docker containers, voluments and networks[m
+ aeternuss.docker                                           Install Docker Engine - Community[m
+ agowa338.gitlab-runner-dockerized                          Span and register new gitlab runners within docker containers.[m
+ ajitnayak92.ansible_role_docker                            Docker for Linux.[m
+ A-j-K.docker-install                                       Deploys Docker Engine[m
+ akkerman.docker                                            Docker on Ubuntu[m
+ aklinkert.docker_cleanup                                   Role to cleanup unused docker resources every night.[m
+ aklinkert.docker_compose_stack                             Role to configure a docker-compose stack with systemd on Debian/Ubuntu.[m
+ AlbanAndrieu.ansible_jenkins_slave_docker                  A role for creating docker image for jenkins slaves[m
+ alekseenkoss77.docker                                      Ansible Galaxy role for Docker[m
+:[K[K alexandrefimov.docker_role                                 your role description[m
+:[K[K alexcos78.docker_run                                       your description[m
+:[K[K alexinthesky.docker                                        Install Docker and Docker Compose.[m
+:[K[K alexinthesky.secure-docker-daemon                          Use to create certificates and keys required to secure the Docker daemon.[m
+:[K[K AlexisLessard.docker-prometheus                            An ansible role to create a prometheus-grafana stack using docker. Docker has to be installed by oth[m[7m>[27m
+:[K[K alikins.docker                                             Docker for Linux.[m
+:[K[K almaops.ct_docker_registry                                 install docker registry in container (allows mirroring)[m
+:[K[K almaops.docker                                             install and configure docker daemon[m
+:[K[K alvarobacelar.install_docker                               Install docker community on server ubuntu or centos[m
+:[K[K alvistack.docker                                           Ansible Role for Docker Installation[m
+:[K[K amaudy.ansibledocker                                       your role description[m
+:[K[K meAmidos.install-docker                                    Install Docker on Ubuntu/Debian[m
+:[K[K amine7777.docker                                           This role helps you to install docker and docker-compose on your linux machine.[m
+:[K[K aminvakil.docker_installation                              Docker and Docker-Compose Installer[m
+:[K[K amtega.docker_engine                                       Setup docker engine[m
+:[K[K amtega.docker_provisioner                                  Provisione docker images and containers[m
+:[K[K anarcher.docker                                            Ansible Role to install Docker engine on Ubuntu 14.04 (or later)[m
+:[K[K anarcher.docker-registry                                   Ansible Role to deploy/configurat Private Docker Registry on Ubuntu 14.04 (or later)[m
+:[K[K andbanman.docker                                           Install docker[m
+:[K[K andrchalov.ansible-role-docker                             Ansible role for installing docker on Ubuntu[m
+:[K[K andrchalov.ansible-role-docker-postgres                    Configuring and running PostgreSQL docker container.[m
+:[K[K andrchalov.ansible-role-docker-tunnel                      Ansible role creates dockerized SSH tunnels[m
+:[K[K andrelohmann.docker                                        ansible galaxy role to deploy docker[m
+:[K[K andrelohmann.gitlab_docker_runner                          ansible galaxy role to install and register a gitlab runner with docker executor[m
+:[K[K andreswebs.docker                                          Installs Docker and Docker Compose[m
+:[K[K andreswebs.docker_app                                      Installs a Docker application[m
+:[K[K andrewrothstein.docker                                     installs and configures the docker daemon[m
+:[K[K andrewrothstein.docker-binaries                            a role to download and install the docker binaries[m
+:[K[K andrewrothstein.docker-cleanup                             Crond-powered utility role for configuring docker-daemon pruning[m
+:[K[K andrewrothstein.docker-compose                             docker-compose role[m
+:[K[K andrewrothstein.docker-couchdb                             installs couchdb and couchdb-lucene in tandem docker containers[m
+:[K[K andrewrothstein.docker_engine                              installs the docker-ce[m
+:[K[K andrewrothstein.docker-machine                             installs docker-machine from github[m
+:[K[K andrewrothstein.docker-provision-thinpool                  Creates a thinpool logical volume for docker engine[m
+:[K[K andrewrothstein.docker-py                                  installs and configures docker-py for use with docker[m
+:[K[K andrewrothstein.docker-registry                            Docker registry role[m
+:[K[K andrewrothstein.docker-swarm                               a consul based swarm[m
+:[K[K andrewrothstein.gitlab_docker_machine                      installs GitLab's distribution of docker-machine[m
+:[K[K andyceo.docker                                             Install docker and provide usefull settings for it[m
+:[K[K angstwad.docker_ubuntu                                     A comprehensive and (ideally) sane way to install Docker on Ubuntu 14.04+[m
+:[K[K ankit4rh.docker                                            Installs docker and docker-compose[m
+:[K[K ansibl3.galaxy_deb_docker                                  Installs docker on ubuntu[m
+:[K[K ansibleforsearx.searxng_docker                             Install and configure SearXNG as a docker image.[m
+:[K[K ansibleguy.infra_docker_minimal                            Role to deploy a minimal docker setup on a linux server[m
+:[K[K ansiblers.docker                                           Docker on Ubuntu greater than 12.04[m
+:[K[K anthonykgross.ansible-docker-osx                           Installation of Docker Toolbox with docker-machine-nfs increase the read/write access to your filesy[m[7m>[27m
+:[K[K anthonykgross.docker-osx-install                           Installation of Docker Toolbox with docker-machine-nfs increase the read/write access to your filesy[m[7m>[27m
+:[K[K anthonykgross.docker-osx-uninstall                         Uninstallation of Docker Toolbox with docker-machine-nfs increase the read/write access to your file[m[7m>[27m
+:[K[K antoniobarbaro.docker-ce                                   Install docker ce[m
+:[K[K aphexlog.docker                                            Ansible role that installs Docker[m
+:[K[K apinyarr.automated_docker                                  Ansible role to automated docker container[m
+:[K[K appian.ansible_role_macos_docker_app                       A role that installs Docker[m
+:[K[K arc-ts.docker                                              Installs and Manages the Docker Engine. Has support for managing Commercial vs Open Source, Storage,[m[7m>[27m
+:[K[K arikkert.nrpe_check_docker                                 nrpe check_docker on linux hosts[m
+:[K[K arillso.docker                                             Installed and Configuriet then docker deamon on different Linux systems.[m
+:[K[K arnaudblancher.docker_provisionning                        Take an ansible inventory and create one docker container for each listed hosts. After you can deplo[m[7m>[27m
+:[K[K arnaudblancher.docker_unprovisionning                      Take an ansible inventory and remove docker container for each listed hosts. This role is the compan[m[7m>[27m
+:[K[K arnobirchler.docker                                        Docker for Linux.[m
+:[K[K arnobirchler.docker-gitlab                                 install gitlab on docker[m
+:[K[K artis3n.docker                                             Install Docker CE[m
+:[K[K asg1612.ansible-role-docker-registry                       Ansible role for install docker registry[m
+:[K[K asg1612.docker                                             Install Docker service[m
+:[K[K asg1612.dockerswarm                                        Install Docker Swarm[m
+:[K[K ateoto.docker                                              Installs docker-engine on Ubuntu LTS or Debian Stable[m
+:[K[K atosatto.docker-datacenter                                 Install Docker Datacenter on Centos/RHEL, Ubuntu/Debian.[m
+:[K[K atosatto.docker-swarm                                      Setup a Docker Swarm Cluster on Centos/RHEL, Ubuntu/Debian.[m
+:[K[K atSistemas.docker-ansible-role                             Ansible role to install Docker and Docker Compose[m
+:[K[K averagebit.docker                                          Installs and configures Docker.[m
+:[K[K avinetworks.docker                                         Ansible role that installs Docker[m
+:[K[K awalende.denbibidocker                                     Installs and configure docker for the deNBI Cloud located in Bielefeld Germany.[m
+:[K[K awalende.dockerRegCache                                    Installs a docker registry cache.[m
+:[K[K awcrosby.ansible_role_docker                               Docker for Linux.[m
+:[K[K yeolabs.docker-runner                                      your description[m
+:[K[K aya.docker                                                 An ansible role to install docker[m
+:[K[K azavea.docker                                              An Ansible role for installing Docker.[m
+:[K[K babanomania.docker_pi                                      Configures an Raspberry Pi with Docker[m
+:[K[K basecomponent.docker                                       Docker[m
+:[K[K BastienF.traefik-in-docker                                 Deploy Traefik reverse proxy in docker[m
+:[K[K batandwa.docker-container                                  An Ansible roles that creates docker containers[m
+:[K[K baztian.docker                                             Role for installing docker and docker-compose[m
+:[K[K bedmiston.docker                                           Docker for Linux.[m
+:[K[K belgotux.deluge_docker                                     Role to create deluge user/group and directory to use in the cluster. Based on the image `linuxserve[m[7m>[27m
+:[K[K belgotux.docker                                            Role to install/update docker and docker-compose, install pip dependancies for ansible and installed[m[7m>[27m
+:[K[K belgotux.docker_traefik                                    Role to create traefik proxy on docker[m
+:[K[K Benaud12.docker-pi                                         Docker installation for Raspberry Pi[m
+:[K[K ben-le.docker                                              Installs and configures Docker Community Edition[m
+:[K[K bersace.dockerdns                                          Setup docker container DNS resolution and nameserver[m
+:[K[K Bessonov.docker                                            Install or update docker-engine from docker project apt repository[m
+:[K[K Bessonov.docker-compose                                    Install or update docker-compose[m
+:[K[K Bessonov.docker-remote-api                                 Allows secure access to remote docker swarm cluster[m
+:[K[K Bessonov.docker-swarm                                      Setup and manage a docker swarm cluster[m
+:[K[K bezrukovp.docker                                           Docker role of Ubuntu server[m
+:[K[K bhaveshs6.docker_conf_role                                 This role installs docker on remote systems.[m
+:[K[K bibigon812.docker_service_configs                          Prepares configs for the docker_swarm_service module.[m
+:[K[K bigpaulie.docker_setup                                     Setup docker and docker compose on your system[m
+:[K[K bilalcaliskan.docker_storage                               Docker storage setup role[m
+:[K[K bindermuehle.provision_docker                              Provision docker containers using inventory.[m
+:[K[K bingoarun.cassandra-docker-cluster                         Cassandra docker cluster role with JMX enabled[m
+:[K[K bitintheskud.ansible-role-docker-ce-centos                 Install Docker CE on CentOS 7[m
+:[K[K blalop.docker_arm                                          Docker Role for ARM[m
+:[K[K blixtra.dockerized-influxdb                                InfluxDB[m
+:[K[K blue271828.docker_swarm                                    Setup a Docker Swarm Cluster[m
+:[K[K bodsch.docker                                              install and configure docker on various linux systems[m
+:[K[K bramford.docker                                            Docker installation[m
+:[K[K brentwg.docker                                             Ansible role that installs Docker CE.[m
+:[K[K bronzdoc.jenkins-docker-service                            your description[m
+:[K[K brucellino.docker                                          role for provisioning the base platform for Docker[m
+:[K[K bsmeding.tig_stack_docker                                  Ansible Role to install Telegraf, InfluxDB and Grafana (TIG) as docker containers[m
+:[K[K bt5e.docker_ce                                             Docker CE[m
+:[K[K bt5e.docker_compose                                        Docker Compose[m
+:[K[K bt5e.docker-non-root-user                                  Manage docker as a non root user[m
+:[K[K btr1975.linux_docker_ce_node                               Install Docker CE on a linux server[m
+:[K[K buluma.docker                                              Install and configure Docker (non-CE) on your system.[m
+:[K[K buluma.docker_ce                                           Install and configure Docker CE on your system.[m
+:[K[K buluma.docker_env                                          Prepare Docker Environment for local testing.[m
+:[K[K BVA-Holding-BV.docker                                      Installs docker on Ubuntu and EL systems[m
+:[K[K bzang.docker-install                                       Installs Docker engine and compose to an Ubuntu server[m
+:[K[K caermeglaeddyv.ansible_role_docker                         Linux / Kubernetes Administrator[m
+:[K[K caixinjiang.docker                                         Docker for Linux.[m
+:[K[K calvinbui.ansible_bitwardenrs_docker                       Bitwarden RS in Docker[m
+:[K[K calvinbui.ansible_bookstack_docker                         BookStackApp[m
+:[K[K calvinbui.ansible_calibre_docker                           Calibre in Docker[m
+:[K[K calvinbui.ansible_calibre_web_docker                       Calibre Web in Docker[m
+:[K[K calvinbui.ansible_collabora_docker                         Collabora in Docker[m
+:[K[K calvinbui.ansible_confluence_docker                        Confluence in Docker[m
+:[K[K calvinbui.ansible_couchpotato_docker                       CouchPotato in Docker[m
+:[K[K calvinbui.ansible_docker                                   Docker for Ubuntu LTS[m
+:[K[K calvinbui.ansible_docker_network                           Docker network module[m
+:[K[K calvinbui.ansible_haproxy_docker                           HAProxy in Docker[m
+:[K[K calvinbui.ansible_jdownloader_docker                       JDownloader in Docker[m
+:[K[K calvinbui.ansible_lazylibrarian_docker                     LazyLibrarian in Docker[m
+:[K[K calvinbui.ansible_mariadb_docker                           MariaDB[m
+:[K[K calvinbui.ansible_nextcloud_docker                         NextCloud in Docker[m
+:[K[K calvinbui.ansible_nzbget_docker                            NZBGet in Docker[m
+:[K[K calvinbui.ansible_nzbhydra_docker                          NZBHydra in Docker[m
+:[K[K calvinbui.ansible_onlyoffice_docker                        ONLYOFFICE in Docker[m
+:[K[K calvinbui.ansible_organizr_docker                          Organizr in Docker[m
+:[K[K calvinbui.ansible_piwigo_docker                            Piwigo in Docker[m
+:[K[K calvinbui.ansible_postgres_docker                          Postgres in a Docker container[m
+:[K[K calvinbui.ansible_qbittorrent_docker                       qBittorrent in Docker[m
+:[K[K calvinbui.ansible_resiliosync_docker                       Resilio Sync in Docker[m
+:[K[K calvinbui.ansible_sonarr_docker                            Sonarr in Docker[m
+:[K[K calvinbui.ansible_unifi_docker                             Unifi in a Docker container[m
+:[K[K cavemandaveman.docker                                      Docker for Linux.[m
+:[K[K chaliy.offline_docker                                      Install Docker into air-gapped offline environments[m
+:[K[K charliemaiors.docker                                       Install Docker-CE[m
+:[K[K chasinglogic.docker_services                               Manage services and containers with docker[m
+:[K[K chirkin.ansible-docker-ssh-tunnel                          Ansible role for creating dockerized ssh tunnel communication[m
+:[K[K chirkin.docker                                             Ansible role for installing docker on Ubuntu[m
+:[K[K Chorus-AB.docker-compose                                   Docker-compose application using systemd[m
+:[K[K chouseknecht.ansible_docker                                role to setup docker and manage containers on multiple target machines[m
+:[K[K chrismeyersfsu.provision_docker                            Provision docker containers using inventory.[m
+:[K[K christophermancini.docker                                  Install Docker on RHEL or Debian based Linux distros using the Official Docker repositories.[m
+:[K[K cimon-io.docker                                            install docker[m
+:[K[K ckaserer.docker                                            Docker for Linux.[m
+:[K[K clayman74.docker                                           Docker[m
+:[K[K clearlinux.docker                                          Role to install docker on ubuntu[m
+:[K[K cleartechgroup.docker-ce                                   Ansible role for installation of Docker from official Docker's repo[m
+:[K[K cliffano.droplet-docker                                    Ansible Role for setting up Docker on DigitalOcean droplet as per guide https://www.digitalocean.com[m[7m>[27m
+:[K[K clouddrove.ansible_role_docker                             This ansible role install docker at Debian and Centos.[m
+:[K[K clouddrove.ansible_role_docker_basic_node_exporter         This ansible role is used to install Redis server into Docker.[m
+:[K[K clouddrove.ansible_role_docker_caddy                       This ansible role is used to install Caddy with docker on server.[m
+:[K[K clouddrove.ansible_role_docker_elastichq                   This ansible role is used to install Elastichq  with docker on linux.[m
+:[K[K clouddrove.ansible_role_docker_elasticsearch               This ansible role is used to install Elasticsearch Server with docker on linux.[m
+:[K[K clouddrove.ansible_role_docker_elasticsearch_node_exporter This ansible role is used to install Redis server into Docker.[m
+:[K[K clouddrove.ansible_role_docker_jenkins                     This ansible role is used to install Jenkins with docker on server.[m
+:[K[K clouddrove.ansible_role_docker_jenkins_node_exporter       This ansible role is used to install Redis server into Docker.[m
+:[K[K clouddrove.ansible_role_docker_mysql_node_exporter         This ansible role is used to install Redis server into Docker.[m
+:[K[K clouddrove.ansible_role_docker_nginx                       This ansible role is used to install Nginx Server with docker on linux.[m
+:[K[K clouddrove.ansible_role_docker_nginx_node_exporter         This ansible role is used to install Redis server into Docker.[m
+:[K[K clouddrove.ansible_role_docker_php                         This Ansible role install PHP On Ubuntu, CentOS Amazon-Linux With Docker[m
+:[K[K clouddrove.ansible_role_docker_php_node_exporter           This ansible role is used to install Redis server into Docker.[m
+:[K[K clouddrove.ansible_role_docker_pritunl                     This ansible role is used to install Pritunl and Mongodb with docker on server.[m
+:[K[K clouddrove.ansible_role_docker_rabbitmq_node_exporter      This ansible role is used to install Redis server into Docker.[m
+:[K[K clouddrove.ansible_role_docker_redis                       This ansible role is used to setup Redis server with docker on linux.[m
+:[K[K clouddrove.ansible_role_docker_redis_node_exporter         This ansible role is used to install Redis server into Docker.[m
+:[K[K cloudmesh.ansible-cloudmesh-docker                         Install docker on CentOS[m
+:[K[K Cloud-PG.ansible_role_docker_run                           your description[m
+:[K[K Cloud-PG.docker                                            Install docker engine[m
+:[K[K coaxial.docker-proxy                                       Docker reverse proxy for Docker containers[m
+:[K[K codecap.dockersvc                                          Ansible role to manage dockerized services[m
+:[K[K codeyourinfra.docker                                       Role to install Docker[m
+:[K[K codeyourinfra.docker_compose                               Role to install docker-compose[m
+:[K[K colonelpopcorn.docker_swarm                                Install a docker-swarm cluster.[m
+:[K[K colstrom.docker                                            Docker is an open platform for developers and sysadmins of distributed applications.[m
+:[K[K commis1059.docker                                          Install docker[m
+:[K[K common-ansible-roles.docker                                installs and manages docker[m
+:[K[K coredotbin.docker                                          Configuration for Docker host servers[m
+:[K[K coreyramirezgomez.systemd_docker                           Deploy dockerized service and manage with systemd unit files.[m
+:[K[K Cougar.docker                                              Ansible Docker Playbook Role[m
+:[K[K cowops.debian_docker                                       Install docker for debian system[m
+:[K[K CyVerse-Ansible.ansible_docker_containers_run              This role will define and run a given set of docker containers[m
+:[K[K CyVerse-Ansible.ansible_jupyterhub_docker                  This role will install jupyterhub with github authentication. Jupyterhub is configured to use docker[m[7m>[27m
+:[K[K CyVerse-Ansible.docker                                     Ansible role to install docker ce onto support linux systems[m
+:[K[K d1t5u.docker_install                                       install and run docker[m
+:[K[K d1t5u.docker_network                                       Create docker network[m
+:[K[K d3atiq.docker_host                                         Docker host machine[m
+:[K[K Dalee.bootstrap-docker                                     Bootstrap docker machine, install nginx, some tools and uninstall crap[m
+:[K[K Dalee.install-docker                                       Docker and docker compose installation role[m
+:[K[K damex.docker                                               docker role[m
+:[K[K daniloradenovic.ansible-role-docker                        Docker for Linux.[m
+:[K[K darexsu.docker                                             install and configure docker[m
+:[K[K darkraiden.ansible-docker                                  Install and configure docker[m
+:[K[K darkwizard242.docker                                       Docker-ce stable version installation/uninstallation.[m
+:[K[K darkwizard242.dockercompose                                Installs/Uninstalls 'docker-compose' to define and run multi comtainer docker applications.[m
+:[K[K darkwizard242.lazydocker                                   Installs/Uninstalls 'lazydocker', which is the lazier way to manage everything docker.[m
+:[K[K datadog-galaxy.docker                                      Docker role[m
+:[K[K datadrivers.datadrivers_docker                             An Ansible role for installing Docker, ctop, docker-compose and nvidia-docker.[m
+:[K[K dav1d8.docker-compose                                      An Ansible role for installing docker-compose.[m
+:[K[K daveymoran.docker                                          docker community edition[m
+:[K[K DavidWittman.docker                                        An unopinionated Docker role for RHEL/CentOS[m
+:[K[K dbrennand.caddy_docker                                     Deploy Caddy in a Docker container.[m
+:[K[K dciangot.ansible_role_docker                               Install docker engine[m
+:[K[K decayofmind.bluegreen-docker                               Blue-green deployment concept with Docker containers.[m
+:[K[K deluxebrain.ansible_role_docker                            Docker installer for Linux[m
+:[K[K derekmerck.diana_docker                                    Configure and run a DIANA DICOM worker node in a Docker container.[m
+:[K[K derekmerck.nginx_docker                                    Configure and run a [Nginx](https://https://www.nginx.com) web server with reverse proxying in a Doc[m[7m>[27m
+:[K[K derekmerck.orthanc_docker                                  Configure and run an [Orthanc](https://www.orthanc-server.com) DICOM node in a Docker container[m
+:[K[K derekmerck.pureftpd_docker                                 Configure and run a Pure-FTPd server in a Docker container.[m
+:[K[K derekmerck.redis_docker                                    Configure and run a [Redis](https://redis.io) kv-store in a Docker container.[m
+:[K[K derekmerck.snappass_docker                                 Configure and run a Snappass secret-cache in a Docker container.[m
+:[K[K derekmerck.splunk_docker                                   Configure and run a [Splunk](http://www.splunk.com) data index in a Docker container.[m
+:[K[K derekmurawsky.ansible_pihole_docker_configuration          Ansible role to configure dnsmasq in a PiHole container[m
+:[K[K MeneDev.docker-compose                                     Install binary disitribution of docker-compose[m
+:[K[K devgateway.docker                                          Install Docker[m
+:[K[K batthebee.docker-gitlab-ce                                 ansible role to setup sameersbn/docker-gitlab with docker-compose[m
+:[K[K devoperate.docker                                          Installs Docker on Linux[m
+:[K[K devoperate.docker_compose                                  Installs the docker-compose binary on Linux[m
+:[K[K dginhoux.docker_compose                                    This ansible role install, configure and uninstall docker-compose.[m
+:[K[K[m
+:[K[K dginhoux.docker_engine                                     This ansible role install, configure and uninstall docker-engine.[m
+:[K[K[m
+:[K[K dginhoux.docker_registry_image                             This ansible role is used to synchronize docker image from publics registries and push them in a loc[m[7m>[27m
+:[K[K[m
+:[K[K dginhoux.docker_stacks                                     This ansible role deploy swarm stacks.[m
+:[K[K[m
+:[K[K dginhoux.docker_swarm                                      This ansible role init, configure and remove a swarm cluster.[m
+:[K[K[m
+:[K[K dhellmann.ansible_docker_ce                                your description[m
+:[K[K dieswaytoofast.ansible_docker                              Ansible role that installs Docker on Ubuntu Xenial.[m
+:[K[K dieswaytoofast.docker_utils                                Collection of docker utils that rely on the 'docker' command[m
+:[K[K dirn.docker                                                Installs Docker and related utilities.[m
+:[K[K djalexd.docker-swarm                                       Setup a Docker Swarm Cluster on Centos/RHEL, Ubuntu/Debian.[m
+:[K[K djoseph14.docker_install                                   Installation de docker[m
+:[K[K djx339.docker-ce                                           An engineer[m
+:[K[K djx339.docker-compose                                      An engineer[m
+:[K[K djx339.docker-conf                                         An engineer[m
+:[K[K djx339.docker-env                                          An engineer[m
+:[K[K djx339.docker-install                                      An engineer[m
+:[K[K dmae3.galaxy-docker                                        Role of installing Docker[m
+:[K[K dmitrii-ageev.docker                                       This Ansible role installs the latest Docker Community Edition.[m
+:[K[K dmitrybelyakov.localcloud-docker                           This role will install docker engine and some additional tooling[m
+:[K[K dochang.docker                                             Docker installer[m
+:[K[K dockpack.base_docker                                       Yet another Docker role.[m
+:[K[K Dotan-Harel.docker                                         your description[m
+:[K[K dottgonzo.add_ubuntu_docker                                add docker to ubuntu[m
+:[K[K dottgonzo.ansible_role_deploy_docker_compose               Deploy Docker Compose[m
+:[K[K dottgonzo.ansible_role_docker_add_network                  Add a Network to Docker[m
+:[K[K dottgonzo.ansible_role_init_and_join_docker_swarm_cluster  Init a Docker Swarm Cluster and join nodes[m
+:[K[K dottgonzo.ansible_role_login_into_docker_registry          Login into Docker Registry[m
+:[K[K dottgonzo.ansible_role_set_docker_swarm_node_labels        Set Docker Swarm Node Labels[m
+:[K[K dottgonzo.ansible_role_setup_kubernetes_docker_registries  Setup K8s Objects for docker registry image integration[m
+:[K[K dottgonzo.ansible_role_update_docker_swarm_services        Update Docker Swarm Service[m
+:[K[K dottgonzo.ansible_role_upgrade_docker_stack_service_image  Upgrade Docker Swarm Service images[m
+:[K[K dragomirr.docker                                           Install docker community edition[m
+:[K[K dragomirr.docker_compose                                   Install docker-compose[m
+:[K[K drhelius.docker                                            Ansible role to install Docker and Docker Compose[m
+:[K[K dropoutlabs.docker-python36-and-jupyter                    Python36 and Jupyter[m
+:[K[K dschep.docker                                              A simple docker installer[m
+:[K[K dstanek.docker                                             A simple role to install docker-engine and run the docker service.[m
+:[K[K dtanphat9388.ansible_docker                                role for install docker and setup docker swarm[m
+:[K[K dubzland.docker                                            Docker for Debian[m
+:[K[K dudefellah.docker                                          Docker for Linux.[m
+:[K[K dustinrue.docker                                           Installs docker-ce on xenial[m
+:[K[K dustinrue.docker-elasticsearch                             Installs Elasticsearch using Docker and exposes it on ports 9200 and 9300[m
+:[K[K dwdraju.install-docker                                     Ansible role for installing docker[m
+:[K[K dzangolab.docker_mysql                                     Install mysql as a docker container[m
+:[K[K dzangolab.docker_mysql_backup                              Backup mysql database to AWS S3 via docker container[m
+:[K[K dzangolab.docker_phpmyadmin                                Install phpmyadmin as a docker container[m
+:[K[K dzangolab.docker_services                                  Installs various ancillary services as docker containers[m
+:[K[K dzangolab.docker_swarmpit                                  Installs [swarmpit](https://swarmpit.io/) server and agentas docker containers[m
+:[K[K dzangolab.docker_traefik                                   Installs traefik proxy and other useful services as docker containers[m
+:[K[K dzangolab.install_docker_ce                                Install Docker CE[m
+:[K[K dzmitrykliapkou.docker_and_compose                         Ansible role that installs docker and docker-compose[m
+:[K[K easypath.docker-host                                       Installs Docker Community Edition (CE) on CentOS 7.4[m
+:[K[K ecgalaxy.docker                                            Installs Docker[m
+:[K[K ecgalaxy.docker_compose                                    Installs docker-compose v1[m
+:[K[K ecormaksin.ansible_galaxy_role_ubuntu_docker               install docker to ubuntu[m
+:[K[K ednxzu.install_docker                                      Install and configure docker for debian-based distros.[m
+:[K[K eduardoklosowski.docker                                    Instala o docker[m
+:[K[K edwardtheharris.docker                                     your description[m
+:[K[K edwinchaina.ansible_role_docker                            install Docker in Enterprise Linux or Ubuntu host[m
+:[K[K eendroroy.docker-ce                                        docker-ce[m
+:[K[K egeneralov.docker                                          Install docker on debian-based systems[m
+:[K[K egjiri.docker                                              Ansible Role to install docker and docker-compose[m
+:[K[K elaurendeau.ansible_role_raspberrypi_docker                docker installation for raspbian os[m
+:[K[K elnebuloso.docker                                          Docker for Linux Server[m
+:[K[K elnebuloso.docker-compose                                  docker compose[m
+:[K[K elnebuloso.docker-login                                    docker login[m
+:[K[K elnebuloso.docker-memcached                                Memcached for Docker[m
+:[K[K elnebuloso.docker-mysql                                    MySQL Server for Docker[m
+:[K[K elnebuloso.docker-pip                                      docker python pip[m
+:[K[K elnebuloso.docker-portainer                                Portainer for Docker[m
+:[K[K elnebuloso.docker-swagger-editor                           Swagger Editor for Docker[m
+:[K[K elnebuloso.docker-swagger-generator                        Swagger Generator for Docker[m
+:[K[K elnebuloso.docker-teamspeak3                               Teamspeak3 for Docker[m
+:[K[K elreydetoda.nvidia_docker                                  Install nvidia-docker[m
+:[K[K elyesbenamor.docker                                        Docker for Linux.[m
+:[K[K embedit-ansible.docker_create_network                      Create Docker Network[m
+:[K[K embedit-ansible.docker_stack_deploy                        Simple role for deploying stack to docker swarm using variable generated docker-compose.yml file.[m
+:[K[K emielmolenaar.ansible_role_docker_mailhog                  An Ansible role to setup Mailhog in a docker container[m
+:[K[K emielmolenaar.ansible_role_docker_pihole                   An Ansible role to setup Pi-hole in a docker container[m
+:[K[K emielmolenaar.ansible_role_docker_python_sdk               An Ansible role to install the Python docker SDK on APT compatible hosts[m
+:[K[K emielmolenaar.ansible_role_docker_redis                    An Ansible role to setup Redis in a docker container[m
+:[K[K emielmolenaar.ansible_role_docker_redisearch               An Ansible role to setup Redisearch in a docker container[m
+:[K[K emmetog.docker-compose                                     A simple ansible role to install docker-compose to a specific version[m
+:[K[K empeje.gitlab_docker_runner_role                           mpj's opinionated gitlab-runner on docker[m
+:[K[K enr0s.ansible_role_docker                                  Install docker on your Raspberry (64 bit architecture).[m
+:[K[K entercloudsuite.docker                                     Playbook for Docker CE[m
+:[K[K eriklotin.docker                                           Role installs Docker and does some post-install tasks to prepare hosts for running Docker containers.[m
+:[K[K erjac77.docker                                             Install Docker on various Linux distributions[m
+:[K[K ernestas-poskus.docker                                     Install ands configures Docker Engine on Redhat/CentOS and Debian/Ubuntu[m
+:[K[K escalate.docker                                            Manage Docker CE on Raspberry Pi OS[m
+:[K[K escalate.ha-bridge-docker                                  Manages ha-bridge Docker container with systemd on Raspbian and Debian OS[m
+:[K[K esolitos.docker_jackett                                    Configres and install Jackett/Jackett via docker[m
+:[K[K esolitos.docker_syncthing                                  Runs Syncthing app via docker[m
+:[K[K evanhongo.docker                                           Install or update docker-engine using the repository[m
+:[K[K exphost.docker                                             Extreme simple docker role[m
+:[K[K exterrestris.docker_compose                                Creates and starts Docker Compose files[m
+:[K[K exzeo.docker                                               Role for installing docker[m
+:[K[K fabceolin.ansible_docker_mysql                             Install mysql as a docker container[m
+:[K[K fabiohbarbosa.docker                                       docker-ce and docker-compose installation[m
+:[K[K fabiomarinetti.docker_secured                              install and expose secure docker APIs[m
+:[K[K faisallarai.docker                                         A simple role that installs docker runtime to your infrastructure. Run it, and see![m
+:[K[K fallenpixel.docker                                         Updates docker containers using watchtower[m
+:[K[K fanfansama.ansible_dockerce4vagrant                        your description[m
+:[K[K farynam.mfitbs_ansible_docker_node                         Install and secure docker daemon.[m
+:[K[K faurik.ansible_install_docker                              your role description[m
+:[K[K fawaz-moh.docker                                           Role for installing docker.[m
+:[K[K fcastello.dhcpd_docker                                     Role to start docker container running dhcpd[m
+:[K[K fcastello.docker                                           Role to install docker in ubuntu based environments[m
+:[K[K fcastello.node_exporter_docker                             Prometheus node exporter on docker[m
+:[K[K fgierlinger.docker                                         Role to deploy docker on gentoo[m
+:[K[K fgierlinger.docker_swarm                                   Docker Swarm for Linux.[m
+:[K[K fgierlinger.shlink_docker                                  Shlint url shortener[m
+:[K[K FGtatsuro.docker_toolbox                                   Ansible role for Docker Toolbox[m
+:[K[K fiaasco.docker                                             Ansible role to install Docker CE - Community version[m
+:[K[K FinalDes.ansible_docker_ce                                 Docker host setup[m
+:[K[K fkautz.docker-install                                      Install Docker CE on Debian and RedHat systems.[m
+:[K[K fkrull.docker-build                                        copy a Docker build context and build an image[m
+:[K[K fkrull.docker-systemd                                      create systemd unit files for Docker containers[m
+:[K[K FlorianKempenich.setup-secure-remote-docker-daemon         Setup and secure a Docker daemon remotely accessible via TLS[m
+:[K[K fmind.docker                                               Install docker service[m
+:[K[K fpizzo20.docker_node                                       Prepare your system to be managed by Ansible.[m
+:[K[K fpizzo20.docker_stack                                      Prepare your system to be managed by Ansible.[m
+:[K[K freehck.docker                                             install docker and set private insecure registry for some specific user[m
+:[K[K freehck.docker_registry                                    Docker registry role[m
+:[K[K frite.docker                                               APT configuration[m
+:[K[K Furdarius.docker                                           Docker instalation[m
+:[K[K gabops.docker                                              Installs and configures Docker Community Edition.[m
+:[K[K galexrt.docker                                             This is a modified version of the Docker Ansible Kubernetse deployment role from kubernetes/contrib.[m
+:[K[K gbolo.docker                                               Role for Installation and Configuration of Docker[m
+:[K[K gbraad.docker                                              Deploys Docker container engine[m
+:[K[K gbraad.docker-registry                                     Deploys Docker registry[m
+:[K[K gchiesa.docker                                             Docker / Docker Compose support for Enterprise Linux[m
+:[K[K geerlingguy.docker                                         Docker for Linux.[m
+:[K[K geerlingguy.docker_arm                                     Docker setup for Rasbperry Pi and ARM-based devices.[m
+:[K[K [KESCESC[KOO[KAA[K[HM entercloudsuite.docker                                     Playbook for Docker CE[m
+[49;1H[K:[K[K [KESCESC[KOO[KAA[K[HM enr0s.ansible_role_docker                                  Install docker on your Raspberry (64 bit architecture).[m
+[49;1H[K:[K[K [KESCESC[KOO[KBB[K geerlingguy.docker                                         Docker for Linux.[m
+:[K[K[?1l>[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [K]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy ib[Knstall  geerlingguy.docker
+[?2004lStarting galaxy role install process
+- downloading role 'docker', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-docker/archive/8.0.0.tar.gz
+- extracting geerlingguy.docker to /home/khalid/.ansible/roles/geerlingguy.docker
+- geerlingguy.docker (8.0.0) was installed successfully
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-galaxy list[27mansible-galaxy list
+[?2004l# /home/khalid/.ansible/roles
+- geerlingguy.docker, 8.0.0
+# /etc/ansible/roles
+[1;35m[WARNING]: - the configured path /usr/share/ansible/roles does not exist.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mrm -rf ~/.ansible/role[27m[7ms[27m[7m/geerlingguy.docker[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ rm -rf ~/.ansible/roles/geerlingguy.docker
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mls ~/.ansible/roles[27mls ~/.ansible/roles
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ls -l
+[?2004ltotal 284
+-rw-r--r-- 1 khalid khalid  24576 May  3 19:48 abc.txt
+-rw-r--r-- 1 khalid khalid    219 May  3 00:01 ansible.cfg
+-rw-r--r-- 1 khalid khalid    469 May  3 00:01 inventory.ini
+drwxr-xr-x 3 khalid khalid   4096 May  1 19:55 [0m[01;34mplaybooks[0m
+drwxr-xr-x 3 khalid khalid   4096 May  2 20:35 [01;34mroles[0m
+-rw-r--r-- 1 khalid khalid    203 May  2 23:55 site.yml
+-rw-r--r-- 1 khalid khalid  31347 May  1 20:14 task-1.txt
+-rw-r--r-- 1 khalid khalid   5517 May  1 23:03 task-2.txt
+-rw-r--r-- 1 khalid khalid 136610 May  3 00:07 task-3.txt
+-rw-r--r-- 1 khalid khalid  49152 May  3 20:26 task-4.txt
+drwxr-xr-x 2 khalid khalid   4096 May  1 19:07 [01;34mtemplates[0m
+-rw------- 1 khalid khalid    399 May  1 00:22 terra-automate-key
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-galaxy install[27m[7m [27m[7mgeerlingguy.docker -p roles/[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy install geerlingguy.docker -p roles/
+[?2004lStarting galaxy role install process
+- downloading role 'docker', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-docker/archive/8.0.0.tar.gz
+- extracting geerlingguy.docker to /home/khalid/shubham/day-71/ansible-practice/roles/geerlingguy.docker
+- geerlingguy.docker (8.0.0) was installed successfully
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mtree roles/[27mtree roles/
+[?2004l[01;34mroles/[0m
+├── [01;34mgeerlingguy.docker[0m
+│   ├── LICENSE
+│   ├── README.md
+│   ├── [01;34mdefaults[0m
+│   │   └── main.yml
+│   ├── [01;34mhandlers[0m
+│   │   └── main.yml
+│   ├── [01;34mmeta[0m
+│   │   └── main.yml
+│   ├── [01;34mmolecule[0m
+│   │   └── [01;34mdefault[0m
+│   │       ├── converge.yml
+│   │       ├── molecule.yml
+│   │       └── verify.yml
+│   ├── [01;34mtasks[0m
+│   │   ├── docker-compose.yml
+│   │   ├── docker-users.yml
+│   │   ├── main.yml
+│   │   ├── setup-Debian.yml
+│   │   ├── setup-RedHat.yml
+│   │   └── setup-Suse.yml
+│   └── [01;34mvars[0m
+│       ├── [01;32mAlpine.yml[0m
+│       ├── Archlinux.yml
+│       ├── Debian.yml
+│       ├── RedHat.yml
+│       ├── Suse.yml
+│       └── [01;32mmain.yml[0m
+└── [01;34mwebserver[0m
+    ├── README.md
+    ├── [01;34mdefaults[0m
+    │   └── main.yml
+    ├── [01;34mfiles[0m
+    ├── [01;34mhandlers[0m
+    │   └── main.yml
+    ├── [01;34mmeta[0m
+    │   └── main.yml
+    ├── [01;34mtasks[0m
+    │   └── main.yml
+    ├── [01;34mtemplates[0m
+    │   ├── index.html.j2
+    │   ├── nginx.conf.j2
+    │   └── vhost.conf.j2
+    ├── [01;34mtests[0m
+    │   ├── inventory
+    │   └── test.yml
+    └── [01;34mvars[0m
+        └── main.yml
+
+18 directories, 31 files
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-galaxy list[27mansible-galaxy list
+[?2004l# /home/khalid/.ansible/roles
+# /etc/ansible/roles
+[1;35m[WARNING]: - the configured path /usr/share/ansible/roles does not exist.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible all -m ping
+[?2004l[0;32mworker-amazon | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-redhat | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-ubuntu | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible [7mredhat_app[27mredhat_app -m  command -a "docker --version"
+[?2004l[0;31m[ERROR]: Task failed: Module failed: Error executing command: [Errno 2] No such file or directory: b'docker'[0m
+[0;31mOrigin: <adhoc 'command' task>[0m
+[0;31m[0m
+[0;31m{'action': 'command', 'args': {'_raw_params': 'docker --version'}, 'timeout': 0, 'async_val': 0, 'poll': 15}[0m
+[0;31m[0m
+[0;31mworker-redhat | FAILED | rc=2 >>[0m
+[0;31mError executing command.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-galaxy install[27m[7m [27m[7m-r requirements.yml[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy install -r requirements.yml
+[?2004lStarting galaxy role install process
+- downloading role 'docker', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-docker/archive/8.0.0.tar.gz
+- extracting geerlingguy.docker to /home/khalid/.ansible/roles/geerlingguy.docker
+- geerlingguy.docker (8.0.0) was installed successfully
+- downloading role 'ntp', owned by greenlingguy
+[1;35m[WARNING]: - greenlingguy.ntp was NOT installed successfully: - sorry, greenlingguy.ntp was not found on https://galaxy.ansible.com/api/.[0m
+[0;31m[ERROR]: - you can use --ignore-errors to skip failed roles and finish processing the list.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy install -r requirements.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C redhat_app -m command -a "docker --version"[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[3Pall -m ping
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-galaxy list[8Ptree roles/ansible-galaxy install geerlingguy.docker -p roles/[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ls -l[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C~/.ansible/rolesrm -rf ~/.ansible/roles/geerlingguy.docker[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [3Pansible-galaxy list
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Crm -rf ~/.ansible/roles/geerlingguy.docker[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [3Pls ~/.ansible/roles
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-l[Kansible-galaxy install geerlingguy.docker -p roles/[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [11Ptree roles/
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansible-galaxy list all -m pingredhat_app -m command -a "docker --version"[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C-galaxy install [9P-r requirements.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls il[K[K-l
+[?2004ltotal 328
+-rw-r--r-- 1 khalid khalid  45056 May  3 21:06 abc.txt
+-rw-r--r-- 1 khalid khalid    219 May  3 21:19 ansible.cfg
+-rw-r--r-- 1 khalid khalid    115 May  3 20:57 docker-setup.yml
+-rw-r--r-- 1 khalid khalid    472 May  3 21:19 inventory.ini
+drwxr-xr-x 3 khalid khalid   4096 May  1 19:55 [0m[01;34mplaybooks[0m
+-rw-r--r-- 1 khalid khalid     92 May  3 21:06 requirements.yml
+drwxr-xr-x 4 khalid khalid   4096 May  3 20:27 [01;34mroles[0m
+-rw-r--r-- 1 khalid khalid    203 May  2 23:55 site.yml
+-rw-r--r-- 1 khalid khalid  31347 May  1 20:14 task-1.txt
+-rw-r--r-- 1 khalid khalid   5517 May  1 23:03 task-2.txt
+-rw-r--r-- 1 khalid khalid 136610 May  3 00:07 task-3.txt
+-rw-r--r-- 1 khalid khalid  57344 May  3 21:26 task-4.txt
+drwxr-xr-x 2 khalid khalid   4096 May  1 19:07 [01;34mtemplates[0m
+-rw------- 1 khalid khalid    399 May  1 00:22 terra-automate-key
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ vim requirements.yml 
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;49r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[49;1H"requirements.yml" 7L, 92B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[1;1H[35m---[m
+[36mroles[m[35m:[m[2;7H[K[3;1H  [38;5;130m- [m[36mname[m[35m:[m geerlingguy.docker[3;29H[K[4;5H[36mversion[m[35m:[m [31m"8.0.0"[m
+
+  [38;5;130m- [m[36mname[m[35m:[m greenlingguy.ntp
+
+[94m~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H7,2[11CAll[7;2H[?25h[?4m[?12$p[?25l[49;51H/[7;2H[49;52H0[7;2H[49;53Hc[7;2H[49;54H0[7;2H[49;55Hc[7;2H[49;56H/[7;2H[49;57H0[7;2H[49;58Hc[7;2H[49;59H0[7;2H[49;60Hc[7;2H[49;51H          [7;2H[27m[23m[29m[m[H[2J[1;1H[38;5;81m---[m
+[1m[96mroles[m[38;5;224m:[m
+  [93m- [m[1m[96mname[m[38;5;224m:[m geerlingguy.docker
+    [1m[96mversion[m[38;5;224m:[m [95m"8.0.0"[m
+
+  [93m- [m[1m[96mname[m[38;5;224m:[m greenlingguy.ntp
+
+[94m~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H7,2[11CAll"requirements.yml" 7L, 92B[7;2H[?25h[?25l[49;51H~@k[7;2H[49;51H   [7;2H[?25h[?25l[49;51Hi[7;2H[49;51H [7;2H[49;1H[1m-- INSERT --[m[49;13H[K[49;61H7,2[11CAll[7;2H[?25h[?25l[49;61H6[6;2H[?25h[?25l[49;61H5,1[5;1H[?25h[?25l[49;61H6,2[6;2H[?25h[?25l[49;63H3[6;3H[?25h[?25l[49;63H4[6;4H[?25h[?25l[49;63H5[6;5H[?25h[?25l[49;63H6[6;6H[?25h[?25l[49;63H7[6;7H[?25h[?25l[49;63H8[6;8H[?25h[?25l[49;63H9[6;9H[?25h[?25l[49;63H10[6;10H[?25h[?25l[49;64H1[6;11H[?25h[?25l[49;64H2[6;12H[?25h[?25l[49;64H3[6;13H[?25h[?25l[49;64H4[6;14H[?25h[?25l[49;64H5[6;15H[?25h[?25l[49;64H6[6;16H[?25h[?25l[49;64H7[6;17H[?25h[?25l[49;64H8[6;18H[?25h[?25l[49;64H7[6;17H[?25h[?25l[49;64H6[6;16H[?25h[?25llingguy.ntp[6;26H[K[49;64H5[6;15H[?25h[49;1H[K[6;14H[?25l[49;51H^[[6;14H[49;51H  [6;15H[49;61H6,14[10CAll[6;14H[?25h[?25l[49;51H:[6;14H[49;51H[K[49;1H:[?25hx[?25l[?2004l[>4;m"requirements.yml" 7L, 91B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?1049l[23;0;0t[?25h[>4;m[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ vim requirements.yml ls -l[Kansible-galaxy install -r requirements.yml
+[?2004lStarting galaxy role install process
+- geerlingguy.docker (8.0.0) is already installed, skipping.
+- downloading role 'ntp', owned by greelingguy
+[1;35m[WARNING]: - greelingguy.ntp was NOT installed successfully: - sorry, greelingguy.ntp was not found on https://galaxy.ansible.com/api/.[0m
+[0;31m[ERROR]: - you can use --ignore-errors to skip failed roles and finish processing the list.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-galaxy install[27m[7m [27m[7m-r requirements.yml -p roles/ --force[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy install -r requirements.yml -p roles/ --force
+[?2004lStarting galaxy role install process
+- changing role geerlingguy.docker from 8.0.0 to 8.0.0
+- downloading role 'docker', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-docker/archive/8.0.0.tar.gz
+- extracting geerlingguy.docker to /home/khalid/shubham/day-71/ansible-practice/roles/geerlingguy.docker
+- geerlingguy.docker (8.0.0) was installed successfully
+- downloading role 'ntp', owned by greelingguy
+[1;35m[WARNING]: - greelingguy.ntp was NOT installed successfully: - sorry, greelingguy.ntp was not found on https://galaxy.ansible.com/api/.[0m
+[0;31m[ERROR]: - you can use --ignore-errors to skip failed roles and finish processing the list.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mrm -rf ~/.ansible/role[27m[7ms[27m[7m/geerlingguy.docker[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ rm -rf ~/.ansible/roles/geerlingguy.docker
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ rm -rf ~/.ansible/roles/geerlingguy.docker[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy install -r requirements.yml -p roles/ --force[K[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [1Pvim requirements.yml 
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;49r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[49;1H"requirements.yml" 7L, 91B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[1;1H[35m---[m
+[36mroles[m[35m:[m[2;7H[K[3;1H  [38;5;130m- [m[36mname[m[35m:[m geerlingguy.docker[3;29H[K[4;5H[36mversion[m[35m:[m [31m"8.0.0"[m
+
+  [38;5;130m- [m[36mname[m[35m:[m greelingguy.ntp
+
+[94m~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H6,14[10CAll[6;14H[?25h[?4m[?12$p[?25l[49;51H/[6;14H[49;52H0[6;14H[49;53Hc[6;14H[49;54H0[6;14H[49;55Hc[6;14H[49;56H/[6;14H[49;57H0[6;14H[49;58Hc[6;14H[49;59H0[6;14H[49;60Hc[6;14H[49;51H          [6;14H[27m[23m[29m[m[H[2J[1;1H[38;5;81m---[m
+[1m[96mroles[m[38;5;224m:[m
+  [93m- [m[1m[96mname[m[38;5;224m:[m geerlingguy.docker
+    [1m[96mversion[m[38;5;224m:[m [95m"8.0.0"[m
+
+  [93m- [m[1m[96mname[m[38;5;224m:[m greelingguy.ntp
+
+[94m~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H6,14[10CAll"requirements.yml" 7L, 91B[6;14H[?25h[?25l[49;51Hd[6;14H[?25h[?25l[49;52Hd[6;14H[49;51H  [6;2H[6;48r[48;1H
+[1;49r[48;1H[94m~                                                                             [m[49;1H[K[49;61H6,2[11CAll[6;2H[?25h[?25l[49;51Hd[6;2H[?25h[?25l[49;52Hd[6;2H[49;51H  [5;1H
+[94m~                                                                             [m[49;61H5,0-1[5;1H[?25h[?25l[49;51Hd[5;1H[?25h[?25l[49;52Hd[5;1H[49;51H  [4;5H
+[94m~                                                                             [m[49;61H4,5  [4;5H[?25h[?25l[49;51Hd[4;5H[?25h[?25l[49;52Hd[4;5H[49;51H  [3;3H
+[94m~                                                                             [m[49;61H3,3[3;3H[?25h[?25l[49;51Hd[3;3H[?25h[?25l[49;52Hd[3;3H[49;51H  [2;1H
+[94m~                                                                             [m[49;61H2,1[2;1H[?25h[?25l[49;51Hd[2;1H[?25h[?25l[49;52Hd[2;1H[49;51H  [1;1H
+[94m~                                                                             [m[49;61H1[1;1H[?25h[?25l[49;51Hd[1;1H[?25h[?25l[49;52Hd[1;1H[49;51H  [1;1H[1;1H[K[49;1H--No lines in buffer--[49;61H[K[49;61H0,0-1[9CAll[1;1H[?25h[?25l[49;51Hd[1;1H[?25h[?25l[49;52Hd[1;1H[49;51H  [1;1H[?25h[?25l[49;51Hd[1;1H[?25h[?25l[49;52Hd[1;1H[49;51H  [1;1H[?25h[?25l[49;51Hd[1;1H[?25h[?25l[49;52Hd[1;1H[49;51H  [1;1H[?25h[?25l[49;51Hd[1;1H[?25h[?25l[49;52Hd[1;1H[49;51H  [1;1H[?25h[?25l[49;51Hd[1;1H[?25h[?25l[49;52Hd[1;1H[49;51H  [1;1H[?25h[?25l[49;51Hd[1;1H[?25h[?25l[49;52Hd[1;1H[49;51H  [1;1H[?25h[?25l[49;51Hd[1;1H[?25h[?25l[49;51H [1;1H[?25h[?25l[49;51Hi[1;1H[49;51H [1;1H[49;1H[1m-- INSERT --[m[49;13H[K[49;61H0,1[11CAll[1;1H[?25h[?25l[38;5;81m---[m
+[1m[96mroles[m[38;5;224m:[m[2;7H[K[2;7H[?25h[?25l
+  [93m- [m[1m[96mname[m[38;5;224m:[m geerl[3;16H[K[3;16H[?25h[?25lingguy.docker
+  [4;3H[K[4;3H[?25h[?25l  [1m[96mversion[m[38;5;224m:[m [95m"8.0.0"[m[5;1H[K[6;1H  [93m- [m[1m[96mname[m[38;5;224m:[m geerlingguy.ntp[6;26H[K[6;26H[?25h[?25l[49;61H6,26[6;26H[?25h[49;1H[K[6;25H[?25l[49;51H^[[6;25H[49;51H  [6;26H[49;61H6,25[10CAll[6;25H[?25h[?25l[49;51H:[6;25H[49;51H[K[49;1H:[?25hx[?25l[?2004l[>4;m"requirements.yml" 6L, 88B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?1049l[23;0;0t[?25h[>4;m[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-galaxy install[27m[7m [27m[7m-r requirements.yml -p roles/ --force[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy install -r requirements.yml -p roles/ --force
+[?2004lStarting galaxy role install process
+- changing role geerlingguy.docker from 8.0.0 to 8.0.0
+- downloading role 'docker', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-docker/archive/8.0.0.tar.gz
+- extracting geerlingguy.docker to /home/khalid/shubham/day-71/ansible-practice/roles/geerlingguy.docker
+- geerlingguy.docker (8.0.0) was installed successfully
+- downloading role 'ntp', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-ntp/archive/4.0.0.tar.gz
+- extracting geerlingguy.ntp to /home/khalid/shubham/day-71/ansible-practice/roles/geerlingguy.ntp
+- geerlingguy.ntp (4.0.0) was installed successfully
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-galaxy list -p[27m[7m [27m[7mroles/[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy list -p roles/
+[?2004l# /home/khalid/shubham/day-71/ansible-practice/roles
+- geerlingguy.ntp, 4.0.0
+- geerlingguy.docker, 8.0.0
+- webserver, (unknown version)
+# /home/khalid/.ansible/roles
+# /etc/ansible/roles
+[1;35m[WARNING]: - the configured path /usr/share/ansible/roles does not exist.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy list -p roles/[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cinstall -r requirements.yml -p roles/ --force[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [1Pvim requirements.yml 
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Crm -rf ~/.ansible/roles/geerlingguy.docker[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy install -r requirements.yml -p roles/ --force[K[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [1Pvim requirements.yml 
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l[Kansible-galaxy install -r requirements.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C redhat_app -m command -a "docker --version"[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[3Pall -m ping
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Credhat_app -m command -a "docker --version"
+[?2004l[0;31m[ERROR]: Task failed: Module failed: Error executing command: [Errno 2] No such file or directory: b'docker'[0m
+[0;31mOrigin: <adhoc 'command' task>[0m
+[0;31m[0m
+[0;31m{'action': 'command', 'args': {'_raw_params': 'docker --version'}, 'timeout': 0, 'async_val': 0, 'poll': 15}[0m
+[0;31m[0m
+[0;31mworker-redhat | FAILED | rc=2 >>[0m
+[0;31mError executing command.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-playbook -i in[27m[7mv[27m[7mentory.ini docker-setup.yml[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook -i inventory.ini docker-setup.yml[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[C[C[C[C[C[C[C[C[C[1Pdocker-setup.yml[C[C[C[C[C[C[C[C[C[C[C[1Pdocker-setup.yml[C[C[C[C[C[C[C[C[C[C[1Pdocker-setup.yml[C[C[C[C[C[C[C[C[C[1Pdocker-setup.yml[C[C[C[C[C[C[C[C[1Pdocker-setup.yml[C[C[C[C[C[C[C[1Pdocker-setup.yml[C[C[C[C[C[C[1Pdocker-setup.yml[C[C[C[C[C[1Pdocker-setup.yml[C[C[C[C[1Pdocker-setup.yml[C[C[C[1Pdocker-setup.yml[C[C[1Pdocker-setup.yml[C[1Pdocker-setup.yml[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdo[1Pcker-setup.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdoc[1Pker-setup.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdock[1Per-setup.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdocke[1Pr-setup.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdocker[1P-setup.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdocker-[1Psetup.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C docker-setup.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l
+PLAY [Install Docker using Galaxy role] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Load OS-specific vars.] *****************************
+[0;32mok: [worker-redhat][0m
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+[0;36mincluded: /home/khalid/shubham/day-71/ansible-practice/roles/geerlingguy.docker/tasks/setup-RedHat.yml for worker-redhat[0m
+
+TASK [geerlingguy.docker : Ensure old versions of Docker are not installed.] ***
+[0;32mok: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Add Docker GPG key.] ********************************
+[0;33mchanged: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Add Docker repository.] *****************************
+[0;33mchanged: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Remove Docker Nightly repo.] ************************
+[0;32mok: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Configure Docker Test repo.] ************************
+[0;32mok: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Ensure runc is not installed.] **********************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Ensure container-selinux is installed.] *************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Ensure containerd.io is installed.] *****************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Install Docker packages.] ***************************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Install Docker packages (with downgrade option).] ***
+[0;33mchanged: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Install docker-compose plugin.] *********************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Install docker-compose-plugin (with downgrade option).] ***
+[0;32mok: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Ensure /etc/docker/ directory exists.] **************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Configure Docker daemon options.] *******************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Get Docker service status] **************************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Patch docker.service] *******************************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Reload systemd services] ****************************
+[0;36mskipping: [worker-redhat][0m
+
+TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] ******
+[0;31m[ERROR]: Task failed: Module failed: Unable to start service docker: Job for docker.service failed because the control process exited with error code.[0m
+[0;31mSee "systemctl status docker.service" and "journalctl -xeu docker.service" for details.[0m
+[0;31m[0m
+[0;31mOrigin: /home/khalid/shubham/day-71/ansible-practice/roles/geerlingguy.docker/tasks/main.yml:92:3[0m
+[0;31m[0m
+[0;31m90       when: docker_service_patch is changed[0m
+[0;31m91[0m
+[0;31m92 - name: Ensure Docker is started and enabled at boot.[0m
+[0;31m     ^ column 3[0m
+[0;31m[0m
+[0;31mfatal: [worker-redhat]: FAILED! => {"changed": false, "msg": "Unable to start service docker: Job for docker.service failed because the control process exited with error code.\nSee \"systemctl status docker.service\" and \"journalctl -xeu docker.service\" for details.\n"}[0m
+
+PLAY RECAP *********************************************************************
+[0;31mworker-redhat[0m              : [0;32mok=10  [0m [0;33mchanged=3   [0m unreachable=0    [0;31mfailed=1   [0m [0;36mskipped=12  [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-playbook docker-setup.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [C[C[C[C[C[C[C redhat_app -m command -a "docker --version"
+[?2004l[0;33mworker-redhat | CHANGED | rc=0 >>[0m
+[0;33mDocker version 29.4.2, build 055a478[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ exit
+[?2004lexit
+
+Script done on 2026-05-03 22:30:38-05:00 [COMMAND_EXIT_CODE="0"]

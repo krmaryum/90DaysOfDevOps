@@ -1,0 +1,12 @@
+---
+- name: Configure Database
+  hosts: amz_db
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Show DB password status
+      debug:
+        msg: "DB password is set: {{ vault_db_password | length > 0 }}"
+        
+

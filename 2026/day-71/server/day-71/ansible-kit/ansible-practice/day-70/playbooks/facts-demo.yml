@@ -1,0 +1,17 @@
+---
+- name: Facts demo
+  hosts: all_servers
+  gather_facts: true
+
+  tasks:
+    - name: Show OS info
+      debug:
+        msg: >
+          Hostname: {{ ansible_facts['hostname'] }},
+          OS: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }},
+          RAM: {{ ansible_facts['memtotal_mb'] }}MB,
+          IP: {{ ansible_facts['default_ipv4']['address'] }}
+
+    - name: Show all network interfaces
+      debug:
+        var: ansible_facts['interfaces']

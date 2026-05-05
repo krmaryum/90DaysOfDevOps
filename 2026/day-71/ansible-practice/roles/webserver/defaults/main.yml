@@ -1,0 +1,4 @@
+---
+http_port: 80
+app_name: my_app
+max_connections: 512

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 71 MCQs — Ansible Roles, Templates, Galaxy, Vault</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --success: #15803d;
+      --danger: #b91c1c;
+      --border: #e5e7eb;
+      --soft-blue: #eff6ff;
+      --soft-green: #ecfdf5;
+      --soft-red: #fef2f2;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 36px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: -24px auto 40px;
+      padding: 0 18px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      background: var(--soft-blue);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    .stat span {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .question {
+      margin-bottom: 18px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      overflow: hidden;
+    }
+
+    .q-head {
+      padding: 16px 18px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+      font-weight: bold;
+    }
+
+    .q-body {
+      padding: 16px 18px;
+    }
+
+    .option {
+      display: block;
+      padding: 10px 12px;
+      margin: 8px 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .option:hover {
+      background: var(--soft-blue);
+      border-color: #bfdbfe;
+    }
+
+    .option input {
+      margin-right: 8px;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+    }
+
+    .feedback.correct {
+      display: block;
+      background: var(--soft-green);
+      color: var(--success);
+      border: 1px solid #bbf7d0;
+    }
+
+    .feedback.incorrect {
+      display: block;
+      background: var(--soft-red);
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .secondary:hover {
+      background: #d1d5db;
+    }
+
+    #result {
+      display: none;
+      border-left: 6px solid var(--primary);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--primary-dark);
+      font-size: 0.85rem;
+      margin-left: 8px;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px 16px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 780px) {
+      .summary {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      header h1 {
+        font-size: 1.55rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Day 71 MCQs — Ansible Roles, Templates, Galaxy & Vault</h1>
+    <p>25 multiple-choice questions based on Day 71 practice tasks</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Quiz Overview</h2>
+      <p class="note">
+        Topics covered: Jinja2 templates, Ansible roles, handlers, defaults vs vars,
+        Ansible Galaxy, requirements.yml, Vault, and combined site.yml workflow.
+      </p>
+      <div class="summary">
+        <div class="stat"><strong>25</strong><span>Questions</span></div>
+        <div class="stat"><strong>6</strong><span>Task Areas</span></div>
+        <div class="stat"><strong>1</strong><span>Point Each</span></div>
+        <div class="stat"><strong>Pass</strong><span>Review Answers</span></div>
+      </div>
+    </section>
+
+    <section id="result" class="panel">
+      <h2>Your Result <span class="badge" id="scoreBadge"></span></h2>
+      <p id="resultText"></p>
+    </section>
+
+    <form id="quizForm" class="panel"></form>
+
+    <section class="panel actions">
+      <button class="primary" type="button" onclick="submitQuiz()">Submit Quiz</button>
+      <button class="secondary" type="button" onclick="resetQuiz()">Reset</button>
+      <button class="secondary" type="button" onclick="showAnswers()">Show Answers</button>
+    </section>
+  </main>
+
+  <footer>
+    Day 71 — Roles, Galaxy, Templates and Vault
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        q: "What is the main purpose of Ansible roles?",
+        options: [
+          "To replace inventory files",
+          "To organize automation into reusable, modular components",
+          "To encrypt SSH private keys only",
+          "To create cloud resources only"
+        ],
+        answer: 1,
+        explain: "Roles organize tasks, handlers, templates, files, and variables into reusable components."
+      },
+      {
+        q: "Which directory in a role contains the main task list?",
+        options: ["defaults/", "templates/", "tasks/", "meta/"],
+        answer: 2,
+        explain: "The role's primary execution logic is stored in tasks/main.yml."
+      },
+      {
+        q: "What file does Ansible automatically load from the tasks directory?",
+        options: ["task.yml", "main.yml", "run.yml", "execute.yml"],
+        answer: 1,
+        explain: "Ansible automatically loads tasks/main.yml when the role is called."
+      },
+      {
+        q: "What is the purpose of handlers/main.yml?",
+        options: [
+          "To store encrypted variables",
+          "To define special tasks triggered by notify",
+          "To define inventory groups",
+          "To install roles from Galaxy"
+        ],
+        answer: 1,
+        explain: "Handlers run only when notified, commonly to restart or reload services."
+      },
+      {
+        q: "When does a handler usually run?",
+        options: [
+          "Before every task",
+          "Only when manually executed with ansible-vault",
+          "When notified by a changed task",
+          "Every 5 minutes"
+        ],
+        answer: 2,
+        explain: "Handlers run when a notifying task reports a change."
+      },
+      {
+        q: "What is the purpose of defaults/main.yml in a role?",
+        options: [
+          "Store high-priority secrets",
+          "Store low-priority fallback variables",
+          "Store rendered HTML files",
+          "Store Galaxy metadata only"
+        ],
+        answer: 1,
+        explain: "defaults/main.yml contains low-priority values that are easy to override."
+      },
+      {
+        q: "Which has higher variable precedence in a role?",
+        options: ["defaults/main.yml", "vars/main.yml", "README.md", "files/"],
+        answer: 1,
+        explain: "vars/main.yml has higher priority than defaults/main.yml."
+      },
+      {
+        q: "What is a Jinja2 template commonly identified by?",
+        options: [".tf", ".vault", ".j2", ".ini"],
+        answer: 2,
+        explain: "Jinja2 templates commonly use the .j2 extension."
+      },
+      {
+        q: "What does {{ app_name }} do in a Jinja2 template?",
+        options: [
+          "Creates a new inventory group",
+          "Restarts the app",
+          "Renders the value of the app_name variable",
+          "Encrypts app_name"
+        ],
+        answer: 2,
+        explain: "Double curly braces render variable values in Jinja2."
+      },
+      {
+        q: "What does the Jinja2 filter default(80) do?",
+        options: [
+          "Always forces the value to 80",
+          "Uses 80 if the variable is undefined",
+          "Deletes the variable",
+          "Encrypts the value"
+        ],
+        answer: 1,
+        explain: "default(80) provides a fallback value if the variable is missing."
+      },
+      {
+        q: "Which Ansible module is used to render a .j2 file to a target machine?",
+        options: ["copy", "template", "debug", "service"],
+        answer: 1,
+        explain: "The template module renders Jinja2 templates before copying them."
+      },
+      {
+        q: "What is the difference between copy and template modules?",
+        options: [
+          "copy encrypts files; template deletes files",
+          "copy copies static files; template renders variables first",
+          "template only works with Docker",
+          "copy only works with Vault"
+        ],
+        answer: 1,
+        explain: "copy is for static content; template processes Jinja2 variables and logic."
+      },
+      {
+        q: "What does an Nginx server block define?",
+        options: [
+          "How Nginx serves a specific website/application",
+          "Ansible inventory variables",
+          "Vault encryption algorithms",
+          "Docker image layers"
+        ],
+        answer: 0,
+        explain: "A server block defines port, server_name, root, logs, and request handling for a site."
+      },
+      {
+        q: "In Nginx, what does root /var/www/{{ app_name }}; define?",
+        options: [
+          "The user that runs Nginx",
+          "The directory where website files are stored",
+          "The Vault password file",
+          "The Docker repository"
+        ],
+        answer: 1,
+        explain: "root tells Nginx where the site content is located."
+      },
+      {
+        q: "What is Ansible Galaxy?",
+        options: [
+          "A Docker registry",
+          "A marketplace for Ansible roles and collections",
+          "A YAML parser",
+          "A Linux firewall"
+        ],
+        answer: 1,
+        explain: "Ansible Galaxy lets users find, share, and install reusable roles and collections."
+      },
+      {
+        q: "What does ansible-galaxy install geerlingguy.docker do?",
+        options: [
+          "Immediately installs Docker on all servers",
+          "Downloads the geerlingguy.docker role",
+          "Creates an EC2 instance",
+          "Encrypts Docker credentials"
+        ],
+        answer: 1,
+        explain: "ansible-galaxy install downloads the role. You still need a playbook to run it."
+      },
+      {
+        q: "Why use requirements.yml?",
+        options: [
+          "To store SSH keys",
+          "To manage role dependencies consistently and repeatably",
+          "To replace ansible.cfg",
+          "To render templates"
+        ],
+        answer: 1,
+        explain: "requirements.yml documents role dependencies and can pin versions."
+      },
+      {
+        q: "Which command installs roles from requirements.yml into a project roles directory?",
+        options: [
+          "ansible-playbook requirements.yml",
+          "ansible-galaxy init -r requirements.yml",
+          "ansible-galaxy install -r requirements.yml -p roles/",
+          "ansible-vault install requirements.yml"
+        ],
+        answer: 2,
+        explain: "The -r option reads requirements.yml, and -p roles/ installs roles locally."
+      },
+      {
+        q: "What is Ansible Vault used for?",
+        options: [
+          "Managing cloud network routes",
+          "Encrypting sensitive data like passwords and API keys",
+          "Installing nginx only",
+          "Creating Docker containers"
+        ],
+        answer: 1,
+        explain: "Vault encrypts secrets so they are not stored in plain text."
+      },
+      {
+        q: "What does a Vault-encrypted file usually start with?",
+        options: [
+          "$ANSIBLE_VAULT",
+          "$DOCKER_SECRET",
+          "#!/bin/bash",
+          "[vault]"
+        ],
+        answer: 0,
+        explain: "Vault encrypted files start with a header like $ANSIBLE_VAULT;1.1;AES256."
+      },
+      {
+        q: "Which command views an encrypted Vault file without editing?",
+        options: [
+          "ansible-vault cat file.yml",
+          "ansible-vault view file.yml",
+          "ansible-vault show file.yml",
+          "ansible-vault print file.yml"
+        ],
+        answer: 1,
+        explain: "ansible-vault view decrypts and displays the file content without editing."
+      },
+      {
+        q: "Why is --vault-password-file better for CI/CD than --ask-vault-pass?",
+        options: [
+          "It disables encryption",
+          "It supports non-interactive automation",
+          "It removes the need for inventory",
+          "It exposes secrets in logs"
+        ],
+        answer: 1,
+        explain: "CI/CD pipelines cannot manually type passwords, so password files enable automation."
+      },
+      {
+        q: "Why should .vault_pass be added to .gitignore?",
+        options: [
+          "Because it is too large",
+          "Because it contains the Vault password and must not be committed",
+          "Because Ansible cannot read it",
+          "Because it is a template file"
+        ],
+        answer: 1,
+        explain: ".vault_pass contains the vault password, so committing it would expose secrets."
+      },
+      {
+        q: "What permission is recommended for a rendered secret file like /etc/db-config.env?",
+        options: ["0777", "0644", "0600", "0755"],
+        answer: 2,
+        explain: "0600 means only the owner can read and write the file."
+      },
+      {
+        q: "In your Task 6 setup, what did site.yml combine?",
+        options: [
+          "Only ad-hoc commands",
+          "Roles, templates, Galaxy role, and Vault secrets",
+          "Only Terraform resources",
+          "Only static copy files"
+        ],
+        answer: 1,
+        explain: "Task 6 combined the custom webserver role, Galaxy Docker role, templates, and Vault variables."
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+
+    function renderQuiz() {
+      form.innerHTML = "";
+      questions.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `
+          <div class="q-head">Q${index + 1}. ${item.q}</div>
+          <div class="q-body">
+            ${item.options.map((opt, i) => `
+              <label class="option">
+                <input type="radio" name="q${index}" value="${i}">
+                ${String.fromCharCode(65 + i)}. ${opt}
+              </label>
+            `).join("")}
+            <div class="feedback" id="feedback-${index}"></div>
+          </div>
+        `;
+        form.appendChild(div);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const feedback = document.getElementById(`feedback-${index}`);
+
+        if (!selected) {
+          feedback.className = "feedback incorrect";
+          feedback.innerHTML = `Not answered. Correct answer: <strong>${String.fromCharCode(65 + item.answer)}. ${item.options[item.answer]}</strong><br>${item.explain}`;
+          return;
+        }
+
+        const selectedValue = Number(selected.value);
+        if (selectedValue === item.answer) {
+          score++;
+          feedback.className = "feedback correct";
+          feedback.innerHTML = `Correct ✅<br>${item.explain}`;
+        } else {
+          feedback.className = "feedback incorrect";
+          feedback.innerHTML = `Incorrect ❌ Correct answer: <strong>${String.fromCharCode(65 + item.answer)}. ${item.options[item.answer]}</strong><br>${item.explain}`;
+        }
+      });
+
+      const result = document.getElementById("result");
+      const scoreBadge = document.getElementById("scoreBadge");
+      const resultText = document.getElementById("resultText");
+
+      result.style.display = "block";
+      scoreBadge.textContent = `${score}/25`;
+
+      let message = "";
+      if (score >= 22) {
+        message = "Excellent work! You have a strong Day 71 understanding.";
+      } else if (score >= 18) {
+        message = "Good job! Review the missed questions for stronger confidence.";
+      } else if (score >= 13) {
+        message = "Decent attempt. Revisit Roles, Galaxy, Vault, and Task 6 integration.";
+      } else {
+        message = "Keep practicing. Focus on the basics: roles, templates, handlers, and Vault.";
+      }
+
+      resultText.textContent = message;
+      result.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll("input[type=radio]").forEach(input => input.checked = false);
+      document.querySelectorAll(".feedback").forEach(fb => {
+        fb.className = "feedback";
+        fb.innerHTML = "";
+      });
+      document.getElementById("result").style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showAnswers() {
+      questions.forEach((item, index) => {
+        const feedback = document.getElementById(`feedback-${index}`);
+        feedback.className = "feedback correct";
+        feedback.innerHTML = `Answer: <strong>${String.fromCharCode(65 + item.answer)}. ${item.options[item.answer]}</strong><br>${item.explain}`;
+      });
+      document.getElementById("result").style.display = "none";
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+Script started on 2026-05-01 21:28:26-05:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ [7mansible-galaxy init ro[27m[7ml[27m[7mes/webserver[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ansible-galaxy init roles/webserver
+[?2004l- Role roles/webserver was created successfully
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ ls -ltr
+[?2004ltotal 60
+-rw------- 1 khalid khalid   399 May  1 00:22 terra-automate-key
+-rw-r--r-- 1 khalid khalid   219 May  1 18:58 ansible.cfg
+-rw-r--r-- 1 khalid khalid   471 May  1 18:58 inventory.ini
+drwxr-xr-x 2 khalid khalid  4096 May  1 19:07 [0m[01;34mtemplates[0m
+drwxr-xr-x 3 khalid khalid  4096 May  1 19:55 [01;34mplaybooks[0m
+-rw-r--r-- 1 khalid khalid 31347 May  1 20:14 task-1.txt
+-rw-r--r-- 1 khalid khalid     0 May  1 21:28 task-2.txt
+drwxr-xr-x 3 khalid khalid  4096 May  1 21:28 [01;34mroles[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ tree roles/
+[?2004l[01;34mroles/[0m
+└── [01;34mwebserver[0m
+    ├── README.md
+    ├── [01;34mdefaults[0m
+    │   └── main.yml
+    ├── [01;34mfiles[0m
+    ├── [01;34mhandlers[0m
+    │   └── main.yml
+    ├── [01;34mmeta[0m
+    │   └── main.yml
+    ├── [01;34mtasks[0m
+    │   └── main.yml
+    ├── [01;34mtemplates[0m
+    ├── [01;34mtests[0m
+    │   ├── inventory
+    │   └── test.yml
+    └── [01;34mvars[0m
+        └── main.yml
+
+10 directories, 8 files
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice[00m$ cd roles/
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice/roles[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice/roles[00m$ ls -lr
+[?2004ltotal 4
+drwxr-xr-x 10 khalid khalid 4096 May  1 21:28 [0m[01;34mwebserver[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice/roles[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice/roles[00m$ cd webserver/
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice/roles/webserver[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice/roles/webserver[00m$ ls -lt [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kt
+[?2004ltotal 36
+drwxr-xr-x 2 khalid khalid 4096 May  1 21:28 [0m[01;34mdefaults[0m
+drwxr-xr-x 2 khalid khalid 4096 May  1 21:28 [01;34mhandlers[0m
+drwxr-xr-x 2 khalid khalid 4096 May  1 21:28 [01;34mmeta[0m
+drwxr-xr-x 2 khalid khalid 4096 May  1 21:28 [01;34mtasks[0m
+drwxr-xr-x 2 khalid khalid 4096 May  1 21:28 [01;34mvars[0m
+drwxr-xr-x 2 khalid khalid 4096 May  1 21:28 [01;34mtemplates[0m
+drwxr-xr-x 2 khalid khalid 4096 May  1 21:28 [01;34mtests[0m
+-rw-r--r-- 1 khalid khalid 1328 May  1 21:28 README.md
+drwxr-xr-x 2 khalid khalid 4096 May  1 21:28 [01;34mfiles[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice/roles/webserver[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice/roles/webserver[00m$ cat README.md 
+[?2004lRole Name
+=========
+
+A brief description of the role goes here.
+
+Requirements
+------------
+
+Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+
+Role Variables
+--------------
+
+A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+
+Dependencies
+------------
+
+A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+
+Example Playbook
+----------------
+
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+
+    - hosts: servers
+      roles:
+         - { role: username.rolename, x: 42 }
+
+License
+-------
+
+BSD
+
+Author Information
+------------------
+
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-71/ansible-practice/roles/webserver[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-71/ansible-practice/roles/webserver[00m$ exit
+[?2004lexit
+
+Script done on 2026-05-01 23:03:51-05:00 [COMMAND_EXIT_CODE="0"]

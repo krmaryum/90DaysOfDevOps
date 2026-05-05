@@ -1,0 +1,13 @@
+---
+- name: Fetch the Public IPs
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Get public IP
+      shell: curl -s ifconfig.me
+      register: public_ip
+
+    - name: Show public IP
+      debug:
+        msg: "Public IP is {{ public_ip.stdout }}"

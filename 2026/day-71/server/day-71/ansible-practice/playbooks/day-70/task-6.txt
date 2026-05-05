@@ -1,0 +1,147 @@
+Script started on 2026-04-30 10:19:43-05:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ exitansible-playbook playbooks/server-report.yml 
+[?2004l[0;31m[ERROR]: YAML parsing failed: This may be an issue with missing quotes around a template block.[0m
+[0;31mOrigin: /home/khalid/shubham/day-70/ansible-practice/playbooks/server-report.yml:38:13[0m
+[0;31m[0m
+[0;31m36           - "Disk:"[0m
+[0;31m37 #         - "{{ disk_result.stdout | default('Disk output not available') }}" # --check[0m
+[0;31m38           - {{ disk_result.stdout_lines[1] }}"[0m
+[0;31m               ^ column 13[0m
+[0;31m[0m
+[0;31m[0m
+[0;31mFor example:[0m
+[0;31m[0m
+[0;31m    raw: {{ some_var }}[0m
+[0;31m[0m
+[0;31mShould be:[0m
+[0;31m[0m
+[0;31m    raw: "{{ some_var }}"[0m
+[0;31m[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible-playbook playbooks/server-report.yml 
+[?2004l
+PLAY [Server Health Report] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Check disk space] ********************************************************
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-amazon][0m
+
+TASK [Check memory] ************************************************************
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Check running services] **************************************************
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-amazon][0m
+
+TASK [Derive Public IP] ********************************************************
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Generate Report] *********************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-amazon ==========",[0m
+[0;32m        "OS: RedHat Amazon 2023",[0m
+[0;32m        "PVT_IP: 172.31.47.21",[0m
+[0;32m        "PUB_IP: 3.22.99.133",[0m
+[0;32m        "RAM: 916MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "/dev/nvme0n1p1   10G  1.7G  8.3G  17% /",[0m
+[0;32m        "Running services first 20 count: 20"[0m
+[0;32m    ][0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-ubuntu ==========",[0m
+[0;32m        "OS: Debian Ubuntu 24.04",[0m
+[0;32m        "PVT_IP: 172.31.33.4",[0m
+[0;32m        "PUB_IP: 18.222.187.158",[0m
+[0;32m        "RAM: 911MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "/dev/root       8.7G  2.5G  6.3G  28% /",[0m
+[0;32m        "Running services first 20 count: 20"[0m
+[0;32m    ][0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-redhat ==========",[0m
+[0;32m        "OS: RedHat RedHat 10.1",[0m
+[0;32m        "PVT_IP: 172.31.47.110",[0m
+[0;32m        "PUB_IP: 18.224.199.164",[0m
+[0;32m        "RAM: 907MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "/dev/nvme0n1p3  9.8G  2.1G  7.8G  21% /",[0m
+[0;32m        "Running services first 20 count: 19"[0m
+[0;32m    ][0m
+[0;32m}[0m
+
+TASK [Save report to file] *****************************************************
+[0;33mchanged: [worker-ubuntu][0m
+[0;33mchanged: [worker-amazon][0m
+[0;33mchanged: [worker-redhat][0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-amazon[0m              : [0;32mok=7   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;33mworker-redhat[0m              : [0;32mok=7   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=7   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [7mansible all_servers -m[27m[7m [27m[7mshell -a "ls -l /tmp/server-report-*.txt"[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible all_servers -m shell -a "ls -l /tmp/server-report-*.txt"
+[?2004l[0;33mworker-amazon | CHANGED | rc=0 >>[0m
+[0;33m-rw-r--r--. 1 root root 1924 Apr 30 15:24 /tmp/server-report-worker-amazon.txt[0m
+[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33m-rw-r--r-- 1 root root 2388 Apr 30 15:24 /tmp/server-report-worker-ubuntu.txt[0m
+[0;33mworker-redhat | CHANGED | rc=0 >>[0m
+[0;33m-rw-r--r--. 1 root root 1883 Apr 30 15:24 /tmp/server-report-worker-redhat.txt[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ [7mansible worker-ubuntu [27m[7m-[27m[7mm shell -a "cat /tmp/server-report-worker-ubuntu.txt"[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible worker-ubuntu -m shell -a "cat /tmp/server-report-worker-ubuntu.txt"
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33mServer: worker-ubuntu[0m
+[0;33mOS: Ubuntu 24.04[0m
+[0;33mPVT_IP: 172.31.33.4[0m
+[0;33mPUB_IP: 18.222.187.158[0m
+[0;33mRAM: 911MB[0m
+[0;33m[0m
+[0;33mDisk:[0m
+[0;33mFilesystem      Size  Used Avail Use% Mounted on[0m
+[0;33m/dev/root       8.7G  2.5G  6.3G  28% /[0m
+[0;33m[0m
+[0;33mMemory:[0m
+[0;33m               total        used        free      shared  buff/cache   available[0m
+[0;33mMem:             911         407         235           2         451         503[0m
+[0;33mSwap:              0           0           0[0m
+[0;33m[0m
+[0;33mRunning services:[0m
+[0;33m  UNIT                                           LOAD   ACTIVE SUB     DESCRIPTION[0m
+[0;33m  acpid.service                                  loaded active running ACPI event daemon[0m
+[0;33m  chrony.service                                 loaded active running chrony, an NTP client/server[0m
+[0;33m  cron.service                                   loaded active running Regular background program processing daemon[0m
+[0;33m  dbus.service                                   loaded active running D-Bus System Message Bus[0m
+[0;33m  getty@tty1.service                             loaded active running Getty on tty1[0m
+[0;33m  irqbalance.service                             loaded active running irqbalance daemon[0m
+[0;33m  ModemManager.service                           loaded active running Modem Manager[0m
+[0;33m  multipathd.service                             loaded active running Device-Mapper Multipath Device Controller[0m
+[0;33m  networkd-dispatcher.service                    loaded active running Dispatcher daemon for systemd-networkd[0m
+[0;33m  polkit.service                                 loaded active running Authorization Manager[0m
+[0;33m  rsyslog.service                                loaded active running System Logging Service[0m
+[0;33m  serial-getty@ttyS0.service                     loaded active running Serial Getty on ttyS0[0m
+[0;33m  snap.amazon-ssm-agent.amazon-ssm-agent.service loaded active running Service for snap application amazon-ssm-agent.amazon-ssm-agent[0m
+[0;33m  snapd.service                                  loaded active running Snap Daemon[0m
+[0;33m  ssh.service                                    loaded active running OpenBSD Secure Shell server[0m
+[0;33m  systemd-journald.service                       loaded active running Journal Service[0m
+[0;33m  systemd-logind.service                         loaded active running User Login Management[0m
+[0;33m  systemd-networkd.service                       loaded active running Network Configuration[0m
+[0;33m  systemd-resolved.service                       loaded active running Network Name Resolution[0m
+[0;33m[0m
+[0;33mChecked at: 2026-04-30T15:23:46Z[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ exit
+[?2004lexit
+
+Script done on 2026-04-30 10:25:03-05:00 [COMMAND_EXIT_CODE="0"]

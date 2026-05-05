@@ -1,0 +1,53 @@
+---
+- name: Variable demo
+  hosts: all_servers
+  become: true
+  gather_facts: true
+
+  vars:
+    app_name: terraweek_app
+    app_port: 8080
+    app_dir: "/opt/{{ app_name }}"
+    packages:
+      - git
+      - curl
+      - wget
+
+
+  tasks:
+    - name: Print app details
+      debug:
+        msg: "Deploying {{ app_name }} on port {{ app_port }} to directory {{ app_dir }}"
+
+    - name: Create application directory
+      file:
+        path: "{{ app_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Install required packages on RedHat
+      yum:
+        name: "{{ packages }}"
+        state: present
+      when: #ansible_facts['os_family'] == "RedHat" and ansible_facts['distribution'] != "Amazon" 
+        - ansible_facts['os_family'] == "RedHat"
+        - ansible_facts['distribution'] != "Amazon"
+        
+
+    - name: Install required packages on Debian
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: true
+      when: ansible_facts['os_family'] == "Debian"
+
+    # Use package module (simpler, cross-platform) , Instead of splitting into yum and apt, you can let Ansible handle it:
+    # This works for both RedHat and Debian families, so you can remove the when conditions entirely.
+    #     Alternative cross-platform package install:
+    # - name: Install required packages
+    #   package:
+    #     name: "{{ packages }}"
+    #     state: present
+

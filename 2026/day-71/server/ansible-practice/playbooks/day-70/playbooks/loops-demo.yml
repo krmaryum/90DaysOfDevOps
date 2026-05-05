@@ -1,0 +1,70 @@
+---
+- name: Loops demo
+  hosts: all_servers
+  become: true
+  gather_facts: true
+
+  vars:
+    users:
+      - name: deploy
+        groups: "{{ 'wheel' if ansible_facts['os_family'] == 'RedHat' else 'sudo' }}"
+      - name: monitor
+        groups: "{{ 'wheel' if ansible_facts['os_family'] == 'RedHat' else 'sudo' }}"
+      - name: appuser
+        groups: users
+
+    directories:
+      - /opt/app/logs
+      - /opt/app/config
+      - /opt/app/data
+      - /opt/app/tmp
+
+    packages:
+      - git
+      - unzip
+      - jq
+      - wget
+
+  tasks:
+    - name: Create multiple users
+      user:
+        name: "{{ item.name }}"
+        groups: "{{ item.groups }}"
+        state: present
+      loop: "{{ users }}"
+
+    - name: Create multiple directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop: "{{ directories }}"
+
+    - name: Install packages on RedHat
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Install packages on Ubuntu
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      loop: "{{ packages }}"
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Print each user created
+      debug:
+        msg: "Created user {{ item.name }} in group {{ item.groups }}"
+      loop: "{{ users }}" 
+
+    - name: Print each packages
+      debug:
+        msg: "Packages Installed {{ item }}"
+      loop: "{{ packages }}"
+    
+
+
+

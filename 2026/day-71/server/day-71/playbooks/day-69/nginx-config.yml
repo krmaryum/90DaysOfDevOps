@@ -1,0 +1,64 @@
+---
+- name: Configure Nginx with a custom config
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Install Nginx on Ubuntu
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install Nginx on RedHat / Amazon Linux
+      yum:
+        name: nginx
+        state: present
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Deploy Nginx config
+      copy:
+        src: files/nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart Nginx
+
+    - name: Set nginx user for Ubuntu
+      lineinfile:
+        path: /etc/nginx/nginx.conf
+        regexp: '^user'
+        line: 'user www-data;'
+        create: true
+      notify: Restart Nginx
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Set nginx user for RedHat / Amazon Linux
+      lineinfile:
+        path: /etc/nginx/nginx.conf
+        regexp: '^user'
+        line: 'user nginx;'
+        create: true
+      notify: Restart Nginx
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Deploy custom index page
+      copy:
+        content: |
+          <h1>Managed by Ansible</h1>
+          <p>Server: {{ inventory_hostname }}</p>
+        dest: /usr/share/nginx/html/index.html
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
