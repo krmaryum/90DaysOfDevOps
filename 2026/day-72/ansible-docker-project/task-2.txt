@@ -1,0 +1,362 @@
+Script started on 2026-05-06 20:27:39-05:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ tree ../ansible-docker-project/
+[?2004l[01;34m../ansible-docker-project/[0m
+├── ansible.cfg
+├── [01;34mgroup_vars[0m
+│   ├── all.yml
+│   └── [01;34mweb[0m
+│       ├── vars.yml
+│       └── vault.yml
+├── inventory.ini
+├── [01;34mroles[0m
+│   ├── [01;34mcommon[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   ├── [01;34mdocker[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   │   └── docker-compose.yml.j2
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   └── [01;34mnginx[0m
+│       ├── README.md
+│       ├── [01;34mdefaults[0m
+│       │   └── main.yml
+│       ├── [01;34mfiles[0m
+│       ├── [01;34mhandlers[0m
+│       │   └── main.yml
+│       ├── [01;34mmeta[0m
+│       │   └── main.yml
+│       ├── [01;34mtasks[0m
+│       │   └── main.yml
+│       ├── [01;34mtemplates[0m
+│       │   ├── app-proxy.conf.j2
+│       │   └── nginx.conf.j2
+│       ├── [01;34mtests[0m
+│       │   ├── inventory
+│       │   └── test.yml
+│       └── [01;34mvars[0m
+│           └── main.yml
+├── site.yml
+├── task-1.txt
+└── task-2.txt
+
+31 directories, 35 files
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ vim [7mroles/common[27m[7m/[27m[7mtasks/main.yml[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[Croles/common/tasks/main.yml
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;49r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[49;1H"roles/common/tasks/main.yml" 3L, 66B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[1;1H[34m#SPDX-License-Identifier: MIT-0[m
+[35m---[m[2;4H[K[3;1H[34m# tasks file for roles/common[m[3;30H[K[4;1H[94m~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H1,1[11CAll[1;1H[?25h[?4m[?12$p[?25l[49;51Hg[1;1H[49;52Hb[1;1H[49;53H:[1;1H[49;54H0[1;1H[49;55Hc[1;1H[49;56H0[1;1H[49;57Hc[1;1H[49;58H/[1;1H[49;59H0[1;1H[49;60Hc[1;1H[49;51H          [1;1H[27m[23m[29m[m[H[2J[1;1H[96m#SPDX-License-Identifier: MIT-0[m
+[38;5;81m---[m
+[96m# tasks file for roles/common[m
+[94m~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H1,1[11CAll"roles/common/tasks/main.yml" 3L, 66B[1;1H[?25h[?25l[49;51H~@k[1;1H[49;51H   [2;1H[49;61H2[2;1H[?25h[?25l[49;51H~@k[2;1H[49;51H   [3;1H[49;61H3[3;1H[?25h[?25l[49;51H~@@[3;1H[49;51H   [3;29H[49;63H29[3;29H[?25h[?25l[49;51Hi[3;29H[49;51H [3;29H[49;1H[1m-- INSERT --[m[49;13H[K[49;61H3,29[10CAll[3;29H[?25h[?25l[49;63H30[3;30H[?25h[?25l
+[96m# [m[4;3H[K[49;61H4,3 [4;3H[?25h[?25l[4;2H[K[49;63H2[4;2H[?25h[?25l[4;1H[K[49;63H1[4;1H[?25h[?25l[5;1H[K[49;61H5[5;1H[?25h[?25l[93m- [m[1m[96mname[m[38;5;224m:[m Update package cache for Ubuntu
+  [1m[96mapt[m[38;5;224m:[m[6;7H[K[7;1H    upd[7;8H[K[7;8H[?25h[?25l[1m[96mupdate_cache[m[38;5;224m:[m [95mtrue[m
+  [1m[96mwhen[m[38;5;224m:[m ansible_facts['os_family'] == [95m"Debian[m[8;46H[K[8;46H[?25h[?25l[95m"[m
+  [1m[96mtags[m[38;5;224m:[m common[9;15H[K[10;1H[K[11;1H[93m- [m[1m[96mname[m[38;5;224m:[m Update packag[11;22H[K[11;22H[?25h[?25le cache for RedHat
+  [1m[96myum[m[38;5;224m:[m[12;7H[K[13;1H    [1m[96mupdate_cache[m[38;5;224m:[m [95mtrue[m[13;23H[K[14;1H  [1m[96mwhen[m[38;5;224m:[m ansible_facts[14;22H[K[14;22H[?25h[?25l['os_family'] == [95m"RedHat"[m
+  [1m[96mtags[m[38;5;224m:[m common[15;15H[K[16;1H[K[17;1H[93m- [m[1m[96mname[m[38;5;224m:[m Install common pac[17;27H[K[17;27H[?25h[?25lkages
+  [1m[96mpackage[m[38;5;224m:[m[18;11H[K[19;1H    [1m[96mname[m[38;5;224m:[m [95m"{{ common_packages }}"[m[19;34H[K[20;1H    [1m[96mstate[m[38;5;224m:[m pres[20;16H[K[20;16H[?25h[?25lent
+  [1m[96mtags[m[38;5;224m:[m common[21;15H[K[22;1H[K[23;1H[93m- [m[1m[96mname[m[38;5;224m:[m Set hostname[23;21H[K[24;1H  [1m[96mhostname[m[38;5;224m:[m[24;12H[K[25;1H    [1m[96mname[m[38;5;224m:[m [95m"{[m[25;13H[K[25;13H[?25h[?25l[95m{ inventory_hostname }}"[m
+  [1m[96mtags[m[38;5;224m:[m common[26;15H[K[27;1H[K[28;1H[93m- [m[1m[96mname[m[38;5;224m:[m Set timezone[28;21H[K[29;1H  [29;3H[K[29;3H[?25h[?25l[1m[96mtimezone[m[38;5;224m:[m
+    [1m[96mname[m[38;5;224m:[m [95m"{{ timezone }}"[m[30;27H[K[31;1H  [1m[96mtags[m[38;5;224m:[m common[31;15H[K[32;1H[K[33;1H[93m- [m[1m[96mname[m[38;5;224m:[m Cre[33;12H[K[33;12H[?25h[?25late deploy user for Ubuntu
+  [1m[96muser[m[38;5;224m:[m[34;8H[K[35;1H    [1m[96mname[m[38;5;224m:[m deploy[35;17H[K[36;1H    [1m[96mgroups[m[38;5;224m:[m [36;13H[K[36;13H[?25h[?25lsudo
+    [1m[96mshell[m[38;5;224m:[m /bin/bash[37;21H[K[38;1H    [1m[96mstate[m[38;5;224m:[m present[38;19H[K[39;1H    [1m[96mappend[m[38;5;224m:[m [95mtrue[m[39;17H[K[40;1H [40;2H[K[40;2H[?25h[?25l [1m[96mwhen[m[38;5;224m:[m ansible_facts['os_family'] == [95m"Debian"[m
+  [1m[96mtags[m[38;5;224m:[m common[41;15H[K[42;1H[K[43;1H-[43;2H[K[43;2H[?25h[?25l[93m- [m[1m[96mname[m[38;5;224m:[m Create deploy user for RedHat
+  [1m[96muser[m[38;5;224m:[m[44;8H[K[45;1H    [1m[96mname[m[38;5;224m:[m deploy[45;17H[K[46;1H [46;2H[K[46;2H[?25h[?25l   [1m[96mgroups[m[38;5;224m:[m wheel
+    [1m[96mshell[m[38;5;224m:[m /bin/bash[47;21H[K[48;1H    [1m[96mstate[m[38;5;224m:[m present[48;19H[K[1;48r[48;1H
+[1;49r[48;5Hap[49;11H[1m(paste) --[m[49;61H[K[48;7H[?25h[?25l[1m[96mappend[m[38;5;224m:[m [95mtrue[48;6H[?25h[?25l[1;48r[m[1;1H[2M[1;49r[47;3H[1m[96mwhen[m[38;5;224m:[m ansible_facts['os_family'] == [95m"RedHat"[m
+  [1m[96mtags[m[38;5;224m:[m common[49;11H[1m--a[m[49;13H[K[49;61H51,15[9CBot[48;15H[?25h[?25l[49;62H0[47;15H[?25h[?25l[49;61H49[46;15H[?25h[?25l[49;62H8[45;15H[?25h[?25l[49;62H7[44;15H[?25h[?25l[49;62H6[43;15H[?25h[?25l[49;62H5[42;15H[?25h[?25l[49;62H4,8 [41;8H[?25h[?25l[49;62H3,15[40;15H[?25h[?25l[49;62H2,1 [39;1H[?25h[?25l[49;62H1,15[38;15H[?25h[?25l[49;62H0[37;15H[?25h[?25l[49;61H39[36;15H[?25h[?25l[49;62H8[35;15H[?25h[?25l[49;62H7[34;15H[?25h[?25l[49;62H6[33;15H[?25h[?25l[49;62H5[32;15H[?25h[?25l[49;62H4,8 [31;8H[?25h[?25l[49;62H3,15[30;15H[?25h[?25l[49;62H2,1 [29;1H[?25h[?25l[49;62H1,15[28;15H[?25h[?25l[49;62H0[27;15H[?25h[?25l[49;61H29,12[26;12H[?25h[?25l[49;62H8,15[25;15H[?25h[?25l[49;62H7,1 [24;1H[?25h[?25l[49;62H6,15[23;15H[?25h[?25l[49;62H5[22;15H[?25h[?25l[49;62H4,12[21;12H[?25h[?25l[49;62H3,15[20;15H[?25h[?25l[49;62H2,1 [19;1H[?25h[?25l[49;62H1,15[18;15H[?25h[?25l[49;62H0[17;15H[?25h[?25l[49;61H19[16;15H[?25h[?25l[49;62H8,11[15;11H[?25h[?25l[49;62H7,15[14;15H[?25h[?25l[49;62H6,1 [13;1H[?25h[?25l[49;62H5,15[12;15H[?25h[?25l[49;62H4[11;15H[?25h[?25l[49;62H3[10;15H[?25h[?25l[49;62H2,7 [9;7H[?25h[?25l[49;62H1,15[8;15H[?25h[?25l[49;62H0,1 [7;1H[?25h[?25l[49;61H9,15[6;15H[?25h[?25l[1;48r[1;1H[L[1;49r[1;1H[96m# tasks file for roles/common[m[49;61H[K[49;61H8,15[10C66%[6;15H[?25h[?25l[1;48r[1;1H[L[1;49r[1;1H[38;5;81m---[m[49;61H[K[49;61H7,15[10C33%[6;15H[?25h[?25l[1;48r[1;1H[L[1;49r[1;1H[96m#SPDX-License-Identifier: MIT-0[m[49;61H[K[49;61H6,7[11CTop[6;7H[?25h[?25l[49;61H5,15[5;15H[?25h[?25l[49;61H4,1 [4;1H[?25h[?25l[49;61H3,15[3;15H[?25h[?25l[49;61H2,4 [2;4H[?25h[?25l[49;61H1,15[1;15H[?25h[49;1H[K[1;14H[?25l[49;51H^[[1;14H[49;51H  [1;15H[49;61H1,14[10CTop[1;14H[?25h[?25l[49;51H:[1;14H[49;51H[K[49;1H:[?25hx[?25l[?2004l[>4;m"roles/common/tasks/main.yml" 51L, 1007B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?1049l[23;0;0t[?25h[>4;m[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ im[K[Kvim [7mgroup_vars/a[27m[7ml[27m[7ml.yml[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[Cgroup_vars/all.yml
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;49r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[49;1H"group_vars/all.yml" 0L, 0B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[2;1H[94m~                                                                             [3;1H~                                                                             [4;1H~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H0,0-1[9CAll[1;1H[?25h[?4m[?12$p[?25l[49;51H/[1;1H[49;52H0[1;1H[49;53Hc[1;1H[49;54H0[1;1H[49;55Hc[1;1H[49;56H/[1;1H[49;57H0[1;1H[49;58Hc[1;1H[49;59H0[1;1H[49;60Hc[1;1H[49;51H          [1;1H[27m[23m[29m[m[H[2J[2;1H[94m~                                                                             [3;1H~                                                                             [4;1H~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H0,0-1[9CAll"group_vars/all.yml" 0L, 0B[1;1H[?25h[?25l[49;1H[1m-- INSERT --[m[49;13H[K[49;61H0,1[11CAll[1;1H[38;5;81m---[m
+[1m[96mtimezone[m[38;5;224m:[m America/Chicago[2;26H[K[3;1H[1m[96mproject_name[m[38;5;224m:[m devops-app[3;25H[K[4;1Happ_e[4;6H[K[4;6H[?25h[?25l[1m[96mapp_env[m[38;5;224m:[m development[5;1H[K[6;1H[1m[96mcommon_packages[m[38;5;224m:[m[6;17H[K[7;1H  [93m- [mvim[7;8H[K[8;1H  [93m- [mcurl[8;9H[K[9;1H  [93m- [mwget[9;9H[K[10;1H  [93m- [mg[10;6H[K[10;6H[?25h[?25l[49;1H[K[10;6Hit
+  [93m- [mhtop[11;9H[K[12;1H  [93m- [mtree[12;9H[K[13;1H  [93m- [mjq[13;7H[K[14;1H  [93m- [munzip[14;10H[K[49;61H14,9[10CAll[14;9H[?25h[?25l[49;51H~@k[14;9H[49;51H   [13;6H[49;62H3,6[13;6H[?25h[?25l[49;51H^[[13;6H[49;51H  [13;6H[49;51H^[[13;6H[49;51H  [13;6H[?25h[?25l[49;51H:[13;6H[49;51H[K[49;1H:[?25hx[?25l[?2004l[>4;m"group_vars/all.yml" 14L, 163B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?1049l[23;0;0t[?25h[>4;m[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ vim group_vars/all.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[Croles/common/tasks/main.yml[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Croles/common/t[1Pasks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[Croles/common/ta[1Psks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[Croles/common/tas[1Pks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [Croles/common/task[1Ps/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ croles/common/tasks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [Caroles/common/tasks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[Ctroles/common/tasks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C roles/common/tasks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C
+
+[?2004l#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/common
+
+- name: Update package cache for Ubuntu
+  apt:
+    update_cache: true
+  when: ansible_facts['os_family'] == "Debian"
+  tags: common
+
+- name: Update package cache for RedHat
+  yum:
+    update_cache: true
+  when: ansible_facts['os_family'] == "RedHat"
+  tags: common
+
+- name: Install common packages
+  package:
+    name: "{{ common_packages }}"
+    state: present
+  tags: common
+
+- name: Set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+  tags: common
+
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+  tags: common
+
+- name: Create deploy user for Ubuntu
+  user:
+    name: deploy
+    groups: sudo
+    shell: /bin/bash
+    state: present
+    append: true
+  when: ansible_facts['os_family'] == "Debian"
+  tags: common
+
+- name: Create deploy user for RedHat
+  user:
+    name: deploy
+    groups: wheel
+    shell: /bin/bash
+    state: present
+    append: true
+  when: ansible_facts['os_family'] == "RedHat"
+  tags: common
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ cat roles/common/tasks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ vim group_vars/al[9Pl.yml[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgroup_vars/all[1P.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[Cgroup_vars/all.[1Pyml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[Cgroup_vars/all.y[1Pml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [Cgroup_vars/all.ym[1Pl[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ cgroup_vars/all.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [Cagroup_vars/all.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[Ctgroup_vars/all.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C group_vars/all.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C
+
+[?2004l---
+timezone: America/Chicago
+project_name: devops-app
+app_env: development
+
+common_packages:
+  - vim
+  - curl
+  - wget
+  - git
+  - htop
+  - tree
+  - jq
+  - unzip
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ cat site.yml 
+[?2004l---
+- name: Deploy Docker application with Nginx reverse proxy
+  hosts: web
+  become: true
+  gather_facts: true
+
+  roles:
+    - common
+    - docker
+    - nginx
+
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ date
+[?2004lWed May  6 20:40:38 CDT 2026
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ timedatecr[Ktl
+[?2004l[0;94m               Local time:[0m Wed 2026-05-06 20:41:01 CDT
+[0;94m           Universal time:[0m Thu 2026-05-07 01:41:01 UTC
+[0;94m                 RTC time:[0m Thu 2026-05-07 07:41:02
+[0;94m                Time zone:[0m America/Chicago (CDT, -0500)
+[0;94mSystem clock synchronized:[0m yes
+[0;94m              NTP service:[0m active
+[0;94m          RTC in local TZ:[0m no
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ls -al
+[?2004ltotal 96
+drwxr-xr-x 4 khalid khalid  4096 May  6 20:27 [0m[01;34m.[0m
+drwxr-xr-x 4 khalid khalid  4096 May  5 22:39 [01;34m..[0m
+-rw-r--r-- 1 khalid khalid   208 May  5 20:32 .gitignore
+-rw-r--r-- 1 khalid khalid   273 May  6 20:43 ansible.cfg
+drwxr-xr-x 3 khalid khalid  4096 May  6 20:32 [01;34mgroup_vars[0m
+-rw-r--r-- 1 khalid khalid   435 May  6 20:43 inventory.ini
+drwxr-xr-x 5 khalid khalid  4096 May  5 22:41 [01;34mroles[0m
+-rw-r--r-- 1 khalid khalid   162 May  6 19:09 site.yml
+-rw-r--r-- 1 khalid khalid 25936 May  5 23:09 task-1.txt
+-rw-r--r-- 1 khalid khalid 32768 May  6 20:33 task-2.txt
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ls -al
+[?2004ltotal 104
+drwxr-xr-x 4 khalid khalid  4096 May  6 20:51 [0m[01;34m.[0m
+drwxr-xr-x 4 khalid khalid  4096 May  5 22:39 [01;34m..[0m
+-rw-r--r-- 1 khalid khalid   208 May  5 20:32 .gitignore
+-rw-r--r-- 1 khalid khalid   273 May  6 20:43 ansible.cfg
+drwxr-xr-x 3 khalid khalid  4096 May  6 20:32 [01;34mgroup_vars[0m
+-rw-r--r-- 1 khalid khalid   435 May  6 20:43 inventory.ini
+drwxr-xr-x 5 khalid khalid  4096 May  5 22:41 [01;34mroles[0m
+-rw-r--r-- 1 khalid khalid   162 May  6 19:09 site.yml
+-rw-r--r-- 1 khalid khalid 25936 May  5 23:09 task-1.txt
+-rw-r--r-- 1 khalid khalid 32768 May  6 20:33 task-2.txt
+-rw------- 1 khalid khalid   399 May  6 20:50 terra-automate-key
+-rw-r--r-- 1 khalid khalid    95 May  6 20:51 terra-automate-key.pub
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible all -m p ing
+[?2004l[0;32mworker-redhat | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-amazon | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-ubuntu | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible-playbook[27m[7m [27m[7msite.yml --tags common[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-playbook site.yml --tags common --check[K[K[K[K[Kcheck
+[?2004l
+PLAY [Deploy Docker application with Nginx reverse proxy] **********************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Update package cache for Ubuntu] ********************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Update package cache for RedHat] ********************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [common : Install common packages] ****************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Set hostname] ***************************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Set timezone] ***************************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for Ubuntu] **********************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for RedHat] **********************************
+[0;36mskipping: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=5   [0m unreachable=0    failed=0    [0;36mskipped=2   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-playbook site.yml --tags common --check[K[K[K[K[K[K[K[K
+[?2004l
+PLAY [Deploy Docker application with Nginx reverse proxy] **********************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Update package cache for Ubuntu] ********************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Update package cache for RedHat] ********************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [common : Install common packages] ****************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Set hostname] ***************************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Set timezone] ***************************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for Ubuntu] **********************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for RedHat] **********************************
+[0;36mskipping: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-ubuntu[0m              : [0;32mok=6   [0m [0;33mchanged=5   [0m unreachable=0    failed=0    [0;36mskipped=2   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m c[27m[7mo[27m[7mmmand -a "hostname"[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "hostname"
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33mworker-ubuntu[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m c[27m[7mo[27m[7mmmand -a "date"[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "date"
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33mWed May  6 20:56:54 CDT 2026[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "date"[1P"[1P"[1P"[1P"d"a"t"e"t"i"m"e"c"t"l"[C
+[?2004l[0;31m[ERROR]: Task failed: Module failed: Error executing command: [Errno 2] No such file or directory: b'datetimectl'[0m
+[0;31mOrigin: <adhoc 'command' task>[0m
+[0;31m[0m
+[0;31m{'action': 'command', 'args': {'_raw_params': 'datetimectl'}, 'timeout': 0, 'async_val': 0, 'poll': 15}[0m
+[0;31m[0m
+[0;31mworker-ubuntu | FAILED | rc=2 >>[0m
+[0;31mError executing command.[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "datetimectl"[C[C[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"t"i"m"e"d"a"t"e"c"t"l"
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33m               Local time: Wed 2026-05-06 20:59:52 CDT[0m
+[0;33m           Universal time: Thu 2026-05-07 01:59:52 UTC[0m
+[0;33m                 RTC time: Thu 2026-05-07 01:59:51[0m
+[0;33m                Time zone: America/Chicago (CDT, -0500)[0m
+[0;33mSystem clock synchronized: yes[0m
+[0;33m              NTP service: active[0m
+[0;33m          RTC in local TZ: no[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m c[27m[7mo[27m[7mmmand -a "id deploy" --become[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "id deploy" --become
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33muid=1001(deploy) gid=1001(deploy) groups=1001(deploy),27(sudo)[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m c[27m[7mo[27m[7mmmand -a "which git"[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "which git"
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33m/usr/bin/git[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ cat ansible.cfg  [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K 
+[?2004l[defaults]
+inventory = inventory.ini
+# private_key_file = ./terra-automate-key    # I commented it bcz it is already in inventory file
+host_key_checking = False
+timeout = 30
+forks = 10
+
+[ssh_connection]
+scp_if_ssh=True
+
+vault_password_file = .vault_pass
+roles_path = roles
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ cat inventory.ini 
+[?2004l[web]
+worker-ubuntu ansible_host=18.117.109.203 ansible_user=ubuntu
+
+[app]
+worker-redhat ansible_host=3.17.206.68 ansible_user=ec2-user
+
+[db]
+worker-amazon ansible_host=18.223.160.73 ansible_user=ec2-user
+
+[servers]
+worker-amazon
+worker-redhat
+worker-ubuntu
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_private_key_file=./terra-automate-key
+
+[application:children]
+web
+app
+
+[all_servers:children]
+application
+db
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ exit
+[?2004lexit
+
+Script done on 2026-05-06 21:03:31-05:00 [COMMAND_EXIT_CODE="0"]

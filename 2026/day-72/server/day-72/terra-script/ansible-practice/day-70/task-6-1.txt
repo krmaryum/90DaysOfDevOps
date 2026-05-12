@@ -1,0 +1,159 @@
+Script started on 2026-04-30 10:16:16-05:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ exitcat playbooks/server-report.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible-playbook playbooks/server-report.yml --chec[Kk[K[Keck
+[?2004l
+PLAY [Server Health Report] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Check disk space] ********************************************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Check memory] ************************************************************
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Check running services] **************************************************
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Derive Public IP] ********************************************************
+[0;36mskipping: [worker-ubuntu][0m
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+
+TASK [Generate Report] *********************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-amazon ==========",[0m
+[0;32m        "OS: RedHat Amazon 2023",[0m
+[0;32m        "PVT_IP: 172.31.47.21",[0m
+[0;32m        "PUB_IP: ",[0m
+[0;32m        "RAM: 916MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "",[0m
+[0;32m        "Running services first 20 count: 0"[0m
+[0;32m    ][0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-ubuntu ==========",[0m
+[0;32m        "OS: Debian Ubuntu 24.04",[0m
+[0;32m        "PVT_IP: 172.31.33.4",[0m
+[0;32m        "PUB_IP: ",[0m
+[0;32m        "RAM: 911MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "",[0m
+[0;32m        "Running services first 20 count: 0"[0m
+[0;32m    ][0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-redhat ==========",[0m
+[0;32m        "OS: RedHat RedHat 10.1",[0m
+[0;32m        "PVT_IP: 172.31.47.110",[0m
+[0;32m        "PUB_IP: ",[0m
+[0;32m        "RAM: 907MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "",[0m
+[0;32m        "Running services first 20 count: 0"[0m
+[0;32m    ][0m
+[0;32m}[0m
+
+TASK [Save report to file] *****************************************************
+[0;33mchanged: [worker-amazon][0m
+[0;33mchanged: [worker-ubuntu][0m
+[0;33mchanged: [worker-redhat][0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-amazon[0m              : [0;32mok=3   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    [0;36mskipped=4   [0m rescued=0    ignored=0   
+[0;33mworker-redhat[0m              : [0;32mok=3   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    [0;36mskipped=4   [0m rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=3   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    [0;36mskipped=4   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ ansible-playbook playbooks/server-report.yml --check[K[K[K[K[K[K[K
+[?2004l
+PLAY [Server Health Report] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [Check disk space] ********************************************************
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Check memory] ************************************************************
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Check running services] **************************************************
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Derive Public IP] ********************************************************
+[0;32mok: [worker-ubuntu][0m
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+
+TASK [Generate Report] *********************************************************
+[0;32mok: [worker-amazon] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-amazon ==========",[0m
+[0;32m        "OS: RedHat Amazon 2023",[0m
+[0;32m        "PVT_IP: 172.31.47.21",[0m
+[0;32m        "PUB_IP: 3.22.99.133",[0m
+[0;32m        "RAM: 916MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "Filesystem      Size  Used Avail Use% Mounted on\n/dev/nvme0n1p1   10G  1.7G  8.3G  17% /",[0m
+[0;32m        "Running services first 20 count: 20"[0m
+[0;32m    ][0m
+[0;32m}[0m
+[0;32mok: [worker-ubuntu] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-ubuntu ==========",[0m
+[0;32m        "OS: Debian Ubuntu 24.04",[0m
+[0;32m        "PVT_IP: 172.31.33.4",[0m
+[0;32m        "PUB_IP: 18.222.187.158",[0m
+[0;32m        "RAM: 911MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "Filesystem      Size  Used Avail Use% Mounted on\n/dev/root       8.7G  2.5G  6.3G  28% /",[0m
+[0;32m        "Running services first 20 count: 20"[0m
+[0;32m    ][0m
+[0;32m}[0m
+[0;32mok: [worker-redhat] => {[0m
+[0;32m    "msg": [[0m
+[0;32m        "========== worker-redhat ==========",[0m
+[0;32m        "OS: RedHat RedHat 10.1",[0m
+[0;32m        "PVT_IP: 172.31.47.110",[0m
+[0;32m        "PUB_IP: 18.224.199.164",[0m
+[0;32m        "RAM: 907MB",[0m
+[0;32m        "Disk:",[0m
+[0;32m        "Filesystem      Size  Used Avail Use% Mounted on\n/dev/nvme0n1p3  9.8G  2.1G  7.8G  21% /",[0m
+[0;32m        "Running services first 20 count: 19"[0m
+[0;32m    ][0m
+[0;32m}[0m
+
+TASK [Save report to file] *****************************************************
+[0;33mchanged: [worker-ubuntu][0m
+[0;33mchanged: [worker-amazon][0m
+[0;33mchanged: [worker-redhat][0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-amazon[0m              : [0;32mok=7   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;33mworker-redhat[0m              : [0;32mok=7   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=7   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-70/ansible-practice[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-70/ansible-practice[00m$ exit
+[?2004lexit
+
+Script done on 2026-04-30 10:18:46-05:00 [COMMAND_EXIT_CODE="0"]

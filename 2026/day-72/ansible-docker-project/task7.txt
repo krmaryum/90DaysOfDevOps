@@ -1,0 +1,1058 @@
+Script started on 2026-05-11 20:35:16-05:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="161" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ tree ..[K[K[K[K[K[K[Kls -al
+[?2004ltotal 800
+drwxr-xr-x 4 khalid khalid   4096 May 11 20:35 [0m[01;34m.[0m
+drwxr-xr-x 4 khalid khalid   4096 May  5 22:39 [01;34m..[0m
+-rw-r--r-- 1 khalid khalid    227 May 10 09:25 .gitignore
+-rw------- 1 khalid khalid      4 May 10 06:19 .vault_pass
+-rw-r--r-- 1 khalid khalid    292 May 10 13:55 ansible.cfg
+drwxr-xr-x 3 khalid khalid   4096 May 10 12:32 [01;34mgroup_vars[0m
+-rw-r--r-- 1 khalid khalid    435 May 10 13:55 inventory.ini
+drwxr-xr-x 5 khalid khalid   4096 May  5 22:41 [01;34mroles[0m
+-rw-r--r-- 1 khalid khalid    487 May 10 09:38 site.yml
+-rw-r--r-- 1 khalid khalid  25936 May  5 23:09 task-1.txt
+-rw-r--r-- 1 khalid khalid  45066 May  6 21:03 task-2.txt
+-rw-r--r-- 1 khalid khalid 260091 May  7 21:07 task-3.txt
+-rw-r--r-- 1 khalid khalid 351643 May  9 23:33 task-4.txt
+-rw-r--r-- 1 khalid khalid  25274 May 10 06:40 task5.txt
+-rw-r--r-- 1 khalid khalid  28494 May 10 14:16 task6.txt
+-rw-r--r-- 1 khalid khalid      0 May 11 20:35 task7.txt
+-rw------- 1 khalid khalid    399 May  6 20:50 terra-automate-key
+-rw-r--r-- 1 khalid khalid     95 May  6 20:51 terra-automate-key.pub
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ tree ../ansible-docker-project/
+[?2004l[01;34m../ansible-docker-project/[0m
+├── ansible.cfg
+├── [01;34mgroup_vars[0m
+│   ├── all.yml
+│   └── [01;34mweb[0m
+│       ├── vars.yml
+│       └── vault.yml
+├── inventory.ini
+├── [01;34mroles[0m
+│   ├── [01;34mcommon[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   ├── [01;34mdocker[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   │   └── docker-compose.yml.j2
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   └── [01;34mnginx[0m
+│       ├── README.md
+│       ├── [01;34mdefaults[0m
+│       │   └── main.yml
+│       ├── [01;34mfiles[0m
+│       ├── [01;34mhandlers[0m
+│       │   └── main.yml
+│       ├── [01;34mmeta[0m
+│       │   └── main.yml
+│       ├── [01;34mtasks[0m
+│       │   └── main.yml
+│       ├── [01;34mtemplates[0m
+│       │   ├── app-proxy.conf.j2
+│       │   └── nginx.conf.j2
+│       ├── [01;34mtests[0m
+│       │   ├── inventory
+│       │   └── test.yml
+│       └── [01;34mvars[0m
+│           └── main.yml
+├── site.yml
+├── task-1.txt
+├── task-2.txt
+├── task-3.txt
+├── task-4.txt
+├── task5.txt
+├── task6.txt
+├── task7.txt
+├── terra-automate-key
+└── terra-automate-key.pub
+
+31 directories, 42 files
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ns[K[Kansible all -,[K[K-m ping
+[?2004l[0;32mworker-redhat | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-amazon | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-ubuntu | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [K]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible-playbook[27m[7m [27m[7msite.yml -f 1[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-playbook site.yml -f 1
+[?2004l
+PLAY [Apply common configuration] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Update package cache for Ubuntu] ********************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Update package for RedHat] **************************************
+[0;32mok: [worker-amazon][0m
+[0;33mchanged: [worker-redhat][0m
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [common : Install common packages] ****************************************
+[0;33mchanged: [worker-amazon][0m
+[0;33mchanged: [worker-redhat][0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Set hostname] ***************************************************
+[0;33mchanged: [worker-amazon][0m
+[0;33mchanged: [worker-redhat][0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Set timezone] ***************************************************
+[0;33mchanged: [worker-amazon][0m
+[0;31m[ERROR]: Task failed: Data could not be sent to remote host "3.21.167.210". Make sure this host can be reached over ssh:[0m
+[0;31mOrigin: /home/khalid/shubham/day-72/ansible-docker-project/roles/common/tasks/main.yml:35:3[0m
+[0;31m[0m
+[0;31m33[0m
+[0;31m34[0m
+[0;31m35 - name: Set timezone[0m
+[0;31m     ^ column 3[0m
+[0;31m[0m
+[1;31mfatal: [worker-redhat]: UNREACHABLE! => {"changed": false, "msg": "Task failed: Data could not be sent to remote host \"3.21.167.210\". Make sure this host can be reached over ssh:", "unreachable": true}[0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for Ubuntu] **********************************
+[0;36mskipping: [worker-amazon][0m
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for RedHat] **********************************
+[0;33mchanged: [worker-amazon][0m
+[0;36mskipping: [worker-ubuntu][0m
+
+PLAY [Install Docker and run containers] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker dependencies on Debian/RedHat] *******************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Update apt cache for Debian] ************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update yum cache for RedHat] ************************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Install Docker for Debian/RedHat] *******************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Start and enable Docker service] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Add deploy user to docker group] ********************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Log in to Docker Hub] *******************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Pull application image] *****************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Install Docker Compose] *****************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Create application directory] ***********************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Create custom index page] ***************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Run application container] **************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Wait for container to be healthy] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+RUNNING HANDLER [docker : Restart Docker] **************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+PLAY [Configure Nginx reverse proxy] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [nginx : Install Nginx] ***************************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [nginx : Remove default Nginx site configuration] *************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [nginx : Remove default Nginx config on RedHat] ***************************
+[0;36mskipping: [worker-ubuntu] => (item=/etc/nginx/conf.d/default.conf) [0m
+[0;36mskipping: [worker-ubuntu] => (item=/etc/nginx/conf.d/welcome.conf) [0m
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [nginx : Deploy main Nginx Configuration] *********************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [nginx : Deploy reverse proxy configuration] ******************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [nginx : Test Nginx configuration] ****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [nginx : Start and enable Nginx] ******************************************
+[0;31m[ERROR]: Task failed: Data could not be sent to remote host "3.16.215.123". Make sure this host can be reached over ssh:[0m
+[0;31mOrigin: /home/khalid/shubham/day-72/ansible-docker-project/roles/nginx/tasks/main.yml:58:3[0m
+[0;31m[0m
+[0;31m56   tags: nginx[0m
+[0;31m57[0m
+[0;31m58 - name: Start and enable Nginx[0m
+[0;31m     ^ column 3[0m
+[0;31m[0m
+[1;31mfatal: [worker-ubuntu]: UNREACHABLE! => {"changed": false, "msg": "Task failed: Data could not be sent to remote host \"3.16.215.123\". Make sure this host can be reached over ssh:", "unreachable": true}[0m
+
+PLAY RECAP *********************************************************************
+[0;33mworker-amazon[0m              : [0;32mok=6   [0m [0;33mchanged=4   [0m unreachable=0    failed=0    [0;36mskipped=2   [0m rescued=0    ignored=0   
+[0;31mworker-redhat[0m              : [0;32mok=4   [0m [0;33mchanged=3   [0m [1;31munreachable=1   [0m failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+[0;31mworker-ubuntu[0m              : [0;32mok=26  [0m [0;33mchanged=18  [0m [1;31munreachable=1   [0m failed=0    [0;36mskipped=4   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-playbook site.yml -f 1[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[C[C all -m ping[K
+[?2004l[0;32mworker-amazon | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-redhat | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-ubuntu | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible all -m ping[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[C[C-playbook site.yml -f 1
+[?2004l
+PLAY [Apply common configuration] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Update package cache for Ubuntu] ********************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Update package for RedHat] **************************************
+[0;32mok: [worker-amazon][0m
+[0;31m[ERROR]: Task failed: Data could not be sent to remote host "3.21.167.210". Make sure this host can be reached over ssh:[0m
+[0;31mOrigin: /home/khalid/shubham/day-72/ansible-docker-project/roles/common/tasks/main.yml:13:3[0m
+[0;31m[0m
+[0;31m11   tags: common[0m
+[0;31m12[0m
+[0;31m13 - name: Update package for RedHat[0m
+[0;31m     ^ column 3[0m
+[0;31m[0m
+[1;31mfatal: [worker-redhat]: UNREACHABLE! => {"changed": false, "msg": "Task failed: Data could not be sent to remote host \"3.21.167.210\". Make sure this host can be reached over ssh:", "unreachable": true}[0m
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [common : Install common packages] ****************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Set hostname] ***************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Set timezone] ***************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for Ubuntu] **********************************
+[0;36mskipping: [worker-amazon][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for RedHat] **********************************
+[0;32mok: [worker-amazon][0m
+[0;36mskipping: [worker-ubuntu][0m
+
+PLAY [Install Docker and run containers] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker dependencies on Debian/RedHat] *******************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update apt cache for Debian] ************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update yum cache for RedHat] ************************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Install Docker for Debian/RedHat] *******************************
+[0;31m[ERROR]: Task failed: Data could not be sent to remote host "3.16.215.123". Make sure this host can be reached over ssh:[0m
+[0;31mOrigin: /home/khalid/shubham/day-72/ansible-docker-project/roles/docker/tasks/main.yml:38:3[0m
+[0;31m[0m
+[0;31m36   tags: docker[0m
+[0;31m37[0m
+[0;31m38 - name: Install Docker for Debian/RedHat[0m
+[0;31m     ^ column 3[0m
+[0;31m[0m
+[1;31mfatal: [worker-ubuntu]: UNREACHABLE! => {"changed": false, "msg": "Task failed: Data could not be sent to remote host \"3.16.215.123\". Make sure this host can be reached over ssh:", "unreachable": true}[0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=6   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=2   [0m rescued=0    ignored=0   
+[0;31mworker-redhat[0m              : [0;32mok=1   [0m changed=0    [1;31munreachable=1   [0m failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+[0;31mworker-ubuntu[0m              : [0;32mok=9   [0m changed=0    [1;31munreachable=1   [0m failed=0    [0;36mskipped=3   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-playbook site.yml -f 1[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[C[C all -m ping[K
+[?2004l[0;32mworker-amazon | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-ubuntu | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-redhat | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible all -m ping[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[C[C-playbook site.yml -f 1
+[?2004l
+PLAY [Apply common configuration] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Update package cache for Ubuntu] ********************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Update package for RedHat] **************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [common : Install common packages] ****************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Set hostname] ***************************************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Set timezone] ***************************************************
+[0;32mok: [worker-amazon][0m
+[0;33mchanged: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for Ubuntu] **********************************
+[0;36mskipping: [worker-amazon][0m
+[0;36mskipping: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+TASK [common : Create deploy user for RedHat] **********************************
+[0;32mok: [worker-amazon][0m
+[0;33mchanged: [worker-redhat][0m
+[0;36mskipping: [worker-ubuntu][0m
+
+PLAY [Install Docker and run containers] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker dependencies on Debian/RedHat] *******************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update apt cache for Debian] ************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update yum cache for RedHat] ************************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Install Docker for Debian/RedHat] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Start and enable Docker service] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Add deploy user to docker group] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Log in to Docker Hub] *******************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Pull application image] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker Compose] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create application directory] ***********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create custom index page] ***************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Run application container] **************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Wait for container to be healthy] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Configure Nginx reverse proxy] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [nginx : Install Nginx] ***************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [nginx : Remove default Nginx site configuration] *************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [nginx : Remove default Nginx config on RedHat] ***************************
+[0;36mskipping: [worker-ubuntu] => (item=/etc/nginx/conf.d/default.conf) [0m
+[0;36mskipping: [worker-ubuntu] => (item=/etc/nginx/conf.d/welcome.conf) [0m
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [nginx : Deploy main Nginx Configuration] *********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [nginx : Deploy reverse proxy configuration] ******************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [nginx : Test Nginx configuration] ****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [nginx : Start and enable Nginx] ******************************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=6   [0m changed=0    unreachable=0    failed=0    [0;36mskipped=2   [0m rescued=0    ignored=0   
+[0;33mworker-redhat[0m              : [0;32mok=6   [0m [0;33mchanged=2   [0m unreachable=0    failed=0    [0;36mskipped=2   [0m rescued=0    ignored=0   
+[0;32mworker-ubuntu[0m              : [0;32mok=26  [0m changed=0    unreachable=0    failed=0    [0;36mskipped=4   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible-playbook[27m[7m [27m[7msite.yml --tags docker \ [27m
+[7m  -e "docker_app_image=httpd docker_app_tag=latest docker_app_name=apache-app"[27m [A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansible-playbook site.yml --tags docker \
+  -e "docker_app_image=httpd docker_app_tag=latest docker_app_name=apache-app" [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K"
+[?2004l
+PLAY [Apply common configuration] **********************************************
+
+TASK [Validating arguments against arg spec None] ******************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Install Docker and run containers] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker dependencies on Debian/RedHat] *******************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update apt cache for Debian] ************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update yum cache for RedHat] ************************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Install Docker for Debian/RedHat] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Start and enable Docker service] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Add deploy user to docker group] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Log in to Docker Hub] *******************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Pull application image] *****************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Install Docker Compose] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create application directory] ***********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create custom index page] ***************************************
+[0;31m[ERROR]: Task failed: Data could not be sent to remote host "3.16.215.123". Make sure this host can be reached over ssh:[0m
+[0;31mOrigin: /home/khalid/shubham/day-72/ansible-docker-project/roles/docker/tasks/main.yml:89:3[0m
+[0;31m[0m
+[0;31m87   tags: docker[0m
+[0;31m88[0m
+[0;31m89 - name: Create custom index page[0m
+[0;31m     ^ column 3[0m
+[0;31m[0m
+[1;31mfatal: [worker-ubuntu]: UNREACHABLE! => {"changed": false, "msg": "Task failed: Data could not be sent to remote host \"3.16.215.123\". Make sure this host can be reached over ssh:", "unreachable": true}[0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;31mworker-ubuntu[0m              : [0;32mok=11  [0m [0;33mchanged=1   [0m [1;31munreachable=1   [0m failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-playbook site.yml --tags docker   -e "docker_app_image=httpd docker_app_tag=latest docker_app_name=apache-app"[A[C[C[C[C[C[C[C[C[C[C[Cf 1[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[C[C all -m ping[K
+[?2004l[0;32mworker-ubuntu | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-redhat | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32mworker-amazon | SUCCESS => {[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible all -m ping[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[C[C-playbook site.yml --tags docker   -e "docker_app_image=httpd docker_app_tag=latest docker_app_name=apache-app"
+[?2004l
+PLAY [Apply common configuration] **********************************************
+
+TASK [Validating arguments against arg spec None] ******************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Install Docker and run containers] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker dependencies on Debian/RedHat] *******************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update apt cache for Debian] ************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update yum cache for RedHat] ************************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Install Docker for Debian/RedHat] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Start and enable Docker service] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Add deploy user to docker group] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Log in to Docker Hub] *******************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Pull application image] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker Compose] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create application directory] ***********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create custom index page] ***************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Run application container] **************************************
+[0;31m[ERROR]: Task failed: Module failed: Error starting container 0d1663d615bbd61780ef273dda135e99e286115fff0f77ac36ae0d92aa405103: 500 Server Error for http+docker://localhost/v1.52/containers/0d1663d615bbd61780ef273dda135e99e286115fff0f77ac36ae0d92aa405103/start: Internal Server Error ("failed to set up container networking: driver failed programming external connectivity on endpoint apache-app (433282ca738804f47a23601c69413b3d11ea6cbdb82ad1f19c4065d702fd9c05): Bind for 0.0.0.0:8080 failed: port is already allocated")[0m
+[0;31mOrigin: /home/khalid/shubham/day-72/ansible-docker-project/roles/docker/tasks/main.yml:98:3[0m
+[0;31m[0m
+[0;31m96[0m
+[0;31m97[0m
+[0;31m98 - name: Run application container[0m
+[0;31m     ^ column 3[0m
+[0;31m[0m
+[0;31mfatal: [worker-ubuntu]: FAILED! => {"changed": false, "msg": "Error starting container 0d1663d615bbd61780ef273dda135e99e286115fff0f77ac36ae0d92aa405103: 500 Server Error for http+docker://localhost/v1.52/containers/0d1663d615bbd61780ef273dda135e99e286115fff0f77ac36ae0d92aa405103/start: Internal Server Error (\"failed to set up container networking: driver failed programming external connectivity on endpoint apache-app (433282ca738804f47a23601c69413b3d11ea6cbdb82ad1f19c4065d702fd9c05): Bind for 0.0.0.0:8080 failed: port is already allocated\")"}[0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;31mworker-ubuntu[0m              : [0;32mok=12  [0m changed=0    unreachable=0    [0;31mfailed=1   [0m [0;36mskipped=1   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m c[27m[7mo[27m[7mmmand -a "docker rm -f myapp" --become[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "docker rm -f myapp" --become
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33mmyapp[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m c[27m[7mo[27m[7mmmand -a "docker rm -f apache-app" --become[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "docker rm -f apache-app" --become
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33mapache-app[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ vim [7mroles/docker[27m[7m/[27m[7mtasks/main.yml[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[Croles/docker/tasks/main.yml
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;49r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[49;1H"roles/docker/tasks/main.yml" 121L, 2651B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[1;1H[35m---[m
+[34m#SPDX-License-Identifier: MIT-0[m[2;32H[K[3;1H[34m# tasks file for roles/docker[m[3;30H[K[5;1H[38;5;130m- [m[36mname[m[35m:[m Install Docker dependencies on Debian/RedHat
+  [36mpackage[m[35m:[m
+    [36mname[m[35m:[m[8;7H[38;5;130m- [mca-certificates[9;7H[38;5;130m- [mcurl[10;7H[38;5;130m- [mgnupg[11;7H[38;5;130m- [mpython3-pip[12;7H[38;5;130m- [mpython3-docker
+    [36mstate[m[35m:[m present
+  [36mtags[m[35m:[m docker
+
+[38;5;130m- [m[36mname[m[35m:[m Update apt cache for Debian
+  [36mapt[m[35m:[m
+    [36mupdate_cache[m[35m:[m [31mtrue[m
+  [36mchanged_when[m[35m:[m [31mfalse[m
+  [36mwhen[m[35m:[m ansible_facts['os_family'] == [31m"Debian"[m
+  [36mtags[m[35m:[m docker
+
+[34m#- name: Update yum cache for RedHat
+#  yum:
+#    update_cache: true
+#  when: ansible_facts['os_family'] == "RedHat"
+#  tags: docker[m
+
+[38;5;130m- [m[36mname[m[35m:[m Update yum cache for RedHat
+  [36myum[m[35m:[m
+    [36mname[m[35m:[m [31m"*"[m
+    [36mstate[m[35m:[m latest
+    [36mupdate_only[m[35m:[m [31mtrue[m
+  [36mchanged_when[m[35m:[m [31mfalse[m
+  [36mwhen[m[35m:[m ansible_facts['os_family'] == [31m"RedHat"[m
+  [36mtags[m[35m:[m docker
+
+[38;5;130m- [m[36mname[m[35m:[m Install Docker for Debian/RedHat
+  [36mpackage[m[35m:[m
+    [36mname[m[35m:[m [31m"{{ docker_package[ansible_facts['os_family']] }}"[m
+    [36mstate[m[35m:[m present
+  [36mtags[m[35m:[m docker
+
+[38;5;130m- [m[36mname[m[35m:[m Start and enable Docker service
+  [36mservice[m[35m:[m
+    [36mname[m[35m:[m docker
+    [36mstate[m[35m:[m started
+    [36menabled[m[35m:[m [31mtrue[m[49;61H36,2[10CTop[36;2H[?25h[?4m[?12$p[?25l[49;51H/[36;2H[49;52H0[36;2H[49;53Hc[36;2H[49;54H0[36;2H[49;55Hc[36;2H[49;56H/[36;2H[49;57H0[36;2H[49;58Hc[36;2H[49;59H0[36;2H[49;60Hc[36;2H[49;51H          [36;2H[27m[23m[29m[m[H[2J[1;1H[38;5;81m---[m
+[96m#SPDX-License-Identifier: MIT-0
+# tasks file for roles/docker[m
+
+[93m- [m[1m[96mname[m[38;5;224m:[m Install Docker dependencies on Debian/RedHat
+  [1m[96mpackage[m[38;5;224m:[m
+    [1m[96mname[m[38;5;224m:[m[8;7H[93m- [mca-certificates[9;7H[93m- [mcurl[10;7H[93m- [mgnupg[11;7H[93m- [mpython3-pip[12;7H[93m- [mpython3-docker
+    [1m[96mstate[m[38;5;224m:[m present
+  [1m[96mtags[m[38;5;224m:[m docker
+
+[93m- [m[1m[96mname[m[38;5;224m:[m Update apt cache for Debian
+  [1m[96mapt[m[38;5;224m:[m
+    [1m[96mupdate_cache[m[38;5;224m:[m [95mtrue[m
+  [1m[96mchanged_when[m[38;5;224m:[m [95mfalse[m
+  [1m[96mwhen[m[38;5;224m:[m ansible_facts['os_family'] == [95m"Debian"[m
+  [1m[96mtags[m[38;5;224m:[m docker
+
+[96m#- name: Update yum cache for RedHat
+#  yum:
+#    update_cache: true
+#  when: ansible_facts['os_family'] == "RedHat"
+#  tags: docker[m
+
+[93m- [m[1m[96mname[m[38;5;224m:[m Update yum cache for RedHat
+  [1m[96myum[m[38;5;224m:[m
+    [1m[96mname[m[38;5;224m:[m [95m"*"[m
+    [1m[96mstate[m[38;5;224m:[m latest
+    [1m[96mupdate_only[m[38;5;224m:[m [95mtrue[m
+  [1m[96mchanged_when[m[38;5;224m:[m [95mfalse[m
+  [1m[96mwhen[m[38;5;224m:[m ansible_facts['os_family'] == [95m"RedHat"[m
+  [1m[96mtags[m[38;5;224m:[m docker
+
+[93m- [m[1m[96mname[m[38;5;224m:[m Install Docker for Debian/RedHat
+  [1m[96mpackage[m[38;5;224m:[m
+    [1m[96mname[m[38;5;224m:[m [95m"{{ docker_package[ansible_facts['os_family']] }}"[m
+    [1m[96mstate[m[38;5;224m:[m present
+  [1m[96mtags[m[38;5;224m:[m docker
+
+[93m- [m[1m[96mname[m[38;5;224m:[m Start and enable Docker service
+  [1m[96mservice[m[38;5;224m:[m
+    [1m[96mname[m[38;5;224m:[m docker
+    [1m[96mstate[m[38;5;224m:[m started
+    [1m[96menabled[m[38;5;224m:[m [95mtrue[m[49;61H36,2[10CTop"roles/docker/tasks/main.yml" 121L, 2651B[36;2H[?25h[?25l[49;51H~@k[36;2H[49;51H   [37;1H[49;62H7,0-1[37;1H[?25h[?25l[49;51H~@k[37;1H[49;51H   [38;1H[49;62H8,1  [38;1H[?25h[?25l[49;51H~@k[38;1H[49;51H   [39;1H[49;62H9[39;1H[?25h[?25l[49;51H~@k[39;1H[49;51H   [40;1H[49;61H40[40;1H[?25h[?25l[49;51H~@k[40;1H[49;51H   [41;1H[49;62H1[41;1H[?25h[?25l[49;51H~@k[41;1H[49;51H   [42;1H[49;62H2[42;1H[?25h[?25l[49;51H~@k[42;1H[49;51H   [43;1H[49;62H3,0-1[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;1H[K[49;61H44,1[11C1%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[49;61H[K[49;61H45,1[11C2%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Add deploy user to docker group[49;61H[K[49;61H46,1[11C4%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96muser[m[38;5;224m:[m[49;61H[K[49;61H47,1[11C5%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mname[m[38;5;224m:[m deploy[49;61H[K[49;61H48,1[11C6%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mgroups[m[38;5;224m:[m docker[49;61H[K[49;61H49,1[11C8%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mappend[m[38;5;224m:[m [95mtrue[m[49;61H[K[49;61H50,0-1[9C9%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mnotify[m[38;5;224m:[m Restart Docker[49;61H[K[49;61H51,1[10C10%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;61H[K[49;61H52,1[10C12%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[49;61H[K[49;61H53,1[10C13%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Log in to Docker Hub[49;61H[K[49;61H54,1[10C15%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mcommunity.docker.docker_login[m[38;5;224m:[m[49;61H[K[49;61H55,1[10C16%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96musername[m[38;5;224m:[m [95m"{{ vault_docker_username }}"[m[49;61H[K[49;61H56,1[10C17%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mpassword[m[38;5;224m:[m [95m"{{ vault_docker_password }}"[m[49;61H[K[49;61H57,1[10C19%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;2H[96m #become_user: deploy[m[49;61H[K[49;61H58,0-1[8C20%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mwhen[m[38;5;224m:[m[49;61H[K[49;61H59,1[10C21%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[93m- [mvault_docker_username is defined[49;61H[K[49;61H60,1[10C23%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[93m- [mvault_docker_password is defined[49;61H[K[49;61H61,1[10C24%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;61H[K[49;61H62,1[10C26%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[49;61H[K[49;61H63,1[10C27%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Pull application image[49;61H[K[49;61H64,1[10C28%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mcommunity.docker.docker_image[m[38;5;224m:[m[49;61H[K[49;61H65,1[10C30%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mname[m[38;5;224m:[m [95m"{{ docker_app_image }}"[m[49;61H[K[49;61H66,1[10C31%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mtag[m[38;5;224m:[m [95m"{{ docker_app_tag }}"[m[49;61H[K[49;61H67,1[10C32%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96msource[m[38;5;224m:[m pull[49;61H[K[49;61H68,0-1[8C34%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;61H[K[49;61H69,1[10C35%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[49;61H[K[49;61H70,1[10C36%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Install Docker Compose[49;61H[K[49;61H71,1[10C38%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mpackage[m[38;5;224m:[m[49;61H[K[49;61H72,1[10C39%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mname[m[38;5;224m:[m [95m"{{ docker_compose_package[ansible_facts['os_family']] }}"[m[49;61H[K[49;61H73,1[10C41%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mstate[m[38;5;224m:[m present[49;61H[K[49;61H74,1[10C42%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;61H[K[49;61H75,0-1[8C43%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[49;61H[K[49;61H76,1[10C45%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Create application directory[49;61H[K[49;61H77,1[10C46%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mfile[m[38;5;224m:[m[49;61H[K[49;61H78,1[10C47%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mpath[m[38;5;224m:[m /opt/app[49;61H[K[49;61H79,1[10C49%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mstate[m[38;5;224m:[m directory[49;61H[K[49;61H80,1[10C50%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mmode[m[38;5;224m:[m [95m'0755'[m[49;61H[K[49;61H81,0-1[8C52%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;61H[K[49;61H82,1[10C53%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[49;61H[K[49;61H83,1[10C54%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Create custom index page[49;61H[K[49;61H84,1[10C56%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mcopy[m[38;5;224m:[m[49;61H[K[49;61H85,1[10C57%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mdest[m[38;5;224m:[m /opt/app/index.html[49;61H[K[49;61H86,1[10C58%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mcontent[m[38;5;224m:[m |[49;61H[K[49;61H87,1[10C60%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;7H<h1>Hello from DevOps Project</h1>[49;61H[K[49;61H88,0-1[8C61%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mmode[m[38;5;224m:[m [95m'0644'[m[49;61H[K[49;61H89,1[10C63%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;61H[K[49;61H90,1[10C64%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[49;61H[K[49;61H91,1[10C65%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[49;61H[K[49;61H92,1[10C67%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Run application container[49;61H[K[49;61H93,1[10C68%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mcommunity.docker.docker_container[m[38;5;224m:[m[49;61H[K[49;61H94,1[10C69%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mname[m[38;5;224m:[m [95m"{{ docker_app_name }}"[m[49;61H[K[49;61H95,1[10C71%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mimage[m[38;5;224m:[m [95m"{{ docker_app_image }}:{{ docker_app_tag }}"[m[49;61H[K[49;61H96,0-1[8C72%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mstate[m[38;5;224m:[m started[49;61H[K[49;61H97,0-1[8C73%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mrestart_policy[m[38;5;224m:[m always[49;61H[K[49;61H98,1[10C75%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mpublished_ports[m[38;5;224m:[m[49;61H[K[49;61H99,1[10C76%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [42;1H[1;48r[1;1H[2M[1;49r[47;7H[93m- [m[95m"{{ docker_app_port }}:{{ docker_container_port }}"[m [96m # host_port(8080))[48;1H:container_port(80)[m[49;61H[K[49;61H100,1[9C78%[42;1H[?25h[?25l[49;51H~@k[42;1H[49;51H   [43;1H[49;63H1[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;5H[1m[96mvolumes[m[38;5;224m:[m[49;61H[K[49;61H102,1[9C79%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;7H[93m- [m/opt/app/index.html:/usr/share/nginx/html/index.html[49;61H[K[49;61H103,1[9C81%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [43;1H[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;61H[K[49;61H104,1[9C82%[43;1H[?25h[?25l[49;51H~@k[43;1H[49;51H   [42;1H[1;48r[1;1H[2M[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Wait for container to be healthy[49;61H[K[49;61H105,1[9C85%[42;1H[?25h[?25l[49;51H~@k[42;1H[49;51H   [41;1H[49;63H4[41;1H[?25h[?25l[49;51H~@k[41;1H[49;51H   [40;1H[49;63H3[40;1H[?25h[?25l[49;51H~@k[40;1H[49;51H   [39;1H[49;63H2[39;1H[?25h[?25l[49;51H~@k[39;1H[49;51H   [38;1H[49;63H1[38;1H[?25h[?25l[49;51H~@k[38;1H[49;51H   [37;1H[49;63H0[37;1H[?25h[?25l[49;51H~@k[37;1H[49;51H   [36;1H[49;61H99,1 [36;1H[?25h[?25l[49;51H~@k[36;1H[49;51H   [35;1H[49;62H8[35;1H[?25h[?25l[49;51Hi[35;1H[49;51H [35;1H[49;1H[1m-- INSERT --[m[49;61H[K[49;61H98,1[10C85%[35;1H[?25h[?25l[36;48r[36;1H[L[1;49r[35;1H[K[36;1H[93m- [m[1m[96mname[m[38;5;224m:[m Run application container[49;61H[K[49;61H99,1[10C84%[36;1H[?25h[?25l[37;48r[37;1H[L[1;49r[36;1H[K[37;1H[93m- [m[1m[96mname[m[38;5;224m:[m Run application container[49;61H[K[49;61H100,1[9C82%[37;1H[?25h[?25l[49;61H99,1 [36;1H[?25h[?25l[49;62H8[35;1H[?25h[?25l[49;62H7[34;1H[?25h[?25l[35;48r[35;1H[L[1;49r[49;61H[K[49;61H98,5[10C81%[35;5H[?25h[?25l[49;64H3[35;3H[?25h[?25l[49;64H1[35;1H[?25h[?25l[36;48r[36;1H[L[1;49r[35;1H[93m- [m[1m[96mname[m[38;5;224m:[m Find existing container using app port
+  [1m[96mshell[m[38;5;224m:[m [95m"docker
+
+
+- name: Run application container
+  community.docker.docker_container:
+    name: [m[1C[38;5;224m{{[m docker_app_name [38;5;224m}}[m
+[95m    image: [m[1C[38;5;224m{{[m docker_app_image [38;5;224m}}[m:{{ docker_app_tag }}
+[95m    state: started
+    restart_policy: always
+    published_ports:
+      - [m[1C[38;5;224m{{[m docker_app_port [38;5;224m}}[m:{{ docker_container_port }}[1C[95m  # host_port(8080))[47;1H:container_port(80)
+    volumes:[m[49;11H[1m(paste) --[m[49;61H[K[36;17H[?25h[?25l[37;48r[37;1H[L[1;49r[36;17H[95m ps -q --filter publish={{ docker_app_port }}"[m
+  [1m[96mregister[m[38;5;224m:[m existing
+
+
+[93m- [m[1m[96mname[m[38;5;224m:[m Run application container
+  [1m[96mcommunity.docker.docker_container[m[38;5;224m:[m
+    [1m[96mname[m[38;5;224m:[m [1C[95m{{ docker_app_name }}[m
+    [1m[96mimage[m[38;5;224m:[m [1C[95m{{ docker_app_image }}:{{ docker_app_tag }}[m
+    [1m[96mstate[m[38;5;224m:[m started
+    [1m[96mrestart_policy[m[38;5;224m:[m always
+    [1m[96mpublished_ports[m[38;5;224m:[m
+      [93m- [m[1C[95m{{ docker_app_port }}:{{ docker_container_port }}[m[1C [96m # host_port(8080))[48;1H:container_port(80)[37;21H[?25h[?25l[38;48r[m[38;1H[4L[1;49r[37;21H_app_container
+  [1m[96mchanged_when[m[38;5;224m:[m [95mfalse[m
+  [1m[96mtags[m[38;5;224m:[m docker
+
+[93m- [m[1m[96mname[m[38;5;224m:[m Remov[?25h[?25l[42;48r[42;1H[L[1;49r[41;14He existing container using app port
+  community.docker.docker_con[?25h[?25l[43;48r[43;1H[2L[1;49r[42;3H[1m[96mcommunity.docker.docker_container[m[38;5;224m:[m
+    [1m[96mname[m[38;5;224m:[m [95m"{{ existing_app_container.stdout }}"[m
+    stat[43;9H[?25h[?25l[1;48r[48;1H
+[1;49r[44;48r[44;1H[2L[1;49r[43;5H[1m[96mstate[m[38;5;224m:[m absent
+    [1m[96mforce_kill[m[38;5;224m:[m [95mtrue[m
+  [1m[96mwhen[m[38;5;224m:[m existing_app_container.st[43;34H[?25h[?25l[1;48r[1;1H[3M[1;49r[43;48r[43;1H[L[1;49r[42;34Hdout [38;5;121m!=[m [95m""[m
+  [1m[96mtags[m[38;5;224m:[m docker[47;3H[1m[96mcommunity.docker.docker_container[m[38;5;224m:[m
+    [1m[96mname[m[38;5;224m:[m [95m"{{ docker_app_name }}"[m[49;11H[1m--a[m[49;13H[K[49;61H110,15[8C76%[43;15H[?25h[?25l[1;48r[48;1H
+[1;49r[48;5H[1m[96mimage[m[38;5;224m:[m [95m"{{ docker_app_image }}:{{ docker_app_tag }}"[m[49;61H[K[49;61H111,1[9C77%[43;1H[?25h[?25l[1;48r[48;1H
+[1;49r[48;5H[1m[96mstate[m[38;5;224m:[m started[49;61H[K[49;61H112,1[9C78%[43;1H[?25h[?25l[1;48r[48;1H
+[1;49r[48;5H[1m[96mrestart_policy[m[38;5;224m:[m always[49;61H[K[49;61H113,15[8C79%[43;15H[?25h[?25l[1;48r[48;1H
+[1;49r[48;5H[1m[96mpublished_ports[m[38;5;224m:[m[49;61H[K[49;61H114,15[8C80%[43;15H[?25h[?25l[1;48r[1;1H[2M[1;49r[47;7H[93m- [m[95m"{{ docker_app_port }}:{{ docker_container_port }}"[m [96m # host_port(8080))[48;1H:container_port(80)[m[49;61H[K[49;61H115,15[8C82%[42;15H[?25h[?25l[43;14H[95m[46m{[18C}[m[49;63H6[43;15H[?25h[?25l[1;48r[48;1H
+[1;49r[48;5H[1m[96mvolumes[m[38;5;224m:[m[49;61H[K[49;61H117,15[8C83%[42;14H[95m{[18C}[43;15H[?25h[?25l[1;48r[m[48;1H
+[1;49r[48;7H[93m- [m/opt/app/index.html:/usr/share/nginx/html/index.html[49;61H[K[49;61H118,15[8C84%[43;15H[?25h[?25l[1;48r[48;1H
+[1;49r[48;3H[1m[96mtags[m[38;5;224m:[m docker[49;61H[K[49;61H119,15[8C85%[43;15H[?25h[?25l[1;48r[1;1H[2M[1;49r[48;1H[93m- [m[1m[96mname[m[38;5;224m:[m Wait for container to be healthy[49;61H[K[49;61H120,15[8C87%[42;15H[?25h[?25l[1;48r[48;1H
+[1;49r[48;3H[1m[96muri[m[38;5;224m:[m[49;61H[K[49;61H121,13[8C88%[43;13H[?25h[?25l[1;48r[48;1H
+[1;49r[48;5H[1m[96murl[m[38;5;224m:[m [95m"http://localhost:{{ docker_app_port }}"[m[49;61H[K[49;61H122,15[8C89%[43;15H[?25h[?25l[1;48r[48;1H
+[1;49r[48;5H[1m[96mstatus_code[m[38;5;224m:[m [95m200[m[49;61H[K[49;61H123,15[8C91%[43;15H[?25h[?25l[1;48r[48;1H
+[1;49r[48;3H[1m[96mretries[m[38;5;224m:[m [95m5[m[49;61H[K[49;61H124,1[9C92%[43;1H[?25h[49;1H[K[43;1H[?25l[49;51H^[[43;1H[49;51H  [43;1H[49;61H124,0-1[7C92%[43;1H[?25h[?25l[49;51H:[43;1H[49;51H[K[49;1H:[?25hx[?25l[?2004l[>4;m"roles/docker/tasks/main.yml" 136L, 3068B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?1049l[23;0;0t[?25h[>4;m[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ vim roles/docker/tasks/main.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "docker rm -f apache-app" --become[5Pmy[C[C[C[C[C[C[C[C[C[C[C[C[C[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[C[C-playbook site.yml --tags docker   -e "docker_app_image=httpd docker_app_tag=latest docker_app_name=apache-app"
+[?2004l
+PLAY [Apply common configuration] **********************************************
+
+TASK [Validating arguments against arg spec None] ******************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Install Docker and run containers] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker dependencies on Debian/RedHat] *******************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update apt cache for Debian] ************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update yum cache for RedHat] ************************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Install Docker for Debian/RedHat] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Start and enable Docker service] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Add deploy user to docker group] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Log in to Docker Hub] *******************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Pull application image] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker Compose] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create application directory] ***********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create custom index page] ***************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Find existing container using app port] *************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Remove existing container using app port] ***********************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Run application container] **************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Wait for container to be healthy] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Configure Nginx reverse proxy] *******************************************
+
+TASK [Validating arguments against arg spec None] ******************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=16  [0m [0;33mchanged=1   [0m unreachable=0    failed=0    [0;36mskipped=2   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-playbook site.yml --tags docker   -e "docker_app_image=httpd docker_app_tag=latest docker_app_name=apache-app"
+[?2004l
+PLAY [Apply common configuration] **********************************************
+
+TASK [Validating arguments against arg spec None] ******************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Install Docker and run containers] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker dependencies on Debian/RedHat] *******************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update apt cache for Debian] ************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update yum cache for RedHat] ************************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Install Docker for Debian/RedHat] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Start and enable Docker service] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Add deploy user to docker group] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Log in to Docker Hub] *******************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Pull application image] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker Compose] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create application directory] ***********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create custom index page] ***************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Find existing container using app port] *************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Remove existing container using app port] ***********************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Run application container] **************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Wait for container to be healthy] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Configure Nginx reverse proxy] *******************************************
+
+TASK [Validating arguments against arg spec None] ******************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=17  [0m [0;33mchanged=2   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-playbook site.yml --tags docker   -e "docker_app_image=httpd docker_app_tag=latest docker_app_name=apache-app"
+[?2004l
+PLAY [Apply common configuration] **********************************************
+
+TASK [Validating arguments against arg spec None] ******************************
+[0;32mok: [worker-amazon][0m
+[0;32mok: [worker-redhat][0m
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Install Docker and run containers] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker dependencies on Debian/RedHat] *******************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update apt cache for Debian] ************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Update yum cache for RedHat] ************************************
+[0;36mskipping: [worker-ubuntu][0m
+
+TASK [docker : Install Docker for Debian/RedHat] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Start and enable Docker service] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Add deploy user to docker group] ********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Log in to Docker Hub] *******************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Pull application image] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Install Docker Compose] *****************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create application directory] ***********************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Create custom index page] ***************************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Find existing container using app port] *************************
+[0;32mok: [worker-ubuntu][0m
+
+TASK [docker : Remove existing container using app port] ***********************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Run application container] **************************************
+[0;33mchanged: [worker-ubuntu][0m
+
+TASK [docker : Wait for container to be healthy] *******************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY [Configure Nginx reverse proxy] *******************************************
+
+TASK [Validating arguments against arg spec None] ******************************
+[0;32mok: [worker-ubuntu][0m
+
+PLAY RECAP *********************************************************************
+[0;32mworker-amazon[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;32mworker-redhat[0m              : [0;32mok=1   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+[0;33mworker-ubuntu[0m              : [0;32mok=17  [0m [0;33mchanged=2   [0m unreachable=0    failed=0    [0;36mskipped=1   [0m rescued=0    ignored=0   
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m c[27m[7mo[27m[7mmmand -a "docker ps" --become[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m command -a "docker ps" --become
+[?2004l[0;33mworker-ubuntu | CHANGED | rc=0 >>[0m
+[0;33mCONTAINER ID   IMAGE          COMMAND              CREATED         STATUS         PORTS                  NAMES[0m
+[0;33m65fe86520508   httpd:latest   "httpd-foreground"   4 minutes ago   Up 4 minutes   0.0.0.0:8080->80/tcp   apache-app[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m u[27m[7mr[27m[7mi -a "url=http://localhost:8080 status_code=200"[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m uri -a "url=http://localhost:8080 status_code=200"
+[?2004l[0;32mworker-ubuntu | SUCCESS => {[0m
+[0;32m    "accept_ranges": "bytes",[0m
+[0;32m    "changed": false,[0m
+[0;32m    "connection": "close",[0m
+[0;32m    "content_length": "191",[0m
+[0;32m    "content_type": "text/html",[0m
+[0;32m    "cookies": {},[0m
+[0;32m    "cookies_string": "",[0m
+[0;32m    "date": "Tue, 12 May 2026 02:24:18 GMT",[0m
+[0;32m    "elapsed": 0,[0m
+[0;32m    "etag": "\"bf-642fce432f300\"",[0m
+[0;32m    "last_modified": "Fri, 07 Nov 2025 08:23:08 GMT",[0m
+[0;32m    "msg": "OK (191 bytes)",[0m
+[0;32m    "redirected": false,[0m
+[0;32m    "server": "Apache/2.4.67 (Unix)",[0m
+[0;32m    "status": 200,[0m
+[0;32m    "url": "http://localhost:8080"[0m
+[0;32m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible web -m u[27m[7mr[27m[7mi -a "url=http://localhost status_code=200"[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible web -m uri -a "url=http://localhost status_code=200"
+[?2004l[0;32mworker-ubuntu | SUCCESS => {[0m
+[0;32m    "accept_ranges": "bytes",[0m
+[0;32m    "changed": false,[0m
+[0;32m    "connection": "close",[0m
+[0;32m    "content_length": "615",[0m
+[0;32m    "content_type": "text/html",[0m
+[0;32m    "cookies": {},[0m
+[0;32m    "cookies_string": "",[0m
+[0;32m    "date": "Tue, 12 May 2026 02:24:37 GMT",[0m
+[0;32m    "elapsed": 0,[0m
+[0;32m    "etag": "\"6a028726-267\"",[0m
+[0;32m    "last_modified": "Tue, 12 May 2026 01:49:26 GMT",[0m
+[0;32m    "msg": "OK (615 bytes)",[0m
+[0;32m    "redirected": false,[0m
+[0;32m    "server": "nginx/1.24.0 (Ubuntu)",[0m
+[0;32m    "status": 200,[0m
+[0;32m    "url": "http://localhost"[0m
+[0;32m}[0m
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ exit
+[?2004lexit
+
+Script done on 2026-05-11 21:26:00-05:00 [COMMAND_EXIT_CODE="0"]

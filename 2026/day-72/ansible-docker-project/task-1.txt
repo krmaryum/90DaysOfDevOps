@@ -1,0 +1,233 @@
+Script started on 2026-05-05 22:39:14-05:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="78" LINES="49"]
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible-galaxy i[27m[7mn[27m[7mit roles/common[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-galaxy init roles/common
+[?2004l- Role roles/common was created successfully
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ tree ../ansible-docker-project/
+[?2004l[01;34m../ansible-docker-project/[0m
+├── ansible.cfg
+├── inventory.ini
+├── [01;34mroles[0m
+│   └── [01;34mcommon[0m
+│       ├── README.md
+│       ├── [01;34mdefaults[0m
+│       │   └── main.yml
+│       ├── [01;34mfiles[0m
+│       ├── [01;34mhandlers[0m
+│       │   └── main.yml
+│       ├── [01;34mmeta[0m
+│       │   └── main.yml
+│       ├── [01;34mtasks[0m
+│       │   └── main.yml
+│       ├── [01;34mtemplates[0m
+│       ├── [01;34mtests[0m
+│       │   ├── inventory
+│       │   └── test.yml
+│       └── [01;34mvars[0m
+│           └── main.yml
+└── task-1.txt
+
+11 directories, 11 files
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible-galaxy i[27m[7mn[27m[7mit roles/docker[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-galaxy init roles/docker
+[?2004l- Role roles/docker was created successfully
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-galaxy init roles/docker[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ tree ../ansible-d[1Pocker-project/
+[?2004l[01;34m../ansible-docker-project/[0m
+├── ansible.cfg
+├── inventory.ini
+├── [01;34mroles[0m
+│   ├── [01;34mcommon[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   └── [01;34mdocker[0m
+│       ├── README.md
+│       ├── [01;34mdefaults[0m
+│       │   └── main.yml
+│       ├── [01;34mfiles[0m
+│       ├── [01;34mhandlers[0m
+│       │   └── main.yml
+│       ├── [01;34mmeta[0m
+│       │   └── main.yml
+│       ├── [01;34mtasks[0m
+│       │   └── main.yml
+│       ├── [01;34mtemplates[0m
+│       ├── [01;34mtests[0m
+│       │   ├── inventory
+│       │   └── test.yml
+│       └── [01;34mvars[0m
+│           └── main.yml
+└── task-1.txt
+
+20 directories, 19 files
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mansible-galaxy i[27m[7mn[27m[7mit roles/nginx[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-galaxy init roles/nginx
+[?2004l- Role roles/nginx was created successfully
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-galaxy init roles/nginx[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ tree ../ansible-docker-project/
+[?2004l[01;34m../ansible-docker-project/[0m
+├── ansible.cfg
+├── inventory.ini
+├── [01;34mroles[0m
+│   ├── [01;34mcommon[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   ├── [01;34mdocker[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   └── [01;34mnginx[0m
+│       ├── README.md
+│       ├── [01;34mdefaults[0m
+│       │   └── main.yml
+│       ├── [01;34mfiles[0m
+│       ├── [01;34mhandlers[0m
+│       │   └── main.yml
+│       ├── [01;34mmeta[0m
+│       │   └── main.yml
+│       ├── [01;34mtasks[0m
+│       │   └── main.yml
+│       ├── [01;34mtemplates[0m
+│       ├── [01;34mtests[0m
+│       │   ├── inventory
+│       │   └── test.yml
+│       └── [01;34mvars[0m
+│           └── main.yml
+└── task-1.txt
+
+29 directories, 27 files
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mmkdir -p group_v[27m[7ma[27m[7mrs/web[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ mkdir -p group_vars/web
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mtouch group_vars[27m[7m/[27m[7mall.yml[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ touch group_vars/all.yml
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mtouch group_vars[27m[7m/[27m[7mweb/vars.yml[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ touch group_vars/web/vars.yml
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ v[K[7mtouch group_vars[27m[7m/[27m[7mweb/vault.yml[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ touch group_vars/web/vault.yml
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mtouch roles/dock[27m[7me[27m[7mr/templates/docker-compose.yml.j2[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ touch roles/docker/templates/docker-compose.yml.j2
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mtouch roles/ngin[27m[7mx[27m[7m/templates/nginx.conf.j2[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ touch roles/nginx/templates/nginx.conf.j2
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [7mtouch roles/ngin[27m[7mx[27m[7m/templates/app-proxy.conf.j2[27m[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ touch roles/nginx/templates/app-proxy.conf.j2
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ echo "roles_path  = roles" >> ansible.cfg 
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ echo "roles_path = roles" >> ansible.cfg [1@.[1@.[1@/[12@[7mterra-script[27mterra-script[C[1@/
+[?2004l[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ vim site.yml[K[K[K[K[K[K[K[K[K[K[K[Kvim site.yml
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;49r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[49;1H"site.yml" [New][2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[2;1H[94m~                                                                             [3;1H~                                                                             [4;1H~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H0,0-1[9CAll[1;1H[?25h[?4m[?12$p[27m[23m[29m[m[H[2J[?25l[2;1H[94m~                                                                             [3;1H~                                                                             [4;1H~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [39;1H~                                                                             [40;1H~                                                                             [41;1H~                                                                             [42;1H~                                                                             [43;1H~                                                                             [44;1H~                                                                             [45;1H~                                                                             [46;1H~                                                                             [47;1H~                                                                             [48;1H~                                                                             [m[49;61H0,0-1[9CAll"site.yml" [New][1;1H[?25h[?25l[49;1H[1m-- INSERT --[m[49;13H[K[49;61H0,1[11CAll[1;1H[38;5;81m---[m
+[93m- [mname[2;7H[K[2;7H[?25h[?25l[2;3H[1m[96mname[m[38;5;224m:[m Deploy Docker application with Nginx reverse proxy
+  [1m[96mhosts[m[38;5;224m:[m u[3;11H[K[3;11H[?25h[?25lbuntu_web
+  [1m[96mbecome[m[38;5;224m:[m [95mtrue[m[4;15H[K[5;1H  [1m[96mgather_facts[m[38;5;224m:[m [95mtrue[m[5;21H[K[6;1H[K[7;1H  [1m[96mroles[m[38;5;224m:[m[7;9H[K[8;1H    [93m- [mc[8;8H[K[8;8H[?25h[?25l[49;1H[K[8;8Hommon
+    [93m- [mdocker[9;13H[K[10;1H    [93m- [mnginx[10;12H[K[11;1H[K[12;1H[K[49;61H12,0-1[8CAll[12;1H[?25h[?25l[49;51H^[[12;1H[49;51H  [12;1H[49;51H^[[12;1H[49;51H  [12;1H[?25h[?25l[49;51H:[12;1H[49;51H[K[49;1H:[?25h[?25l[12;1H[49;61H12,0-1[8CAll[12;1H[?25h[?25l[49;51Hx[12;1H[49;51H [12;1H[49;51Hdl[12;1H[49;51H  [12;1H[?25h[?25l[49;51H^[[12;1H[49;51H  [12;1H[49;51H^[[12;1H[49;51H  [12;1H[?25h[?25l[49;51H:[12;1H[49;1H[K[49;1H:[?25hx[?25l[?2004l[>4;m"site.yml" [New] 12L, 169B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?1049l[23;0;0t[?25h[>4;m[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ c[Kvim site.yml[1Psite.yml[1Psite.yml[1Psite.yml[1Psite.ymlvsite.yml[1Psite.ymlcsite.ymlasite.ymltsite.yml site.yml
+[?2004l---
+- name: Deploy Docker application with Nginx reverse proxy
+  hosts: ubuntu_web
+  become: true
+  gather_facts: true
+
+  roles:
+    - common
+    - docker
+    - nginx
+
+
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ cat site.ymlvim[C[C[C[C[C[C[C[C[Cecho "roles_path = roles" >> ../terra-script/ansible.cfg [C[C[C[C[C[C[C[C[C[C[C[C[C[16P[C[C[C[C[C[C[C[C[C[C[C[C[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ touch roles/nginx/templates/app-proxy.conf.j2[C[C[C[C[C[C[C[C[C[C[C[C[4Pnginx.conf.j2[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[C[C[C[C[C[C[Cdocker/templates/docker-compose.yml.j2[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ [C[C[C[C[C[Cgroup_vars/[20Pweb/vault.yml[1Prs.yml[C[5Pall.yml[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ mkdir -p group_va[1Prs/web[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ tree ../ansible-docker-project/[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ ansible-galaxy init roles/nginx[A]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ tree ../ansible-docker-project/
+[?2004l[01;34m../ansible-docker-project/[0m
+├── ansible.cfg
+├── [01;34mgroup_vars[0m
+│   ├── all.yml
+│   └── [01;34mweb[0m
+│       ├── vars.yml
+│       └── vault.yml
+├── inventory.ini
+├── [01;34mroles[0m
+│   ├── [01;34mcommon[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   ├── [01;34mdocker[0m
+│   │   ├── README.md
+│   │   ├── [01;34mdefaults[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mfiles[0m
+│   │   ├── [01;34mhandlers[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mmeta[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtasks[0m
+│   │   │   └── main.yml
+│   │   ├── [01;34mtemplates[0m
+│   │   │   └── docker-compose.yml.j2
+│   │   ├── [01;34mtests[0m
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── [01;34mvars[0m
+│   │       └── main.yml
+│   └── [01;34mnginx[0m
+│       ├── README.md
+│       ├── [01;34mdefaults[0m
+│       │   └── main.yml
+│       ├── [01;34mfiles[0m
+│       ├── [01;34mhandlers[0m
+│       │   └── main.yml
+│       ├── [01;34mmeta[0m
+│       │   └── main.yml
+│       ├── [01;34mtasks[0m
+│       │   └── main.yml
+│       ├── [01;34mtemplates[0m
+│       │   ├── app-proxy.conf.j2
+│       │   └── nginx.conf.j2
+│       ├── [01;34mtests[0m
+│       │   ├── inventory
+│       │   └── test.yml
+│       └── [01;34mvars[0m
+│           └── main.yml
+├── site.yml
+└── task-1.txt
+
+31 directories, 34 files
+[?2004h]0;khalid@Khalid-laptop: ~/shubham/day-72/ansible-docker-project[01;32mkhalid@Khalid-laptop[00m:[01;34m~/shubham/day-72/ansible-docker-project[00m$ exit
+[?2004lexit
+
+Script done on 2026-05-05 23:09:16-05:00 [COMMAND_EXIT_CODE="0"]
