@@ -1,0 +1,13 @@
+---
+- name: Copy file to servers
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Copy file from control node to worker node
+      copy:
+        src: ../apps/pub-ips.txt
+        dest: /tmp/pub-ips.txt
+        owner: root
+        group: root
+        mode: '0644'

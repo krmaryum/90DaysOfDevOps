@@ -1,0 +1,15 @@
+---
+- name: Count Running processes
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Count processes
+      shell: ps aux | wc -l
+      register: ps_count
+
+    - name: Show process Count
+      debug:
+        msg: "Total processes: {{ ps_count.stdout }}"  # Jinja2 variable syntax and must be quoted("").
+        #msg: "Total processes: {{ ps_count.stdout | int }}" Removes quotes, treats as number
+        

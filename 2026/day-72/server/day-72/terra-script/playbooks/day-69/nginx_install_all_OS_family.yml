@@ -1,0 +1,30 @@
+---
+- name: Nginx Installation
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Install Nginx on Ubuntu
+      apt:
+        name:
+          - nginx
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install Nginx on RedHat
+      yum:
+        name:
+          - nginx
+        state: present
+      when: ansible_facts['os_family'] == "RedHat" 
+
+    - name: Ensure Nginx is Running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+      #when: ansible_facts['os_family'] in ['Debian', 'RedHat']
+
+
+
+

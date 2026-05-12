@@ -1,0 +1,18 @@
+---
+- name: Update all servers
+  hosts: all_servers
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Update Debian/Ubuntu servers
+      apt:
+        update_cache: true
+        upgrade: dist
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Update RedHat/Amazon servers
+      yum:
+        name: "*"
+        state: latest
+      when: ansible_facts['os_family'] == "RedHat"

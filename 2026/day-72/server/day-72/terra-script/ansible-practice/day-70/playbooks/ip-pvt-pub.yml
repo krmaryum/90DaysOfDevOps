@@ -1,0 +1,12 @@
+---
+- name: Show public and private IP
+  hosts: all_servers
+  gather_facts: true
+
+  tasks:
+    - name: Show IP details
+      debug:
+        msg: >
+          Host: {{ inventory_hostname }},
+          Public IP: {{ ansible_host }},
+          Private IP: {{ ansible_default_ipv4.address }}

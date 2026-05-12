@@ -1,0 +1,57 @@
+---
+- name: Conditional tasks demo
+  hosts: all_servers
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install Nginx only on Ubuntu web servers
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+      when:
+      - "'ubuntu_web' in group_names"
+      - ansible_facts['os_family'] == "Debian"
+
+    - name: DB server detected
+      debug:
+        msg: "This is database server"
+      when:
+        - "'amz_db' in group_names"
+        - ansible_facts['os_family'] == "RedHat"
+
+
+    - name: Show warning on low memery hosts
+      debug:
+        msg: "WARNING: This host has less than 1GB RAM"
+      when: ansible_facts['memtotal_mb'] < 1024
+
+    - name: Run only Amazon Linux
+      debug:
+        msg: "This is an Amazon Linux machine"
+      when: ansible_facts['distribution'] == "Amazon"
+
+    - name: Run only on Ubuntu
+      debug:
+        msg: "This is an Ubuntu machine"
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: Run only in production
+      debug:
+        msg: "production settings applied"
+      when: app_env == "production"
+
+    - name: Multiple conditions AND
+      debug:
+        msg: "web server with enough memory"
+      when:
+        - "'ubuntu_web' in group_names"
+        - ansible_facts['memtotal_mb'] >= 512
+
+    - name: OR conditions
+      debug:
+        msg: "Either web or app server"
+      when: "'ubuntu_web' in group_names or 'redhat_app' in group_names"
+
+

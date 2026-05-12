@@ -1,0 +1,60 @@
+---
+#SPDX-License-Identifier: MIT-0
+
+# tasks file for roles/common
+
+- name: Update package cache for Ubuntu
+  apt:
+    update_cache: true
+  changed_when: false
+  when: ansible_facts['os_family'] == "Debian"
+  tags: common
+
+- name: Update package for RedHat
+  yum:
+    name: "*"
+    state: latest
+    update_only: true
+  when: ansible_facts['os_family'] == "RedHat"
+  tags: common
+
+- name: Install common packages
+  package:
+    name: "{{ common_packages }}"
+    state: present
+  tags: common
+
+- name: Set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+  tags:
+    - common
+    - timezone
+
+
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+  tags: 
+    - common
+    - timezone
+
+- name: Create deploy user for Ubuntu
+  user:
+    name: deploy
+    groups: sudo
+    shell: /bin/bash
+    state: present
+    append: true
+  when: ansible_facts['os_family'] == "Debian"
+  tags: common
+
+- name: Create deploy user for RedHat
+  user:
+    name: deploy
+    groups: wheel
+    shell: /bin/bash
+    state: present
+    append: true
+  when: ansible_facts['os_family'] == "RedHat"
+  tags: common

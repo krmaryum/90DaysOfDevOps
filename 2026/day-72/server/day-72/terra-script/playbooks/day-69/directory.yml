@@ -1,0 +1,13 @@
+---
+- name: Create a directory
+  hosts: all_servers
+  become: true
+
+
+  tasks:
+    - name: Create a directory
+      file:
+        path: /opt/myapp
+        state: directory
+        owner: "{{ ansible_user }}"
+        mode: '0775'

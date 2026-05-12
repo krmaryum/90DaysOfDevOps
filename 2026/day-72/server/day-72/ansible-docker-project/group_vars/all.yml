@@ -1,0 +1,19 @@
+---
+timezone: America/Chicago
+project_name: devops-app
+app_env: development
+
+docker_package:
+  Debian: docker.io
+  RedHat: docker-ce
+
+docker_compose_package:
+  Debian: docker-compose
+  RedHat: docker-compose-plugin
+
+common_packages:
+  - vim
+  - wget
+  - git
+  - jq
+  - unzip

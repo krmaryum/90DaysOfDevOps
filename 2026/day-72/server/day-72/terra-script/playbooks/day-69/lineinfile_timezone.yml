@@ -1,0 +1,12 @@
+---
+- name: Set timezone in environment
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Set timezone in environment Chicago
+      lineinfile:
+        path: /etc/environment
+        regexp: '^TZ='  # Find any line starting with TZ=, Replace it with new value
+        line: 'TZ=America/Chicago' # TZ=UTC, TZ=America/Chicago   ❌ duplicate
+        create: true

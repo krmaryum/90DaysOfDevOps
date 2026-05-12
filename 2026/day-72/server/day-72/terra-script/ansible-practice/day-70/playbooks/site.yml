@@ -1,0 +1,39 @@
+---
+- name: Apply common config
+  hosts: all_servers
+  become: true
+
+  tasks:
+    - name: Install common packages on RedHat
+      yum:
+        name: "{{ common_packages }}"
+        state: present
+      when:
+       - ansible_facts['os_family'] == "RedHat"
+      #- ansible_facts['distribution'] == "Amazon"
+
+    - name: Install common packages on Debian
+      apt:
+        name: "{{ common_packages }}"
+        state: present
+        update_cache: true
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Show environment
+      debug:
+        msg: "Environment: {{ app_env }}"
+
+
+- name: Configure web servers
+  hosts: ubuntu_web  #web-server
+  become: true
+
+  tasks:
+    - name: Show web config
+      debug:
+        msg:  "HTTP port: {{ http_port }}, Max connections: {{ max_connections }}"
+
+    - name: Show host-specific message
+      debug:
+        msg: "{{ custom_message }}"
+        

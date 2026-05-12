@@ -1,0 +1,63 @@
+---
+#SPDX-License-Identifier: MIT-0
+
+# tasks file for roles/nginx
+
+- name: Install Nginx
+  package:
+    name: nginx
+    state: present
+  tags: nginx
+
+- name: Remove default Nginx site configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  when: ansible_facts['os_family'] == "Debian"
+  notify: Reload Nginx
+  tags: nginx
+
+- name: Remove default Nginx config on RedHat
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/nginx/conf.d/default.conf
+    - /etc/nginx/conf.d/welcome.conf
+  when: ansible_facts['os_family'] == "RedHat"
+  notify: Reload Nginx
+  tags: nginx
+
+- name: Deploy main Nginx Configuration
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reload Nginx
+  tags: nginx
+
+- name: Deploy reverse proxy configuration
+  template:
+    src: app-proxy.conf.j2
+    dest: /etc/nginx/conf.d/{{ project_name }}.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reload Nginx
+  tags: nginx
+
+- name: Test Nginx configuration
+  command: nginx -t   # The nginx -t command validates the Nginx configuration before reloading the service. This prevents broken configurations from causing downtime in production environments.
+  register: nginx_test
+  changed_when: false
+  failed_when: nginx_test.rc != 0
+  tags: nginx
+
+- name: Start and enable Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true
+  tags: nginx

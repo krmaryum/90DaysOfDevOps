@@ -1,0 +1,53 @@
+---
+- name: Configure web servers
+  hosts: ubuntu_web
+  become: true
+
+  tasks:
+    - name: Install Nginx on Ubuntu web server
+      apt: 
+        name: nginx
+        state: started
+        update_cache: true
+
+    - name: Start Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+- name: Configure app servers
+  hosts: redhat_app
+  become: true
+
+  tasks:
+    - name: Install application build dependencies
+      yum:
+        name:
+          - gcc
+          - make
+        state: present
+
+    - name: Create app directory
+      file:
+        path: /opt/app
+        state: directory
+        mode: '0755'
+
+- name: Configure database servers
+  hosts: amz_db
+  become: true
+
+  tasks:
+    - name: Install MariaDB client
+      yum:
+        name: mariadb105
+        state: present
+
+    - name: Create data directory
+      file:
+        path: /var/lib/appdata
+        state: directory
+        mode: '0700'
+  
+
