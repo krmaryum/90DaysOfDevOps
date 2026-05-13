@@ -22,6 +22,8 @@ A dynamic configuration file is a file whose content is generated automatically 
 Ansible Galaxy is a platform used to find, share, and reuse Ansible roles and collections created by the community.\
 [Ansible Galaxy for using community roles Explanation](md/ansible_galaxy_community_roles.md)
 
+[https://galaxy.ansible.com/ui/standalone/roles/bsmeding/librechat_docker/install/](https://galaxy.ansible.com/ui/standalone/roles/bsmeding/librechat_docker/install/)
+
 Think of it like an app store for Ansible automation—instead of writing everything from scratch, you can download ready-made roles.
 
 ### Ansible Vault for protecting secrets:
