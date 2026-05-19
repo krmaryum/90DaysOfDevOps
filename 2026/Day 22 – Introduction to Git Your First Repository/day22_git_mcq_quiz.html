@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 22 Git MCQs – Introduction to Git</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 0;
+      color: #1f2937;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin-top: 10px;
+      color: #d1d5db;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .summary {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .summary h2 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    .question-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-left: 5px solid #2563eb;
+    }
+
+    .question-card h3 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+
+    label:hover {
+      background: #eef2ff;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .buttons {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      margin: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .reset-btn {
+      background: #6b7280;
+    }
+
+    .reset-btn:hover {
+      background: #4b5563;
+    }
+
+    #result {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: none;
+    }
+
+    .correct {
+      color: #15803d;
+      font-weight: bold;
+    }
+
+    .wrong {
+      color: #b91c1c;
+      font-weight: bold;
+    }
+
+    .answer-review {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    footer {
+      text-align: center;
+      color: #6b7280;
+      padding: 30px;
+      font-size: 14px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Day 22 – Introduction to Git: MCQ Practice</h1>
+  <p>25 multiple-choice questions based on Git basics, repository setup, staging, commits, history, SSH, and remotes.</p>
+  <div class="badge">Topic: Git & GitHub Foundations</div>
+</header>
+
+<div class="container">
+
+  <section class="summary">
+    <h2>Overview</h2>
+    <p>This quiz is based on Day 22 Git learning tasks. It covers Git installation, configuration, SSH authentication, repository initialization, the <code>.git</code> folder, staging, commits, logs, remotes, and Git workflow concepts.</p>
+    <p><strong>Instructions:</strong> Select one answer for each question, then click <strong>Submit Quiz</strong>. Your score and answer review will appear at the bottom.</p>
+  </section>
+
+  <form id="quizForm"></form>
+
+  <div class="buttons">
+    <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+    <button type="button" class="reset-btn" onclick="resetQuiz()">Reset</button>
+  </div>
+
+  <div id="result"></div>
+
+</div>
+
+<footer>
+  Created for Day 22 Git Practice – Khalid Khan
+</footer>
+
+<script>
+const questions = [
+  {
+    q: "1. What is Git mainly used for?",
+    options: ["Editing images", "Tracking changes in files and code", "Running containers", "Browsing websites"],
+    answer: 1,
+    explanation: "Git is a version control system used to track changes and manage project history."
+  },
+  {
+    q: "2. Which command checks the installed Git version?",
+    options: ["git check", "git --version", "git status", "git config"],
+    answer: 1,
+    explanation: "`git --version` shows the installed Git version."
+  },
+  {
+    q: "3. What does `git config --global user.name` do?",
+    options: ["Creates a GitHub repository", "Sets the global Git username", "Deletes a branch", "Shows commit history"],
+    answer: 1,
+    explanation: "It sets the username used as the commit author name."
+  },
+  {
+    q: "4. Which command verifies global Git configuration?",
+    options: ["git show config", "git config --global --list", "git status --global", "git init --list"],
+    answer: 1,
+    explanation: "`git config --global --list` displays global Git configuration."
+  },
+  {
+    q: "5. What does `ssh -T git@github.com` test?",
+    options: ["Docker installation", "GitHub SSH authentication", "Nginx status", "Linux permissions"],
+    answer: 1,
+    explanation: "This command tests whether SSH authentication with GitHub works."
+  },
+  {
+    q: "6. What does “GitHub does not provide shell access” mean?",
+    options: ["GitHub is broken", "GitHub allows Git authentication but not Linux terminal login", "SSH failed", "Git is not installed"],
+    answer: 1,
+    explanation: "GitHub SSH is for Git operations only, not interactive shell access."
+  },
+  {
+    q: "7. Which command creates a new Git repository?",
+    options: ["git start", "git init", "git new", "git create"],
+    answer: 1,
+    explanation: "`git init` initializes a new Git repository."
+  },
+  {
+    q: "8. What hidden folder is created by `git init`?",
+    options: [".ssh", ".git", ".github", ".config"],
+    answer: 1,
+    explanation: "The `.git` folder stores Git repository data."
+  },
+  {
+    q: "9. What does `git status` show?",
+    options: ["Only GitHub username", "Current repository state", "Only Docker containers", "Only file permissions"],
+    answer: 1,
+    explanation: "`git status` shows branch, staged files, untracked files, and changes."
+  },
+  {
+    q: "10. What does “No commits yet” mean?",
+    options: ["Git is not installed", "Repository exists but no commit has been created", "Remote is missing", "Branch was deleted"],
+    answer: 1,
+    explanation: "It means Git is initialized but history has not started yet."
+  },
+  {
+    q: "11. What does the `.git/` folder contain?",
+    options: ["Only HTML files", "Git history, branches, objects, and metadata", "Docker images", "SSH private keys only"],
+    answer: 1,
+    explanation: "The `.git` folder is the internal Git database."
+  },
+  {
+    q: "12. What happens if you delete the `.git/` folder?",
+    options: ["Only README is deleted", "The folder stops being a Git repository", "GitHub account is deleted", "Docker stops working"],
+    answer: 1,
+    explanation: "Deleting `.git` removes repository history and Git tracking."
+  },
+  {
+    q: "13. What does `git add` do?",
+    options: ["Uploads files to GitHub", "Stages changes for commit", "Deletes changes", "Creates SSH key"],
+    answer: 1,
+    explanation: "`git add` moves changes into the staging area."
+  },
+  {
+    q: "14. What does `git commit` do?",
+    options: ["Saves staged changes into Git history", "Shows hidden files", "Starts Docker", "Connects SSH"],
+    answer: 0,
+    explanation: "`git commit` creates a saved snapshot from staged changes."
+  },
+  {
+    q: "15. What is the staging area?",
+    options: ["A temporary area before commit", "GitHub repository only", "A Docker volume", "A Linux user folder"],
+    answer: 0,
+    explanation: "The staging area lets you choose what goes into the next commit."
+  },
+  {
+    q: "16. Why does Git use a staging area?",
+    options: ["To make commits cleaner and selective", "To slow down Git", "To delete files automatically", "To replace GitHub"],
+    answer: 0,
+    explanation: "The staging area helps create clean, intentional commits."
+  },
+  {
+    q: "17. Which command shows staged changes before committing?",
+    options: ["git diff", "git diff --staged", "git log", "git remote -v"],
+    answer: 1,
+    explanation: "`git diff --staged` shows what is staged for the next commit."
+  },
+  {
+    q: "18. Which command shows unstaged changes?",
+    options: ["git diff", "git add", "git push", "git init"],
+    answer: 0,
+    explanation: "`git diff` shows unstaged changes in the working directory."
+  },
+  {
+    q: "19. What does `git log` show?",
+    options: ["Commit history", "Only current directory files", "Docker logs", "SSH keys"],
+    answer: 0,
+    explanation: "`git log` shows commit history including hash, author, date, and message."
+  },
+  {
+    q: "20. What does `git log --oneline` show?",
+    options: ["Compact commit history", "Full file content", "GitHub password", "Docker containers"],
+    answer: 0,
+    explanation: "`git log --oneline` shows short commit hashes and commit messages."
+  },
+  {
+    q: "21. What is a commit hash?",
+    options: ["Unique identifier for a commit", "GitHub password", "Docker image name", "Linux process ID"],
+    answer: 0,
+    explanation: "A commit hash is a unique ID generated by Git for each commit."
+  },
+  {
+    q: "22. What is the working directory?",
+    options: ["Where files are edited", "Only GitHub remote", "Only `.git` objects", "A Docker network"],
+    answer: 0,
+    explanation: "The working directory contains the files you actively edit."
+  },
+  {
+    q: "23. What is `origin` in Git?",
+    options: ["Default nickname for a remote repository", "Current branch name", "Git command history", "A Docker container"],
+    answer: 0,
+    explanation: "`origin` is the default remote nickname, usually pointing to GitHub."
+  },
+  {
+    q: "24. What does `git pull origin main` do?",
+    options: ["Deletes main branch", "Pulls latest changes from origin's main branch", "Creates a new repo", "Stops WSL"],
+    answer: 1,
+    explanation: "It fetches and merges changes from the remote `main` branch."
+  },
+  {
+    q: "25. What does `git push origin main` do?",
+    options: ["Uploads local commits to the remote main branch", "Downloads GitHub changes", "Initializes Git", "Shows SSH keys"],
+    answer: 0,
+    explanation: "It pushes local commits to the remote repository's `main` branch."
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const card = document.createElement("div");
+  card.className = "question-card";
+
+  let optionsHTML = "";
+  item.options.forEach((option, optionIndex) => {
+    optionsHTML += `
+      <label>
+        <input type="radio" name="q${index}" value="${optionIndex}">
+        ${option}
+      </label>
+    `;
+  });
+
+  card.innerHTML = `
+    <h3>${item.q}</h3>
+    ${optionsHTML}
+  `;
+
+  form.appendChild(card);
+});
+
+function submitQuiz() {
+  let score = 0;
+  let reviewHTML = "";
+
+  questions.forEach((item, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    const selectedValue = selected ? parseInt(selected.value) : null;
+
+    if (selectedValue === item.answer) {
+      score++;
+      reviewHTML += `
+        <div class="answer-review">
+          <p><strong>Q${index + 1}:</strong> <span class="correct">Correct</span></p>
+          <p>${item.explanation}</p>
+        </div>
+      `;
+    } else {
+      reviewHTML += `
+        <div class="answer-review">
+          <p><strong>Q${index + 1}:</strong> <span class="wrong">Wrong</span></p>
+          <p><strong>Correct Answer:</strong> ${item.options[item.answer]}</p>
+          <p>${item.explanation}</p>
+        </div>
+      `;
+    }
+  });
+
+  const percent = Math.round((score / questions.length) * 100);
+
+  const result = document.getElementById("result");
+  result.style.display = "block";
+  result.innerHTML = `
+    <h2>Your Score: ${score}/${questions.length} (${percent}%)</h2>
+    <p>${getFeedback(percent)}</p>
+    ${reviewHTML}
+  `;
+
+  result.scrollIntoView({ behavior: "smooth" });
+}
+
+function getFeedback(percent) {
+  if (percent >= 90) return "Excellent work! You have a strong understanding of Day 22 Git foundations.";
+  if (percent >= 75) return "Great job! Review the missed questions and you will be very solid.";
+  if (percent >= 60) return "Good progress. Revisit staging, commits, remotes, and Git workflow.";
+  return "Keep practicing. Focus on Git basics, staging area, commits, and remote repository concepts.";
+}
+
+function resetQuiz() {
+  document.getElementById("quizForm").reset();
+  document.getElementById("result").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
