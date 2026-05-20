@@ -156,7 +156,7 @@ Displays compact commit history.
 ```bash
 git log --oneline
 ```
-Displays al commit history.
+Displays all commits history.
 
 ```bash
 git log
@@ -238,6 +238,84 @@ git branch
 ```
 Note:
 "*" means cuurent branch
+
+---
+
+## git branch <branch-name>
+
+### What it does
+Creates a new branch.
+
+### Example
+
+```bash
+git branch feature-login
+```
+
+---
+
+## git switch <branch-name>
+
+### What it does
+Switches to an existing branch.
+
+### Example
+
+```bash
+git switch dev
+```
+
+---
+
+## git switch -c <branch-name>
+
+### What it does
+Creates and switches to a new branch.
+
+### Example
+
+```bash
+git switch -c feature-api
+```
+
+---
+
+## git checkout <branch-name>
+
+### What it does
+Switches to an existing branch using older syntax.
+
+### Example
+
+```bash
+git checkout main
+```
+
+---
+
+## git checkout -b <branch-name>
+
+### What it does
+Creates and switches to a new branch using older syntax.
+
+### Example
+
+```bash
+git checkout -b feature-dashboard
+```
+
+---
+
+## git branch -d <branch-name>
+
+### What it does
+Deletes a local branch.
+
+### Example
+
+```bash
+git branch -d feature-login
+```
 
 ---
 
