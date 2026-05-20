@@ -125,6 +125,11 @@ Stages files for the next commit.
 ```bash
 git add README.md
 ```
+OR For All 
+
+```bash
+git add .
+```
 
 ---
 
@@ -150,6 +155,11 @@ Displays compact commit history.
 
 ```bash
 git log --oneline
+```
+Displays al commit history.
+
+```bash
+git log
 ```
 
 ---
@@ -226,6 +236,8 @@ Lists repository branches.
 ```bash
 git branch
 ```
+Note:
+"*" means cuurent branch
 
 ---
 
