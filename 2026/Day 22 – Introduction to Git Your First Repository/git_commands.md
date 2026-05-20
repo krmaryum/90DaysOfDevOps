@@ -4,10 +4,9 @@ Author: Khalid Khan
 
 ---
 
-[https://git-scm.com/cheat-sheet](https://git-scm.com/cheat-sheet)
+https://git-scm.com/cheat-sheet
 
 [Git Cheat Sheet](md/Git%20&%20GitHub%20Cheatsheet.pdf)
-
 
 ---
 
@@ -25,7 +24,24 @@ Author: Khalid Khan
 
 ---
 
+# Setup & Config
 
+This section explains how to install and configure Git.
+
+---
+
+## git --version
+
+### What it does
+Checks whether Git is installed and shows the installed version.
+
+### Example
+
+```bash
+git --version
+```
+
+---
 
 ## git config --global user.name
 
@@ -70,6 +86,7 @@ git config --global --list
 
 This section explains secure SSH authentication between the local machine and GitHub.
 
+---
 
 ## ssh -T git@github.com
 
@@ -88,6 +105,7 @@ ssh -T git@github.com
 
 This section contains the core Git workflow commands used daily in development.
 
+---
 
 ## git init
 
@@ -125,7 +143,8 @@ Stages files for the next commit.
 ```bash
 git add README.md
 ```
-OR For All 
+
+OR for all files:
 
 ```bash
 git add .
@@ -156,7 +175,8 @@ Displays compact commit history.
 ```bash
 git log --oneline
 ```
-Displays all commits history.
+
+Displays full commit history:
 
 ```bash
 git log
@@ -168,6 +188,7 @@ git log
 
 This section helps inspect repository changes and internal Git structure.
 
+---
 
 ## git diff
 
@@ -223,8 +244,9 @@ tree .git/
 
 # Branching & Navigation
 
-This section explains how to create, rename, and switch branches.
+This section explains how to create, rename, switch, and delete branches.
 
+---
 
 ## git branch
 
@@ -236,8 +258,9 @@ Lists repository branches.
 ```bash
 git branch
 ```
+
 Note:
-"*" means cuurent branch
+`*` means the current branch.
 
 ---
 
@@ -250,6 +273,32 @@ Creates a new branch.
 
 ```bash
 git branch feature-login
+```
+
+---
+
+## git branch -M main
+
+### What it does
+Renames the current branch to main.
+
+### Example
+
+```bash
+git branch -M main
+```
+
+---
+
+## git branch -d <branch-name>
+
+### What it does
+Deletes a local branch.
+
+### Example
+
+```bash
+git branch -d feature-login
 ```
 
 ---
@@ -306,75 +355,11 @@ git checkout -b feature-dashboard
 
 ---
 
-## git branch -d <branch-name>
-
-### What it does
-Deletes a local branch.
-
-### Example
-
-```bash
-git branch -d feature-login
-```
-
----
-
-## git branch -M main
-
-### What it does
-Renames the current branch to main.
-
-### Example
-
-```bash
-git branch -M main
-```
-
----
-
-## git switch
-
-### What it does
-Switches to another existing branch.
-
-### Example
-
-```bash
-git switch main
-```
-
----
-
-## git switch -c
-
-### What it does
-Creates and switches to a new branch.
-
-### Example
-
-```bash
-git switch -c dev
-```
-
----
-
-## git checkout -b
-
-### What it does
-Creates and switches to a new branch using older syntax.
-
-### Example
-
-```bash
-git checkout -b feature-branch
-```
-
----
-
 # Undo Changes
 
 This section explains how to restore files and undo staged changes.
 
+---
 
 ## git restore
 
@@ -392,7 +377,7 @@ git restore filename.txt
 ## git restore --staged
 
 ### What it does
-Removes files from staging area.
+Removes files from the staging area.
 
 ### Example
 
@@ -419,6 +404,7 @@ git reset git-commands.md
 
 This section explains how to connect repositories to GitHub and synchronize code.
 
+---
 
 ## git remote -v
 
@@ -436,7 +422,7 @@ git remote -v
 ## git remote add origin
 
 ### What it does
-Connects local repository to GitHub.
+Connects a local repository to GitHub.
 
 ### Example
 
@@ -449,7 +435,7 @@ git remote add origin git@github.com:username/repository.git
 ## git push
 
 ### What it does
-Uploads commits to remote repository.
+Uploads commits to a remote repository.
 
 ### Example
 
@@ -470,6 +456,8 @@ Downloads and merges remote changes.
 git pull origin main
 ```
 
+---
+
 ## git remote rename
 
 ### What it does
@@ -481,6 +469,8 @@ Renames an existing remote repository connection.
 git remote rename origin github
 ```
 
+---
+
 ## git mv
 
 ### What it does
@@ -491,4 +481,3 @@ Renames or moves a file or directory and tracks the change in Git.
 ```bash
 git mv day-23 "Day 23-Git Branching & Working with GitHub"
 ```
-
