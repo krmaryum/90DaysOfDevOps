@@ -277,6 +277,19 @@ git branch feature-login
 
 ---
 
+## git branch -a
+
+### What it does
+Displays all local and remote branches.
+
+### Example
+
+```bash
+git branch -a
+```
+
+---
+
 ## git branch -M main
 
 ### What it does
@@ -300,6 +313,10 @@ Deletes a local branch.
 ```bash
 git branch -d feature-login
 ```
+
+> ⚠ Important:
+> Git does not allow deleting the currently active branch.
+> Switch to another branch before deletion.
 
 ---
 
@@ -355,6 +372,32 @@ git checkout -b feature-dashboard
 
 ---
 
+## git checkout <commit-hash>
+
+### What it does
+Switches to a specific commit in detached HEAD state.
+
+### Example
+
+```bash
+git checkout 6abb00a
+```
+
+---
+
+## git checkout main
+
+### What it does
+Switches back to the `main` branch.
+
+### Example
+
+```bash
+git checkout main
+```
+
+---
+
 # Undo Changes
 
 This section explains how to restore files and undo staged changes.
@@ -397,6 +440,22 @@ Unstages files or resets repository state.
 ```bash
 git reset git-commands.md
 ```
+
+---
+
+## git reset --hard <commit-hash>
+
+### What it does
+Resets the repository to a specific commit and permanently removes later changes.
+
+### Example
+
+```bash
+git reset --hard 6abb00a
+```
+
+> ⚠ Warning:
+> This command permanently removes uncommitted changes.
 
 ---
 
@@ -445,6 +504,48 @@ git push origin main
 
 ---
 
+## git push -u origin main
+
+### What it does
+Pushes the local `main` branch to GitHub and sets upstream tracking.
+
+### Example
+
+```bash
+git push -u origin main
+```
+
+---
+
+## git push -u origin <branch-name>
+
+### What it does
+Pushes a local branch to GitHub and creates upstream tracking.
+
+### Example
+
+```bash
+git push -u origin feature-1
+```
+
+---
+
+## git push --force
+
+### What it does
+Forcefully pushes local changes to the remote repository, overwriting remote history.
+
+### Example
+
+```bash
+git push --force
+```
+
+> ⚠ Warning:
+> This command overwrites remote history and should be used carefully.
+
+---
+
 ## git pull
 
 ### What it does
@@ -454,6 +555,45 @@ Downloads and merges remote changes.
 
 ```bash
 git pull origin main
+```
+
+---
+
+## git clone
+
+### What it does
+Downloads a complete copy of a remote repository to the local machine.
+
+### Example
+
+```bash
+git clone git@github.com:krmaryum/devops-git-practice.git
+```
+
+---
+
+## git fetch origin
+
+### What it does
+Downloads remote changes without merging them into the current branch.
+
+### Example
+
+```bash
+git fetch origin
+```
+
+---
+
+## git remote remove origin
+
+### What it does
+Removes the remote repository connection named `origin`.
+
+### Example
+
+```bash
+git remote remove origin
 ```
 
 ---
