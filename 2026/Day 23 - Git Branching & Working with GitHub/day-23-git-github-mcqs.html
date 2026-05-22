@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 23 Git Branching & GitHub MCQs</title>
+  <style>
+    :root {
+      --bg: #f6f8fa;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d0d7de;
+      --accent: #2563eb;
+      --good: #15803d;
+      --bad: #b91c1c;
+      --soft-good: #dcfce7;
+      --soft-bad: #fee2e2;
+      --code: #0f172a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color: white;
+      padding: 36px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 4px 0;
+      color: #dbeafe;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+    }
+
+    .summary {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .summary-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      background: #f8fafc;
+    }
+
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    }
+
+    .question-card h3 {
+      margin-top: 0;
+      font-size: 1.05rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    label.option {
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      background: #fff;
+      transition: 0.15s ease;
+    }
+
+    label.option:hover {
+      border-color: var(--accent);
+      background: #eff6ff;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    .feedback {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      display: none;
+      font-weight: 600;
+    }
+
+    .correct {
+      background: var(--soft-good);
+      color: var(--good);
+      border: 1px solid #86efac;
+    }
+
+    .incorrect {
+      background: var(--soft-bad);
+      color: var(--bad);
+      border: 1px solid #fecaca;
+    }
+
+    .explanation {
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: normal;
+    }
+
+    .actions {
+      position: sticky;
+      bottom: 0;
+      background: rgba(246, 248, 250, 0.96);
+      border-top: 1px solid var(--border);
+      padding: 14px 0;
+      margin-top: 24px;
+      backdrop-filter: blur(6px);
+    }
+
+    .action-inner {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    #scoreBox {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    code {
+      background: #e5e7eb;
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: var(--code);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+
+    @media print {
+      .actions { position: static; }
+      button { display: none; }
+      .question-card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Day 23 – Git Branching & Working with GitHub</h1>
+    <p>25 Multiple Choice Questions</p>
+    <p>Topic: Branching, GitHub Remotes, Pull, Fetch, Clone, Fork</p>
+  </header>
+
+  <main>
+    <section class="summary">
+      <h2>Quiz Summary</h2>
+      <p>This quiz reviews the main concepts from Day 23, including branch isolation, <code>HEAD</code>, GitHub remotes, pushing, pulling, fetching, cloning, forking, and upstream synchronization.</p>
+      <div class="summary-grid">
+        <div class="summary-item"><strong>Total Questions:</strong><br>25</div>
+        <div class="summary-item"><strong>Question Type:</strong><br>MCQ</div>
+        <div class="summary-item"><strong>Passing Goal:</strong><br>80% or higher</div>
+        <div class="summary-item"><strong>Practice Area:</strong><br>Git & GitHub</div>
+      </div>
+    </section>
+
+    <form id="quizForm">
+      
+      <article class="question-card">
+        <h3>Question 1: What is a branch in Git?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q0" value="0"> <strong>A.</strong> A separate line of development</label><label class="option"><input type="radio" name="q0" value="1"> <strong>B.</strong> A GitHub password</label><label class="option"><input type="radio" name="q0" value="2"> <strong>C.</strong> A deleted commit</label><label class="option"><input type="radio" name="q0" value="3"> <strong>D.</strong> A terminal command history</label>
+        </div>
+        <div id="feedback-0" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 2: Why do developers use branches instead of committing everything directly to main?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q1" value="0"> <strong>A.</strong> To delete old commits</label><label class="option"><input type="radio" name="q1" value="1"> <strong>B.</strong> To keep main stable while working safely on changes</label><label class="option"><input type="radio" name="q1" value="2"> <strong>C.</strong> To avoid using GitHub</label><label class="option"><input type="radio" name="q1" value="3"> <strong>D.</strong> To remove the staging area</label>
+        </div>
+        <div id="feedback-1" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 3: What does HEAD represent in Git?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q2" value="0"> <strong>A.</strong> The newest file in the repository</label><label class="option"><input type="radio" name="q2" value="1"> <strong>B.</strong> The current branch or commit Git is pointing to</label><label class="option"><input type="radio" name="q2" value="2"> <strong>C.</strong> The GitHub repository owner</label><label class="option"><input type="radio" name="q2" value="3"> <strong>D.</strong> The first commit only</label>
+        </div>
+        <div id="feedback-2" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 4: What happens to files when you switch branches?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q3" value="0"> <strong>A.</strong> Git deletes all files permanently</label><label class="option"><input type="radio" name="q3" value="1"> <strong>B.</strong> Git updates the working directory to match the selected branch</label><label class="option"><input type="radio" name="q3" value="2"> <strong>C.</strong> Git automatically pushes files to GitHub</label><label class="option"><input type="radio" name="q3" value="3"> <strong>D.</strong> Git removes the .git directory</label>
+        </div>
+        <div id="feedback-3" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 5: Which command lists local branches?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q4" value="0"> <strong>A.</strong> git list</label><label class="option"><input type="radio" name="q4" value="1"> <strong>B.</strong> git branch</label><label class="option"><input type="radio" name="q4" value="2"> <strong>C.</strong> git show branches</label><label class="option"><input type="radio" name="q4" value="3"> <strong>D.</strong> git status --branches</label>
+        </div>
+        <div id="feedback-4" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 6: Which command creates a branch named feature-1?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q5" value="0"> <strong>A.</strong> git branch feature-1</label><label class="option"><input type="radio" name="q5" value="1"> <strong>B.</strong> git make feature-1</label><label class="option"><input type="radio" name="q5" value="2"> <strong>C.</strong> git create branch feature-1</label><label class="option"><input type="radio" name="q5" value="3"> <strong>D.</strong> git new feature-1</label>
+        </div>
+        <div id="feedback-5" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 7: Which command switches to feature-1?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q6" value="0"> <strong>A.</strong> git move feature-1</label><label class="option"><input type="radio" name="q6" value="1"> <strong>B.</strong> git switch feature-1</label><label class="option"><input type="radio" name="q6" value="2"> <strong>C.</strong> git branch -d feature-1</label><label class="option"><input type="radio" name="q6" value="3"> <strong>D.</strong> git remote feature-1</label>
+        </div>
+        <div id="feedback-6" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 8: Which command creates and switches to a new branch in one step?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q7" value="0"> <strong>A.</strong> git branch -d feature-2</label><label class="option"><input type="radio" name="q7" value="1"> <strong>B.</strong> git switch -c feature-2</label><label class="option"><input type="radio" name="q7" value="2"> <strong>C.</strong> git log feature-2</label><label class="option"><input type="radio" name="q7" value="3"> <strong>D.</strong> git pull feature-2</label>
+        </div>
+        <div id="feedback-7" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 9: What is the older equivalent of `git switch -c feature-2`?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q8" value="0"> <strong>A.</strong> git checkout -b feature-2</label><label class="option"><input type="radio" name="q8" value="1"> <strong>B.</strong> git checkout -d feature-2</label><label class="option"><input type="radio" name="q8" value="2"> <strong>C.</strong> git remote -b feature-2</label><label class="option"><input type="radio" name="q8" value="3"> <strong>D.</strong> git log -b feature-2</label>
+        </div>
+        <div id="feedback-8" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 10: Why did `git branch feature-1` fail before the first commit?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q9" value="0"> <strong>A.</strong> GitHub was offline</label><label class="option"><input type="radio" name="q9" value="1"> <strong>B.</strong> Branches need an existing commit to point to</label><label class="option"><input type="radio" name="q9" value="2"> <strong>C.</strong> The README file was too large</label><label class="option"><input type="radio" name="q9" value="3"> <strong>D.</strong> The branch name was invalid</label>
+        </div>
+        <div id="feedback-9" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 11: Which command renames the current branch to main?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q10" value="0"> <strong>A.</strong> git rename main</label><label class="option"><input type="radio" name="q10" value="1"> <strong>B.</strong> git branch -M main</label><label class="option"><input type="radio" name="q10" value="2"> <strong>C.</strong> git switch -M main</label><label class="option"><input type="radio" name="q10" value="3"> <strong>D.</strong> git remote main</label>
+        </div>
+        <div id="feedback-10" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 12: Which command deletes a local branch safely?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q11" value="0"> <strong>A.</strong> git branch -d feature-2</label><label class="option"><input type="radio" name="q11" value="1"> <strong>B.</strong> git delete feature-2</label><label class="option"><input type="radio" name="q11" value="2"> <strong>C.</strong> git remove branch feature-2</label><label class="option"><input type="radio" name="q11" value="3"> <strong>D.</strong> git clean feature-2</label>
+        </div>
+        <div id="feedback-11" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 13: What does branch isolation mean?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q12" value="0"> <strong>A.</strong> A branch cannot contain commits</label><label class="option"><input type="radio" name="q12" value="1"> <strong>B.</strong> Changes in one branch do not automatically appear in another branch</label><label class="option"><input type="radio" name="q12" value="2"> <strong>C.</strong> Branches only exist on GitHub</label><label class="option"><input type="radio" name="q12" value="3"> <strong>D.</strong> All branches must have the same files</label>
+        </div>
+        <div id="feedback-12" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 14: What is `origin` in Git?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q13" value="0"> <strong>A.</strong> The local terminal name</label><label class="option"><input type="radio" name="q13" value="1"> <strong>B.</strong> The default nickname for a remote repository</label><label class="option"><input type="radio" name="q13" value="2"> <strong>C.</strong> A branch deletion command</label><label class="option"><input type="radio" name="q13" value="3"> <strong>D.</strong> A GitHub issue label</label>
+        </div>
+        <div id="feedback-13" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 15: Which command connects a local repo to GitHub as origin?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q14" value="0"> <strong>A.</strong> git origin add &lt;url&gt;</label><label class="option"><input type="radio" name="q14" value="1"> <strong>B.</strong> git remote add origin &lt;url&gt;</label><label class="option"><input type="radio" name="q14" value="2"> <strong>C.</strong> git push add origin &lt;url&gt;</label><label class="option"><input type="radio" name="q14" value="3"> <strong>D.</strong> git connect origin &lt;url&gt;</label>
+        </div>
+        <div id="feedback-14" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 16: Which command verifies configured remotes?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q15" value="0"> <strong>A.</strong> git remote -v</label><label class="option"><input type="radio" name="q15" value="1"> <strong>B.</strong> git branch -v</label><label class="option"><input type="radio" name="q15" value="2"> <strong>C.</strong> git status -v</label><label class="option"><input type="radio" name="q15" value="3"> <strong>D.</strong> git origin -v</label>
+        </div>
+        <div id="feedback-15" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 17: What does `git push -u origin main` do?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q16" value="0"> <strong>A.</strong> Deletes main from GitHub</label><label class="option"><input type="radio" name="q16" value="1"> <strong>B.</strong> Pushes local main to origin and sets upstream tracking</label><label class="option"><input type="radio" name="q16" value="2"> <strong>C.</strong> Downloads main from GitHub only</label><label class="option"><input type="radio" name="q16" value="3"> <strong>D.</strong> Creates a local branch without pushing</label>
+        </div>
+        <div id="feedback-16" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 18: What does the `-u` flag mean in `git push -u origin main`?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q17" value="0"> <strong>A.</strong> Undo</label><label class="option"><input type="radio" name="q17" value="1"> <strong>B.</strong> Untracked</label><label class="option"><input type="radio" name="q17" value="2"> <strong>C.</strong> Set upstream tracking</label><label class="option"><input type="radio" name="q17" value="3"> <strong>D.</strong> Update only README</label>
+        </div>
+        <div id="feedback-17" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 19: What is the difference between origin and upstream?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q18" value="0"> <strong>A.</strong> origin is usually your repo/fork, upstream is usually the original repo</label><label class="option"><input type="radio" name="q18" value="1"> <strong>B.</strong> origin is always local, upstream is always deleted</label><label class="option"><input type="radio" name="q18" value="2"> <strong>C.</strong> origin means branch, upstream means commit</label><label class="option"><input type="radio" name="q18" value="3"> <strong>D.</strong> There is no difference</label>
+        </div>
+        <div id="feedback-18" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 20: What does `git fetch origin` do?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q19" value="0"> <strong>A.</strong> Downloads remote changes but does not merge them</label><label class="option"><input type="radio" name="q19" value="1"> <strong>B.</strong> Deletes remote branches</label><label class="option"><input type="radio" name="q19" value="2"> <strong>C.</strong> Pushes local commits</label><label class="option"><input type="radio" name="q19" value="3"> <strong>D.</strong> Creates a fork</label>
+        </div>
+        <div id="feedback-19" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 21: What does `git pull origin main` do?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q20" value="0"> <strong>A.</strong> Fetches and merges changes from origin/main</label><label class="option"><input type="radio" name="q20" value="1"> <strong>B.</strong> Only lists branches</label><label class="option"><input type="radio" name="q20" value="2"> <strong>C.</strong> Only creates a local file</label><label class="option"><input type="radio" name="q20" value="3"> <strong>D.</strong> Deletes the remote repository</label>
+        </div>
+        <div id="feedback-20" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 22: Which workflow allows reviewing remote changes before applying them?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q21" value="0"> <strong>A.</strong> git push then git delete</label><label class="option"><input type="radio" name="q21" value="1"> <strong>B.</strong> git fetch, git diff, then git merge</label><label class="option"><input type="radio" name="q21" value="2"> <strong>C.</strong> git branch -d then git status</label><label class="option"><input type="radio" name="q21" value="3"> <strong>D.</strong> git clone then rm -rf .git</label>
+        </div>
+        <div id="feedback-21" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 23: What is a clone?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q22" value="0"> <strong>A.</strong> A GitHub-only copy stored in your account</label><label class="option"><input type="radio" name="q22" value="1"> <strong>B.</strong> A local copy of a repository downloaded to your machine</label><label class="option"><input type="radio" name="q22" value="2"> <strong>C.</strong> A deleted branch</label><label class="option"><input type="radio" name="q22" value="3"> <strong>D.</strong> A pull request</label>
+        </div>
+        <div id="feedback-22" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 24: What is a fork?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q23" value="0"> <strong>A.</strong> A GitHub copy of another repository in your account</label><label class="option"><input type="radio" name="q23" value="1"> <strong>B.</strong> A local-only commit</label><label class="option"><input type="radio" name="q23" value="2"> <strong>C.</strong> A merge conflict</label><label class="option"><input type="radio" name="q23" value="3"> <strong>D.</strong> A terminal shortcut</label>
+        </div>
+        <div id="feedback-23" class="feedback"></div>
+      </article>
+    
+
+      <article class="question-card">
+        <h3>Question 25: How do you usually keep a fork in sync with the original repository?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q24" value="0"> <strong>A.</strong> Add upstream, fetch upstream, merge upstream branch, push to origin</label><label class="option"><input type="radio" name="q24" value="1"> <strong>B.</strong> Delete origin every day</label><label class="option"><input type="radio" name="q24" value="2"> <strong>C.</strong> Only run git status</label><label class="option"><input type="radio" name="q24" value="3"> <strong>D.</strong> Use git branch -d main</label>
+        </div>
+        <div id="feedback-24" class="feedback"></div>
+      </article>
+    
+    </form>
+  </main>
+
+  <div class="actions">
+    <div class="action-inner">
+      <div>
+        <button class="primary" onclick="checkAnswers()" type="button">Submit Answers</button>
+        <button class="secondary" onclick="resetQuiz()" type="button">Reset Quiz</button>
+      </div>
+      <div id="scoreBox">Score: Not submitted</div>
+    </div>
+  </div>
+
+  <footer>
+    Created for Day 23 Git Branching & GitHub practice.
+  </footer>
+
+  <script>
+    const answerKey = [0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 2, 0, 0, 0, 1, 1, 0, 0];
+    const explanations = ["A branch is an isolated line of development used for features, fixes, or experiments.", "Branches help keep main clean and stable while new work happens separately.", "HEAD points to your current branch or current commit.", "Git changes the working directory to match the branch you switch to.", "`git branch` lists local branches.", "`git branch feature-1` creates the branch but does not switch to it.", "`git switch feature-1` switches to the existing branch.", "`git switch -c feature-2` creates and switches to the branch.", "`git checkout -b feature-2` is the older create-and-switch command.", "A branch needs a commit reference. In an empty repo with no commits, Git cannot create another branch.", "`git branch -M main` renames the current branch to main.", "`git branch -d feature-2` safely deletes the branch.", "Branch isolation allows separate work without affecting other branches.", "`origin` is the common default name for a remote repository URL.", "`git remote add origin <url>` adds a remote named origin.", "`git remote -v` shows fetch and push URLs for remotes.", "The command uploads main and links local main with origin/main.", "`-u` sets the upstream so future `git push` can be shorter.", "In fork workflows, origin commonly points to your fork and upstream points to the original project.", "`git fetch` downloads remote updates safely without changing local files.", "`git pull` is essentially `git fetch` plus merge.", "Fetching first lets you inspect commits and diffs before merging.", "A clone is a local copy created with `git clone`.", "A fork is a GitHub feature that copies a repository into your GitHub account.", "The common workflow is: add upstream \u2192 fetch upstream \u2192 merge upstream/main or upstream/master \u2192 push origin."];
+
+    function checkAnswers() {
+      let score = 0;
+      const total = answerKey.length;
+
+      for (let i = 0; i < total; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback-${i}`);
+
+        if (!selected) {
+          feedback.className = "feedback incorrect";
+          feedback.style.display = "block";
+          feedback.innerHTML = `Not answered.<div class="explanation">${explanations[i]}</div>`;
+          continue;
+        }
+
+        const value = Number(selected.value);
+
+        if (value === answerKey[i]) {
+          score++;
+          feedback.className = "feedback correct";
+          feedback.style.display = "block";
+          feedback.innerHTML = `Correct.<div class="explanation">${explanations[i]}</div>`;
+        } else {
+          const correctLabel = String.fromCharCode(65 + answerKey[i]);
+          feedback.className = "feedback incorrect";
+          feedback.style.display = "block";
+          feedback.innerHTML = `Incorrect. Correct answer: ${correctLabel}.<div class="explanation">${explanations[i]}</div>`;
+        }
+      }
+
+      const percentage = Math.round((score / total) * 100);
+      document.getElementById("scoreBox").textContent = `Score: ${score}/${total} (${percentage}%)`;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+      document.querySelectorAll(".feedback").forEach(item => {
+        item.style.display = "none";
+        item.innerHTML = "";
+      });
+      document.getElementById("scoreBox").textContent = "Score: Not submitted";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
