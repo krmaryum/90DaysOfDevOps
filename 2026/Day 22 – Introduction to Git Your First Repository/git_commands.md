@@ -385,18 +385,6 @@ git checkout 6abb00a
 
 ---
 
-## git checkout main
-
-### What it does
-Switches back to the `main` branch.
-
-### Example
-
-```bash
-git checkout main
-```
-
----
 
 # Undo Changes
 
@@ -491,6 +479,21 @@ git remote add origin git@github.com:username/repository.git
 
 ---
 
+---
+
+## git remote add upstream
+
+### What it does
+Adds the original repository as an upstream remote.
+
+### Example
+
+```bash
+git remote add upstream https://github.com/octocat/Hello-World.git
+```
+
+---
+
 ## git push
 
 ### What it does
@@ -500,6 +503,27 @@ Uploads commits to a remote repository.
 
 ```bash
 git push origin main
+```
+
+---
+
+---
+
+## git merge
+
+### What it does
+Merges changes from another branch into the current branch.
+
+### Example
+
+```bash
+git merge origin/main
+```
+
+OR
+
+```bash
+git merge upstream/master
 ```
 
 ---
@@ -621,3 +645,18 @@ Renames or moves a file or directory and tracks the change in Git.
 ```bash
 git mv day-23 "Day 23-Git Branching & Working with GitHub"
 ```
+
+---
+
+# Git Concepts Summary
+
+| Concept | Meaning |
+|---|---|
+| HEAD | Pointer to current branch or commit |
+| origin | Default remote repository |
+| upstream | Original repository in fork workflows |
+| fetch | Download remote changes only |
+| pull | Download + merge remote changes |
+| clone | Local repository copy |
+| fork | GitHub account repository copy |
+| branch | Isolated development line |

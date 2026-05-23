@@ -197,6 +197,8 @@ Example output:
 Hi krmaryum! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
+[How to set ssh key](md/connect_ssh_key_to_github_step_by_step.md)
+
 ---
 
 # Meaning of the SSH Message
