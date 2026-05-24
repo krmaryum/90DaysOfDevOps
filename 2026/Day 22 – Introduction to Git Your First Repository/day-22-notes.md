@@ -131,6 +131,10 @@ git version 2.54.0
 
 This confirms Git is installed successfully.
 
+if not then install
+
+[Git installation](md/how_to_install_git_complete_guide.md)
+
 ---
 
 # Configure Git Username
@@ -261,8 +265,6 @@ Benefits of SSH with GitHub:
 ---
 
 # Task 2: Create Your Git Project
-
-Author: Khalid Khan
 
 ---
 
