@@ -21,6 +21,7 @@ https://git-scm.com/cheat-sheet
 | Branching & Navigation | Create, rename, and switch branches | [Go to Branching & Navigation](#branching--navigation) |
 | Undo Changes | Restore files, unstage changes, and reset repository state | [Go to Undo Changes](#undo-changes) |
 | Remote Repositories | Connect local repositories to GitHub and synchronize changes | [Go to Remote Repositories](#remote-repositories) |
+| Advanced Git Workflows | Merge, rebase, stash, squash merge, cherry-pick, and history navigation | [Go to Advanced Git Workflows](#advanced-git-workflows) |
 
 ---
 
@@ -648,6 +649,237 @@ git mv day-23 "Day 23-Git Branching & Working with GitHub"
 
 ---
 
+
+# Advanced Git Workflows
+
+This section contains advanced Git commands practiced on Day 24.
+
+---
+
+## git log --oneline --graph --all
+
+### What it does
+Displays compact commit history with branch and merge visualization.
+
+### Example
+
+```bash
+git log --oneline --graph --all
+```
+
+---
+
+## git merge --abort
+
+### What it does
+Cancels an in-progress merge and returns the repository to the state before the merge started.
+
+### Example
+
+```bash
+git merge --abort
+```
+
+---
+
+## git merge --squash <branch-name>
+
+### What it does
+Combines all commits from another branch into one staged change without creating a merge commit automatically.
+
+### Example
+
+```bash
+git merge --squash feature-profile
+git commit -m "feat: add profile feature"
+```
+
+---
+
+## git rebase <branch-name>
+
+### What it does
+Replays commits from the current branch on top of another branch.
+
+### Example
+
+```bash
+git rebase main
+```
+
+---
+
+## git rebase --abort
+
+### What it does
+Cancels an in-progress rebase and returns the repository to the state before the rebase started.
+
+### Example
+
+```bash
+git rebase --abort
+```
+
+---
+
+## git rebase --continue
+
+### What it does
+Continues a rebase after resolving conflicts.
+
+### Example
+
+```bash
+git add README.md
+git rebase --continue
+```
+
+---
+
+## git stash
+
+### What it does
+Temporarily saves uncommitted changes so you can switch branches or work on something else.
+
+### Example
+
+```bash
+git stash
+```
+
+---
+
+## git stash push -m
+
+### What it does
+Creates a stash with a descriptive message.
+
+### Example
+
+```bash
+git stash push -m "dashboard work in progress"
+```
+
+---
+
+## git stash push -u -m
+
+### What it does
+Creates a stash with a message and includes untracked files.
+
+### Example
+
+```bash
+git stash push -u -m "dashboard work in progress"
+```
+
+---
+
+## git stash list
+
+### What it does
+Displays all saved stashes.
+
+### Example
+
+```bash
+git stash list
+```
+
+---
+
+## git stash pop
+
+### What it does
+Applies the latest stash and removes it from the stash list.
+
+### Example
+
+```bash
+git stash pop
+```
+
+---
+
+## git stash apply
+
+### What it does
+Applies a stash but keeps it saved in the stash list.
+
+### Example
+
+```bash
+git stash apply stash@{1}
+```
+
+---
+
+## git cherry-pick <commit-hash>
+
+### What it does
+Applies one specific commit from another branch onto the current branch.
+
+### Example
+
+```bash
+git cherry-pick 7109f3b
+```
+
+---
+
+## git cherry-pick --continue
+
+### What it does
+Continues a cherry-pick after resolving conflicts.
+
+### Example
+
+```bash
+git add hotfix.txt
+git cherry-pick --continue
+```
+
+---
+
+## git cherry-pick --abort
+
+### What it does
+Cancels an in-progress cherry-pick and returns the repository to the state before cherry-pick started.
+
+### Example
+
+```bash
+git cherry-pick --abort
+```
+
+---
+
+## git cherry-pick --skip
+
+### What it does
+Skips the current commit during a cherry-pick sequence.
+
+### Example
+
+```bash
+git cherry-pick --skip
+```
+
+---
+
+## git switch --detach <commit-hash>
+
+### What it does
+Switches to a specific commit in detached HEAD state using modern Git syntax.
+
+### Example
+
+```bash
+git switch --detach 6abb00a
+```
+
+---
+
 # Git Concepts Summary
 
 | Concept | Meaning |
@@ -660,3 +892,11 @@ git mv day-23 "Day 23-Git Branching & Working with GitHub"
 | clone | Local repository copy |
 | fork | GitHub account repository copy |
 | branch | Isolated development line |
+| merge conflict | Situation where Git cannot automatically combine changes |
+| fast-forward merge | Merge where Git moves the branch pointer forward without a merge commit |
+| merge commit | Commit created to join two diverged histories |
+| rebase | Replays commits on top of another branch |
+| squash merge | Combines multiple commits into one commit |
+| stash | Temporary storage for uncommitted work |
+| cherry-pick | Applies a specific commit onto another branch |
+| detached HEAD | State where HEAD points directly to a commit instead of a branch |
