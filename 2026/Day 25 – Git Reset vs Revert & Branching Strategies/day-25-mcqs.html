@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 25 MCQs - Git Reset vs Revert & Branching Strategies</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #1f2937;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+
+    .question h3 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    button {
+      display: block;
+      margin: 25px auto;
+      padding: 12px 24px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .result {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 25px;
+    }
+
+    .correct {
+      color: #15803d;
+      font-weight: bold;
+    }
+
+    .wrong {
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    .answer {
+      margin-top: 8px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 35px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .note {
+      background: #eef2ff;
+      padding: 12px;
+      border-left: 4px solid #4f46e5;
+      border-radius: 6px;
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 25 MCQs</h1>
+    <h2>Git Reset vs Revert & Branching Strategies</h2>
+    <p class="subtitle">25 Multiple Choice Questions for Practice</p>
+
+    <div class="note">
+      <strong>Instructions:</strong> Select one answer for each question, then click “Submit Quiz” to check your score.
+    </div>
+
+    <form id="quizForm">
+
+      <div class="question">
+        <h3>1. What is the main purpose of git reset?</h3>
+        <label><input type="radio" name="q1" value="a"> To create a new branch</label>
+        <label><input type="radio" name="q1" value="b"> To move HEAD to a previous commit</label>
+        <label><input type="radio" name="q1" value="c"> To push code to GitHub</label>
+        <label><input type="radio" name="q1" value="d"> To clone a repository</label>
+        <p class="answer" id="a1">Correct Answer: B — git reset moves HEAD to a previous commit.</p>
+      </div>
+
+      <div class="question">
+        <h3>2. Which git reset option keeps changes staged?</h3>
+        <label><input type="radio" name="q2" value="a"> --hard</label>
+        <label><input type="radio" name="q2" value="b"> --mixed</label>
+        <label><input type="radio" name="q2" value="c"> --soft</label>
+        <label><input type="radio" name="q2" value="d"> --merge</label>
+        <p class="answer" id="a2">Correct Answer: C — git reset --soft keeps changes staged.</p>
+      </div>
+
+      <div class="question">
+        <h3>3. What does git reset --mixed HEAD~1 do?</h3>
+        <label><input type="radio" name="q3" value="a"> Removes the commit and keeps changes staged</label>
+        <label><input type="radio" name="q3" value="b"> Removes the commit and unstages changes</label>
+        <label><input type="radio" name="q3" value="c"> Deletes the whole repository</label>
+        <label><input type="radio" name="q3" value="d"> Pushes changes to remote</label>
+        <p class="answer" id="a3">Correct Answer: B — --mixed removes the commit and unstages the changes.</p>
+      </div>
+
+      <div class="question">
+        <h3>4. Which git reset option is destructive?</h3>
+        <label><input type="radio" name="q4" value="a"> --soft</label>
+        <label><input type="radio" name="q4" value="b"> --mixed</label>
+        <label><input type="radio" name="q4" value="c"> --hard</label>
+        <label><input type="radio" name="q4" value="d"> --safe</label>
+        <p class="answer" id="a4">Correct Answer: C — git reset --hard can delete working directory changes.</p>
+      </div>
+
+      <div class="question">
+        <h3>5. What command shows the history of where HEAD has been?</h3>
+        <label><input type="radio" name="q5" value="a"> git log</label>
+        <label><input type="radio" name="q5" value="b"> git reflog</label>
+        <label><input type="radio" name="q5" value="c"> git branch</label>
+        <label><input type="radio" name="q5" value="d"> git status</label>
+        <p class="answer" id="a5">Correct Answer: B — git reflog shows HEAD movement history.</p>
+      </div>
+
+      <div class="question">
+        <h3>6. What is the main purpose of git revert?</h3>
+        <label><input type="radio" name="q6" value="a"> To delete all branches</label>
+        <label><input type="radio" name="q6" value="b"> To create a new commit that undoes another commit</label>
+        <label><input type="radio" name="q6" value="c"> To rename a remote</label>
+        <label><input type="radio" name="q6" value="d"> To stash changes</label>
+        <p class="answer" id="a6">Correct Answer: B — git revert creates a new commit that reverses changes.</p>
+      </div>
+
+      <div class="question">
+        <h3>7. Does git revert remove the original commit from history?</h3>
+        <label><input type="radio" name="q7" value="a"> Yes</label>
+        <label><input type="radio" name="q7" value="b"> No</label>
+        <label><input type="radio" name="q7" value="c"> Only on GitHub</label>
+        <label><input type="radio" name="q7" value="d"> Only with --hard</label>
+        <p class="answer" id="a7">Correct Answer: B — git revert keeps the original commit in history.</p>
+      </div>
+
+      <div class="question">
+        <h3>8. Why is git revert safer for shared branches?</h3>
+        <label><input type="radio" name="q8" value="a"> It rewrites history</label>
+        <label><input type="radio" name="q8" value="b"> It deletes the repository</label>
+        <label><input type="radio" name="q8" value="c"> It preserves history by creating a new commit</label>
+        <label><input type="radio" name="q8" value="d"> It removes all remote branches</label>
+        <p class="answer" id="a8">Correct Answer: C — revert preserves history and records the undo as a new commit.</p>
+      </div>
+
+      <div class="question">
+        <h3>9. Which command should usually be avoided on already pushed commits?</h3>
+        <label><input type="radio" name="q9" value="a"> git status</label>
+        <label><input type="radio" name="q9" value="b"> git reset</label>
+        <label><input type="radio" name="q9" value="c"> git log</label>
+        <label><input type="radio" name="q9" value="d"> git branch</label>
+        <p class="answer" id="a9">Correct Answer: B — reset rewrites history and can affect teammates.</p>
+      </div>
+
+      <div class="question">
+        <h3>10. What should you run after resolving a revert conflict?</h3>
+        <label><input type="radio" name="q10" value="a"> git revert --continue</label>
+        <label><input type="radio" name="q10" value="b"> git clone</label>
+        <label><input type="radio" name="q10" value="c"> git init</label>
+        <label><input type="radio" name="q10" value="d"> git branch -d</label>
+        <p class="answer" id="a10">Correct Answer: A — after staging resolved files, run git revert --continue.</p>
+      </div>
+
+      <div class="question">
+        <h3>11. Before git revert --continue, what should be done with resolved files?</h3>
+        <label><input type="radio" name="q11" value="a"> Delete them</label>
+        <label><input type="radio" name="q11" value="b"> Stage them using git add</label>
+        <label><input type="radio" name="q11" value="c"> Push them directly</label>
+        <label><input type="radio" name="q11" value="d"> Rename the branch</label>
+        <p class="answer" id="a11">Correct Answer: B — resolved conflict files should be staged with git add.</p>
+      </div>
+
+      <div class="question">
+        <h3>12. Which command cancels an in-progress revert?</h3>
+        <label><input type="radio" name="q12" value="a"> git revert --abort</label>
+        <label><input type="radio" name="q12" value="b"> git reset --soft</label>
+        <label><input type="radio" name="q12" value="c"> git push --force</label>
+        <label><input type="radio" name="q12" value="d"> git stash clear</label>
+        <p class="answer" id="a12">Correct Answer: A — git revert --abort cancels an in-progress revert.</p>
+      </div>
+
+      <div class="question">
+        <h3>13. In GitFlow, which branch usually contains production-ready code?</h3>
+        <label><input type="radio" name="q13" value="a"> feature</label>
+        <label><input type="radio" name="q13" value="b"> develop</label>
+        <label><input type="radio" name="q13" value="c"> main</label>
+        <label><input type="radio" name="q13" value="d"> experiment</label>
+        <p class="answer" id="a13">Correct Answer: C — main usually stores production-ready code.</p>
+      </div>
+
+      <div class="question">
+        <h3>14. In GitFlow, feature branches are usually created from which branch?</h3>
+        <label><input type="radio" name="q14" value="a"> develop</label>
+        <label><input type="radio" name="q14" value="b"> hotfix</label>
+        <label><input type="radio" name="q14" value="c"> release</label>
+        <label><input type="radio" name="q14" value="d"> origin</label>
+        <p class="answer" id="a14">Correct Answer: A — feature branches usually start from develop in GitFlow.</p>
+      </div>
+
+      <div class="question">
+        <h3>15. Which GitFlow branch is used for urgent production fixes?</h3>
+        <label><input type="radio" name="q15" value="a"> hotfix</label>
+        <label><input type="radio" name="q15" value="b"> feature</label>
+        <label><input type="radio" name="q15" value="c"> docs</label>
+        <label><input type="radio" name="q15" value="d"> backup</label>
+        <p class="answer" id="a15">Correct Answer: A — hotfix branches are used for urgent production fixes.</p>
+      </div>
+
+      <div class="question">
+        <h3>16. GitFlow is best suited for which type of team?</h3>
+        <label><input type="radio" name="q16" value="a"> Large teams with scheduled releases</label>
+        <label><input type="radio" name="q16" value="b"> Only solo developers</label>
+        <label><input type="radio" name="q16" value="c"> Teams that never release software</label>
+        <label><input type="radio" name="q16" value="d"> Teams without Git</label>
+        <p class="answer" id="a16">Correct Answer: A — GitFlow works well for large teams with planned releases.</p>
+      </div>
+
+      <div class="question">
+        <h3>17. What is the main idea of GitHub Flow?</h3>
+        <label><input type="radio" name="q17" value="a"> Use many long-lived branches</label>
+        <label><input type="radio" name="q17" value="b"> Use one main branch and short-lived feature branches</label>
+        <label><input type="radio" name="q17" value="c"> Never merge code</label>
+        <label><input type="radio" name="q17" value="d"> Avoid pull requests</label>
+        <p class="answer" id="a17">Correct Answer: B — GitHub Flow uses main plus short-lived feature branches.</p>
+      </div>
+
+      <div class="question">
+        <h3>18. In GitHub Flow, the main branch should usually be:</h3>
+        <label><input type="radio" name="q18" value="a"> Broken</label>
+        <label><input type="radio" name="q18" value="b"> Deployable</label>
+        <label><input type="radio" name="q18" value="c"> Deleted daily</label>
+        <label><input type="radio" name="q18" value="d"> Hidden</label>
+        <p class="answer" id="a18">Correct Answer: B — main should stay deployable in GitHub Flow.</p>
+      </div>
+
+      <div class="question">
+        <h3>19. GitHub Flow is commonly used by:</h3>
+        <label><input type="radio" name="q19" value="a"> Fast-moving startups and web teams</label>
+        <label><input type="radio" name="q19" value="b"> Teams that never deploy</label>
+        <label><input type="radio" name="q19" value="c"> Only hardware teams</label>
+        <label><input type="radio" name="q19" value="d"> Teams without pull requests</label>
+        <p class="answer" id="a19">Correct Answer: A — GitHub Flow is useful for fast delivery.</p>
+      </div>
+
+      <div class="question">
+        <h3>20. What is Trunk-Based Development?</h3>
+        <label><input type="radio" name="q20" value="a"> A workflow where developers frequently integrate into main/trunk</label>
+        <label><input type="radio" name="q20" value="b"> A workflow where branches never merge</label>
+        <label><input type="radio" name="q20" value="c"> A GitHub-only feature</label>
+        <label><input type="radio" name="q20" value="d"> A command to delete commits</label>
+        <p class="answer" id="a20">Correct Answer: A — Trunk-Based Development focuses on frequent integration into main/trunk.</p>
+      </div>
+
+      <div class="question">
+        <h3>21. Trunk-Based Development usually works best with:</h3>
+        <label><input type="radio" name="q21" value="a"> Long-lived branches only</label>
+        <label><input type="radio" name="q21" value="b"> Strong automated testing and CI/CD</label>
+        <label><input type="radio" name="q21" value="c"> No tests</label>
+        <label><input type="radio" name="q21" value="d"> Manual copying of files</label>
+        <p class="answer" id="a21">Correct Answer: B — it depends heavily on CI/CD and strong testing.</p>
+      </div>
+
+      <div class="question">
+        <h3>22. Which branching strategy is best for a startup shipping fast?</h3>
+        <label><input type="radio" name="q22" value="a"> GitHub Flow</label>
+        <label><input type="radio" name="q22" value="b"> GitFlow only</label>
+        <label><input type="radio" name="q22" value="c"> No branching</label>
+        <label><input type="radio" name="q22" value="d"> Manual backups</label>
+        <p class="answer" id="a22">Correct Answer: A — GitHub Flow is simple and fast for startups.</p>
+      </div>
+
+      <div class="question">
+        <h3>23. Which branching strategy is best for a large team with scheduled releases?</h3>
+        <label><input type="radio" name="q23" value="a"> GitFlow</label>
+        <label><input type="radio" name="q23" value="b"> No workflow</label>
+        <label><input type="radio" name="q23" value="c"> Only detached HEAD</label>
+        <label><input type="radio" name="q23" value="d"> Only git stash</label>
+        <p class="answer" id="a23">Correct Answer: A — GitFlow supports structured release cycles.</p>
+      </div>
+
+      <div class="question">
+        <h3>24. What is a major risk of long-lived branches?</h3>
+        <label><input type="radio" name="q24" value="a"> More merge conflicts</label>
+        <label><input type="radio" name="q24" value="b"> Faster CI</label>
+        <label><input type="radio" name="q24" value="c"> Fewer commits</label>
+        <label><input type="radio" name="q24" value="d"> Automatic deployment</label>
+        <p class="answer" id="a24">Correct Answer: A — long-lived branches can cause more merge conflicts.</p>
+      </div>
+
+      <div class="question">
+        <h3>25. Which command is most useful as a safety net after a reset mistake?</h3>
+        <label><input type="radio" name="q25" value="a"> git reflog</label>
+        <label><input type="radio" name="q25" value="b"> git clone</label>
+        <label><input type="radio" name="q25" value="c"> git remote -v</label>
+        <label><input type="radio" name="q25" value="d"> git branch -a</label>
+        <p class="answer" id="a25">Correct Answer: A — git reflog can help recover lost commits.</p>
+      </div>
+
+      <button type="button" onclick="checkQuiz()">Submit Quiz</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <div class="footer">
+      <p>Day 25 – Git Reset vs Revert & Branching Strategies</p>
+      <p>#90DaysOfDevOps #DevOpsKaJosh #TrainWithShubham</p>
+    </div>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "b", q2: "c", q3: "b", q4: "c", q5: "b",
+      q6: "b", q7: "b", q8: "c", q9: "b", q10: "a",
+      q11: "b", q12: "a", q13: "c", q14: "a", q15: "a",
+      q16: "a", q17: "b", q18: "b", q19: "a", q20: "a",
+      q21: "b", q22: "a", q23: "a", q24: "a", q25: "a"
+    };
+
+    function checkQuiz() {
+      let score = 0;
+      const total = Object.keys(answers).length;
+
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        const answerText = document.getElementById("a" + q.substring(1));
+
+        answerText.style.display = "block";
+
+        if (selected && selected.value === answers[q]) {
+          score++;
+          answerText.className = "answer correct";
+        } else {
+          answerText.className = "answer wrong";
+        }
+      }
+
+      const result = document.getElementById("result");
+      result.innerHTML = `Your Score: ${score} / ${total}`;
+
+      if (score >= 20) {
+        result.style.color = "#15803d";
+      } else if (score >= 13) {
+        result.style.color = "#ca8a04";
+      } else {
+        result.style.color = "#dc2626";
+      }
+
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
