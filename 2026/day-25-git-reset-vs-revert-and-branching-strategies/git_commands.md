@@ -459,6 +459,8 @@ This section explains how to connect repositories to GitHub and synchronize code
 ### What it does
 Shows remote repositories.
 
+matches the exact owner and repository name on GitHub.
+
 ### Example
 
 ```bash
