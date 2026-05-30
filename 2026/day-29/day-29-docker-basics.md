@@ -23,6 +23,7 @@
 | VM vs Container     | VMs include full OS, containers share host kernel |
 | Docker Architecture | Client → Daemon → Registry → Image → Container    |
 
+[Docker Architecture Explain](md/docker-architecture-client-daemon-registry-image-container.md)
 
 ## 1. What is a Container and Why Do We Need Them? 
 ### A container is a lightweight, standalone package that includes:
