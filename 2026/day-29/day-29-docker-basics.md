@@ -28,7 +28,7 @@
 ## 1. What is a Container and Why Do We Need Them? 
 ### A container is a lightweight, standalone package that includes:
 - Application code
-- Runtime
+- [Runtime](md/runtime-explained.md)
 - System libraries
 - Dependencies
 It runs consistently across different environments.
