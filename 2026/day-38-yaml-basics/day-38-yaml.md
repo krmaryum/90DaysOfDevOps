@@ -1,5 +1,9 @@
 # Day 38 – YAML Basics
 
+## Additional Topics
+
+| Section | Summary | Link |
+|----------|----------|----------|
 | YAML Dictionaries | Understanding mappings and objects | [YAML Dictionaries](#yaml-dictionaries-mappings) |
 | YAML Data Types | Common YAML data types | [YAML Data Types](#yaml-data-types) |
 | Comments in YAML | Using comments in YAML files | [Comments in YAML](#comments-in-yaml) |
