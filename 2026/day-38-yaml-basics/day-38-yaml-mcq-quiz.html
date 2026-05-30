@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 38 – YAML Basics MCQ Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .intro {
+      background: #eef5ff;
+      border-left: 5px solid #2b6cb0;
+      padding: 15px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+    }
+    .question {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 18px;
+      background: #fafafa;
+    }
+    .question h3 {
+      margin-top: 0;
+    }
+    pre {
+      background: #1f2937;
+      color: #f9fafb;
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    label {
+      display: block;
+      padding: 8px;
+      margin: 6px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+    }
+    label:hover {
+      background: #f0f7ff;
+    }
+    button {
+      display: block;
+      width: 220px;
+      margin: 25px auto;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .result {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+    .correct {
+      background: #dcfce7 !important;
+      border-color: #22c55e !important;
+    }
+    .wrong {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+    }
+    .explanation {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border-left: 4px solid #2563eb;
+      background: #eff6ff;
+      border-radius: 6px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 38 – YAML Basics</h1>
+    <h2>25 MCQ Quiz</h2>
+
+    <div class="intro">
+      <strong>Topics Covered:</strong> YAML syntax, key-value pairs, lists, nested objects, multi-line strings, validation, indentation, and common YAML mistakes.
+    </div>
+
+    <form id="quizForm">
+      <div class="question" id="q1">
+        <h3>Q1. What does YAML currently stand for?</h3>
+        <label id="q1o0"><input type="radio" name="q1" value="0"> YAML Ain&#x27;t Markup Language</label>
+        <label id="q1o1"><input type="radio" name="q1" value="1"> Yet Another Markup Language</label>
+        <label id="q1o2"><input type="radio" name="q1" value="2"> Young Automation Markup Language</label>
+        <label id="q1o3"><input type="radio" name="q1" value="3"> Your Automated Machine Language</label>
+        <div class="explanation" id="exp1"><strong>Explanation:</strong> YAML currently stands for YAML Ain&#x27;t Markup Language, meaning it is focused on data representation, not document markup.</div>
+      </div>
+
+      <div class="question" id="q2">
+        <h3>Q2. What is YAML mainly used for in DevOps?</h3>
+        <label id="q2o0"><input type="radio" name="q2" value="0"> Writing operating system kernels</label>
+        <label id="q2o1"><input type="radio" name="q2" value="1"> Storing configuration data</label>
+        <label id="q2o2"><input type="radio" name="q2" value="2"> Designing images</label>
+        <label id="q2o3"><input type="radio" name="q2" value="3"> Compiling Java programs</label>
+        <div class="explanation" id="exp2"><strong>Explanation:</strong> YAML is widely used to write configuration files for DevOps tools and CI/CD pipelines.</div>
+      </div>
+
+      <div class="question" id="q3">
+        <h3>Q3. Which character should never be used for YAML indentation?</h3>
+        <label id="q3o0"><input type="radio" name="q3" value="0"> Space</label>
+        <label id="q3o1"><input type="radio" name="q3" value="1"> Dash</label>
+        <label id="q3o2"><input type="radio" name="q3" value="2"> Tab</label>
+        <label id="q3o3"><input type="radio" name="q3" value="3"> Colon</label>
+        <div class="explanation" id="exp3"><strong>Explanation:</strong> YAML uses spaces only for indentation. Tabs can cause validation errors.</div>
+      </div>
+
+      <div class="question" id="q4">
+        <h3>Q4. What is the standard indentation commonly used in YAML?</h3>
+        <label id="q4o0"><input type="radio" name="q4" value="0"> 1 space</label>
+        <label id="q4o1"><input type="radio" name="q4" value="1"> 2 spaces</label>
+        <label id="q4o2"><input type="radio" name="q4" value="2"> 4 tabs</label>
+        <label id="q4o3"><input type="radio" name="q4" value="3"> No indentation</label>
+        <div class="explanation" id="exp4"><strong>Explanation:</strong> Two spaces are commonly used as the standard indentation in YAML.</div>
+      </div>
+
+      <div class="question" id="q5">
+        <h3>Q5. Which YAML example shows a correct key-value pair?</h3>
+        <label id="q5o0"><input type="radio" name="q5" value="0"> name Khalid</label>
+        <label id="q5o1"><input type="radio" name="q5" value="1"> name = Khalid</label>
+        <label id="q5o2"><input type="radio" name="q5" value="2"> name: Khalid</label>
+        <label id="q5o3"><input type="radio" name="q5" value="3"> name -&gt; Khalid</label>
+        <div class="explanation" id="exp5"><strong>Explanation:</strong> YAML key-value pairs use the format key: value.</div>
+      </div>
+
+      <div class="question" id="q6">
+        <h3>Q6. In YAML, what type is this value? learning: true</h3>
+        <label id="q6o0"><input type="radio" name="q6" value="0"> String</label>
+        <label id="q6o1"><input type="radio" name="q6" value="1"> Boolean</label>
+        <label id="q6o2"><input type="radio" name="q6" value="2"> Integer</label>
+        <label id="q6o3"><input type="radio" name="q6" value="3"> List</label>
+        <div class="explanation" id="exp6"><strong>Explanation:</strong> true without quotes is treated as a Boolean value.</div>
+      </div>
+
+      <div class="question" id="q7">
+        <h3>Q7. In YAML, what type is this value? learning: &quot;true&quot;</h3>
+        <label id="q7o0"><input type="radio" name="q7" value="0"> Boolean</label>
+        <label id="q7o1"><input type="radio" name="q7" value="1"> Integer</label>
+        <label id="q7o2"><input type="radio" name="q7" value="2"> String</label>
+        <label id="q7o3"><input type="radio" name="q7" value="3"> Object</label>
+        <div class="explanation" id="exp7"><strong>Explanation:</strong> When true is placed inside quotes, YAML treats it as a string.</div>
+      </div>
+
+      <div class="question" id="q8">
+        <h3>Q8. Which value is most likely interpreted as a number in YAML?</h3>
+        <label id="q8o0"><input type="radio" name="q8" value="0"> &quot;4&quot;</label>
+        <label id="q8o1"><input type="radio" name="q8" value="1"> four</label>
+        <label id="q8o2"><input type="radio" name="q8" value="2"> 4</label>
+        <label id="q8o3"><input type="radio" name="q8" value="3"> &quot;four&quot;</label>
+        <div class="explanation" id="exp8"><strong>Explanation:</strong> A number without quotes, such as 4, is interpreted as a numeric value.</div>
+      </div>
+
+      <div class="question" id="q9">
+        <h3>Q9. Which syntax represents a block style list in YAML?</h3>
+        <label id="q9o0"><input type="radio" name="q9" value="0"> tools: [Linux, Git]</label>
+        <label id="q9o1"><input type="radio" name="q9" value="1"> tools: Linux, Git</label>
+        <label id="q9o2"><input type="radio" name="q9" value="2"> tools:<br>  - Linux<br>  - Git</label>
+        <label id="q9o3"><input type="radio" name="q9" value="3"> tools = Linux + Git</label>
+        <div class="explanation" id="exp9"><strong>Explanation:</strong> Block style lists use dashes under a key.</div>
+      </div>
+
+      <div class="question" id="q10">
+        <h3>Q10. Which syntax represents an inline style list in YAML?</h3>
+        <label id="q10o0"><input type="radio" name="q10" value="0"> tools: [Linux, Git, Docker]</label>
+        <label id="q10o1"><input type="radio" name="q10" value="1"> tools:<br>  - Linux</label>
+        <label id="q10o2"><input type="radio" name="q10" value="2"> tools: {Linux, Git}</label>
+        <label id="q10o3"><input type="radio" name="q10" value="3"> tools -&gt; Linux, Git</label>
+        <div class="explanation" id="exp10"><strong>Explanation:</strong> Inline lists are written on one line inside square brackets.</div>
+      </div>
+
+      <div class="question" id="q11">
+        <h3>Q11. What does indentation create in nested YAML objects?</h3>
+        <label id="q11o0"><input type="radio" name="q11" value="0"> Comments</label>
+        <label id="q11o1"><input type="radio" name="q11" value="1"> Parent-child relationships</label>
+        <label id="q11o2"><input type="radio" name="q11" value="2"> File permissions</label>
+        <label id="q11o3"><input type="radio" name="q11" value="3"> Git branches</label>
+        <div class="explanation" id="exp11"><strong>Explanation:</strong> Indentation creates hierarchy and parent-child relationships in YAML.</div>
+      </div>
+
+      <div class="question" id="q12">
+        <h3>Q12. In this structure, what is credentials?<br>database:<br>  credentials:<br>    user: admin</h3>
+        <label id="q12o0"><input type="radio" name="q12" value="0"> A parent of database</label>
+        <label id="q12o1"><input type="radio" name="q12" value="1"> A nested object inside database</label>
+        <label id="q12o2"><input type="radio" name="q12" value="2"> A list item</label>
+        <label id="q12o3"><input type="radio" name="q12" value="3"> A comment</label>
+        <div class="explanation" id="exp12"><strong>Explanation:</strong> credentials is nested under database, so it is a nested object.</div>
+      </div>
+
+      <div class="question" id="q13">
+        <h3>Q13. Which command displays the content of person.yaml?</h3>
+        <label id="q13o0"><input type="radio" name="q13" value="0"> show person.yaml</label>
+        <label id="q13o1"><input type="radio" name="q13" value="1"> cat person.yaml</label>
+        <label id="q13o2"><input type="radio" name="q13" value="2"> read person.yaml</label>
+        <label id="q13o3"><input type="radio" name="q13" value="3"> open-yaml person.yaml</label>
+        <div class="explanation" id="exp13"><strong>Explanation:</strong> The cat command is used to display file content in Linux.</div>
+      </div>
+
+      <div class="question" id="q14">
+        <h3>Q14. Which tool can be used to validate YAML online?</h3>
+        <label id="q14o0"><input type="radio" name="q14" value="0"> yamllint.com</label>
+        <label id="q14o1"><input type="radio" name="q14" value="1"> gitstatus.com</label>
+        <label id="q14o2"><input type="radio" name="q14" value="2"> dockervalidate.net</label>
+        <label id="q14o3"><input type="radio" name="q14" value="3"> htmlcheck.org</label>
+        <div class="explanation" id="exp14"><strong>Explanation:</strong> yamllint.com can be used to validate YAML syntax online.</div>
+      </div>
+
+      <div class="question" id="q15">
+        <h3>Q15. Which command installs yamllint on Ubuntu/WSL?</h3>
+        <label id="q15o0"><input type="radio" name="q15" value="0"> sudo apt install yamllint -y</label>
+        <label id="q15o1"><input type="radio" name="q15" value="1"> sudo dnf install yamlcheck -y</label>
+        <label id="q15o2"><input type="radio" name="q15" value="2"> pip remove yamllint</label>
+        <label id="q15o3"><input type="radio" name="q15" value="3"> git install yamllint</label>
+        <div class="explanation" id="exp15"><strong>Explanation:</strong> On Ubuntu/WSL, yamllint can be installed using sudo apt install yamllint -y.</div>
+      </div>
+
+      <div class="question" id="q16">
+        <h3>Q16. Which command installs yamllint on RHEL/Rocky Linux?</h3>
+        <label id="q16o0"><input type="radio" name="q16" value="0"> sudo apt update yamllint</label>
+        <label id="q16o1"><input type="radio" name="q16" value="1"> sudo dnf install yamllint -y</label>
+        <label id="q16o2"><input type="radio" name="q16" value="2"> sudo yum remove yamllint</label>
+        <label id="q16o3"><input type="radio" name="q16" value="3"> apt-get yamllint</label>
+        <div class="explanation" id="exp16"><strong>Explanation:</strong> On RHEL/Rocky Linux, yamllint can be installed using sudo dnf install yamllint -y.</div>
+      </div>
+
+      <div class="question" id="q17">
+        <h3>Q17. What does the YAML literal block style | do?</h3>
+        <label id="q17o0"><input type="radio" name="q17" value="0"> Removes all lines</label>
+        <label id="q17o1"><input type="radio" name="q17" value="1"> Preserves newlines</label>
+        <label id="q17o2"><input type="radio" name="q17" value="2"> Creates a list</label>
+        <label id="q17o3"><input type="radio" name="q17" value="3"> Adds comments</label>
+        <div class="explanation" id="exp17"><strong>Explanation:</strong> The | style preserves line breaks exactly as written.</div>
+      </div>
+
+      <div class="question" id="q18">
+        <h3>Q18. What does the YAML folded block style &gt; do?</h3>
+        <label id="q18o0"><input type="radio" name="q18" value="0"> Turns lines into a paragraph</label>
+        <label id="q18o1"><input type="radio" name="q18" value="1"> Deletes text</label>
+        <label id="q18o2"><input type="radio" name="q18" value="2"> Creates nested objects</label>
+        <label id="q18o3"><input type="radio" name="q18" value="3"> Starts a shell script</label>
+        <div class="explanation" id="exp18"><strong>Explanation:</strong> The &gt; style folds multiple lines into a single paragraph.</div>
+      </div>
+
+      <div class="question" id="q19">
+        <h3>Q19. When should you use | in YAML?</h3>
+        <label id="q19o0"><input type="radio" name="q19" value="0"> For shell scripts and commands</label>
+        <label id="q19o1"><input type="radio" name="q19" value="1"> Only for numbers</label>
+        <label id="q19o2"><input type="radio" name="q19" value="2"> Only for booleans</label>
+        <label id="q19o3"><input type="radio" name="q19" value="3"> For deleting keys</label>
+        <div class="explanation" id="exp19"><strong>Explanation:</strong> Use | when line breaks must be preserved, such as scripts and commands.</div>
+      </div>
+
+      <div class="question" id="q20">
+        <h3>Q20. When should you use &gt; in YAML?</h3>
+        <label id="q20o0"><input type="radio" name="q20" value="0"> For long descriptions and notes</label>
+        <label id="q20o1"><input type="radio" name="q20" value="1"> For passwords only</label>
+        <label id="q20o2"><input type="radio" name="q20" value="2"> For command lines that must stay separate</label>
+        <label id="q20o3"><input type="radio" name="q20" value="3"> For YAML comments only</label>
+        <div class="explanation" id="exp20"><strong>Explanation:</strong> Use &gt; for long text, descriptions, notes, or documentation paragraphs.</div>
+      </div>
+
+      <div class="question" id="q21">
+        <h3>Q21. What is wrong with this YAML?<br>tools:<br>- docker<br>  - kubernetes</h3>
+        <label id="q21o0"><input type="radio" name="q21" value="0"> The word docker is invalid</label>
+        <label id="q21o1"><input type="radio" name="q21" value="1"> The list indentation is inconsistent</label>
+        <label id="q21o2"><input type="radio" name="q21" value="2"> The tools key is missing</label>
+        <label id="q21o3"><input type="radio" name="q21" value="3"> YAML does not support lists</label>
+        <div class="explanation" id="exp21"><strong>Explanation:</strong> Both list items must be aligned consistently.</div>
+      </div>
+
+      <div class="question" id="q22">
+        <h3>Q22. Which corrected version is best practice?</h3>
+        <label id="q22o0"><input type="radio" name="q22" value="0"> tools:<br>  - docker<br>  - kubernetes</label>
+        <label id="q22o1"><input type="radio" name="q22" value="1"> tools:<br>- docker<br>  - kubernetes</label>
+        <label id="q22o2"><input type="radio" name="q22" value="2"> tools docker kubernetes</label>
+        <label id="q22o3"><input type="radio" name="q22" value="3"> tools = docker</label>
+        <div class="explanation" id="exp22"><strong>Explanation:</strong> Using two spaces before each dash is clear and commonly used.</div>
+      </div>
+
+      <div class="question" id="q23">
+        <h3>Q23. Which YAML line should be quoted because it contains a colon?</h3>
+        <label id="q23o0"><input type="radio" name="q23" value="0"> name: Khalid</label>
+        <label id="q23o1"><input type="radio" name="q23" value="1"> message: &quot;Deploy: Success&quot;</label>
+        <label id="q23o2"><input type="radio" name="q23" value="2"> learning: true</label>
+        <label id="q23o3"><input type="radio" name="q23" value="3"> port: 80</label>
+        <div class="explanation" id="exp23"><strong>Explanation:</strong> A colon inside a string can confuse YAML, so quotes are recommended.</div>
+      </div>
+
+      <div class="question" id="q24">
+        <h3>Q24. Which file practiced key-value pairs and lists in Day 38?</h3>
+        <label id="q24o0"><input type="radio" name="q24" value="0"> server.yaml</label>
+        <label id="q24o1"><input type="radio" name="q24" value="1"> person.yaml</label>
+        <label id="q24o2"><input type="radio" name="q24" value="2"> README.md</label>
+        <label id="q24o3"><input type="radio" name="q24" value="3"> pipeline.sh</label>
+        <div class="explanation" id="exp24"><strong>Explanation:</strong> person.yaml was used for key-value pairs and lists.</div>
+      </div>
+
+      <div class="question" id="q25">
+        <h3>Q25. Which file practiced nested objects and multi-line strings in Day 38?</h3>
+        <label id="q25o0"><input type="radio" name="q25" value="0"> server.yaml</label>
+        <label id="q25o1"><input type="radio" name="q25" value="1"> person.yaml</label>
+        <label id="q25o2"><input type="radio" name="q25" value="2"> git_commands.md</label>
+        <label id="q25o3"><input type="radio" name="q25" value="3"> index.html</label>
+        <div class="explanation" id="exp25"><strong>Explanation:</strong> server.yaml was used for nested objects and multi-line strings.</div>
+      </div>
+
+      <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <div class="footer">
+      Created for 90 Days of DevOps – Day 38 YAML Basics
+    </div>
+  </div>
+
+  <script>
+    const answers = {'q1': 0, 'q2': 1, 'q3': 2, 'q4': 1, 'q5': 2, 'q6': 1, 'q7': 2, 'q8': 2, 'q9': 2, 'q10': 0, 'q11': 1, 'q12': 1, 'q13': 1, 'q14': 0, 'q15': 0, 'q16': 1, 'q17': 1, 'q18': 0, 'q19': 0, 'q20': 0, 'q21': 1, 'q22': 0, 'q23': 1, 'q24': 1, 'q25': 0};
+
+    function submitQuiz() {
+      let score = 0;
+      const total = Object.keys(answers).length;
+
+      for (let q in answers) {
+        const questionNumber = q.replace('q', '');
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        const correctAnswer = answers[q];
+
+        for (let i = 0; i < 4; i++) {
+          const label = document.getElementById(`${q}o${i}`);
+          if (label) {
+            label.classList.remove('correct', 'wrong');
+          }
+        }
+
+        if (selected) {
+          const selectedValue = parseInt(selected.value);
+          if (selectedValue === correctAnswer) {
+            score++;
+            document.getElementById(`${q}o${selectedValue}`).classList.add('correct');
+          } else {
+            document.getElementById(`${q}o${selectedValue}`).classList.add('wrong');
+            document.getElementById(`${q}o${correctAnswer}`).classList.add('correct');
+          }
+        } else {
+          document.getElementById(`${q}o${correctAnswer}`).classList.add('correct');
+        }
+
+        document.getElementById(`exp${questionNumber}`).style.display = 'block';
+      }
+
+      const resultBox = document.getElementById('result');
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `Your Score: ${score} / ${total}`;
+      resultBox.style.background = score >= 20 ? '#dcfce7' : score >= 15 ? '#fef9c3' : '#fee2e2';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

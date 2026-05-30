@@ -1,5 +1,22 @@
 # Day 38 – YAML Basics
 
+# Table of Contents
+
+| Section | Summary | Link |
+|----------|----------|----------|
+| Day Overview | Introduction to YAML and its importance in DevOps | [Day Overview](#day-overview) |
+| Learning Objectives | Skills and concepts covered in Day 38 | [Learning Objectives](#learning-objectives) |
+| YAML Rules to Remember | Basic YAML syntax rules and best practices | [YAML Rules to Remember](#yaml-rules-to-remember) |
+| Task 1 – Key-Value Pairs | Create a simple YAML file using key-value pairs | [Task 1](#task-1--key-value-pairs) |
+| Task 2 – Lists | Learn block style and inline style YAML lists | [Task 2](#task-2--lists) |
+| Task 3 – Nested Objects | Create nested YAML structures using indentation | [Task 3](#task-3--nested-objects) |
+| Task 4 – Multi-line Strings | Use Literal (pipe) and Folded (greater-than) styles for multi-line text | [Task 4](#task-4--multi-line-strings) |
+| Task 5 – Validate Your YAML | Validate YAML files and fix indentation errors | [Task 5](#task-5--validate-your-yaml) |
+| Task 6 – Spot the Difference | Identify and fix YAML indentation problems | [Task 6](#task-6--spot-the-difference) |
+| What I Learned | Key concepts learned throughout the day | [What I Learned](#what-i-learned) |
+
+---
+
 ## Day Overview
 Originally, YAML stood for "Yet Another Markup Language", but later the creators changed it to "YAML Ain't Markup Language" to emphasize that YAML is meant for data representation, not for creating documents like HTML or XML.
 
