@@ -1,21 +1,11 @@
 # Day 38 – YAML Basics
 
-# Table of Contents
-
-| Section | Summary | Link |
-|----------|----------|----------|
-| Day Overview | Introduction to YAML and its importance in DevOps | [Day Overview](#day-overview) |
-| Learning Objectives | Skills and concepts covered in Day 38 | [Learning Objectives](#learning-objectives) |
-| YAML Rules to Remember | Basic YAML syntax rules and best practices | [YAML Rules to Remember](#yaml-rules-to-remember) |
-| Task 1 – Key-Value Pairs | Create a simple YAML file using key-value pairs | [Task 1](#task-1--key-value-pairs) |
-| Task 2 – Lists | Learn block style and inline style YAML lists | [Task 2](#task-2--lists) |
-| Task 3 – Nested Objects | Create nested YAML structures using indentation | [Task 3](#task-3--nested-objects) |
-| Task 4 – Multi-line Strings | Use Literal (pipe) and Folded (greater-than) styles for multi-line text | [Task 4](#task-4--multi-line-strings) |
-| Task 5 – Validate Your YAML | Validate YAML files and fix indentation errors | [Task 5](#task-5--validate-your-yaml) |
-| Task 6 – Spot the Difference | Identify and fix YAML indentation problems | [Task 6](#task-6--spot-the-difference) |
-| What I Learned | Key concepts learned throughout the day | [What I Learned](#what-i-learned) |
-
----
+| YAML Dictionaries | Understanding mappings and objects | [YAML Dictionaries](#yaml-dictionaries-mappings) |
+| YAML Data Types | Common YAML data types | [YAML Data Types](#yaml-data-types) |
+| Comments in YAML | Using comments in YAML files | [Comments in YAML](#comments-in-yaml) |
+| YAML vs JSON | Comparing YAML and JSON | [YAML vs JSON](#yaml-vs-json) |
+| Where YAML is Used | Real-world DevOps use cases | [Where YAML is Used](#where-yaml-is-used) |
+| Beyond YAML Basics | Advanced YAML concepts | [Beyond YAML Basics](#beyond-yaml-basics-advanced-topics) |
 
 ## Day Overview
 Originally, YAML stood for "Yet Another Markup Language", but later the creators changed it to "YAML Ain't Markup Language" to emphasize that YAML is meant for data representation, not for creating documents like HTML or XML.
@@ -75,7 +65,7 @@ Wrong:
 
 ```yaml
 name: Khalid
-	role: DevOps
+  role: DevOps
 ```
 
 Never use tabs.
@@ -198,10 +188,9 @@ cat person.yaml
 ```
 
 ```text
----
 name: Khalid Khan
 role: DevOps Engineer
-experience: 4 years
+experience_years: 4
 learning: true
 ```
 
@@ -249,7 +238,7 @@ Wrong:
 
 ```yaml
 employee:
-	name: Khalid
+  name: Khalid
 ```
 
 ---
@@ -487,9 +476,9 @@ database:
 
 Replace spaces before name with a TAB:
 
-❌ Incorrect (TAB used)
+❌ Incorrect
 
-```yml
+```yaml
 server:
     name: web-server-01
   ip: 192.168.1.10
@@ -544,11 +533,12 @@ Here:
 
 ### Real DevOps Example
 
-Files used by [Ansible](https://docs.ansible.com/), [Docker Compose](https://docs.docker.com/compose/), and [Kubernetes](https://kubernetes.io/docs/home/) often contain deeply nested YAML structures similar to the `database` -> `credentials` -> `user/password` example above.
+Files used by [Ansible](https://docs.ansible.com/), [Docker Compose](https://docs.docker.com/compose/), and [Kubernetes](https://kubernetes.io/docs/home/) often contain deeply nested YAML structures similar to the `database` → `credentials` → `user/password` example above.
 
 ---
 
 # Task 4 – Multi-line Strings
+
 ## Objective
 
 Learn how to store multi-line text in YAML using:
@@ -681,8 +671,8 @@ Line 1 Line 2 Line 3
 
 | Symbol | Name | Use Case |
 |---------|---------|---------|
-| `|` | Literal Block Style | Shell scripts, configuration files, commands, code blocks |
-| `>` | Folded Block Style | Long descriptions, notes, comments, documentation text |                                   |
+| Pipe (`|`) | Literal Block Style | Shell scripts, configuration files, commands, code blocks |
+| Greater Than (`>`) | Folded Block Style | Long descriptions, notes, comments, documentation text |                   |
 
 ## Real Examples
 ### Use `|` for Scripts
@@ -865,3 +855,249 @@ YAML doesn't just care about spaces—it cares about **consistent spaces**. Two 
 
 ---
 
+# YAML Dictionaries (Mappings)
+
+A dictionary (also called a mapping or object) stores data as key-value pairs.
+
+```yaml
+person:
+  name: Khalid
+  role: DevOps Engineer
+  experience_years: 4
+```
+
+## Nested Dictionary Example
+
+```yaml
+database:
+  host: db-server
+  port: 3306
+
+  credentials:
+    user: admin
+    password: secret123
+```
+
+Dictionaries are heavily used in Kubernetes, Docker Compose, Ansible, GitHub Actions, and GitLab CI/CD.
+
+---
+
+# YAML Data Types
+
+| Type | Example |
+|--------|---------|
+| String | `name: Khalid` |
+| Integer | `age: 50` |
+| Float | `version: 1.0` |
+| Boolean | `active: true` |
+| List | `tools: [Git, Docker]` |
+| Dictionary | `person: {name: Khalid}` |
+| Null | `value: null` |
+
+---
+
+# Comments in YAML
+
+Comments start with `#`.
+
+```yaml
+# This is a comment
+name: Khalid
+
+# Server port
+port: 8080
+```
+
+Comments are ignored by YAML parsers.
+
+---
+
+# YAML vs JSON
+
+YAML:
+
+```yaml
+name: Khalid
+tools:
+  - Git
+  - Docker
+```
+
+JSON:
+
+```json
+{
+  "name": "Khalid",
+  "tools": ["Git", "Docker"]
+}
+```
+
+YAML is easier for humans to read and write.
+
+---
+
+# Where YAML is Used
+
+- GitHub Actions
+- GitLab CI/CD
+- Kubernetes
+- Docker Compose
+- Ansible
+- Prometheus
+- Helm Charts
+- AWS CloudFormation
+
+---
+
+## Best Practices
+
+1. Use spaces only.
+2. Keep indentation consistent.
+3. Validate YAML files.
+4. Use meaningful key names.
+5. Use block lists for readability.
+
+---
+
+## Quick Cheat Sheet
+
+| Item | Example |
+|------|---------|
+| Key-Value | `name: Khalid` |
+| List | `- Docker` |
+| Boolean | `true` |
+| Number | `8080` |
+| Nested Object | `database:` |
+| Literal Block | `|` |
+| Folded Block | `>` |
+
+---
+
+## Summary
+
+YAML is the foundation of modern DevOps configuration files. Understanding syntax, indentation, lists, nested objects, data types, and validation is essential before working with CI/CD pipelines and automation tools.
+
+# Beyond YAML Basics (Advanced Topics)
+
+The following YAML features are commonly used in real-world DevOps projects but are considered advanced topics and are beyond the scope of Day 38.
+
+---
+
+## 1. Anchors (&) and Aliases (*)
+
+Anchors allow you to define a value once and reuse it multiple times.
+
+Example:
+
+```yaml
+defaults: &default_settings
+  memory: 2GB
+  cpu: 2
+
+server1:
+  <<: *default_settings
+
+server2:
+  <<: *default_settings
+```
+
+### Use Cases
+
+- Kubernetes manifests
+- Ansible variables
+- Large configuration files
+- Reducing duplicate code
+
+---
+
+## 2. Advanced YAML Tags
+
+YAML tags explicitly define data types.
+
+Example:
+
+```yaml
+port: !!int 8080
+active: !!bool true
+price: !!float 99.99
+```
+
+### Use Cases
+
+- Data serialization
+- Complex application configurations
+- YAML parsers requiring strict data types
+
+---
+
+## 3. Multi-Document YAML (---)
+
+A single YAML file can contain multiple documents separated by `---`.
+
+Example:
+
+```yaml
+---
+name: app1
+port: 8080
+
+---
+name: app2
+port: 9090
+```
+
+### Use Cases
+
+- Kubernetes resource definitions
+- Cloud configuration files
+- Infrastructure-as-Code deployments
+
+---
+
+## 4. Helm Templating
+
+Helm is a package manager for Kubernetes that uses YAML templates.
+
+Example:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+```
+
+### Use Cases
+
+- Kubernetes application deployments
+- Environment-specific configurations
+- Reusable infrastructure templates
+
+---
+
+## Why These Topics Were Not Covered in Day 38
+
+Day 38 focused on learning the YAML fundamentals:
+
+- Key-value pairs
+- Lists
+- Nested objects
+- Dictionaries
+- Multi-line strings
+- Validation
+- Indentation rules
+
+These concepts form the foundation needed before moving on to advanced YAML features used in Kubernetes, Helm, Ansible, and CI/CD pipelines.
+
+---
+
+## Future Learning Path
+
+After mastering YAML basics, the recommended next topics are:
+
+1. GitHub Actions YAML
+2. Docker Compose YAML
+3. Kubernetes YAML Manifests
+4. Ansible Playbooks
+5. Helm Charts and Templates
+6. Advanced YAML Features (Anchors, Aliases, Tags)
