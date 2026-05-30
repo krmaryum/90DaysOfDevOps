@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 27 MCQ Quiz - GitHub Profile Makeover</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;padding:20px;color:#222}
+.container{max-width:950px;margin:auto;background:#fff;padding:25px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+h1,h2{text-align:center}.subtitle{text-align:center;color:#555;margin-bottom:25px}
+.question{margin-bottom:22px;padding:18px;border:1px solid #ddd;border-radius:10px;background:#fafafa}
+.question h3{margin-top:0}label{display:block;padding:8px;margin:6px 0;border-radius:6px;cursor:pointer}
+label:hover{background:#eef3ff}button{display:block;margin:25px auto;padding:12px 30px;font-size:16px;border:none;border-radius:8px;background:#1f6feb;color:#fff;cursor:pointer}
+button:hover{background:#185abc}#result{text-align:center;font-size:22px;font-weight:bold;margin-top:20px}
+.correct{background:#d4edda!important;border-left:5px solid #28a745}.incorrect{background:#f8d7da!important;border-left:5px solid #dc3545}
+.feedback{margin-top:8px;font-weight:bold}.footer{margin-top:30px;text-align:center;color:#666;font-size:14px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Day 27 – GitHub Profile Makeover</h1>
+<h2>25 Questions MCQ Quiz</h2>
+<p class="subtitle">Topic: Build Your Developer Identity</p>
+<form id="quizForm"><div id="quiz"></div><button type="button" onclick="submitQuiz()">Submit Quiz</button></form>
+<div id="result"></div>
+<div class="footer">90 Days of DevOps – Day 27 Practice Quiz</div>
+</div>
+<script>
+const questions = [{"q": "What was the main focus of Day 27?", "options": ["Installing Docker on Linux", "Writing advanced Bash scripts", "Configuring Kubernetes networking", "Improving GitHub profile and developer identity"], "answer": "Improving GitHub profile and developer identity"}, {"q": "Why is a GitHub profile important for developers and DevOps learners?", "options": ["It stores Linux system logs", "It acts as a public portfolio of skills, projects, and learning progress", "It replaces all technical interviews", "It automatically deploys applications"], "answer": "It acts as a public portfolio of skills, projects, and learning progress"}, {"q": "What should be created to make a GitHub Profile README appear on your profile page?", "options": ["A private repository named profile", "A branch named README", "A repository named github-profile-settings", "A repository with the same name as your GitHub username"], "answer": "A repository with the same name as your GitHub username"}, {"q": "If your GitHub username is krmaryum, what should your special profile README repository be named?", "options": ["my-devops-profile", "krmaryum", "profile-readme", "github-profile"], "answer": "krmaryum"}, {"q": "Which file must be added inside the special profile repository to display content on your GitHub profile?", "options": ["profile.txt", "index.html", "about.json", "README.md"], "answer": "README.md"}, {"q": "What is the recommended length for a clean GitHub Profile README?", "options": ["Only one sentence", "Short and focused, around 15 to 20 lines", "At least 100 lines", "As long as possible with many widgets"], "answer": "Short and focused, around 15 to 20 lines"}, {"q": "Which of the following is best to include in a GitHub Profile README?", "options": ["Only personal hobbies", "Passwords and API keys", "Only screenshots without text", "Short introduction, current work, skills, important repos, and contact links"], "answer": "Short introduction, current work, skills, important repos, and contact links"}, {"q": "Which repository name follows good GitHub naming practice?", "options": ["New Repo 123", "shell-scripts", "Shell Scripts", "My Scripts!!!"], "answer": "shell-scripts"}, {"q": "Why should repository names use hyphens instead of spaces?", "options": ["Git does not support spaces at all", "Hyphens make repositories private", "GitHub requires every repo to start with a hyphen", "They are cleaner, URL-friendly, and easier to read"], "answer": "They are cleaner, URL-friendly, and easier to read"}, {"q": "What should every important repository have?", "options": ["A hidden branch only", "A clear name, description, README.md, and relevant .gitignore", "Only a repository title", "A password file"], "answer": "A clear name, description, README.md, and relevant .gitignore"}, {"q": "What is the purpose of adding a one-line repository description?", "options": ["To make the repository impossible to clone", "To automatically write code", "To delete old commits", "To quickly explain what the project contains and why it matters"], "answer": "To quickly explain what the project contains and why it matters"}, {"q": "Which repository is best for storing Bash and shell scripting work?", "options": ["practice123", "shell-scripts", "random-files", "linux-temp"], "answer": "shell-scripts"}, {"q": "Which repository is best for storing learning notes, cheat sheets, and command references?", "options": ["empty-repo", "test", "old-backup", "devops-notes"], "answer": "devops-notes"}, {"q": "What does pinning repositories on GitHub help with?", "options": ["Running Linux services", "Showing your best projects first on your profile", "Changing your GitHub password", "Deleting unused branches automatically"], "answer": "Showing your best projects first on your profile"}, {"q": "How many repositories can usually be selected as pinned repositories on a GitHub profile?", "options": ["2", "15", "Unlimited", "6"], "answer": "6"}, {"q": "Which type of repositories should be pinned?", "options": ["Abandoned test repositories", "Repositories that best represent your skills, projects, and learning", "Empty repositories", "Random forks with no changes"], "answer": "Repositories that best represent your skills, projects, and learning"}, {"q": "What should you do with empty or irrelevant repositories?", "options": ["Pin them first", "Add passwords to them", "Rename them all to test", "Delete or archive them"], "answer": "Delete or archive them"}, {"q": "What should you do with old repositories that may still have historical value?", "options": ["Always delete them immediately", "Archive them", "Expose secrets in them", "Rename them to blank names"], "answer": "Archive them"}, {"q": "Which files or data should never be committed to a public repository?", "options": ["README.md files", "Markdown notes", "Shell scripts without secrets", ".env files, passwords, API keys, tokens, and private keys"], "answer": ".env files, passwords, API keys, tokens, and private keys"}, {"q": "What is the purpose of a .gitignore file?", "options": ["To show pinned repositories", "To prevent unwanted or sensitive files from being tracked by Git", "To create GitHub issues automatically", "To rename repositories"], "answer": "To prevent unwanted or sensitive files from being tracked by Git"}, {"q": "Which item should be added to .gitignore for Python projects?", "options": ["README.md", "main.py", "docs/", "__pycache__/"], "answer": "__pycache__/"}, {"q": "Which GitHub profile improvement helps recruiters quickly understand your current focus?", "options": ["No repository descriptions", "A clear bio and profile README", "An empty profile", "Only private repositories"], "answer": "A clear bio and profile README"}, {"q": "Which description is better for a DevOps learning repository?", "options": ["My files", "Test repo", "Nothing important", "Hands-on 90 Days of DevOps journey covering Linux, Git, Docker, Kubernetes, Terraform, Ansible, AWS and CI/CD."], "answer": "Hands-on 90 Days of DevOps journey covering Linux, Git, Docker, Kubernetes, Terraform, Ansible, AWS and CI/CD."}, {"q": "What is the main benefit of organizing repositories by topic?", "options": ["It stops Git from tracking files", "It makes projects easier to navigate and understand", "It hides all repositories from visitors", "It removes the need for README files"], "answer": "It makes projects easier to navigate and understand"}, {"q": "Which skill was strengthened during Day 27?", "options": ["Kernel compilation only", "Database indexing only", "Firewall packet filtering only", "GitHub profile management, repository organization, documentation, and personal branding"], "answer": "GitHub profile management, repository organization, documentation, and personal branding"}];
+const quizDiv = document.getElementById("quiz");
+questions.forEach((item,index)=>{
+  const questionDiv=document.createElement("div");
+  questionDiv.className="question";
+  questionDiv.id="question-"+index;
+  let html=`<h3>Q${index+1}. ${item.q}</h3>`;
+  item.options.forEach(option=>{
+    html+=`<label><input type="radio" name="q${index}" value="${option}"> ${option}</label>`;
+  });
+  html+=`<div class="feedback" id="feedback-${index}"></div>`;
+  questionDiv.innerHTML=html;
+  quizDiv.appendChild(questionDiv);
+});
+function submitQuiz(){
+  let score=0;
+  questions.forEach((item,index)=>{
+    const selected=document.querySelector(`input[name="q${index}"]:checked`);
+    const questionDiv=document.getElementById("question-"+index);
+    const feedback=document.getElementById("feedback-"+index);
+    questionDiv.classList.remove("correct","incorrect");
+    if(selected && selected.value===item.answer){
+      score++;
+      questionDiv.classList.add("correct");
+      feedback.textContent="Correct";
+    }else{
+      questionDiv.classList.add("incorrect");
+      feedback.textContent="Wrong. Correct answer: "+item.answer;
+    }
+  });
+  document.getElementById("result").textContent=`Your Score: ${score} / ${questions.length}`;
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+}
+</script>
+</body>
+</html>
