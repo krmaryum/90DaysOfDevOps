@@ -23,7 +23,7 @@ Understand how Docker images and containers work in practice:
 
 ## 1) Images vs Containers (relationship)
 
-**Image:** a read-only template (filesystem + metadata).  
+**Image:** [a read-only template (filesystem + metadata).](md/docker-image-filesystem-and-metadata-a-to-z.md)  
 **Container:** a running (or stopped) instance of an image with a writable layer.
 
 ---
