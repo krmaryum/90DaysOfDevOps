@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khalid Khan | Linux & DevOps Portfolio</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #06111f;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(34, 211, 238, 0.28), transparent 28%),
+        radial-gradient(circle at 90% 25%, rgba(139, 92, 246, 0.25), transparent 32%),
+        radial-gradient(circle at 50% 95%, rgba(16, 185, 129, 0.18), transparent 30%);
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 45px 45px;
+      z-index: -1;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.28);
+      transition: 0.35s ease;
+    }
+
+    .glass:hover {
+      transform: translateY(-8px);
+      border-color: rgba(103, 232, 249, 0.55);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 30px 85px rgba(34, 211, 238, 0.14);
+    }
+
+    header {
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(6, 17, 31, 0.55);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #67e8f9;
+      font-weight: 900;
+    }
+
+    .brand h3 {
+      font-size: 18px;
+      letter-spacing: 0.4px;
+    }
+
+    .brand p {
+      color: #cbd5e1;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    nav a {
+      transition: 0.25s;
+    }
+
+    nav a:hover {
+      color: #67e8f9;
+    }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+      padding: 70px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #a5f3fc;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(46px, 7vw, 78px);
+      line-height: 1.03;
+      letter-spacing: -2px;
+      margin-bottom: 26px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #67e8f9, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 650px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      padding: 16px 24px;
+      border-radius: 18px;
+      font-weight: 700;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #67e8f9;
+      color: #06111f;
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(103, 232, 249, 0.18);
+    }
+
+    .terminal-wrap {
+      position: relative;
+    }
+
+    .terminal-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      border-radius: 34px;
+      background: linear-gradient(135deg, rgba(103,232,249,0.35), rgba(167,139,250,0.28));
+      filter: blur(12px);
+      z-index: -1;
+      animation: glow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { opacity: 0.55; transform: rotate(0deg); }
+      to { opacity: 1; transform: rotate(2deg); }
+    }
+
+    .terminal {
+      padding: 28px;
+    }
+
+    .terminal-screen {
+      background: rgba(2, 6, 23, 0.72);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 22px;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .red { background: #fb7185; }
+    .yellow { background: #facc15; }
+    .green { background: #4ade80; }
+
+    pre {
+      color: #cbd5e1;
+      line-height: 1.8;
+      font-size: 15px;
+      white-space: pre-wrap;
+    }
+
+    .stats {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stat h3 {
+      color: #67e8f9;
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .stat p {
+      color: #cbd5e1;
+      font-size: 12px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-label {
+      color: #67e8f9;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 46px);
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .about-card {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about-card p {
+      color: #cbd5e1;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .services-grid,
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      padding: 30px;
+    }
+
+    .icon-box {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      background: rgba(103, 232, 249, 0.14);
+      color: #67e8f9;
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    .card p {
+      color: #cbd5e1;
+      line-height: 1.75;
+    }
+
+    .skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .skill {
+      padding: 13px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #e2e8f0;
+      transition: 0.28s;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .skill:hover {
+      transform: translateY(-6px) scale(1.05);
+      color: #67e8f9;
+      border-color: rgba(103,232,249,0.65);
+      box-shadow: 0 18px 40px rgba(103,232,249,0.12);
+    }
+
+    .project-tag {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(103, 232, 249, 0.13);
+      color: #a5f3fc;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 22px;
+    }
+
+    .tech-list span {
+      background: rgba(255,255,255,0.10);
+      color: #cbd5e1;
+      padding: 8px 11px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .timeline {
+      padding: 38px;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .step {
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.10);
+      transition: 0.3s;
+    }
+
+    .step:hover {
+      transform: translateY(-7px);
+      background: rgba(103, 232, 249, 0.12);
+    }
+
+    .number {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(103,232,249,0.15);
+      color: #67e8f9;
+      margin-bottom: 16px;
+      font-weight: 900;
+    }
+
+    .step p {
+      color: #e2e8f0;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 55px 35px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
+    }
+
+    .contact-card p {
+      color: #cbd5e1;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 18px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 26px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: 0.75s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      nav ul {
+        display: none;
+      }
+
+      .hero,
+      .about-card {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid,
+      .projects-grid,
+      .timeline-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 45px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">KK</div>
+        <div>
+          <h3>Khalid Khan</h3>
+          <p>Linux • DevOps • Cloud</p>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div class="hero-content reveal">
+        <span class="badge">Open to Linux / DevOps opportunities</span>
+        <h1>Building reliable systems with <span class="gradient-text">Linux, DevOps & Cloud</span>.</h1>
+        <p>
+          I’m Khalid Khan, a Linux System Administrator and DevOps learner focused on practical infrastructure,
+          automation, containers, CI/CD, and cloud technologies.
+        </p>
+
+        <div class="buttons">
+          <a href="#projects" class="btn btn-primary">View My Work →</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="terminal-wrap reveal">
+        <div class="terminal glass">
+          <div class="terminal-screen">
+            <div class="dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <pre>$ whoami
+khalid-khan
+
+$ role
+Linux System Administrator
+DevOps Engineer in Progress
+
+$ focus
+RHEL • AWS • Docker • CI/CD
+GitHub Actions • Ansible
+
+$ mission
+Build. Automate. Troubleshoot.
+Improve every day.</pre>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <h3>4+</h3>
+              <p>Years Experience</p>
+            </div>
+            <div class="stat">
+              <h3>90</h3>
+              <p>DevOps Days</p>
+            </div>
+            <div class="stat">
+              <h3>RHEL</h3>
+              <p>Main Focus</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="container reveal">
+      <div class="about-card glass">
+        <div>
+          <p class="section-label">About Me</p>
+          <h2 class="section-title">A practical engineer who learns by building.</h2>
+        </div>
+        <p>
+          My work is centered around Linux administration, DevOps practices, and cloud infrastructure.
+          I enjoy turning complex technical topics into clear, practical workflows, whether it is Git branching,
+          Docker architecture, YAML syntax, CI/CD pipelines, or RHCSA-style Linux labs.
+        </p>
+      </div>
+    </section>
+
+    <section class="container reveal">
+      <div class="services-grid">
+        <div class="card glass">
+          <div class="icon-box">🖥️</div>
+          <h3>Linux System Administration</h3>
+          <p>User management, permissions, storage, services, patching, monitoring, and real production troubleshooting.</p>
+        </div>
+
+        <div class="card glass">
+          <div class="icon-box">☁️</div>
+          <h3>Cloud & DevOps Engineering</h3>
+          <p>AWS fundamentals, EC2, load balancing concepts, CI/CD workflows, Docker, GitHub Actions, and deployment flow.</p>
+        </div>
+
+        <div class="card glass">
+          <div class="icon-box">🛡️</div>
+          <h3>Reliable Operations</h3>
+          <p>Incident handling, root cause analysis, logs, performance checks, access control, and secure system practices.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="container reveal">
+      <p class="section-label">Skills</p>
+      <h2 class="section-title">Technical Toolbox</h2>
+      <p style="color:#cbd5e1; line-height:1.8; max-width:720px;">
+        Tools and concepts I use to build, manage, automate, and troubleshoot infrastructure.
+      </p>
+
+      <div class="skills-wrap">
+        <span class="skill">Linux Administration</span>
+        <span class="skill">RHEL / Ubuntu</span>
+        <span class="skill">Shell Scripting</span>
+        <span class="skill">Git & GitHub</span>
+        <span class="skill">Docker</span>
+        <span class="skill">Kubernetes Basics</span>
+        <span class="skill">AWS Cloud</span>
+        <span class="skill">CI/CD Pipelines</span>
+        <span class="skill">Jenkins</span>
+        <span class="skill">Ansible</span>
+        <span class="skill">Networking</span>
+        <span class="skill">Troubleshooting</span>
+      </div>
+    </section>
+
+    <section id="projects" class="container reveal">
+      <p class="section-label">Featured Work</p>
+      <h2 class="section-title">Projects & Practice Labs</h2>
+
+      <div class="projects-grid">
+        <div class="card glass">
+          <span class="project-tag">DevOps Learning Lab</span>
+          <h3>90DaysOfDevOps Journey</h3>
+          <p>A hands-on daily learning project covering Git, GitHub, Docker, YAML, CI/CD, Linux, and cloud fundamentals.</p>
+          <div class="tech-list">
+            <span>Git</span><span>Docker</span><span>YAML</span><span>CI/CD</span>
+          </div>
+        </div>
+
+        <div class="card glass">
+          <span class="project-tag">RHCSA / RHEL 9</span>
+          <h3>Linux Admin Practice Labs</h3>
+          <p>Scenario-based Linux labs including LVM, users, sudo, ACLs, SSH, SELinux, firewall, cron, autofs, and troubleshooting.</p>
+          <div class="tech-list">
+            <span>RHEL 9</span><span>LVM</span><span>SELinux</span><span>SSH</span>
+          </div>
+        </div>
+
+        <div class="card glass">
+          <span class="project-tag">Container Learning</span>
+          <h3>Docker Architecture Notes</h3>
+          <p>Clear technical notes explaining Client, Daemon, Registry, Images, Containers, runtime, filesystem, and metadata.</p>
+          <div class="tech-list">
+            <span>Docker</span><span>Containers</span><span>Linux</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container reveal">
+      <div class="timeline glass">
+        <p class="section-label">Journey</p>
+        <h2 class="section-title">Learning Roadmap</h2>
+
+        <div class="timeline-grid">
+          <div class="step"><div class="number">1</div><p>Linux System Administration</p></div>
+          <div class="step"><div class="number">2</div><p>Git & GitHub Hands-on Practice</p></div>
+          <div class="step"><div class="number">3</div><p>Docker and Container Fundamentals</p></div>
+          <div class="step"><div class="number">4</div><p>AWS and DevOps Learning Path</p></div>
+          <div class="step"><div class="number">5</div><p>CI/CD and GitHub Actions Practice</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container reveal">
+      <div class="contact-card glass">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let’s build something reliable.</h2>
+        <p>
+          I’m interested in Linux administration, DevOps, cloud, automation, and infrastructure support opportunities.
+        </p>
+
+        <div class="buttons" style="justify-content:center;">
+          <a href="mailto:krmaryum@yahoo.com" class="btn btn-primary">Email Me</a>
+          <a href="https://www.linkedin.com/in/khalid-khan-93760a360" target="_blank" class="btn btn-outline">LinkedIn</a>
+          <a href="https://github.com/krmaryum" target="_blank" class="btn btn-outline">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Khalid Khan. Built with HTML, CSS, and JavaScript.</p>
+  </footer>
+
+  <script>
+    const revealElements = document.querySelectorAll('.reveal');
+
+    function revealOnScroll() {
+      revealElements.forEach((element) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const revealPoint = 120;
+
+        if (elementTop < windowHeight - revealPoint) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+</body>
+</html>
