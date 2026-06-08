@@ -34,6 +34,7 @@ Looking forward to the next step: building real GitHub Actions workflows and aut
 
 Detailed scripts and notes are documented in my GitHub repository.
 
+https://github.com/krmaryum/90DaysOfDevOps/tree/master/2026/day-39-what-is-ci-cd/day-39-cicd-concepts
 
 Let's learn together and grow
 
