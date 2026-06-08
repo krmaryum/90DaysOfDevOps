@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 40 GitHub Actions MCQs</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #334155;
+      --accent: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --button: #2563eb;
+      --button-hover: #1d4ed8;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #111827);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
+
+    header {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .info-box {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .info-box strong {
+      display: block;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .question-card {
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+    }
+
+    .question-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+
+    .option {
+      display: block;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .option:hover {
+      border-color: #60a5fa;
+      transform: translateY(-1px);
+    }
+
+    .option input {
+      margin-right: 10px;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .feedback.correct {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      color: #bbf7d0;
+    }
+
+    .feedback.wrong {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.6);
+      color: #fecaca;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .actions {
+      position: sticky;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--button);
+      color: white;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--button-hover);
+    }
+
+    button.secondary {
+      background: #374151;
+    }
+
+    button.secondary:hover {
+      background: #4b5563;
+    }
+
+    #scoreBox {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .result-card {
+      display: none;
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      margin-top: 18px;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
+
+    code {
+      background: rgba(148, 163, 184, 0.15);
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #bfdbfe;
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      header, .question-card, .result-card {
+        background: white;
+        color: black;
+        border: 1px solid #ccc;
+        box-shadow: none;
+      }
+      .actions {
+        display: none;
+      }
+      .subtitle, .small-note, .explanation {
+        color: #333;
+      }
+      code {
+        color: black;
+        background: #eee;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Day 40 – Your First GitHub Actions Workflow</h1>
+      <p class="subtitle">25 MCQs for practice and revision</p>
+      <div class="info-grid">
+        <div class="info-box">
+          <strong>Main Topic</strong>
+          GitHub Actions Basics
+        </div>
+        <div class="info-box">
+          <strong>Focus Areas</strong>
+          Workflow YAML, jobs, steps, runner, failure logs
+        </div>
+        <div class="info-box">
+          <strong>Total Questions</strong>
+          25 MCQs
+        </div>
+        <div class="info-box">
+          <strong>How to Use</strong>
+          Select answers, then click Check Answers
+        </div>
+      </div>
+    </header>
+
+    <form id="quizForm">
+
+      <section class="question-card" id="q1">
+        <div class="question-title">1. What is the main purpose of GitHub Actions?</div>
+
+        <label class="option">
+          <input type="radio" name="q0" value="0">
+          To write Linux commands only
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q0" value="1">
+          To automate workflows such as CI/CD inside GitHub
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q0" value="2">
+          To replace Git completely
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q0" value="3">
+          To create GitHub accounts
+        </label>
+
+        <div class="feedback" id="feedback0"></div>
+        <div class="explanation" id="explanation0">GitHub Actions is used to automate workflows such as testing, building, deployment, and other CI/CD tasks.</div>
+      </section>
+
+      <section class="question-card" id="q2">
+        <div class="question-title">2. Where must GitHub Actions workflow files be stored?</div>
+
+        <label class="option">
+          <input type="radio" name="q1" value="0">
+          .git/actions/
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q1" value="1">
+          .github/workflows/
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q1" value="2">
+          workflows/github/
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q1" value="3">
+          actions/.github/
+        </label>
+
+        <div class="feedback" id="feedback1"></div>
+        <div class="explanation" id="explanation1">GitHub detects workflow YAML files only when they are placed inside the .github/workflows/ directory.</div>
+      </section>
+
+      <section class="question-card" id="q3">
+        <div class="question-title">3. Which file did you create for the first workflow in Day 40?</div>
+
+        <label class="option">
+          <input type="radio" name="q2" value="0">
+          .github/workflows/hello.yml
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q2" value="1">
+          .git/workflows/hello.yml
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q2" value="2">
+          .github/actions/hello.txt
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q2" value="3">
+          workflow/hello.md
+        </label>
+
+        <div class="feedback" id="feedback2"></div>
+        <div class="explanation" id="explanation2">The first workflow file was hello.yml inside .github/workflows/.</div>
+      </section>
+
+      <section class="question-card" id="q4">
+        <div class="question-title">4. In a workflow file, what does `on: push` mean?</div>
+
+        <label class="option">
+          <input type="radio" name="q3" value="0">
+          Run the workflow when code is pushed to GitHub
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q3" value="1">
+          Push the workflow file automatically
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q3" value="2">
+          Delete the old workflow
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q3" value="3">
+          Run the workflow only manually
+        </label>
+
+        <div class="feedback" id="feedback3"></div>
+        <div class="explanation" id="explanation3">`on: push` tells GitHub Actions to run the workflow whenever code is pushed to the repository.</div>
+      </section>
+
+      <section class="question-card" id="q5">
+        <div class="question-title">5. What does the `jobs:` key define in GitHub Actions?</div>
+
+        <label class="option">
+          <input type="radio" name="q4" value="0">
+          The GitHub repository name
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q4" value="1">
+          The work that the workflow should perform
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q4" value="2">
+          The commit history
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q4" value="3">
+          The remote URL
+        </label>
+
+        <div class="feedback" id="feedback4"></div>
+        <div class="explanation" id="explanation4">`jobs:` contains one or more jobs that GitHub Actions will run.</div>
+      </section>
+
+      <section class="question-card" id="q6">
+        <div class="question-title">6. In your workflow, what was the job name?</div>
+
+        <label class="option">
+          <input type="radio" name="q5" value="0">
+          build
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q5" value="1">
+          deploy
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q5" value="2">
+          greet
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q5" value="3">
+          runner
+        </label>
+
+        <div class="feedback" id="feedback5"></div>
+        <div class="explanation" id="explanation5">The Day 40 workflow used one job called `greet`.</div>
+      </section>
+
+      <section class="question-card" id="q7">
+        <div class="question-title">7. What does `runs-on: ubuntu-latest` mean?</div>
+
+        <label class="option">
+          <input type="radio" name="q6" value="0">
+          Run the job on your local Ubuntu machine
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q6" value="1">
+          Run the job on a GitHub-hosted Ubuntu runner
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q6" value="2">
+          Run the job only on Windows
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q6" value="3">
+          Run the job without an operating system
+        </label>
+
+        <div class="feedback" id="feedback6"></div>
+        <div class="explanation" id="explanation6">`runs-on: ubuntu-latest` tells GitHub to run the job on a fresh Ubuntu Linux runner in the cloud.</div>
+      </section>
+
+      <section class="question-card" id="q8">
+        <div class="question-title">8. What are `steps:` in a GitHub Actions job?</div>
+
+        <label class="option">
+          <input type="radio" name="q7" value="0">
+          Individual actions or commands inside a job
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q7" value="1">
+          Git commit messages
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q7" value="2">
+          GitHub repository branches
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q7" value="3">
+          Only deployment commands
+        </label>
+
+        <div class="feedback" id="feedback7"></div>
+        <div class="explanation" id="explanation7">`steps:` are the individual commands or actions that run one by one inside a job.</div>
+      </section>
+
+      <section class="question-card" id="q9">
+        <div class="question-title">9. What does `uses: actions/checkout@v4` do?</div>
+
+        <label class="option">
+          <input type="radio" name="q8" value="0">
+          Deletes your repository code
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q8" value="1">
+          Downloads/checks out your repository code onto the runner
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q8" value="2">
+          Creates a new GitHub account
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q8" value="3">
+          Changes the branch name
+        </label>
+
+        <div class="feedback" id="feedback8"></div>
+        <div class="explanation" id="explanation8">`actions/checkout@v4` checks out the repository code so the runner can access the files.</div>
+      </section>
+
+      <section class="question-card" id="q10">
+        <div class="question-title">10. What does the `run:` key do?</div>
+
+        <label class="option">
+          <input type="radio" name="q9" value="0">
+          Runs a shell command on the runner
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q9" value="1">
+          Runs GitHub in the browser
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q9" value="2">
+          Creates a workflow folder
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q9" value="3">
+          Renames the repository
+        </label>
+
+        <div class="feedback" id="feedback9"></div>
+        <div class="explanation" id="explanation9">`run:` executes shell commands such as echo, date, ls, or test commands on the runner.</div>
+      </section>
+
+      <section class="question-card" id="q11">
+        <div class="question-title">11. What does `name:` on a step provide?</div>
+
+        <label class="option">
+          <input type="radio" name="q10" value="0">
+          A readable label for the step in logs
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q10" value="1">
+          The repository owner
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q10" value="2">
+          The branch protection rule
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q10" value="3">
+          The commit ID
+        </label>
+
+        <div class="feedback" id="feedback10"></div>
+        <div class="explanation" id="explanation10">Step-level `name:` gives the step a clear label in the GitHub Actions logs.</div>
+      </section>
+
+      <section class="question-card" id="q12">
+        <div class="question-title">12. Which command prints a hello message in the workflow?</div>
+
+        <label class="option">
+          <input type="radio" name="q11" value="0">
+          print Hello from GitHub Actions!
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q11" value="1">
+          echo &quot;Hello from GitHub Actions!&quot;
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q11" value="2">
+          show &quot;Hello from GitHub Actions!&quot;
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q11" value="3">
+          message &quot;Hello from GitHub Actions!&quot;
+        </label>
+
+        <div class="feedback" id="feedback11"></div>
+        <div class="explanation" id="explanation11">In Linux shell, `echo` prints text to the output.</div>
+      </section>
+
+      <section class="question-card" id="q13">
+        <div class="question-title">13. Which command prints the current date and time on the runner?</div>
+
+        <label class="option">
+          <input type="radio" name="q12" value="0">
+          time-now
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q12" value="1">
+          date
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q12" value="2">
+          calendar
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q12" value="3">
+          today
+        </label>
+
+        <div class="feedback" id="feedback12"></div>
+        <div class="explanation" id="explanation12">The `date` command prints the current date and time.</div>
+      </section>
+
+      <section class="question-card" id="q14">
+        <div class="question-title">14. Which GitHub Actions variable prints the branch name that triggered the run?</div>
+
+        <label class="option">
+          <input type="radio" name="q13" value="0">
+          ${{ github.branch }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q13" value="1">
+          ${{ github.ref_name }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q13" value="2">
+          ${{ branch.name }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q13" value="3">
+          ${{ runner.branch }}
+        </label>
+
+        <div class="feedback" id="feedback13"></div>
+        <div class="explanation" id="explanation13">`${{ github.ref_name }}` returns the branch or tag name that triggered the workflow.</div>
+      </section>
+
+      <section class="question-card" id="q15">
+        <div class="question-title">15. Which variable prints the full commit ID that triggered the workflow?</div>
+
+        <label class="option">
+          <input type="radio" name="q14" value="0">
+          ${{ github.sha }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q14" value="1">
+          ${{ git.commit }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q14" value="2">
+          ${{ github.commit_id }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q14" value="3">
+          ${{ runner.sha }}
+        </label>
+
+        <div class="feedback" id="feedback14"></div>
+        <div class="explanation" id="explanation14">`${{ github.sha }}` gives the commit SHA for the commit that triggered the workflow run.</div>
+      </section>
+
+      <section class="question-card" id="q16">
+        <div class="question-title">16. Which Bash expression prints the first 7 characters of the commit SHA?</div>
+
+        <label class="option">
+          <input type="radio" name="q15" value="0">
+          ${{ GITHUB_SHA::7 }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q15" value="1">
+          ${GITHUB_SHA::7}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q15" value="2">
+          $GITHUB_SHA[7]
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q15" value="3">
+          ${{ github.sha.short }}
+        </label>
+
+        <div class="feedback" id="feedback15"></div>
+        <div class="explanation" id="explanation15">`${GITHUB_SHA::7}` is Bash substring syntax that prints the first 7 characters of the GITHUB_SHA environment variable.</div>
+      </section>
+
+      <section class="question-card" id="q17">
+        <div class="question-title">17. Which command lists files in the repository on the runner?</div>
+
+        <label class="option">
+          <input type="radio" name="q16" value="0">
+          show files
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q16" value="1">
+          ls -la
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q16" value="2">
+          git files
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q16" value="3">
+          dir -github
+        </label>
+
+        <div class="feedback" id="feedback16"></div>
+        <div class="explanation" id="explanation16">`ls -la` lists files and folders, including hidden files, in the current directory.</div>
+      </section>
+
+      <section class="question-card" id="q18">
+        <div class="question-title">18. Which variable prints the runner operating system?</div>
+
+        <label class="option">
+          <input type="radio" name="q17" value="0">
+          ${{ runner.os }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q17" value="1">
+          ${{ github.os }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q17" value="2">
+          ${{ system.runner }}
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q17" value="3">
+          ${{ os.name }}
+        </label>
+
+        <div class="feedback" id="feedback17"></div>
+        <div class="explanation" id="explanation17">`${{ runner.os }}` prints the runner operating system, such as Linux, Windows, or macOS.</div>
+      </section>
+
+      <section class="question-card" id="q19">
+        <div class="question-title">19. What does a green check mark mean in GitHub Actions?</div>
+
+        <label class="option">
+          <input type="radio" name="q18" value="0">
+          The workflow failed
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q18" value="1">
+          The workflow is disabled
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q18" value="2">
+          The workflow completed successfully
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q18" value="3">
+          The repository was deleted
+        </label>
+
+        <div class="feedback" id="feedback18"></div>
+        <div class="explanation" id="explanation18">A green check mark means the workflow/job completed successfully.</div>
+      </section>
+
+      <section class="question-card" id="q20">
+        <div class="question-title">20. What does a red X usually mean in GitHub Actions?</div>
+
+        <label class="option">
+          <input type="radio" name="q19" value="0">
+          The pipeline failed
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q19" value="1">
+          The pipeline was skipped successfully
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q19" value="2">
+          The repository is private
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q19" value="3">
+          The branch was renamed
+        </label>
+
+        <div class="feedback" id="feedback19"></div>
+        <div class="explanation" id="explanation19">A red X means the workflow, job, or step failed.</div>
+      </section>
+
+      <section class="question-card" id="q21">
+        <div class="question-title">21. Which command can intentionally fail a workflow step?</div>
+
+        <label class="option">
+          <input type="radio" name="q20" value="0">
+          exit 0
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q20" value="1">
+          exit 1
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q20" value="2">
+          echo success
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q20" value="3">
+          date
+        </label>
+
+        <div class="feedback" id="feedback20"></div>
+        <div class="explanation" id="explanation20">`exit 1` returns a non-zero exit code, so the step fails.</div>
+      </section>
+
+      <section class="question-card" id="q22">
+        <div class="question-title">22. What does exit code `0` usually mean?</div>
+
+        <label class="option">
+          <input type="radio" name="q21" value="0">
+          Failure
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q21" value="1">
+          Success
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q21" value="2">
+          Permission denied
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q21" value="3">
+          Command not found
+        </label>
+
+        <div class="feedback" id="feedback21"></div>
+        <div class="explanation" id="explanation21">Exit code 0 normally means the command completed successfully.</div>
+      </section>
+
+      <section class="question-card" id="q23">
+        <div class="question-title">23. What does exit code `1` usually mean?</div>
+
+        <label class="option">
+          <input type="radio" name="q22" value="0">
+          Success
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q22" value="1">
+          No output
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q22" value="2">
+          Failure
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q22" value="3">
+          Workflow skipped
+        </label>
+
+        <div class="feedback" id="feedback22"></div>
+        <div class="explanation" id="explanation22">A non-zero exit code, such as 1, usually means failure.</div>
+      </section>
+
+      <section class="question-card" id="q24">
+        <div class="question-title">24. Where do you read workflow errors in GitHub Actions?</div>
+
+        <label class="option">
+          <input type="radio" name="q23" value="0">
+          Inside the failed job and failed step logs
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q23" value="1">
+          Only inside README.md
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q23" value="2">
+          Only in Git Bash
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q23" value="3">
+          Inside repository settings only
+        </label>
+
+        <div class="feedback" id="feedback23"></div>
+        <div class="explanation" id="explanation23">To troubleshoot, open the failed workflow run, click the failed job, expand the failed step, and read the logs.</div>
+      </section>
+
+      <section class="question-card" id="q25">
+        <div class="question-title">25. Why is breaking a workflow on purpose useful for learning?</div>
+
+        <label class="option">
+          <input type="radio" name="q24" value="0">
+          It deletes unnecessary files
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q24" value="1">
+          It teaches how failed pipelines look and how to debug errors
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q24" value="2">
+          It prevents GitHub Actions from running
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q24" value="3">
+          It makes the repository private
+        </label>
+
+        <div class="feedback" id="feedback24"></div>
+        <div class="explanation" id="explanation24">Intentionally breaking a workflow helps you learn how to recognize failed pipelines, open logs, find errors, and fix issues.</div>
+      </section>
+
+    </form>
+
+    <div class="actions">
+      <div>
+        <button type="button" onclick="checkAnswers()">Check Answers</button>
+        <button type="button" class="secondary" onclick="resetQuiz()">Reset Quiz</button>
+        <button type="button" class="secondary" onclick="window.print()">Print / Save as PDF</button>
+      </div>
+      <div id="scoreBox">Score: Not checked yet</div>
+    </div>
+
+    <div class="result-card" id="resultCard">
+      <h2>Result Summary</h2>
+      <p id="resultText"></p>
+      <p class="small-note">Review the explanations under each question. Re-attempt the quiz until you can score 90% or above.</p>
+    </div>
+  </div>
+
+  <script>
+    const answers = [1, 1, 0, 0, 1, 2, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 2, 0, 1, 1, 2, 0, 1];
+
+    function checkAnswers() {
+      let score = 0;
+      const total = answers.length;
+
+      for (let i = 0; i < total; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+        const explanation = document.getElementById(`explanation${i}`);
+
+        feedback.style.display = "block";
+        explanation.style.display = "block";
+
+        if (!selected) {
+          feedback.className = "feedback wrong";
+          feedback.textContent = "Not answered. Correct answer: " + getOptionText(i, answers[i]);
+          continue;
+        }
+
+        const selectedValue = Number(selected.value);
+
+        if (selectedValue === answers[i]) {
+          score++;
+          feedback.className = "feedback correct";
+          feedback.textContent = "Correct";
+        } else {
+          feedback.className = "feedback wrong";
+          feedback.textContent = "Wrong. Correct answer: " + getOptionText(i, answers[i]);
+        }
+      }
+
+      const percentage = Math.round((score / total) * 100);
+      document.getElementById("scoreBox").textContent = `Score: ${score} / ${total} (${percentage}%)`;
+
+      const resultCard = document.getElementById("resultCard");
+      const resultText = document.getElementById("resultText");
+      resultCard.style.display = "block";
+
+      if (percentage >= 90) {
+        resultText.textContent = `Excellent work. You scored ${score} out of ${total}.`;
+      } else if (percentage >= 70) {
+        resultText.textContent = `Good work. You scored ${score} out of ${total}. Review the wrong answers and try again.`;
+      } else {
+        resultText.textContent = `You scored ${score} out of ${total}. Review Day 40 notes and re-attempt the quiz.`;
+      }
+
+      resultCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function getOptionText(questionIndex, optionIndex) {
+      const option = document.querySelector(`input[name="q${questionIndex}"][value="${optionIndex}"]`);
+      return option ? option.parentElement.textContent.trim() : "";
+    }
+
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+      document.getElementById("scoreBox").textContent = "Score: Not checked yet";
+      document.getElementById("resultCard").style.display = "none";
+
+      for (let i = 0; i < answers.length; i++) {
+        document.getElementById(`feedback${i}`).style.display = "none";
+        document.getElementById(`explanation${i}`).style.display = "none";
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
