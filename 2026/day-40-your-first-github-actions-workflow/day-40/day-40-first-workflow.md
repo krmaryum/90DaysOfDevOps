@@ -1111,10 +1111,7 @@ name: Hello Workflow
 
 # This workflow will run every time you push code from main branch to the remote repository
 
-on:
-  push:
-    branches:
-      - main
+on: push
 
 # jobs define the work GitHub Actions will perform
 

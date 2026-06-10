@@ -1,5 +1,11 @@
 # Day 22 – Introduction to Git: Your First Repository
 
+---
+
+[Click here to watch the video demo about file control version](videos/Git-version-control.mp4)
+
+---
+
 # Table of Contents
 
 | Task | Topic | Summary | Quick Link |
