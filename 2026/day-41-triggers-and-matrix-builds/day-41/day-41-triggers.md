@@ -3840,6 +3840,10 @@ Python 3.12.x
 
 <video src="videos/task4-extended-matrix.mp4" controls width="700"></video>
 
+https://youtu.be/5dsZ3cpu5mo
+
+https://youtu.be/RvJsMUB7_k8
+
 ---
 
 # 20. What Does Parallel Mean?
@@ -4694,6 +4698,7 @@ fail-fast: false
 
 <video src="videos/task5-exclude-fail-fast.mp4" controls width="700"></video>
 
+https://youtu.be/mjPlmPhMcRk
 
 # 19. What to Write in `day-41-triggers.md`
 
