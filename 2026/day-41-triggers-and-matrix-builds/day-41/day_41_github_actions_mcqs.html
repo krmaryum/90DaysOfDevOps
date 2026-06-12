@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 41 – GitHub Actions Triggers & Matrix Builds MCQs</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #374151);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 25px auto;
+      padding: 0 18px 40px;
+    }
+
+    .summary-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      margin-bottom: 22px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .summary-card h2 {
+      margin-top: 0;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.14);
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .question-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    .question-title {
+      font-weight: 800;
+      margin-bottom: 14px;
+      font-size: 1.05rem;
+    }
+
+    .option {
+      display: block;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      margin: 8px 0;
+      cursor: pointer;
+      background: #f9fafb;
+    }
+
+    .option:hover {
+      background: #eef2ff;
+    }
+
+    .option input {
+      margin-right: 10px;
+    }
+
+    .feedback {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .correct {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+
+    .incorrect {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .score-box {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #111827;
+      color: white;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .score-box span {
+      font-weight: 800;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin: 4px 4px 4px 0;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 2px 5px;
+      border-radius: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 650px) {
+      header h1 {
+        font-size: 1.45rem;
+      }
+
+      .score-box {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Day 41 – GitHub Actions Triggers & Matrix Builds</h1>
+    <p>25 MCQs for revision: PR triggers, cron, workflow_dispatch, matrix, exclude, fail-fast, and troubleshooting.</p>
+  </header>
+
+  <div class="container">
+    <section class="summary-card">
+      <h2>Practice Overview</h2>
+      <p>This quiz is based on Day 41 study notes. Choose one answer for each question, then click <strong>Check Answers</strong>. You will get your score and explanation for every question.</p>
+      <div>
+        <span class="tag">GitHub Actions</span>
+        <span class="tag">Triggers</span>
+        <span class="tag">Matrix Builds</span>
+        <span class="tag">Cron</span>
+        <span class="tag">Fail-Fast</span>
+      </div>
+      <div class="controls">
+        <button class="btn-primary" onclick="checkAnswers()">Check Answers</button>
+        <button class="btn-secondary" onclick="showAllExplanations()">Show Explanations</button>
+        <button class="btn-danger" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+    </section>
+
+    <div class="score-box">
+      <div>Total Questions: <span id="totalQuestions">25</span></div>
+      <div>Score: <span id="score">Not checked yet</span></div>
+    </div>
+
+    <main id="quiz"></main>
+  </div>
+
+  <footer>
+    Created for Day 41 – Triggers & Matrix Builds study revision.
+  </footer>
+
+  <script>
+    const questions = [
+  {
+    "q": "What is a trigger in GitHub Actions?",
+    "options": [
+      "A file that stores Git commit history",
+      "An event that starts a workflow",
+      "A command used to delete branches",
+      "A GitHub repository setting only used for secrets"
+    ],
+    "answer": 1,
+    "explanation": "A trigger is an event that starts a GitHub Actions workflow, such as push, pull_request, schedule, or workflow_dispatch."
+  },
+  {
+    "q": "Which folder must contain GitHub Actions workflow files?",
+    "options": [
+      ".git/actions/",
+      ".github/workflows/",
+      "github/actions/",
+      ".workflow/github/"
+    ],
+    "answer": 1,
+    "explanation": "GitHub Actions workflow files must be stored inside the .github/workflows/ directory."
+  },
+  {
+    "q": "Which trigger runs a workflow when a pull request is opened or updated?",
+    "options": [
+      "on: push",
+      "on: pull_request",
+      "on: workflow_dispatch",
+      "on: schedule"
+    ],
+    "answer": 1,
+    "explanation": "The pull_request trigger runs a workflow when pull request events occur."
+  },
+  {
+    "q": "In a pull request workflow, what does github.head_ref usually represent?",
+    "options": [
+      "The target branch of the pull request",
+      "The source branch of the pull request",
+      "The repository owner",
+      "The workflow file name"
+    ],
+    "answer": 1,
+    "explanation": "github.head_ref represents the source branch of a pull request, such as day-41-pr-test."
+  },
+  {
+    "q": "Which pull_request type runs when a new commit is pushed to an existing PR branch?",
+    "options": [
+      "opened",
+      "closed",
+      "synchronize",
+      "deleted"
+    ],
+    "answer": 2,
+    "explanation": "synchronize runs when the pull request branch is updated with a new commit."
+  },
+  {
+    "q": "What does PR stand for?",
+    "options": [
+      "Push Request",
+      "Pull Request",
+      "Pipeline Repository",
+      "Production Release"
+    ],
+    "answer": 1,
+    "explanation": "PR stands for Pull Request, which is a request to merge changes from one branch into another."
+  },
+  {
+    "q": "Which cron expression runs every day at midnight UTC?",
+    "options": [
+      "0 0 * * *",
+      "0 9 * * 1",
+      "* * 0 0 *",
+      "0 * * * *"
+    ],
+    "answer": 0,
+    "explanation": "0 0 * * * means minute 0, hour 0, every day, every month, every day of the week."
+  },
+  {
+    "q": "Which cron expression runs every Monday at 9 AM UTC?",
+    "options": [
+      "0 0 * * 1",
+      "9 0 * * 1",
+      "0 9 * * 1",
+      "1 9 * * 0"
+    ],
+    "answer": 2,
+    "explanation": "0 9 * * 1 means at minute 0, hour 9, every Monday."
+  },
+  {
+    "q": "GitHub Actions scheduled workflows use which time standard?",
+    "options": [
+      "Local laptop time",
+      "GitHub account time zone",
+      "UTC time",
+      "Browser time"
+    ],
+    "answer": 2,
+    "explanation": "GitHub Actions schedule triggers use UTC time, not local computer time."
+  },
+  {
+    "q": "Which trigger creates a Run workflow button in the GitHub Actions UI?",
+    "options": [
+      "push",
+      "pull_request",
+      "schedule",
+      "workflow_dispatch"
+    ],
+    "answer": 3,
+    "explanation": "workflow_dispatch allows a workflow to be started manually from the GitHub Actions UI."
+  },
+  {
+    "q": "In a manual workflow, which section can ask the user for values like staging or production?",
+    "options": [
+      "outputs",
+      "inputs",
+      "artifacts",
+      "branches"
+    ],
+    "answer": 1,
+    "explanation": "The inputs section under workflow_dispatch allows a user to provide values before running a workflow manually."
+  },
+  {
+    "q": "Which input type creates a dropdown list in workflow_dispatch?",
+    "options": [
+      "type: dropdown",
+      "type: select",
+      "type: choice",
+      "type: list"
+    ],
+    "answer": 2,
+    "explanation": "type: choice creates a dropdown-style input with predefined options."
+  },
+  {
+    "q": "Which expression reads the selected environment input in a workflow_dispatch workflow?",
+    "options": [
+      "${{ github.event.inputs.environment }}",
+      "${{ github.inputs.environment }}",
+      "${{ env.github.environment }}",
+      "${{ workflow.inputs.environment }}"
+    ],
+    "answer": 0,
+    "explanation": "github.event.inputs.environment reads the environment input value selected when the manual workflow was started."
+  },
+  {
+    "q": "What is a matrix build in GitHub Actions?",
+    "options": [
+      "A way to run the same job with multiple values or environments",
+      "A branch protection rule",
+      "A Git command for merging branches",
+      "A YAML syntax checker"
+    ],
+    "answer": 0,
+    "explanation": "A matrix build runs the same job multiple times using different matrix values such as Python versions or operating systems."
+  },
+  {
+    "q": "Which YAML section is used to define a matrix build?",
+    "options": [
+      "jobs.matrix.strategy",
+      "strategy.matrix",
+      "matrix.strategy.jobs",
+      "workflow.matrix"
+    ],
+    "answer": 1,
+    "explanation": "A matrix is defined under strategy: matrix: inside a job."
+  },
+  {
+    "q": "If a matrix has 3 Python versions and 2 operating systems, how many jobs are created?",
+    "options": [
+      "2",
+      "3",
+      "5",
+      "6"
+    ],
+    "answer": 3,
+    "explanation": "3 Python versions \u00d7 2 operating systems = 6 jobs."
+  },
+  {
+    "q": "Which action is commonly used to install a specific Python version in GitHub Actions?",
+    "options": [
+      "actions/checkout@v4",
+      "actions/setup-python@v5",
+      "actions/install-python@v1",
+      "github/python-runner@v3"
+    ],
+    "answer": 1,
+    "explanation": "actions/setup-python@v5 is used to set up a specific Python version."
+  },
+  {
+    "q": "Which expression uses the current Python version from a matrix?",
+    "options": [
+      "${{ python-version }}",
+      "${{ strategy.python-version }}",
+      "${{ matrix.python-version }}",
+      "${{ jobs.python-version }}"
+    ],
+    "answer": 2,
+    "explanation": "matrix.python-version reads the current value of the python-version matrix variable."
+  },
+  {
+    "q": "What does runs-on: ${{ matrix.os }} mean?",
+    "options": [
+      "The job always runs on Ubuntu",
+      "The runner OS comes from the matrix value",
+      "The workflow runs only on Windows",
+      "The job runs without a runner"
+    ],
+    "answer": 1,
+    "explanation": "runs-on: ${{ matrix.os }} tells GitHub Actions to use the current OS value from the matrix."
+  },
+  {
+    "q": "What does matrix exclude do?",
+    "options": [
+      "Deletes a Git branch",
+      "Removes one or more specific combinations from the matrix",
+      "Stops all workflow runs",
+      "Disables GitHub Actions completely"
+    ],
+    "answer": 1,
+    "explanation": "exclude removes specific combinations, such as windows-latest with Python 3.10."
+  },
+  {
+    "q": "If a matrix creates 6 jobs and one combination is excluded, how many jobs run?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": 1,
+    "explanation": "6 total combinations minus 1 excluded combination equals 5 jobs."
+  },
+  {
+    "q": "What is the default behavior of fail-fast in a matrix strategy?",
+    "options": [
+      "false",
+      "true",
+      "manual only",
+      "disabled"
+    ],
+    "answer": 1,
+    "explanation": "fail-fast is true by default. If one matrix job fails, GitHub Actions may cancel remaining queued or running matrix jobs."
+  },
+  {
+    "q": "What does fail-fast: false do?",
+    "options": [
+      "It makes jobs run slower",
+      "It prevents all jobs from running",
+      "It allows other matrix jobs to continue even if one job fails",
+      "It deletes failed logs"
+    ],
+    "answer": 2,
+    "explanation": "fail-fast: false means other matrix jobs continue running even if one job fails."
+  },
+  {
+    "q": "What does exit 1 do inside a GitHub Actions run step?",
+    "options": [
+      "Marks the command as successful",
+      "Prints the Python version",
+      "Fails the step/job intentionally",
+      "Skips the workflow"
+    ],
+    "answer": 2,
+    "explanation": "exit 1 returns a failure exit code, so GitHub Actions marks that step and job as failed."
+  },
+  {
+    "q": "Why did Python version 3,11 fail in the matrix typo issue?",
+    "options": [
+      "Python 3.11 is not supported by GitHub Actions",
+      "The value used a comma instead of a dot, so 3,11 was not a valid Python version",
+      "Windows cannot run Python",
+      "The workflow_dispatch trigger was missing"
+    ],
+    "answer": 1,
+    "explanation": "Python versions use dots, such as 3.11. The typo 3,11 is invalid, so setup-python could not find that version."
+  }
+];
+
+    function renderQuiz() {
+      const quiz = document.getElementById("quiz");
+      quiz.innerHTML = "";
+
+      questions.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+
+        const title = document.createElement("div");
+        title.className = "question-title";
+        title.innerHTML = `${index + 1}. ${item.q}`;
+        card.appendChild(title);
+
+        item.options.forEach((option, optionIndex) => {
+          const label = document.createElement("label");
+          label.className = "option";
+          label.innerHTML = `
+            <input type="radio" name="q${index}" value="${optionIndex}">
+            ${option}
+          `;
+          card.appendChild(label);
+        });
+
+        const feedback = document.createElement("div");
+        feedback.className = "feedback";
+        feedback.id = `feedback-${index}`;
+        card.appendChild(feedback);
+
+        quiz.appendChild(card);
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const feedback = document.getElementById(`feedback-${index}`);
+
+        if (!selected) {
+          feedback.className = "feedback incorrect";
+          feedback.style.display = "block";
+          feedback.innerHTML = `<strong>Not answered.</strong><br>Correct answer: <strong>${item.options[item.answer]}</strong><br>${item.explanation}`;
+          return;
+        }
+
+        const selectedValue = Number(selected.value);
+
+        if (selectedValue === item.answer) {
+          score++;
+          feedback.className = "feedback correct";
+          feedback.style.display = "block";
+          feedback.innerHTML = `<strong>Correct.</strong><br>${item.explanation}`;
+        } else {
+          feedback.className = "feedback incorrect";
+          feedback.style.display = "block";
+          feedback.innerHTML = `<strong>Incorrect.</strong><br>Your answer: <strong>${item.options[selectedValue]}</strong><br>Correct answer: <strong>${item.options[item.answer]}</strong><br>${item.explanation}`;
+        }
+      });
+
+      document.getElementById("score").textContent = `${score} / ${questions.length}`;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showAllExplanations() {
+      questions.forEach((item, index) => {
+        const feedback = document.getElementById(`feedback-${index}`);
+        feedback.className = "feedback correct";
+        feedback.style.display = "block";
+        feedback.innerHTML = `<strong>Answer:</strong> ${item.options[item.answer]}<br>${item.explanation}`;
+      });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll("input[type='radio']").forEach(input => input.checked = false);
+      document.querySelectorAll(".feedback").forEach(feedback => {
+        feedback.style.display = "none";
+        feedback.innerHTML = "";
+      });
+      document.getElementById("score").textContent = "Not checked yet";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
