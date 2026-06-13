@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 42 MCQs - GitHub Actions Runners</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5b6578;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --good: #15803d;
+      --bad: #b91c1c;
+      --soft-good: #dcfce7;
+      --soft-bad: #fee2e2;
+      --border: #d9e1ef;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef4ff 0%, #f8fafc 45%, #eef2ff 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    header {
+      padding: 34px 18px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: #0f172a;
+    }
+
+    header p {
+      margin: 10px auto 0;
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .summary {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fbfdff;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      color: var(--primary);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .instructions {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      color: #1e3a8a;
+    }
+
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .question-title {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-weight: 700;
+      font-size: 1.08rem;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      background: var(--primary);
+      color: #fff;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex: 0 0 auto;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    label.option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      cursor: pointer;
+      transition: 0.15s ease;
+      background: #fff;
+    }
+
+    label.option:hover {
+      border-color: var(--primary);
+      background: #f8fbff;
+    }
+
+    input[type="radio"] {
+      margin-top: 4px;
+      transform: scale(1.1);
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: var(--muted);
+      border-left: 4px solid var(--primary);
+    }
+
+    .correct {
+      background: var(--soft-good) !important;
+      border-color: #86efac !important;
+    }
+
+    .wrong {
+      background: var(--soft-bad) !important;
+      border-color: #fecaca !important;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 26px 0 40px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .primary:hover { background: var(--primary-dark); }
+
+    .secondary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .result {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin: 22px 0;
+      text-align: center;
+    }
+
+    .result h2 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    .result .score {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      margin: 30px 0 10px;
+      font-size: 0.95rem;
+    }
+
+    code {
+      background: #eef2ff;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 760px) {
+      .summary {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .summary {
+        grid-template-columns: 1fr;
+      }
+      .question-card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Day 42 MCQs: GitHub Actions Runners</h1>
+    <p>Practice quiz for GitHub-hosted runners, self-hosted runners, pre-installed tools, labels, workflow targeting, and runner comparison.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="summary">
+      <div class="stat"><strong>25</strong><span>Total Questions</span></div>
+      <div class="stat"><strong>4</strong><span>Options Each</span></div>
+      <div class="stat"><strong>Instant</strong><span>Score Check</span></div>
+      <div class="stat"><strong>Day 42</strong><span>Runners</span></div>
+    </section>
+
+    <section class="instructions">
+      <strong>Instructions:</strong> Select one answer for each question, then click <strong>Submit Answers</strong>. After submission, correct answers will turn green, incorrect answers will turn red, and explanations will appear.
+    </section>
+
+    <form id="quizForm">
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">1</span>
+          <span>What is a GitHub Actions runner?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q1" value="0">
+            <span><strong>A.</strong> A GitHub repository branch</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q1" value="1">
+            <span><strong>B.</strong> A machine that executes GitHub Actions jobs</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q1" value="2">
+            <span><strong>C.</strong> A YAML syntax checker</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q1" value="3">
+            <span><strong>D.</strong> A Docker image registry</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> A runner is the machine/server where GitHub Actions job commands are executed.</div>
+      </section>
+
+      <section class="question-card" data-answer="2">
+        <div class="question-title">
+          <span class="badge">2</span>
+          <span>Which keyword selects the runner for a job?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q2" value="0">
+            <span><strong>A.</strong> on</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q2" value="1">
+            <span><strong>B.</strong> jobs</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q2" value="2">
+            <span><strong>C.</strong> runs-on</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q2" value="3">
+            <span><strong>D.</strong> steps</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `runs-on` tells GitHub Actions which runner should execute the job.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">3</span>
+          <span>Which runner label is used for Ubuntu GitHub-hosted runners?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q3" value="0">
+            <span><strong>A.</strong> ubuntu-runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q3" value="1">
+            <span><strong>B.</strong> ubuntu-latest</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q3" value="2">
+            <span><strong>C.</strong> linux-hosted</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q3" value="3">
+            <span><strong>D.</strong> github-ubuntu</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `ubuntu-latest` is used to run a job on a GitHub-hosted Ubuntu runner.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">4</span>
+          <span>Who manages GitHub-hosted runners?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q4" value="0">
+            <span><strong>A.</strong> The repository owner only</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q4" value="1">
+            <span><strong>B.</strong> GitHub</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q4" value="2">
+            <span><strong>C.</strong> AWS only</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q4" value="3">
+            <span><strong>D.</strong> The workflow file</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> GitHub manages the OS, updates, tools, infrastructure, and cleanup for GitHub-hosted runners.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">5</span>
+          <span>Which trigger allows a workflow to run manually from the GitHub Actions UI?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q5" value="0">
+            <span><strong>A.</strong> manual_run</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q5" value="1">
+            <span><strong>B.</strong> workflow_dispatch</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q5" value="2">
+            <span><strong>C.</strong> actions_manual</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q5" value="3">
+            <span><strong>D.</strong> run_now</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `workflow_dispatch` allows manual workflow execution from the GitHub Actions UI.</div>
+      </section>
+
+      <section class="question-card" data-answer="0">
+        <div class="question-title">
+          <span class="badge">6</span>
+          <span>What does `on: push` do in a workflow?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q6" value="0">
+            <span><strong>A.</strong> Runs the workflow when code is pushed to GitHub</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q6" value="1">
+            <span><strong>B.</strong> Pushes Docker images automatically</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q6" value="2">
+            <span><strong>C.</strong> Pushes artifacts to GitHub Pages</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q6" value="3">
+            <span><strong>D.</strong> Runs only on a self-hosted runner</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `on: push` triggers the workflow whenever code is pushed to the repository.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">7</span>
+          <span>In Task 1, why could Ubuntu, Windows, and macOS jobs run in parallel?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q7" value="0">
+            <span><strong>A.</strong> Because they used the same hostname</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q7" value="1">
+            <span><strong>B.</strong> Because they had no dependency on each other</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q7" value="2">
+            <span><strong>C.</strong> Because only Ubuntu ran successfully</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q7" value="3">
+            <span><strong>D.</strong> Because they used a self-hosted runner</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> Independent jobs without dependencies can run in parallel.</div>
+      </section>
+
+      <section class="question-card" data-answer="0">
+        <div class="question-title">
+          <span class="badge">8</span>
+          <span>Which command prints the current user on Linux/macOS runners?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q8" value="0">
+            <span><strong>A.</strong> whoami</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q8" value="1">
+            <span><strong>B.</strong> hostname</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q8" value="2">
+            <span><strong>C.</strong> pwd</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q8" value="3">
+            <span><strong>D.</strong> uname -a</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `whoami` prints the current user running the job.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">9</span>
+          <span>Which command checks the Git version?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q9" value="0">
+            <span><strong>A.</strong> git check</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q9" value="1">
+            <span><strong>B.</strong> git --version</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q9" value="2">
+            <span><strong>C.</strong> version git</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q9" value="3">
+            <span><strong>D.</strong> git status --version</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `git --version` prints the installed Git version.</div>
+      </section>
+
+      <section class="question-card" data-answer="2">
+        <div class="question-title">
+          <span class="badge">10</span>
+          <span>Why do pre-installed tools matter on GitHub-hosted runners?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q10" value="0">
+            <span><strong>A.</strong> They make workflows slower</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q10" value="1">
+            <span><strong>B.</strong> They remove the need for YAML</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q10" value="2">
+            <span><strong>C.</strong> They save time and reduce installation steps</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q10" value="3">
+            <span><strong>D.</strong> They prevent all pipeline errors</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> Pre-installed tools help workflows start faster and avoid repeated installation steps.</div>
+      </section>
+
+      <section class="question-card" data-answer="0">
+        <div class="question-title">
+          <span class="badge">11</span>
+          <span>Which tool is commonly used for containers and image builds?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q11" value="0">
+            <span><strong>A.</strong> Docker</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q11" value="1">
+            <span><strong>B.</strong> Markdown</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q11" value="2">
+            <span><strong>C.</strong> YAML</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q11" value="3">
+            <span><strong>D.</strong> Hostname</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> Docker is used for containers and container image builds.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">12</span>
+          <span>Where do you add a new self-hosted runner from in a repository?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q12" value="0">
+            <span><strong>A.</strong> Issues → New runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q12" value="1">
+            <span><strong>B.</strong> Settings → Actions → Runners → New self-hosted runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q12" value="2">
+            <span><strong>C.</strong> Pull requests → Runners</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q12" value="3">
+            <span><strong>D.</strong> Code → Branches → Runner</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> The repository runner setup is found under Settings → Actions → Runners.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">13</span>
+          <span>What command starts a self-hosted runner in the foreground?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q13" value="0">
+            <span><strong>A.</strong> ./start.sh</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q13" value="1">
+            <span><strong>B.</strong> ./run.sh</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q13" value="2">
+            <span><strong>C.</strong> runner start</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q13" value="3">
+            <span><strong>D.</strong> sudo runner</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `./run.sh` starts the configured self-hosted runner and waits for jobs.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">14</span>
+          <span>What does the GitHub runner status `Idle` mean?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q14" value="0">
+            <span><strong>A.</strong> The runner is disconnected</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q14" value="1">
+            <span><strong>B.</strong> The runner is connected and waiting for jobs</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q14" value="2">
+            <span><strong>C.</strong> The job failed</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q14" value="3">
+            <span><strong>D.</strong> The workflow is deleted</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `Idle` means the runner is online and ready to receive jobs.</div>
+      </section>
+
+      <section class="question-card" data-answer="0">
+        <div class="question-title">
+          <span class="badge">15</span>
+          <span>Which command can install a self-hosted runner as a service?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q15" value="0">
+            <span><strong>A.</strong> sudo ./svc.sh install</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q15" value="1">
+            <span><strong>B.</strong> sudo ./run.sh install</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q15" value="2">
+            <span><strong>C.</strong> service github-runner create</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q15" value="3">
+            <span><strong>D.</strong> git runner service</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `sudo ./svc.sh install` installs the runner service.</div>
+      </section>
+
+      <section class="question-card" data-answer="0">
+        <div class="question-title">
+          <span class="badge">16</span>
+          <span>What does `runs-on: self-hosted` mean?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q16" value="0">
+            <span><strong>A.</strong> Run the job on any available self-hosted runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q16" value="1">
+            <span><strong>B.</strong> Run the job only on macOS</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q16" value="2">
+            <span><strong>C.</strong> Run the job only on GitHub-hosted Ubuntu</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q16" value="3">
+            <span><strong>D.</strong> Run the job without any machine</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `runs-on: self-hosted` targets an available runner with the `self-hosted` label.</div>
+      </section>
+
+      <section class="question-card" data-answer="0">
+        <div class="question-title">
+          <span class="badge">17</span>
+          <span>Which command shows the machine name where the job is running?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q17" value="0">
+            <span><strong>A.</strong> hostname</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q17" value="1">
+            <span><strong>B.</strong> pwd</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q17" value="2">
+            <span><strong>C.</strong> cat</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q17" value="3">
+            <span><strong>D.</strong> mkdir</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `hostname` prints the machine hostname, useful for confirming the job ran on your VM.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">18</span>
+          <span>Which command prints the current working directory?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q18" value="0">
+            <span><strong>A.</strong> whoami</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q18" value="1">
+            <span><strong>B.</strong> pwd</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q18" value="2">
+            <span><strong>C.</strong> lsuser</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q18" value="3">
+            <span><strong>D.</strong> runner-dir</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `pwd` prints the current working directory.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">19</span>
+          <span>Where is a file usually created during a self-hosted runner workflow?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q19" value="0">
+            <span><strong>A.</strong> Directly in /etc</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q19" value="1">
+            <span><strong>B.</strong> Inside the runner `_work` workspace</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q19" value="2">
+            <span><strong>C.</strong> Inside GitHub.com only</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q19" value="3">
+            <span><strong>D.</strong> Inside the browser cache</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> Workflow files are usually created inside the runner workspace under `_work/repo-name/repo-name`.</div>
+      </section>
+
+      <section class="question-card" data-answer="0">
+        <div class="question-title">
+          <span class="badge">20</span>
+          <span>Which command can search for the created test file under the runner directory?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q20" value="0">
+            <span><strong>A.</strong> find ~/actions-runner -name &quot;self-hosted-test-file.txt&quot;</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q20" value="1">
+            <span><strong>B.</strong> grep ~/actions-runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q20" value="2">
+            <span><strong>C.</strong> cat ~/actions-runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q20" value="3">
+            <span><strong>D.</strong> whoami ~/actions-runner</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> `find` can search the runner directory for the test file.</div>
+      </section>
+
+      <section class="question-card" data-answer="0">
+        <div class="question-title">
+          <span class="badge">21</span>
+          <span>What is a runner label?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q21" value="0">
+            <span><strong>A.</strong> A tag used to identify and select a runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q21" value="1">
+            <span><strong>B.</strong> A commit message</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q21" value="2">
+            <span><strong>C.</strong> A repository license</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q21" value="3">
+            <span><strong>D.</strong> A YAML comment</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> Labels are tags that help GitHub Actions select matching self-hosted runners.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">22</span>
+          <span>What does `runs-on: [self-hosted, my-linux-runner]` require?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q22" value="0">
+            <span><strong>A.</strong> Any Ubuntu GitHub-hosted runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q22" value="1">
+            <span><strong>B.</strong> A runner with both `self-hosted` and `my-linux-runner` labels</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q22" value="2">
+            <span><strong>C.</strong> A runner with no labels</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q22" value="3">
+            <span><strong>D.</strong> Only a Windows runner</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> The runner must match all labels in the array.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">23</span>
+          <span>Why are labels useful when you have multiple self-hosted runners?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q23" value="0">
+            <span><strong>A.</strong> They randomly select any runner</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q23" value="1">
+            <span><strong>B.</strong> They help target the correct runner based on OS, tools, or purpose</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q23" value="2">
+            <span><strong>C.</strong> They delete old workflows</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q23" value="3">
+            <span><strong>D.</strong> They replace Git commands</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> Labels help route jobs to the correct runner when you have multiple runners.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">24</span>
+          <span>Which statement best describes self-hosted runner security?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q24" value="0">
+            <span><strong>A.</strong> GitHub fully manages the machine security</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q24" value="1">
+            <span><strong>B.</strong> The user or organization is responsible for securing and maintaining it</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q24" value="2">
+            <span><strong>C.</strong> Self-hosted runners do not need updates</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q24" value="3">
+            <span><strong>D.</strong> Secrets are always public</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> With self-hosted runners, you control the machine and are responsible for updates, access, and security.</div>
+      </section>
+
+      <section class="question-card" data-answer="1">
+        <div class="question-title">
+          <span class="badge">25</span>
+          <span>Which comparison is correct?</span>
+        </div>
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="q25" value="0">
+            <span><strong>A.</strong> GitHub-hosted = managed by me; self-hosted = managed by GitHub</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q25" value="1">
+            <span><strong>B.</strong> GitHub-hosted = managed by GitHub; self-hosted = managed by me/my organization</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q25" value="2">
+            <span><strong>C.</strong> Both are always managed only by AWS</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q25" value="3">
+            <span><strong>D.</strong> Neither runner can use labels</span>
+          </label>
+
+        </div>
+        <div class="explanation"><strong>Explanation:</strong> GitHub-hosted runners are managed by GitHub, while self-hosted runners are managed by you or your organization.</div>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="primary" onclick="submitQuiz()">Submit Answers</button>
+        <button type="button" class="secondary" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+    </form>
+
+    <section class="result" id="resultBox">
+      <h2>Your Result</h2>
+      <div class="score" id="scoreText"></div>
+      <p id="feedbackText"></p>
+    </section>
+
+    <p class="footer-note">Created for Day 42 – Runners: GitHub-Hosted & Self-Hosted study notes.</p>
+  </main>
+
+  <script>
+    function submitQuiz() {
+      const cards = document.querySelectorAll('.question-card');
+      let score = 0;
+      let answered = 0;
+
+      cards.forEach((card, index) => {
+        const correctAnswer = card.dataset.answer;
+        const selected = card.querySelector('input[type="radio"]:checked');
+        const labels = card.querySelectorAll('label.option');
+        const explanation = card.querySelector('.explanation');
+
+        labels.forEach(label => {
+          label.classList.remove('correct', 'wrong');
+        });
+
+        labels.forEach(label => {
+          const input = label.querySelector('input');
+          if (input.value === correctAnswer) {
+            label.classList.add('correct');
+          }
+        });
+
+        if (selected) {
+          answered++;
+          if (selected.value === correctAnswer) {
+            score++;
+          } else {
+            selected.closest('label').classList.add('wrong');
+          }
+        }
+
+        explanation.style.display = 'block';
+      });
+
+      const resultBox = document.getElementById('resultBox');
+      const scoreText = document.getElementById('scoreText');
+      const feedbackText = document.getElementById('feedbackText');
+      const percent = Math.round((score / cards.length) * 100);
+
+      scoreText.textContent = `${score}/${cards.length} (${percent}%)`;
+
+      if (answered < cards.length) {
+        feedbackText.textContent = `You answered ${answered} out of ${cards.length} questions. Review the unanswered questions and try again.`;
+      } else if (percent >= 90) {
+        feedbackText.textContent = 'Excellent work! You have a strong understanding of GitHub Actions runners.';
+      } else if (percent >= 75) {
+        feedbackText.textContent = 'Good job! Review the explanations for the missed questions.';
+      } else if (percent >= 60) {
+        feedbackText.textContent = 'Nice effort. Revise runner labels, self-hosted setup, and workflow targeting.';
+      } else {
+        feedbackText.textContent = 'Keep practicing. Focus on runs-on, labels, self-hosted runner setup, and runner differences.';
+      }
+
+      resultBox.style.display = 'block';
+      resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      document.getElementById('quizForm').reset();
+      document.querySelectorAll('label.option').forEach(label => {
+        label.classList.remove('correct', 'wrong');
+      });
+      document.querySelectorAll('.explanation').forEach(exp => {
+        exp.style.display = 'none';
+      });
+      document.getElementById('resultBox').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
