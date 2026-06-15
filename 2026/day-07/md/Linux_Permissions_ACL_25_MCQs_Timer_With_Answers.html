@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Permissions & ACLs - 25 MCQs</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  line-height: 1.5;
+  background: #f7f9fc;
+}
+h1, h2 { text-align: center; }
+.timer {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px;
+  padding: 12px;
+  background: #fff3cd;
+  border-radius: 8px;
+}
+.question {
+  margin: 15px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #ffffff;
+}
+.option {
+  display: block;
+  padding: 6px;
+  margin: 4px 0;
+  border-radius: 5px;
+}
+.correct {
+  background: #d4edda;
+  border-left: 5px solid #28a745;
+}
+.wrong {
+  background: #f8d7da;
+  border-left: 5px solid #dc3545;
+}
+.answer-box {
+  margin-top: 10px;
+  padding: 10px;
+  background: #e8f4ff;
+  border-left: 5px solid #007bff;
+  display: none;
+}
+button {
+  padding: 12px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: white;
+}
+button:hover { background: #0056b3; }
+.result {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin: 25px 0;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+
+<h1>Linux Permissions & ACLs</h1>
+<h2>25 MCQs Practice Test with Timer</h2>
+
+<div class="timer">Time Left: <span id="time">25:00</span></div>
+
+<form id="quiz"></form>
+
+<div style="text-align:center; margin:20px;">
+  <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+</div>
+
+<div id="result" class="result"></div>
+
+<script>
+const questions = [
+  {
+    q: "Which command displays file permissions?",
+    options: ["ls -l", "pwd", "whoami", "cat"],
+    answer: 0,
+    explain: "`ls -l` shows detailed file information including permissions, owner, group, size, and timestamp."
+  },
+  {
+    q: "What does `r` permission stand for?",
+    options: ["Run", "Read", "Rename", "Root"],
+    answer: 1,
+    explain: "`r` means read permission."
+  },
+  {
+    q: "What does `w` permission stand for?",
+    options: ["Write", "Watch", "Web", "Work"],
+    answer: 0,
+    explain: "`w` means write permission."
+  },
+  {
+    q: "What does `x` permission stand for?",
+    options: ["XML", "Execute", "Exit", "Expand"],
+    answer: 1,
+    explain: "`x` means execute permission."
+  },
+  {
+    q: "What is the numeric value of read permission?",
+    options: ["1", "2", "4", "7"],
+    answer: 2,
+    explain: "Read permission has numeric value 4."
+  },
+  {
+    q: "What is the numeric value of write permission?",
+    options: ["4", "2", "1", "7"],
+    answer: 1,
+    explain: "Write permission has numeric value 2."
+  },
+  {
+    q: "What is the numeric value of execute permission?",
+    options: ["1", "2", "4", "7"],
+    answer: 0,
+    explain: "Execute permission has numeric value 1."
+  },
+  {
+    q: "Permission `755` gives the owner which permissions?",
+    options: ["rwx", "rw-", "r-x", "---"],
+    answer: 0,
+    explain: "In 755, owner has 7, which means rwx."
+  },
+  {
+    q: "Permission `644` gives the owner which permissions?",
+    options: ["rwx", "rw-", "r--", "---"],
+    answer: 1,
+    explain: "In 644, owner has 6, which means rw-."
+  },
+  {
+    q: "Which command changes file permissions?",
+    options: ["chown", "chmod", "chgrp", "setfacl"],
+    answer: 1,
+    explain: "`chmod` changes file or directory permissions."
+  },
+  {
+    q: "Which command changes file owner?",
+    options: ["chmod", "chgrp", "chown", "passwd"],
+    answer: 2,
+    explain: "`chown` changes ownership of a file or directory."
+  },
+  {
+    q: "Which command changes group ownership?",
+    options: ["chgrp", "chmod", "chown", "id"],
+    answer: 0,
+    explain: "`chgrp` changes group ownership."
+  },
+  {
+    q: "What does `chmod +x script.sh` do?",
+    options: ["Remove execute permission", "Add execute permission", "Delete file", "Add read permission"],
+    answer: 1,
+    explain: "`chmod +x` adds execute permission."
+  },
+  {
+    q: "What does permission `600` mean?",
+    options: ["Owner read/write only", "Everyone read/write", "Owner rwx", "Group read/write"],
+    answer: 0,
+    explain: "600 means owner can read/write; group and others have no permission."
+  },
+  {
+    q: "What does ACL stand for?",
+    options: ["Access Control List", "Access Command Line", "Admin Control List", "Access Copy Link"],
+    answer: 0,
+    explain: "ACL stands for Access Control List."
+  },
+  {
+    q: "Which command displays ACL permissions?",
+    options: ["setfacl", "getfacl", "chmod", "lsacl"],
+    answer: 1,
+    explain: "`getfacl` displays ACL entries."
+  },
+  {
+    q: "Which command sets ACL permissions?",
+    options: ["setfacl", "getfacl", "chmod", "chacl"],
+    answer: 0,
+    explain: "`setfacl` sets or modifies ACL permissions."
+  },
+  {
+    q: "What does `setfacl -m u:sara:r file.txt` mean?",
+    options: ["Delete sara", "Give sara read permission", "Make sara owner", "Create user sara"],
+    answer: 1,
+    explain: "This command gives user sara read permission on file.txt."
+  },
+  {
+    q: "Which command removes all ACL entries?",
+    options: ["setfacl -b file.txt", "getfacl -b file.txt", "chmod 000 file.txt", "aclremove file.txt"],
+    answer: 0,
+    explain: "`setfacl -b file.txt` removes all ACL entries from the file."
+  },
+  {
+    q: "What is a default ACL used for?",
+    options: ["Passwords", "Inheritance on directories", "Networking", "Changing ownership"],
+    answer: 1,
+    explain: "Default ACLs are used on directories so new files/folders inherit ACL permissions."
+  },
+  {
+    q: "What does permission `777` mean?",
+    options: ["Owner only", "Everyone has full access", "Read only", "No access"],
+    answer: 1,
+    explain: "777 means user, group, and others all have rwx permissions."
+  },
+  {
+    q: "Which category represents the file owner?",
+    options: ["g", "o", "u", "a"],
+    answer: 2,
+    explain: "`u` represents user/owner."
+  },
+  {
+    q: "Which category represents everyone else?",
+    options: ["u", "g", "o", "a"],
+    answer: 2,
+    explain: "`o` represents others."
+  },
+  {
+    q: "Which command verifies file owner and group?",
+    options: ["pwd", "ls -l", "id", "whoami"],
+    answer: 1,
+    explain: "`ls -l` shows file owner and group."
+  },
+  {
+    q: "Which command shows user identity information?",
+    options: ["id", "pwd", "hostname", "echo"],
+    answer: 0,
+    explain: "`id` shows UID, GID, and group membership."
+  }
+];
+
+const quiz = document.getElementById("quiz");
+
+questions.forEach((item, index) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.id = `qbox${index}`;
+
+  let html = `<p><b>Q${index + 1}. ${item.q}</b></p>`;
+
+  item.options.forEach((option, optIndex) => {
+    html += `
+      <label class="option" id="q${index}o${optIndex}">
+        <input type="radio" name="q${index}" value="${optIndex}">
+        ${option}
+      </label>
+    `;
+  });
+
+  html += `<div class="answer-box" id="answer${index}"></div>`;
+  div.innerHTML = html;
+  quiz.appendChild(div);
+});
+
+let timeLeft = 1500;
+let submitted = false;
+
+const timer = setInterval(() => {
+  let min = Math.floor(timeLeft / 60);
+  let sec = timeLeft % 60;
+  document.getElementById("time").textContent = `${min}:${sec.toString().padStart(2, "0")}`;
+  timeLeft--;
+
+  if (timeLeft < 0) {
+    clearInterval(timer);
+    submitQuiz();
+  }
+}, 1000);
+
+function submitQuiz() {
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timer);
+
+  let score = 0;
+
+  questions.forEach((item, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    const correctIndex = item.answer;
+
+    const correctOption = document.getElementById(`q${index}o${correctIndex}`);
+    correctOption.classList.add("correct");
+
+    let selectedText = "Not answered";
+
+    if (selected) {
+      const selectedIndex = parseInt(selected.value);
+      selectedText = item.options[selectedIndex];
+
+      if (selectedIndex === correctIndex) {
+        score++;
+      } else {
+        document.getElementById(`q${index}o${selectedIndex}`).classList.add("wrong");
+      }
+    }
+
+    const answerBox = document.getElementById(`answer${index}`);
+    answerBox.style.display = "block";
+    answerBox.innerHTML = `
+      <b>Correct Answer:</b> ${item.options[correctIndex]}<br>
+      <b>Your Answer:</b> ${selectedText}<br>
+      <b>Explanation:</b> ${item.explain}
+    `;
+
+    const radios = document.querySelectorAll(`input[name="q${index}"]`);
+    radios.forEach(r => r.disabled = true);
+  });
+
+  const percentage = ((score / questions.length) * 100).toFixed(1);
+
+  document.getElementById("result").innerHTML = `
+    Your Score: ${score}/${questions.length} (${percentage}%)<br>
+    <small>Green = Correct Answer, Red = Your Wrong Answer</small>
+  `;
+}
+</script>
+
+</body>
+</html>

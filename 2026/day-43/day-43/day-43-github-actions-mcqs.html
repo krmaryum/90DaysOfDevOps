@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 43 MCQ Quiz - GitHub Actions</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --warn: #f59e0b;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #111827);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .header {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      color: #fff;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin: 0;
+    }
+    .topbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .timer {
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #020617;
+      border: 1px solid var(--border);
+      color: var(--accent);
+    }
+    .progress {
+      color: var(--muted);
+      font-weight: bold;
+    }
+    .card {
+      background: rgba(17, 24, 39, 0.94);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+    }
+    .question-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+    label.option {
+      display: block;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #0b1220;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    }
+    label.option:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      background: #111c31;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.15);
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 22px 0;
+    }
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background: var(--accent);
+      color: #00111c;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    button.secondary {
+      background: #1f2937;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    button.danger {
+      background: var(--bad);
+      color: white;
+    }
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .result {
+      display: none;
+      padding: 24px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: #08111f;
+      margin-bottom: 18px;
+    }
+    .score {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .pass { color: var(--good); }
+    .fail { color: var(--bad); }
+    .review-item {
+      border-top: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .review-item:first-child { border-top: 0; }
+    .correct {
+      color: var(--good);
+      font-weight: bold;
+    }
+    .incorrect {
+      color: var(--bad);
+      font-weight: bold;
+    }
+    .explanation {
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #0b1220;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .hide { display: none; }
+    .footer-note {
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 14px; }
+      h1 { font-size: 24px; }
+      .question-title { font-size: 18px; }
+      button { width: 100%; }
+      .controls { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Day 43 – GitHub Actions MCQ Quiz</h1>
+      <p class="subtitle">Jobs, Steps, Environment Variables, Job Outputs, Conditionals, and Smart Pipeline</p>
+      <div class="topbar">
+        <div class="timer" id="timer">Time Left: 25:00</div>
+        <div class="progress" id="progress">Question 1 of 25</div>
+      </div>
+    </div>
+
+    <div id="quiz"></div>
+
+    <div class="controls" id="controls">
+      <button class="secondary" id="prevBtn" onclick="prevQuestion()">Previous</button>
+      <button id="nextBtn" onclick="nextQuestion()">Next</button>
+      <button class="danger" id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <p class="footer-note">Created for Day 43 study notes. Practice honestly first, then review explanations.</p>
+  </div>
+
+<script>
+const questions = [{'q': 'What is the main purpose of Day 43?', 'options': ['To learn how to control the flow of GitHub Actions pipelines', 'To install GitHub Desktop', 'To create only one simple workflow step', 'To delete old workflow files'], 'answer': 0, 'explanation': 'Day 43 focuses on jobs, steps, environment variables, outputs, and conditionals to control pipeline flow.'}, {'q': 'In GitHub Actions, what is a job?', 'options': ['A command inside a shell script only', 'A major section of a workflow that runs on a runner', 'A Git branch name', 'A commit message'], 'answer': 1, 'explanation': 'A job is a major unit of work in a workflow and runs on a runner such as ubuntu-latest.'}, {'q': 'In GitHub Actions, what is a step?', 'options': ['An individual command or action inside a job', 'A repository setting', 'A Git tag', 'A workflow file name only'], 'answer': 0, 'explanation': 'Steps are the individual actions or shell commands executed inside a job.'}, {'q': 'What does `runs-on: ubuntu-latest` mean?', 'options': ['The job runs only on Windows', 'The job runs on a GitHub-hosted Ubuntu runner', "The job runs on the user's browser", 'The workflow will not run'], 'answer': 1, 'explanation': '`ubuntu-latest` tells GitHub Actions to provide an Ubuntu runner for that job.'}, {'q': 'What does the `needs:` keyword do?', 'options': ['Deletes a workflow', 'Controls job dependency/order', 'Creates a new branch', 'Installs Ubuntu'], 'answer': 1, 'explanation': '`needs:` makes a job wait for another job to complete successfully.'}, {'q': 'In Task 1, what was the correct job flow?', 'options': ['deploy → test → build', 'test → build → deploy', 'build → test → deploy', 'build → deploy → test'], 'answer': 2, 'explanation': 'The task used `needs:` to create the flow build → test → deploy.'}, {'q': 'If three jobs each use `runs-on: ubuntu-latest`, what usually happens with GitHub-hosted runners?', 'options': ['All jobs must run in the same terminal session', 'Each job gets a fresh runner environment', 'Only the first job runs', 'The workflow becomes invalid'], 'answer': 1, 'explanation': 'With GitHub-hosted runners, each job normally runs in its own fresh runner environment.'}, {'q': 'What is used to share files between jobs?', 'options': ['Artifacts', 'Commit messages only', 'Branch names only', 'README files only'], 'answer': 0, 'explanation': 'Artifacts are used to upload and download files between jobs.'}, {'q': 'What is used to share small values between jobs?', 'options': ['Outputs', 'Screenshots', 'Issues', 'Repository stars'], 'answer': 0, 'explanation': 'Outputs are used to pass small values such as dates, versions, or Docker tags between jobs.'}, {'q': 'Which environment variable level is available to all jobs and steps in a workflow?', 'options': ['Step level', 'Job level', 'Workflow level', 'Runner level only'], 'answer': 2, 'explanation': 'Workflow-level environment variables are available throughout the entire workflow.'}, {'q': 'Which variable in Task 2 was defined at workflow level?', 'options': ['VERSION: 1.0.0', 'APP_NAME: myapp', 'ENVIRONMENT: staging', 'GITHUB_SHA: short'], 'answer': 1, 'explanation': '`APP_NAME: myapp` was defined at workflow level.'}, {'q': 'Which variable in Task 2 was defined at job level?', 'options': ['APP_NAME: myapp', 'ENVIRONMENT: staging', 'VERSION: 1.0.0', 'github.actor'], 'answer': 1, 'explanation': '`ENVIRONMENT: staging` was defined inside the job.'}, {'q': 'Which variable in Task 2 was defined at step level?', 'options': ['VERSION: 1.0.0', 'APP_NAME: myapp', 'ENVIRONMENT: staging', 'github.sha'], 'answer': 0, 'explanation': '`VERSION: 1.0.0` was defined inside one step.'}, {'q': 'How do you normally access a shell environment variable inside a `run:` command?', 'options': ['${{ github.variable }}', '$VARIABLE_NAME', '@VARIABLE_NAME', '#VARIABLE_NAME'], 'answer': 1, 'explanation': 'Shell environment variables are accessed like `$APP_NAME`, `$ENVIRONMENT`, or `$VERSION`.'}, {'q': 'Which GitHub context prints the commit SHA?', 'options': ['${{ github.sha }}', '${{ github.actor }}', '${{ github.workflow }}', '${{ runner.os }}'], 'answer': 0, 'explanation': '`${{ github.sha }}` prints the commit SHA that triggered the workflow.'}, {'q': 'Which GitHub context prints the user who triggered the workflow?', 'options': ['${{ github.ref }}', '${{ github.actor }}', '${{ github.repository }}', '${{ github.run_number }}'], 'answer': 1, 'explanation': '`${{ github.actor }}` shows the GitHub username of the person who triggered the run.'}, {'q': 'Which file is used to set step outputs in modern GitHub Actions?', 'options': ['$GITHUB_OUTPUT', '$GITHUB_ENVIRONMENT', '$GITHUB_BRANCH', '$GITHUB_DEPLOY'], 'answer': 0, 'explanation': 'Step outputs are written to the special `$GITHUB_OUTPUT` file.'}, {'q': 'Which syntax reads an output from a previous job?', 'options': ['${{ steps.job.outputs.name }}', '${{ needs.job-name.outputs.output-name }}', '$OUTPUTS.job.name', '${{ github.outputs.job }}'], 'answer': 1, 'explanation': 'The syntax is `${{ needs.<job-name>.outputs.<output-name> }}`.'}, {'q': 'Why is `id: date-step` important in the job outputs task?', 'options': ['It names the repository', 'It allows the job to reference that step’s output', 'It deletes old logs', 'It changes the branch name'], 'answer': 1, 'explanation': 'A step ID allows referencing outputs like `${{ steps.date-step.outputs.today }}`.'}, {'q': 'Which conditional runs a step only on the main branch?', 'options': ["if: github.ref == 'refs/heads/main'", "if: github.branch == 'master-only'", "if: runner.os == 'main'", 'if: main == true'], 'answer': 0, 'explanation': "`github.ref == 'refs/heads/main'` checks for the main branch ref."}, {'q': 'Which function runs a step only if a previous step failed?', 'options': ['success()', 'always()', 'failure()', 'cancelled()'], 'answer': 2, 'explanation': '`failure()` returns true when a previous step in the job has failed.'}, {'q': 'What does `continue-on-error: true` do?', 'options': ['Stops the workflow immediately', 'Allows the workflow/job to continue even if that step fails', 'Deletes the failed step', 'Runs the workflow only on pull requests'], 'answer': 1, 'explanation': '`continue-on-error: true` allows later steps to continue even after that step fails.'}, {'q': 'Which condition makes a job run only on push events?', 'options': ["if: github.event_name == 'push'", "if: github.event == 'manual'", "if: github.ref_name == 'push'", "if: runner.os == 'push'"], 'answer': 0, 'explanation': "`github.event_name == 'push'` checks that the triggering event was a push."}, {'q': 'In Task 5, which jobs ran in parallel?', 'options': ['summary and deploy', 'lint and test', 'build and deploy', 'summary and test only'], 'answer': 1, 'explanation': 'The lint and test jobs ran in parallel because neither depended on the other.'}, {'q': 'In Task 5, what does `needs: [lint, test]` mean?', 'options': ['The summary job runs before lint and test', 'The summary job waits for both lint and test to finish successfully', 'The lint job waits for summary', 'The workflow skips all jobs'], 'answer': 1, 'explanation': '`needs: [lint, test]` makes the summary job wait until both jobs complete successfully.'}];
+
+let current = 0;
+let answers = Array(questions.length).fill(null);
+let submitted = false;
+let timeLeft = 25 * 60;
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function prepareQuestions() {
+  questions.forEach((q, qIndex) => {
+    const originalOptions = q.options.map((text, index) => ({
+      text,
+      originalIndex: index
+    }));
+    shuffleArray(originalOptions);
+    q.shuffledOptions = originalOptions;
+    q.shuffledAnswer = originalOptions.findIndex(opt => opt.originalIndex === q.answer);
+  });
+  shuffleArray(questions);
+}
+
+function renderQuestion() {
+  const quiz = document.getElementById("quiz");
+  const q = questions[current];
+
+  quiz.innerHTML = `
+    <div class="card">
+      <div class="badge">Question ${current + 1} of ${questions.length}</div>
+      <div class="question-title">${q.q}</div>
+      <div class="options">
+        ${q.shuffledOptions.map((opt, index) => `
+          <label class="option">
+            <input type="radio" name="answer" value="${index}" ${answers[current] === index ? "checked" : ""} onchange="saveAnswer(${index})">
+            ${String.fromCharCode(65 + index)}. ${opt.text}
+          </label>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  document.getElementById("progress").textContent = `Question ${current + 1} of ${questions.length}`;
+  document.getElementById("prevBtn").disabled = current === 0;
+  document.getElementById("nextBtn").disabled = current === questions.length - 1;
+}
+
+function saveAnswer(index) {
+  answers[current] = index;
+}
+
+function nextQuestion() {
+  if (current < questions.length - 1) {
+    current++;
+    renderQuestion();
+  }
+}
+
+function prevQuestion() {
+  if (current > 0) {
+    current--;
+    renderQuestion();
+  }
+}
+
+function submitQuiz() {
+  if (submitted) return;
+
+  const unanswered = answers.filter(a => a === null).length;
+  if (unanswered > 0) {
+    const confirmSubmit = confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`);
+    if (!confirmSubmit) return;
+  }
+
+  submitted = true;
+  clearInterval(timerInterval);
+
+  let score = 0;
+  questions.forEach((q, i) => {
+    if (answers[i] === q.shuffledAnswer) score++;
+  });
+
+  const percent = Math.round((score / questions.length) * 100);
+  const result = document.getElementById("result");
+  const quiz = document.getElementById("quiz");
+  const controls = document.getElementById("controls");
+
+  quiz.classList.add("hide");
+  controls.classList.add("hide");
+
+  let message = percent >= 70 ? "Great job! You passed." : "Keep practicing. Review the explanations below.";
+  let scoreClass = percent >= 70 ? "pass" : "fail";
+
+  result.style.display = "block";
+  result.innerHTML = `
+    <div class="score ${scoreClass}">Score: ${score} / ${questions.length} (${percent}%)</div>
+    <p>${message}</p>
+    <button onclick="restartQuiz()">Restart Quiz</button>
+    <h2>Review Answers</h2>
+    ${questions.map((q, i) => {
+      const userAnswer = answers[i];
+      const correctAnswer = q.shuffledAnswer;
+      const userText = userAnswer === null ? "Not answered" : q.shuffledOptions[userAnswer].text;
+      const correctText = q.shuffledOptions[correctAnswer].text;
+      const isCorrect = userAnswer === correctAnswer;
+
+      return `
+        <div class="review-item">
+          <div><strong>Q${i + 1}.</strong> ${q.q}</div>
+          <div class="${isCorrect ? "correct" : "incorrect"}">
+            Your answer: ${userText} ${isCorrect ? "✓" : "✗"}
+          </div>
+          <div class="correct">Correct answer: ${correctText}</div>
+          <div class="explanation">Explanation: ${q.explanation}</div>
+        </div>
+      `;
+    }).join("")}
+  `;
+}
+
+function restartQuiz() {
+  location.reload();
+}
+
+function updateTimer() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  document.getElementById("timer").textContent =
+    `Time Left: ${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    alert("Time is up! The quiz will be submitted now.");
+    submitQuiz();
+  }
+  timeLeft--;
+}
+
+prepareQuestions();
+renderQuestion();
+const timerInterval = setInterval(updateTimer, 1000);
+updateTimer();
+</script>
+</body>
+</html>
