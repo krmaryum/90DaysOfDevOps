@@ -416,6 +416,12 @@ Home directory
 Mail spool
 ```
 
+## use interactive mode:
+```bash
+rm -ri *
+```
+Linux asks for confirmation before deleting.
+
 ---
 
 # Troubleshooting Checklist
