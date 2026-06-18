@@ -1,42 +1,61 @@
-# Day 52 of my DevOps learning journey: Kubernetes Namespaces and Deployments
+Day 44 of my DevOps learning journey: Secrets, Artifacts, Real Tests, and Caching in GitHub Actions
 
-Today I continued learning Kubernetes and focused on two important concepts: **Namespaces** and **Deployments**.
+Today I worked on some very important real-world CI/CD concepts in GitHub Actions.
 
-Namespaces help organize Kubernetes resources inside a cluster. Instead of putting everything in the default namespace, we can separate workloads based on environment or purpose.
+Until now, many workflows were focused on learning the basics: jobs, steps, variables, conditions, and workflow structure. Day 44 was different because the pipeline started doing more practical DevOps work.
 
-For example:
+I learned how to use GitHub Secrets to store sensitive values securely. I created repository secrets and used them inside workflows without exposing the real values in logs. I also verified that GitHub masks secrets automatically when they are printed, but the best practice is still to never print secrets intentionally.
 
-* `dev`
-* `staging`
-* `production`
+I practiced passing secrets as environment variables using the `env:` block. This helped me understand how CI/CD pipelines safely use credentials for tools like DockerHub, AWS, Terraform, Ansible, and Kubernetes.
 
-This makes the cluster cleaner, easier to manage, and closer to how real-world teams organize applications.
+I also learned about artifacts in GitHub Actions. I created a report file during a workflow run and uploaded it using:
 
-I also learned about Kubernetes Deployments.
+```yaml
+uses: actions/upload-artifact@v4
+```
 
-A Deployment is used to manage application pods in a reliable way. Instead of creating pods manually, a Deployment controls how many replicas should run and makes sure the desired state is maintained.
+After the workflow completed, I downloaded the artifact from the GitHub Actions Summary page and verified the file content.
 
-In today’s hands-on practice, I worked on:
+Then I practiced downloading artifacts between jobs. Job 1 generated and uploaded a report file, and Job 2 downloaded that artifact and printed its contents. This helped me understand that each GitHub Actions job runs on a separate runner, so files do not automatically move from one job to another. Artifacts solve that problem.
 
-* Checking existing namespaces
-* Creating custom namespaces
-* Deploying applications inside specific namespaces
-* Understanding Deployments
-* Scaling applications
-* Performing rolling updates
-* Testing rollback behavior
-* Cleaning up Kubernetes resources
+Another important part of the day was running real tests in CI. I added a shell script to the repository and created a workflow to run it automatically. The script checked Linux system information and required commands. I intentionally broke the script by adding a fake command, verified that the pipeline turned red, then fixed it and confirmed that the pipeline turned green again.
 
-One of the most important lessons I learned today is that Kubernetes focuses on desired state.
+This helped me understand how CI uses exit codes:
 
-We define what we want, and Kubernetes works to maintain that state.
+```text
+0 = success
+non-zero = failure
+```
 
-For example, if a pod fails, the Deployment can automatically create a new one. This self-healing behavior is one of the reasons Kubernetes is so powerful.
+Finally, I learned how to use caching with:
 
-Day 52 helped me understand how Kubernetes organizes applications and keeps them running reliably.
+```yaml
+uses: actions/cache@v4
+```
 
-Step by step, Kubernetes concepts are becoming clearer.
+I cached Python pip dependencies from:
 
+```text
+~/.cache/pip
+```
+
+The first run did not find a cache, and later runs restored the cache successfully. I also learned that small projects may not show a big time difference, but cache is very useful in larger projects with many dependencies.
+
+Key things I practiced today:
+
+- GitHub Secrets
+- Secret masking in workflow logs
+- Secrets as environment variables
+- Uploading artifacts
+- Downloading artifacts between jobs
+- Running real shell scripts in CI
+- Understanding exit codes
+- Breaking and fixing pipelines
+- Caching dependencies with GitHub Actions
+
+Day 44 helped me understand how GitHub Actions is used in real CI/CD pipelines, not just for printing messages but for handling secrets, saving build outputs, sharing files between jobs, running tests, and improving workflow performance.
+
+Step by step, CI/CD is becoming much clearer.
 Let's learn together and grow
 
 #90DaysOfDevOps
