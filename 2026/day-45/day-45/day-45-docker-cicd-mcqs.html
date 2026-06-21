@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 45 MCQs - Docker Build & Push in GitHub Actions</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    .info-card {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .info-box {
+      background: #eef2ff;
+      border-left: 5px solid #1e40af;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .question-card {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      margin-bottom: 18px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .question-title {
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      color: #111827;
+    }
+
+    .option {
+      display: block;
+      padding: 11px 12px;
+      margin: 8px 0;
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .option:hover {
+      background: #eef2ff;
+      border-color: #6366f1;
+    }
+
+    .option input {
+      margin-right: 10px;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 5px solid #64748b;
+      font-size: 0.95rem;
+    }
+
+    .correct {
+      background: #dcfce7 !important;
+      border-color: #22c55e !important;
+    }
+
+    .wrong {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+    }
+
+    .controls {
+      text-align: center;
+      margin: 25px 0;
+    }
+
+    button {
+      background: #1e40af;
+      color: white;
+      border: none;
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 6px;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .reset-btn {
+      background: #374151;
+    }
+
+    .reset-btn:hover {
+      background: #111827;
+    }
+
+    #result {
+      display: none;
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      margin: 20px 0;
+      text-align: center;
+      border-top: 6px solid #1e40af;
+    }
+
+    #result h2 {
+      margin-top: 0;
+      color: #1e3a8a;
+    }
+
+    .score {
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: #0f172a;
+    }
+
+    @media print {
+      button, .controls {
+        display: none;
+      }
+      body {
+        background: white;
+      }
+      .question-card, .info-card, #result {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Day 45 MCQs</h1>
+  <p>Docker Build & Push in GitHub Actions – 25 Questions</p>
+</header>
+
+<div class="container">
+
+  <div class="info-card">
+    <h2>Quiz Overview</h2>
+    <p>This quiz is based on Day 45: building a complete Docker CI/CD pipeline using GitHub Actions and Docker Hub.</p>
+    <div class="info-grid">
+      <div class="info-box"><strong>Total Questions:</strong> 25</div>
+      <div class="info-box"><strong>Topics:</strong> Dockerfile, GitHub Actions, Docker Hub, Tags, Badge, CI/CD</div>
+      <div class="info-box"><strong>Passing Target:</strong> 20/25 or higher</div>
+      <div class="info-box"><strong>Practice Style:</strong> Select one answer for each question</div>
+    </div>
+  </div>
+
+  <form id="quizForm">
+
+    <div class="question-card" data-answer="b">
+      <div class="question-title">1. What was the main goal of Day 45?</div>
+      <label class="option"><input type="radio" name="q1" value="a"> To install Docker manually on GitHub servers</label>
+      <label class="option"><input type="radio" name="q1" value="b"> To build a Docker image with GitHub Actions and push it to Docker Hub</label>
+      <label class="option"><input type="radio" name="q1" value="c"> To create only a local Docker container</label>
+      <label class="option"><input type="radio" name="q1" value="d"> To delete old Docker images from Docker Hub</label>
+      <div class="explanation">Correct answer: B. Day 45 focused on building a complete CI/CD pipeline that builds a Docker image and pushes it to Docker Hub.</div>
+    </div>
+
+    <div class="question-card" data-answer="a">
+      <div class="question-title">2. Which file contains the instructions to build a Docker image?</div>
+      <label class="option"><input type="radio" name="q2" value="a"> Dockerfile</label>
+      <label class="option"><input type="radio" name="q2" value="b"> README.md</label>
+      <label class="option"><input type="radio" name="q2" value="c"> index.html</label>
+      <label class="option"><input type="radio" name="q2" value="d"> package.json</label>
+      <div class="explanation">Correct answer: A. A Dockerfile contains the build instructions for a Docker image.</div>
+    </div>
+
+    <div class="question-card" data-answer="c">
+      <div class="question-title">3. In this project, which base image was used in the Dockerfile?</div>
+      <label class="option"><input type="radio" name="q3" value="a"> ubuntu:latest</label>
+      <label class="option"><input type="radio" name="q3" value="b"> node:alpine</label>
+      <label class="option"><input type="radio" name="q3" value="c"> nginx:alpine</label>
+      <label class="option"><input type="radio" name="q3" value="d"> python:slim</label>
+      <div class="explanation">Correct answer: C. The Dockerfile used <code>nginx:alpine</code> to serve a simple HTML page.</div>
+    </div>
+
+    <div class="question-card" data-answer="d">
+      <div class="question-title">4. What does this Dockerfile line do: <code>COPY index.html /usr/share/nginx/html/index.html</code>?</div>
+      <label class="option"><input type="radio" name="q4" value="a"> Deletes index.html from the container</label>
+      <label class="option"><input type="radio" name="q4" value="b"> Installs Nginx</label>
+      <label class="option"><input type="radio" name="q4" value="c"> Opens port 8080</label>
+      <label class="option"><input type="radio" name="q4" value="d"> Copies the HTML file into the Nginx web directory</label>
+      <div class="explanation">Correct answer: D. Nginx serves files from <code>/usr/share/nginx/html/</code>.</div>
+    </div>
+
+    <div class="question-card" data-answer="b">
+      <div class="question-title">5. What does <code>EXPOSE 80</code> mean in a Dockerfile?</div>
+      <label class="option"><input type="radio" name="q5" value="a"> It publishes port 80 automatically to the host</label>
+      <label class="option"><input type="radio" name="q5" value="b"> It documents that the container listens on port 80</label>
+      <label class="option"><input type="radio" name="q5" value="c"> It blocks port 80</label>
+      <label class="option"><input type="radio" name="q5" value="d"> It changes Nginx to port 8080</label>
+      <div class="explanation">Correct answer: B. <code>EXPOSE</code> documents the container port, but <code>-p</code> is still needed to publish it.</div>
+    </div>
+
+    <div class="question-card" data-answer="a">
+      <div class="question-title">6. Which command builds a Docker image locally?</div>
+      <label class="option"><input type="radio" name="q6" value="a"> docker build -t image-name .</label>
+      <label class="option"><input type="radio" name="q6" value="b"> docker run image-name</label>
+      <label class="option"><input type="radio" name="q6" value="c"> docker ps</label>
+      <label class="option"><input type="radio" name="q6" value="d"> docker push image-name</label>
+      <div class="explanation">Correct answer: A. <code>docker build -t image-name .</code> builds an image from the Dockerfile in the current directory.</div>
+    </div>
+
+    <div class="question-card" data-answer="c">
+      <div class="question-title">7. What does <code>-p 8080:80</code> mean in <code>docker run</code>?</div>
+      <label class="option"><input type="radio" name="q7" value="a"> Container port 8080 maps to host port 80</label>
+      <label class="option"><input type="radio" name="q7" value="b"> It deletes port 80</label>
+      <label class="option"><input type="radio" name="q7" value="c"> Host port 8080 maps to container port 80</label>
+      <label class="option"><input type="radio" name="q7" value="d"> It maps Docker Hub to port 8080</label>
+      <div class="explanation">Correct answer: C. The left side is the host/local port, and the right side is the container port.</div>
+    </div>
+
+    <div class="question-card" data-answer="b">
+      <div class="question-title">8. What is the workflow file path used for Docker CI/CD?</div>
+      <label class="option"><input type="radio" name="q8" value="a"> workflows/docker-publish.yml</label>
+      <label class="option"><input type="radio" name="q8" value="b"> .github/workflows/docker-publish.yml</label>
+      <label class="option"><input type="radio" name="q8" value="c"> github/docker-publish.yml</label>
+      <label class="option"><input type="radio" name="q8" value="d"> .docker/workflows/docker-publish.yml</label>
+      <div class="explanation">Correct answer: B. GitHub Actions workflows are stored inside <code>.github/workflows/</code>.</div>
+    </div>
+
+    <div class="question-card" data-answer="d">
+      <div class="question-title">9. What does <code>actions/checkout@v4</code> do?</div>
+      <label class="option"><input type="radio" name="q9" value="a"> Logs in to Docker Hub</label>
+      <label class="option"><input type="radio" name="q9" value="b"> Pushes image to Docker Hub</label>
+      <label class="option"><input type="radio" name="q9" value="c"> Installs Nginx</label>
+      <label class="option"><input type="radio" name="q9" value="d"> Downloads the repository code into the runner</label>
+      <div class="explanation">Correct answer: D. Without checkout, the runner will not have your Dockerfile and app files.</div>
+    </div>
+
+    <div class="question-card" data-answer="a">
+      <div class="question-title">10. Why do we use GitHub Secrets for Docker Hub login?</div>
+      <label class="option"><input type="radio" name="q10" value="a"> To protect private credentials like Docker username and token</label>
+      <label class="option"><input type="radio" name="q10" value="b"> To make workflow slower</label>
+      <label class="option"><input type="radio" name="q10" value="c"> To delete Docker images automatically</label>
+      <label class="option"><input type="radio" name="q10" value="d"> To avoid using Docker Hub</label>
+      <div class="explanation">Correct answer: A. Secrets keep sensitive values out of the workflow YAML.</div>
+    </div>
+
+    <div class="question-card" data-answer="b">
+      <div class="question-title">11. Which two secrets were used for Docker Hub authentication?</div>
+      <label class="option"><input type="radio" name="q11" value="a"> USERNAME and PASSWORD</label>
+      <label class="option"><input type="radio" name="q11" value="b"> DOCKER_USERNAME and DOCKER_TOKEN</label>
+      <label class="option"><input type="radio" name="q11" value="c"> HUB_USER and HUB_PASS</label>
+      <label class="option"><input type="radio" name="q11" value="d"> GITHUB_USERNAME and GITHUB_TOKEN</label>
+      <div class="explanation">Correct answer: B. The workflow uses <code>DOCKER_USERNAME</code> and <code>DOCKER_TOKEN</code>.</div>
+    </div>
+
+    <div class="question-card" data-answer="c">
+      <div class="question-title">12. What is the purpose of the <code>latest</code> Docker tag?</div>
+      <label class="option"><input type="radio" name="q12" value="a"> It always means the image is secure</label>
+      <label class="option"><input type="radio" name="q12" value="b"> It means the image is deleted</label>
+      <label class="option"><input type="radio" name="q12" value="c"> It usually points to the newest image version</label>
+      <label class="option"><input type="radio" name="q12" value="d"> It only works on Windows</label>
+      <div class="explanation">Correct answer: C. <code>latest</code> is commonly used to point to the newest pushed image.</div>
+    </div>
+
+    <div class="question-card" data-answer="a">
+      <div class="question-title">13. Why is a <code>sha-&lt;short-commit-hash&gt;</code> Docker tag useful?</div>
+      <label class="option"><input type="radio" name="q13" value="a"> It connects the image to a specific Git commit</label>
+      <label class="option"><input type="radio" name="q13" value="b"> It hides the image from Docker Hub</label>
+      <label class="option"><input type="radio" name="q13" value="c"> It removes the need for a Dockerfile</label>
+      <label class="option"><input type="radio" name="q13" value="d"> It stops GitHub Actions from running</label>
+      <div class="explanation">Correct answer: A. SHA tags help with traceability, debugging, and rollback.</div>
+    </div>
+
+    <div class="question-card" data-answer="d">
+      <div class="question-title">14. Which command gets the first 7 characters of the commit SHA in the workflow?</div>
+      <label class="option"><input type="radio" name="q14" value="a"> echo $GITHUB_REF | cut -c1-7</label>
+      <label class="option"><input type="radio" name="q14" value="b"> git branch -c1-7</label>
+      <label class="option"><input type="radio" name="q14" value="c"> docker sha short</label>
+      <label class="option"><input type="radio" name="q14" value="d"> echo $GITHUB_SHA | cut -c1-7</label>
+      <div class="explanation">Correct answer: D. <code>$GITHUB_SHA</code> contains the full commit SHA, and <code>cut -c1-7</code> keeps the first 7 characters.</div>
+    </div>
+
+    <div class="question-card" data-answer="b">
+      <div class="question-title">15. What does <code>$GITHUB_OUTPUT</code> help us do?</div>
+      <label class="option"><input type="radio" name="q15" value="a"> Delete workflow logs</label>
+      <label class="option"><input type="radio" name="q15" value="b"> Save a value as a step output for later steps</label>
+      <label class="option"><input type="radio" name="q15" value="c"> Push code to GitHub</label>
+      <label class="option"><input type="radio" name="q15" value="d"> Build an image automatically without Docker</label>
+      <div class="explanation">Correct answer: B. It lets a step save an output such as <code>SHORT_SHA</code>.</div>
+    </div>
+
+    <div class="question-card" data-answer="c">
+      <div class="question-title">16. In Task 4, what was the purpose of <code>if: github.ref == 'refs/heads/main'</code>?</div>
+      <label class="option"><input type="radio" name="q16" value="a"> To run only on feature branches</label>
+      <label class="option"><input type="radio" name="q16" value="b"> To stop the build step on main</label>
+      <label class="option"><input type="radio" name="q16" value="c"> To run Docker Hub login and push only on main</label>
+      <label class="option"><input type="radio" name="q16" value="d"> To delete the workflow file</label>
+      <div class="explanation">Correct answer: C. The condition makes publishing happen only from the main branch.</div>
+    </div>
+
+    <div class="question-card" data-answer="a">
+      <div class="question-title">17. What should happen when the workflow runs on a feature branch?</div>
+      <label class="option"><input type="radio" name="q17" value="a"> Docker image builds, but Docker Hub login and push are skipped</label>
+      <label class="option"><input type="radio" name="q17" value="b"> Docker image is pushed to Docker Hub</label>
+      <label class="option"><input type="radio" name="q17" value="c"> GitHub deletes the branch</label>
+      <label class="option"><input type="radio" name="q17" value="d"> The Dockerfile is removed</label>
+      <div class="explanation">Correct answer: A. Feature branches should validate the build but not publish images.</div>
+    </div>
+
+    <div class="question-card" data-answer="d">
+      <div class="question-title">18. What does the pattern <code>"**"</code> mean under push branches?</div>
+      <label class="option"><input type="radio" name="q18" value="a"> Only main branch</label>
+      <label class="option"><input type="radio" name="q18" value="b"> No branches</label>
+      <label class="option"><input type="radio" name="q18" value="c"> Only Docker branches</label>
+      <label class="option"><input type="radio" name="q18" value="d"> All branches</label>
+      <div class="explanation">Correct answer: D. <code>"**"</code> allows the workflow to run on pushes to all branches.</div>
+    </div>
+
+    <div class="question-card" data-answer="b">
+      <div class="question-title">19. Why is the pattern “Build everywhere, push only from main” useful?</div>
+      <label class="option"><input type="radio" name="q19" value="a"> It prevents all builds from running</label>
+      <label class="option"><input type="radio" name="q19" value="b"> It validates feature branches without publishing incomplete images</label>
+      <label class="option"><input type="radio" name="q19" value="c"> It removes the need for GitHub Actions</label>
+      <label class="option"><input type="radio" name="q19" value="d"> It only works for HTML files</label>
+      <div class="explanation">Correct answer: B. This is safer because only main branch code gets published to Docker Hub.</div>
+    </div>
+
+    <div class="question-card" data-answer="c">
+      <div class="question-title">20. What does a GitHub Actions status badge show?</div>
+      <label class="option"><input type="radio" name="q20" value="a"> Docker image size only</label>
+      <label class="option"><input type="radio" name="q20" value="b"> Number of GitHub stars</label>
+      <label class="option"><input type="radio" name="q20" value="c"> Whether the workflow is passing, failing, or running</label>
+      <label class="option"><input type="radio" name="q20" value="d"> The Docker Hub password</label>
+      <div class="explanation">Correct answer: C. A status badge shows the current workflow status.</div>
+    </div>
+
+    <div class="question-card" data-answer="a">
+      <div class="question-title">21. Where is the status badge usually added?</div>
+      <label class="option"><input type="radio" name="q21" value="a"> README.md</label>
+      <label class="option"><input type="radio" name="q21" value="b"> Dockerfile</label>
+      <label class="option"><input type="radio" name="q21" value="c"> index.html only</label>
+      <label class="option"><input type="radio" name="q21" value="d"> Docker Hub token</label>
+      <div class="explanation">Correct answer: A. Status badges are commonly placed near the top of README.md.</div>
+    </div>
+
+    <div class="question-card" data-answer="d">
+      <div class="question-title">22. Which command pulls the image from Docker Hub?</div>
+      <label class="option"><input type="radio" name="q22" value="a"> docker build krmaryum/day45-docker-app:latest</label>
+      <label class="option"><input type="radio" name="q22" value="b"> docker ps krmaryum/day45-docker-app:latest</label>
+      <label class="option"><input type="radio" name="q22" value="c"> docker rm krmaryum/day45-docker-app:latest</label>
+      <label class="option"><input type="radio" name="q22" value="d"> docker pull krmaryum/day45-docker-app:latest</label>
+      <div class="explanation">Correct answer: D. <code>docker pull</code> downloads an image from Docker Hub or another registry.</div>
+    </div>
+
+    <div class="question-card" data-answer="b">
+      <div class="question-title">23. Which command confirms that the container is running?</div>
+      <label class="option"><input type="radio" name="q23" value="a"> docker images delete</label>
+      <label class="option"><input type="radio" name="q23" value="b"> docker ps</label>
+      <label class="option"><input type="radio" name="q23" value="c"> docker logout</label>
+      <label class="option"><input type="radio" name="q23" value="d"> git status</label>
+      <div class="explanation">Correct answer: B. <code>docker ps</code> lists running containers.</div>
+    </div>
+
+    <div class="question-card" data-answer="c">
+      <div class="question-title">24. What does <code>docker rm -f dockerhub-test</code> do?</div>
+      <label class="option"><input type="radio" name="q24" value="a"> Pushes the image to Docker Hub</label>
+      <label class="option"><input type="radio" name="q24" value="b"> Creates a new Dockerfile</label>
+      <label class="option"><input type="radio" name="q24" value="c"> Force removes the container named dockerhub-test</label>
+      <label class="option"><input type="radio" name="q24" value="d"> Shows GitHub Actions logs</label>
+      <div class="explanation">Correct answer: C. It stops and removes the container if it exists.</div>
+    </div>
+
+    <div class="question-card" data-answer="a">
+      <div class="question-title">25. What is the correct full journey from code to running container?</div>
+      <label class="option"><input type="radio" name="q25" value="a"> git push → GitHub Actions build → Docker Hub push → docker pull → docker run → running app</label>
+      <label class="option"><input type="radio" name="q25" value="b"> docker run → git push → delete Dockerfile → README update</label>
+      <label class="option"><input type="radio" name="q25" value="c"> README badge → delete image → stop workflow → run app</label>
+      <label class="option"><input type="radio" name="q25" value="d"> GitHub Actions → no Dockerfile → no image → no container</label>
+      <div class="explanation">Correct answer: A. This is the full CI/CD flow from source code to a running container.</div>
+    </div>
+
+  </form>
+
+  <div class="controls">
+    <button type="button" onclick="checkAnswers()">Submit Quiz</button>
+    <button type="button" class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+
+  <div id="result">
+    <h2>Quiz Result</h2>
+    <div class="score" id="scoreText"></div>
+    <p id="resultMessage"></p>
+  </div>
+
+</div>
+
+<footer>
+  Day 45 – Docker Build & Push in GitHub Actions | MCQ Practice
+</footer>
+
+<script>
+  function checkAnswers() {
+    const cards = document.querySelectorAll('.question-card');
+    let score = 0;
+
+    cards.forEach((card, index) => {
+      const correctAnswer = card.getAttribute('data-answer');
+      const selected = card.querySelector('input[type="radio"]:checked');
+      const options = card.querySelectorAll('.option');
+      const explanation = card.querySelector('.explanation');
+
+      options.forEach(option => {
+        option.classList.remove('correct', 'wrong');
+        const input = option.querySelector('input');
+        if (input.value === correctAnswer) {
+          option.classList.add('correct');
+        }
+      });
+
+      if (selected) {
+        if (selected.value === correctAnswer) {
+          score++;
+        } else {
+          selected.closest('.option').classList.add('wrong');
+        }
+      }
+
+      explanation.style.display = 'block';
+    });
+
+    const result = document.getElementById('result');
+    const scoreText = document.getElementById('scoreText');
+    const resultMessage = document.getElementById('resultMessage');
+
+    scoreText.textContent = score + " / " + cards.length;
+
+    if (score >= 22) {
+      resultMessage.textContent = "Excellent, bhai. You have a strong understanding of Day 45 Docker CI/CD.";
+    } else if (score >= 18) {
+      resultMessage.textContent = "Good job. Review the explanations and practice the weak areas one more time.";
+    } else if (score >= 12) {
+      resultMessage.textContent = "You are getting there. Review Docker tags, GitHub Actions conditions, and Docker Hub push steps.";
+    } else {
+      resultMessage.textContent = "Keep practicing. Go back through the Day 45 notes task by task and try again.";
+    }
+
+    result.style.display = 'block';
+    result.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetQuiz() {
+    const form = document.getElementById('quizForm');
+    form.reset();
+
+    document.querySelectorAll('.option').forEach(option => {
+      option.classList.remove('correct', 'wrong');
+    });
+
+    document.querySelectorAll('.explanation').forEach(explanation => {
+      explanation.style.display = 'none';
+    });
+
+    document.getElementById('result').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
