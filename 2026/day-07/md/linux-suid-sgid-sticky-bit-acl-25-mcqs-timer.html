@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux SUID, SGID, Sticky Bit and ACL - 25 MCQs</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 1050px;
+    margin: auto;
+    padding: 20px;
+    line-height: 1.6;
+    background: #f4f7fb;
+    color: #222;
+  }
+  h1, h2 {
+    text-align: center;
+  }
+  .top-box {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+  }
+  .timer {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+    padding: 12px;
+    background: #fff3cd;
+    border-radius: 8px;
+    border: 1px solid #ffeeba;
+  }
+  .question {
+    background: #ffffff;
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+  }
+  .question h3 {
+    margin-top: 0;
+  }
+  .option {
+    display: block;
+    padding: 8px;
+    margin: 6px 0;
+    border-radius: 6px;
+    border: 1px solid transparent;
+  }
+  .option:hover {
+    background: #f1f1f1;
+  }
+  .correct {
+    background: #d4edda !important;
+    border-left: 6px solid #28a745 !important;
+  }
+  .wrong {
+    background: #f8d7da !important;
+    border-left: 6px solid #dc3545 !important;
+  }
+  .answer-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: #e8f4ff;
+    border-left: 6px solid #007bff;
+    display: none;
+    border-radius: 6px;
+  }
+  button {
+    padding: 12px 22px;
+    margin: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+  }
+  button:hover {
+    background: #0056b3;
+  }
+  .reset {
+    background: #6c757d;
+  }
+  .reset:hover {
+    background: #545b62;
+  }
+  .result {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin: 25px 0;
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+  }
+  .summary {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 20px;
+  }
+  code {
+    background: #f1f1f1;
+    padding: 2px 5px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Linux Special Permissions and ACL</h1>
+<h2>25 MCQs Practice Test</h2>
+
+<div class="top-box">
+  <p><b>Topics Covered:</b> SUID, SGID, Sticky Bit, ACL, commands, symbols, numeric values, and real-world scenarios.</p>
+  <p><b>Instructions:</b> Select one answer for each question. Submit the quiz to see correct answers, your answers, explanations, score, and pass/fail result.</p>
+</div>
+
+<div class="timer">Time Left: <span id="time">30:00</span></div>
+
+<form id="quiz"></form>
+
+<div style="text-align:center;">
+  <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+  <button type="button" class="reset" onclick="location.reload()">Retake Quiz</button>
+</div>
+
+<div id="result" class="result"></div>
+<div id="answerSummary" class="summary" style="display:none;"></div>
+
+<script>
+const questions = [
+  {
+    q: "What does SUID stand for?",
+    options: ["Set User ID", "System User ID", "Secure User ID", "Shared User ID"],
+    answer: 0,
+    explain: "SUID stands for Set User ID. It allows an executable to run with the permissions of the file owner."
+  },
+  {
+    q: "What is the numeric value of SUID?",
+    options: ["1", "2", "4", "7"],
+    answer: 2,
+    explain: "SUID has numeric value 4."
+  },
+  {
+    q: "What is the main purpose of SUID?",
+    options: ["Protect file deletion", "Run executable as file owner", "Inherit directory group", "Show ACL entries"],
+    answer: 1,
+    explain: "SUID allows an executable file to run with the permissions of its owner."
+  },
+  {
+    q: "Which command sets SUID using symbolic mode?",
+    options: ["chmod g+s file", "chmod +t file", "chmod u+s file", "setfacl -m file"],
+    answer: 2,
+    explain: "`chmod u+s file` sets SUID on an executable file."
+  },
+  {
+    q: "Which numeric command sets SUID with 755 permissions?",
+    options: ["chmod 1755 file", "chmod 2755 file", "chmod 4755 file", "chmod 0755 file"],
+    answer: 2,
+    explain: "`chmod 4755 file` sets SUID. The leading 4 represents SUID."
+  },
+  {
+    q: "Which command can find SUID files?",
+    options: ["find / -perm -4000 -type f 2>/dev/null", "find / -perm -2000 -type f", "getfacl / -suid", "ls -R suid"],
+    answer: 0,
+    explain: "`find / -perm -4000 -type f 2>/dev/null` finds SUID files."
+  },
+  {
+    q: "Which file commonly has SUID enabled so users can change their passwords?",
+    options: ["/etc/shadow", "/usr/bin/passwd", "/tmp", "/etc/group"],
+    answer: 1,
+    explain: "`/usr/bin/passwd` commonly has SUID enabled so users can change their own passwords."
+  },
+  {
+    q: "What does SGID stand for?",
+    options: ["Set Group ID", "System Group ID", "Secure Group ID", "Shared Global ID"],
+    answer: 0,
+    explain: "SGID stands for Set Group ID."
+  },
+  {
+    q: "What is the numeric value of SGID?",
+    options: ["1", "2", "4", "6"],
+    answer: 1,
+    explain: "SGID has numeric value 2."
+  },
+  {
+    q: "What does SGID do on a directory?",
+    options: ["Prevents deletion by others", "Makes new files inherit directory group", "Runs as root user", "Removes ACLs"],
+    answer: 1,
+    explain: "SGID on a directory makes new files and subdirectories inherit the directory's group ownership."
+  },
+  {
+    q: "Which command sets SGID using symbolic mode?",
+    options: ["chmod u+s directory", "chmod g+s directory", "chmod +t directory", "setfacl -d directory"],
+    answer: 1,
+    explain: "`chmod g+s directory` sets SGID on a directory."
+  },
+  {
+    q: "Which numeric command sets SGID with 775 permissions?",
+    options: ["chmod 1775 directory", "chmod 2775 directory", "chmod 4775 directory", "chmod 0775 directory"],
+    answer: 1,
+    explain: "`chmod 2775 directory` sets SGID. The leading 2 represents SGID."
+  },
+  {
+    q: "Which permission output shows SGID enabled on a directory?",
+    options: ["drwxrwxrwt", "drwxrwsr-x", "-rwsr-xr-x", "-rw-r--r--+"],
+    answer: 1,
+    explain: "`drwxrwsr-x` shows `s` in the group execute position, meaning SGID is enabled."
+  },
+  {
+    q: "If `/project` has group `developers` and SGID enabled, what group will a new file inherit?",
+    options: ["The creator's primary group", "root", "developers", "others"],
+    answer: 2,
+    explain: "With SGID enabled on `/project`, new files inherit the directory group, which is `developers`."
+  },
+  {
+    q: "What is Sticky Bit mainly used for?",
+    options: ["Run as owner", "Protect files from deletion by other users", "Change passwords", "Show ACL permissions"],
+    answer: 1,
+    explain: "Sticky Bit prevents users from deleting or renaming files owned by other users inside a shared directory."
+  },
+  {
+    q: "What is the numeric value of Sticky Bit?",
+    options: ["1", "2", "4", "5"],
+    answer: 0,
+    explain: "Sticky Bit has numeric value 1."
+  },
+  {
+    q: "Which command sets Sticky Bit symbolically?",
+    options: ["chmod u+s directory", "chmod g+s directory", "chmod +t directory", "setfacl -k directory"],
+    answer: 2,
+    explain: "`chmod +t directory` sets Sticky Bit."
+  },
+  {
+    q: "Which numeric command sets Sticky Bit on a 777 shared directory?",
+    options: ["chmod 1777 /shared", "chmod 2777 /shared", "chmod 4777 /shared", "chmod 0777 /shared"],
+    answer: 0,
+    explain: "`chmod 1777 /shared` sets Sticky Bit. The leading 1 represents Sticky Bit."
+  },
+  {
+    q: "Which directory commonly has Sticky Bit enabled?",
+    options: ["/etc", "/tmp", "/root", "/usr/bin"],
+    answer: 1,
+    explain: "`/tmp` commonly has Sticky Bit enabled so users can create files but cannot delete each other's files."
+  },
+  {
+    q: "Which permission output shows Sticky Bit enabled?",
+    options: ["drwxrwxrwt", "drwxrwsr-x", "-rwsr-xr-x", "-rw-r--r--+"],
+    answer: 0,
+    explain: "`drwxrwxrwt` shows `t` at the end, meaning Sticky Bit is enabled."
+  },
+  {
+    q: "What does ACL stand for?",
+    options: ["Access Control List", "Advanced Command Line", "Account Control Login", "Access Copy List"],
+    answer: 0,
+    explain: "ACL stands for Access Control List."
+  },
+  {
+    q: "Why do we use ACLs?",
+    options: ["To give permissions to specific users/groups beyond owner/group/others", "To reboot Linux", "To change hostname", "To find SUID files"],
+    answer: 0,
+    explain: "ACLs allow advanced permissions for specific users and groups without changing the file owner or main group."
+  },
+  {
+    q: "Which command displays ACL permissions?",
+    options: ["setfacl", "getfacl", "chmod", "chown"],
+    answer: 1,
+    explain: "`getfacl file` displays ACL permissions."
+  },
+  {
+    q: "Which command gives user sara read permission using ACL?",
+    options: ["setfacl -m u:sara:r file.txt", "getfacl -m u:sara:r file.txt", "chmod u+s file.txt", "chgrp sara file.txt"],
+    answer: 0,
+    explain: "`setfacl -m u:sara:r file.txt` gives user sara read permission."
+  },
+  {
+    q: "What symbol in `ls -l` indicates that ACL exists on a file?",
+    options: ["*", "+", "@", "!"],
+    answer: 1,
+    explain: "A `+` at the end of the permission string, such as `-rw-r--r--+`, indicates ACL is present."
+  }
+];
+
+const quiz = document.getElementById("quiz");
+
+questions.forEach((item, index) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.id = `qbox${index}`;
+
+  let html = `<h3>Q${index + 1}. ${item.q}</h3>`;
+
+  item.options.forEach((option, optIndex) => {
+    html += `
+      <label class="option" id="q${index}o${optIndex}">
+        <input type="radio" name="q${index}" value="${optIndex}">
+        ${option}
+      </label>
+    `;
+  });
+
+  html += `<div class="answer-box" id="answer${index}"></div>`;
+  div.innerHTML = html;
+  quiz.appendChild(div);
+});
+
+let timeLeft = 1800;
+let submitted = false;
+
+const timer = setInterval(() => {
+  let min = Math.floor(timeLeft / 60);
+  let sec = timeLeft % 60;
+  document.getElementById("time").textContent = `${min}:${sec.toString().padStart(2, "0")}`;
+  timeLeft--;
+
+  if (timeLeft < 0) {
+    clearInterval(timer);
+    submitQuiz();
+  }
+}, 1000);
+
+function submitQuiz() {
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timer);
+
+  let score = 0;
+  let summaryHtml = `<h2>Answer Summary</h2><ol>`;
+
+  questions.forEach((item, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    const correctIndex = item.answer;
+
+    const correctOption = document.getElementById(`q${index}o${correctIndex}`);
+    correctOption.classList.add("correct");
+
+    let selectedText = "Not answered";
+
+    if (selected) {
+      const selectedIndex = parseInt(selected.value);
+      selectedText = item.options[selectedIndex];
+
+      if (selectedIndex === correctIndex) {
+        score++;
+      } else {
+        document.getElementById(`q${index}o${selectedIndex}`).classList.add("wrong");
+      }
+    }
+
+    const answerBox = document.getElementById(`answer${index}`);
+    answerBox.style.display = "block";
+    answerBox.innerHTML = `
+      <b>Correct Answer:</b> ${item.options[correctIndex]}<br>
+      <b>Your Answer:</b> ${selectedText}<br>
+      <b>Explanation:</b> ${item.explain}
+    `;
+
+    summaryHtml += `
+      <li>
+        <b>${item.q}</b><br>
+        Correct Answer: ${item.options[correctIndex]}<br>
+        Your Answer: ${selectedText}<br>
+        Explanation: ${item.explain}
+      </li><br>
+    `;
+
+    const radios = document.querySelectorAll(`input[name="q${index}"]`);
+    radios.forEach(r => r.disabled = true);
+  });
+
+  summaryHtml += `</ol>`;
+
+  const percentage = ((score / questions.length) * 100).toFixed(1);
+  let status = percentage >= 70 ? "PASS" : "NEED MORE PRACTICE";
+
+  document.getElementById("result").innerHTML = `
+    Your Score: ${score}/${questions.length} (${percentage}%)<br>
+    Result: ${status}<br>
+    <small>Green = Correct Answer, Red = Your Wrong Answer</small>
+  `;
+
+  document.getElementById("answerSummary").style.display = "block";
+  document.getElementById("answerSummary").innerHTML = summaryHtml;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>

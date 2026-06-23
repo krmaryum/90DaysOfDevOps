@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Special Permissions - Scenario Based MCQs</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    line-height: 1.6;
+    background: #f4f7fb;
+    color: #222;
+  }
+  h1, h2 {
+    text-align: center;
+  }
+  .top-box, .result, .summary {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 18px 0;
+  }
+  .timer {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 20px 0;
+  }
+  .question {
+    background: #ffffff;
+    margin: 16px 0;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  .question h3 {
+    margin-top: 0;
+  }
+  .option {
+    display: block;
+    padding: 8px;
+    margin: 6px 0;
+    border-radius: 6px;
+    border: 1px solid transparent;
+  }
+  .option:hover {
+    background: #f1f1f1;
+  }
+  .correct {
+    background: #d4edda !important;
+    border-left: 6px solid #28a745 !important;
+  }
+  .wrong {
+    background: #f8d7da !important;
+    border-left: 6px solid #dc3545 !important;
+  }
+  .answer-box {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background: #e8f4ff;
+    border-left: 6px solid #007bff;
+    border-radius: 6px;
+  }
+  button {
+    padding: 12px 22px;
+    margin: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+  }
+  button:hover {
+    background: #0056b3;
+  }
+  .reset {
+    background: #6c757d;
+  }
+  .reset:hover {
+    background: #545b62;
+  }
+  code, pre {
+    background: #f1f1f1;
+    padding: 2px 5px;
+    border-radius: 4px;
+  }
+  pre {
+    padding: 10px;
+    overflow-x: auto;
+  }
+</style>
+</head>
+<body>
+
+<h1>Linux Special Permissions</h1>
+<h2>Scenario-Based MCQs</h2>
+
+<div class="top-box">
+  <p><b>Topics Covered:</b> SUID, SGID, Sticky Bit, ACL</p>
+  <p><b>Style:</b> Real-world scenarios based on What → Why → How → Lab learning flow.</p>
+  <p><b>Instructions:</b> Select the best answer. After submission, the quiz will show correct answers, your answers, explanations, score, and pass/fail result.</p>
+</div>
+
+<div class="timer">Time Left: <span id="time">10:00</span></div>
+
+<form id="quiz"></form>
+
+<div style="text-align:center;">
+  <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+  <button type="button" class="reset" onclick="location.reload()">Retake Quiz</button>
+</div>
+
+<div id="result" class="result"></div>
+<div id="answerSummary" class="summary" style="display:none;"></div>
+
+<script>
+const questions = [
+  {
+    q: "Ali runs a program owned by root. The program executes with root privileges even though Ali is a normal user. Which special permission is being used?",
+    options: ["ACL", "Sticky Bit", "SGID", "SUID"],
+    answer: 3,
+    explain: "SUID allows a program to run with the permissions of the file owner. If the file owner is root, the program can run with root privileges."
+  },
+  {
+    q: "A company has a shared directory `/project`. The group is `developers`. Whenever Ali, Sara, or Ahmed create files inside this directory, all files automatically belong to the group `developers`. Which permission makes this happen?",
+    options: ["SUID", "Sticky Bit", "SGID", "ACL"],
+    answer: 2,
+    explain: "SGID causes new files and directories created inside a directory to inherit the parent directory's group ownership."
+  },
+  {
+    q: "Directory `/shared` has permissions `drwxrwxrwt`. Ali creates `ali.txt`. Sara tries to run `rm ali.txt`. What happens?",
+    options: ["File is deleted", "Sara becomes owner", "Operation not permitted", "ACL is removed"],
+    answer: 2,
+    explain: "The `t` at the end means Sticky Bit is enabled. Sticky Bit prevents users from deleting files owned by other users inside a shared directory."
+  },
+  {
+    q: "A file belongs to owner `ali` and group `developers`. Management wants Sara to have read-only access, Ahmed to have read/write access, and QA group to have read-only access without changing owner or group. Which feature should be used?",
+    options: ["SUID", "SGID", "Sticky Bit", "ACL"],
+    answer: 3,
+    explain: "ACL provides advanced permissions for specific users and groups without changing the file owner or main group."
+  },
+  {
+    q: "A Linux administrator creates a public directory using `chmod 777 /public`. Users start deleting each other's files. What is the BEST solution?",
+    options: ["Enable ACL", "Enable Sticky Bit", "Enable SUID", "Enable SGID"],
+    answer: 1,
+    explain: "Sticky Bit protects files from deletion in shared writable directories. The command would be `chmod 1777 /public`."
+  },
+  {
+    q: "You run `ls -ld /project` and see `drwxrwsr-x`. What does the letter `s` indicate?",
+    options: ["SUID enabled", "SGID enabled", "Sticky Bit enabled", "ACL enabled"],
+    answer: 1,
+    explain: "The `s` in the group execute position indicates SGID is enabled."
+  }
+];
+
+const quiz = document.getElementById("quiz");
+
+questions.forEach((item, index) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.id = `qbox${index}`;
+
+  let html = `<h3>Q${index + 1}. ${item.q}</h3>`;
+
+  item.options.forEach((option, optIndex) => {
+    html += `
+      <label class="option" id="q${index}o${optIndex}">
+        <input type="radio" name="q${index}" value="${optIndex}">
+        ${option}
+      </label>
+    `;
+  });
+
+  html += `<div class="answer-box" id="answer${index}"></div>`;
+  div.innerHTML = html;
+  quiz.appendChild(div);
+});
+
+let timeLeft = 600;
+let submitted = false;
+
+const timer = setInterval(() => {
+  let min = Math.floor(timeLeft / 60);
+  let sec = timeLeft % 60;
+  document.getElementById("time").textContent = `${min}:${sec.toString().padStart(2, "0")}`;
+  timeLeft--;
+
+  if (timeLeft < 0) {
+    clearInterval(timer);
+    submitQuiz();
+  }
+}, 1000);
+
+function submitQuiz() {
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timer);
+
+  let score = 0;
+  let summaryHtml = `<h2>Answer Summary</h2><ol>`;
+
+  questions.forEach((item, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    const correctIndex = item.answer;
+
+    document.getElementById(`q${index}o${correctIndex}`).classList.add("correct");
+
+    let selectedText = "Not answered";
+
+    if (selected) {
+      const selectedIndex = parseInt(selected.value);
+      selectedText = item.options[selectedIndex];
+
+      if (selectedIndex === correctIndex) {
+        score++;
+      } else {
+        document.getElementById(`q${index}o${selectedIndex}`).classList.add("wrong");
+      }
+    }
+
+    const answerBox = document.getElementById(`answer${index}`);
+    answerBox.style.display = "block";
+    answerBox.innerHTML = `
+      <b>Correct Answer:</b> ${item.options[correctIndex]}<br>
+      <b>Your Answer:</b> ${selectedText}<br>
+      <b>Explanation:</b> ${item.explain}
+    `;
+
+    summaryHtml += `
+      <li>
+        <b>${item.q}</b><br>
+        Correct Answer: ${item.options[correctIndex]}<br>
+        Your Answer: ${selectedText}<br>
+        Explanation: ${item.explain}
+      </li><br>
+    `;
+
+    document.querySelectorAll(`input[name="q${index}"]`).forEach(r => r.disabled = true);
+  });
+
+  summaryHtml += `</ol>`;
+
+  const percentage = ((score / questions.length) * 100).toFixed(1);
+  const status = percentage >= 70 ? "PASS" : "NEED MORE PRACTICE";
+
+  document.getElementById("result").innerHTML = `
+    Your Score: ${score}/${questions.length} (${percentage}%)<br>
+    Result: ${status}<br>
+    <small>Green = Correct Answer, Red = Your Wrong Answer</small>
+  `;
+
+  document.getElementById("answerSummary").style.display = "block";
+  document.getElementById("answerSummary").innerHTML = summaryHtml;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
