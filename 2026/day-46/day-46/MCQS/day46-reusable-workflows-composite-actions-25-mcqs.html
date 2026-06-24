@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 46 MCQs - Reusable Workflows & Composite Actions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 20px;
+    }
+
+    .info-box {
+      background: white;
+      border-left: 5px solid #2563eb;
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .timer-box {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #111827;
+      color: white;
+      padding: 14px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .question-card {
+      background: white;
+      padding: 18px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .question-card h3 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    label {
+      display: block;
+      padding: 10px;
+      margin: 8px 0;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    label:hover {
+      background: #eef2ff;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .button-area {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .result {
+      display: none;
+      background: white;
+      padding: 22px;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .correct {
+      background: #dcfce7 !important;
+      border-color: #22c55e !important;
+    }
+
+    .incorrect {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+    }
+
+    .answer-review {
+      background: #f9fafb;
+      padding: 14px;
+      border-left: 4px solid #2563eb;
+      margin: 12px 0;
+      border-radius: 6px;
+    }
+
+    .score-good {
+      color: #15803d;
+      font-weight: bold;
+    }
+
+    .score-mid {
+      color: #ca8a04;
+      font-weight: bold;
+    }
+
+    .score-low {
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    code {
+      background: #eef2ff;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Day 46 – Reusable Workflows & Composite Actions</h1>
+  <p>25 MCQs Practice Test with Timer, Answers, and Explanations</p>
+</header>
+
+<div class="container">
+  <div class="timer-box">
+    Time Left: <span id="timer">25:00</span>
+  </div>
+
+  <div class="info-box">
+    <h2>Instructions</h2>
+    <p>Select one answer for each question. After clicking submit, your score, correct answers, and explanations will appear.</p>
+    <p><strong>Topic:</strong> GitHub Actions reusable workflows, <code>workflow_call</code>, caller workflows, outputs, and composite actions.</p>
+  </div>
+
+  <form id="quizForm"></form>
+
+  <div class="button-area">
+    <button id="submitBtn" type="button" onclick="submitQuiz()">Submit Test</button>
+  </div>
+
+  <div id="result" class="result"></div>
+</div>
+
+<footer>
+  Day 46 GitHub Actions Practice – Created for study and revision
+</footer>
+
+<script>
+const questions = [
+  {
+    q: "What is the main purpose of a reusable workflow in GitHub Actions?",
+    options: [
+      "To delete old workflow runs automatically",
+      "To allow one workflow to be called by another workflow",
+      "To replace GitHub repositories",
+      "To create Docker images only"
+    ],
+    answer: 1,
+    explanation: "A reusable workflow allows one workflow to call another workflow, helping teams avoid duplicated YAML code."
+  },
+  {
+    q: "Which trigger makes a workflow reusable?",
+    options: [
+      "push",
+      "pull_request",
+      "workflow_call",
+      "schedule"
+    ],
+    answer: 2,
+    explanation: "The workflow_call trigger allows a workflow to be called by another workflow."
+  },
+  {
+    q: "Where must reusable workflow files live?",
+    options: [
+      ".github/actions/",
+      ".github/workflows/",
+      "scripts/workflows/",
+      "2026/day-46/"
+    ],
+    answer: 1,
+    explanation: "Reusable workflows must be stored inside the .github/workflows/ directory."
+  },
+  {
+    q: "At what level is a reusable workflow called?",
+    options: [
+      "Inside steps",
+      "Inside env",
+      "At the jobs level",
+      "Inside permissions only"
+    ],
+    answer: 2,
+    explanation: "Reusable workflows are called at the jobs level using uses:."
+  },
+  {
+    q: "Which syntax is correct for calling a reusable workflow in the same repository?",
+    options: [
+      "uses: actions/checkout@v4",
+      "uses: ./.github/workflows/reusable-build.yml",
+      "run: .github/workflows/reusable-build.yml",
+      "workflow_call: reusable-build.yml"
+    ],
+    answer: 1,
+    explanation: "For same-repository reusable workflows, use a relative path such as ./.github/workflows/reusable-build.yml."
+  },
+  {
+    q: "What is a caller workflow?",
+    options: [
+      "A workflow that calls a reusable workflow",
+      "A workflow that only runs on schedule",
+      "A workflow that cannot use secrets",
+      "A workflow that deletes jobs"
+    ],
+    answer: 0,
+    explanation: "The caller workflow is the workflow that calls the reusable workflow."
+  },
+  {
+    q: "In a reusable workflow, where are inputs defined?",
+    options: [
+      "Under jobs.build.inputs",
+      "Under on.workflow_call.inputs",
+      "Under steps.inputs",
+      "Under runs.inputs"
+    ],
+    answer: 1,
+    explanation: "Inputs for reusable workflows are defined under on.workflow_call.inputs."
+  },
+  {
+    q: "Which input type was used for app_name in Day 46 Task 2?",
+    options: [
+      "boolean",
+      "number",
+      "string",
+      "array"
+    ],
+    answer: 2,
+    explanation: "The app_name input was defined as type: string."
+  },
+  {
+    q: "Why should we never print the actual Docker token in workflow logs?",
+    options: [
+      "Because logs cannot show text",
+      "Because it is a secret and exposing it is a security risk",
+      "Because Docker tokens are not strings",
+      "Because GitHub does not support Docker"
+    ],
+    answer: 1,
+    explanation: "Secrets must not be exposed in logs because they can be used by attackers."
+  },
+  {
+    q: "What safe message did the reusable workflow print for the Docker token check?",
+    options: [
+      "Docker token is set: true",
+      "Docker token value is abc123",
+      "Docker password is visible",
+      "Token copied to README"
+    ],
+    answer: 0,
+    explanation: "The workflow safely checked whether the token exists and printed only Docker token is set: true."
+  },
+  {
+    q: "What does needs: build mean in the caller workflow?",
+    options: [
+      "The job will run before build",
+      "The job depends on the build job",
+      "The job will delete build",
+      "The job ignores build output"
+    ],
+    answer: 1,
+    explanation: "needs: build means the job depends on the build job and can access its outputs."
+  },
+  {
+    q: "Which file was used in Task 4 as the reusable workflow with outputs?",
+    options: [
+      ".github/actions/setup-and-greet/action.yml",
+      ".github/workflows/reusable-build-day-46-task4.yml",
+      "README.md",
+      "package.json"
+    ],
+    answer: 1,
+    explanation: "Task 4 used a day/task-wise reusable workflow file named reusable-build-day-46-task4.yml."
+  },
+  {
+    q: "Which output was created in the reusable workflow in Task 4?",
+    options: [
+      "docker_image",
+      "deploy_url",
+      "build_version",
+      "runner_name"
+    ],
+    answer: 2,
+    explanation: "The output created in Task 4 was build_version."
+  },
+  {
+    q: "What command is used to set a step output in modern GitHub Actions?",
+    options: [
+      "echo 'name=value' >> \"$GITHUB_OUTPUT\"",
+      "echo 'name=value' >> \"$GITHUB_ENVIRONMENT\"",
+      "set-output --global",
+      "git output add"
+    ],
+    answer: 0,
+    explanation: "The modern way to set a step output is writing name=value to $GITHUB_OUTPUT."
+  },
+  {
+    q: "What was the example build version format used in Task 4?",
+    options: [
+      "build-main-production",
+      "v1.0-<short-sha>",
+      "latest-only",
+      "docker-token-true"
+    ],
+    answer: 1,
+    explanation: "The workflow generated a version string like v1.0-<short-sha>."
+  },
+  {
+    q: "Which expression reads the build_version output in the caller workflow?",
+    options: [
+      "${{ steps.version.outputs.build_version }}",
+      "${{ inputs.build_version }}",
+      "${{ needs.build.outputs.build_version }}",
+      "${{ github.build_version }}"
+    ],
+    answer: 2,
+    explanation: "The caller workflow reads the reusable workflow output using needs.build.outputs.build_version."
+  },
+  {
+    q: "What is a composite action?",
+    options: [
+      "A custom action made from multiple steps",
+      "A Git branch strategy",
+      "A Docker-only workflow",
+      "A GitHub secret"
+    ],
+    answer: 0,
+    explanation: "A composite action is a custom action that combines multiple steps into one reusable action."
+  },
+  {
+    q: "Which file defines a composite action?",
+    options: [
+      "workflow.yml",
+      "action.yml",
+      "Dockerfile only",
+      "package-lock.json"
+    ],
+    answer: 1,
+    explanation: "Composite actions are commonly defined in an action.yml file."
+  },
+  {
+    q: "Where did we create the custom composite action in Day 46 Task 5?",
+    options: [
+      ".github/workflows/setup-and-greet.yml",
+      ".github/actions/setup-and-greet/action.yml",
+      "scripts/setup-and-greet.sh",
+      "2026/day-46/action.yml"
+    ],
+    answer: 1,
+    explanation: "The custom composite action was created at .github/actions/setup-and-greet/action.yml."
+  },
+  {
+    q: "Which keyword tells GitHub that an action is a composite action?",
+    options: [
+      "runs: using: 'composite'",
+      "on: workflow_call",
+      "jobs: composite",
+      "trigger: action"
+    ],
+    answer: 0,
+    explanation: "Composite actions use runs: using: 'composite'."
+  },
+  {
+    q: "Where is a composite action used?",
+    options: [
+      "At the jobs level only",
+      "Inside steps using uses:",
+      "Inside on.workflow_call only",
+      "Inside branches only"
+    ],
+    answer: 1,
+    explanation: "Composite actions are called inside workflow steps using uses:."
+  },
+  {
+    q: "Why is actions/checkout needed before using a local composite action?",
+    options: [
+      "To install Docker",
+      "To download the repository so the local action path exists on the runner",
+      "To create the GitHub secret",
+      "To start a self-hosted runner"
+    ],
+    answer: 1,
+    explanation: "For local actions, the runner must first checkout the repository so it can find the action files."
+  },
+  {
+    q: "Which output did the composite action set in Task 5?",
+    options: [
+      "greeted",
+      "build_version",
+      "docker_token",
+      "app_name"
+    ],
+    answer: 0,
+    explanation: "The composite action set an output called greeted with value true."
+  },
+  {
+    q: "Which statement is correct?",
+    options: [
+      "Composite actions can contain jobs",
+      "Reusable workflows cannot contain jobs",
+      "Reusable workflows are used at the jobs level, composite actions are used inside steps",
+      "Composite actions must live inside .github/workflows/"
+    ],
+    answer: 2,
+    explanation: "Reusable workflows are called at the jobs level, while composite actions are used inside steps."
+  },
+  {
+    q: "Which option best describes the difference between reusable workflows and composite actions?",
+    options: [
+      "Reusable workflow = full workflow reuse; composite action = reusable group of steps",
+      "Reusable workflow = only shell script; composite action = only Docker image",
+      "Reusable workflow = no jobs; composite action = many jobs",
+      "They are exactly the same"
+    ],
+    answer: 0,
+    explanation: "Reusable workflows are for full workflow reuse, while composite actions are for reusing groups of steps."
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const card = document.createElement("div");
+  card.className = "question-card";
+  card.id = `question-${index}`;
+
+  const title = document.createElement("h3");
+  title.textContent = `${index + 1}. ${item.q}`;
+  card.appendChild(title);
+
+  item.options.forEach((option, optIndex) => {
+    const label = document.createElement("label");
+    label.innerHTML = `
+      <input type="radio" name="q${index}" value="${optIndex}">
+      ${option}
+    `;
+    card.appendChild(label);
+  });
+
+  form.appendChild(card);
+});
+
+let timeLeft = 25 * 60;
+let timerInterval = setInterval(() => {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  document.getElementById("timer").textContent =
+    `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    submitQuiz();
+  }
+
+  timeLeft--;
+}, 1000);
+
+function submitQuiz() {
+  clearInterval(timerInterval);
+
+  let score = 0;
+  let reviewHTML = "";
+
+  questions.forEach((item, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    const labels = document.querySelectorAll(`#question-${index} label`);
+    const selectedValue = selected ? Number(selected.value) : null;
+
+    labels.forEach((label, optIndex) => {
+      if (optIndex === item.answer) {
+        label.classList.add("correct");
+      }
+      if (selectedValue === optIndex && selectedValue !== item.answer) {
+        label.classList.add("incorrect");
+      }
+    });
+
+    if (selectedValue === item.answer) {
+      score++;
+    }
+
+    reviewHTML += `
+      <div class="answer-review">
+        <strong>Q${index + 1}:</strong> ${item.q}<br>
+        <strong>Your Answer:</strong> ${selectedValue !== null ? item.options[selectedValue] : "Not answered"}<br>
+        <strong>Correct Answer:</strong> ${item.options[item.answer]}<br>
+        <strong>Explanation:</strong> ${item.explanation}
+      </div>
+    `;
+  });
+
+  const percentage = Math.round((score / questions.length) * 100);
+  let scoreClass = "score-low";
+  let message = "Keep practicing. Review the explanations and try again.";
+
+  if (percentage >= 80) {
+    scoreClass = "score-good";
+    message = "Excellent work. You understand Day 46 very well.";
+  } else if (percentage >= 60) {
+    scoreClass = "score-mid";
+    message = "Good effort. Review the weak areas and practice once more.";
+  }
+
+  const result = document.getElementById("result");
+  result.style.display = "block";
+  result.innerHTML = `
+    <h2>Test Result</h2>
+    <p class="${scoreClass}">Score: ${score} / ${questions.length} (${percentage}%)</p>
+    <p>${message}</p>
+    <h3>Answer Review</h3>
+    ${reviewHTML}
+  `;
+
+  document.getElementById("submitBtn").disabled = true;
+
+  document.querySelectorAll("input[type='radio']").forEach(input => {
+    input.disabled = true;
+  });
+
+  result.scrollIntoView({ behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
