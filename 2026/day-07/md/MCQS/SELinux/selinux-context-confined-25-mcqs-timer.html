@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELinux Context, Confined vs Unconfined - 25 MCQs</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:1050px;margin:auto;padding:20px;line-height:1.6;background:#f4f7fb;color:#222}
+h1,h2{text-align:center} .top-box,.result,.summary{background:#fff;border-radius:10px;border:1px solid #ddd;padding:16px;margin:18px 0}
+.timer{font-size:24px;font-weight:bold;text-align:center;background:#fff3cd;border:1px solid #ffeeba;border-radius:10px;padding:12px;margin:20px 0}
+.progress{text-align:center;font-weight:bold;margin:10px 0} .question{background:#fff;margin:16px 0;padding:16px;border-radius:10px;border:1px solid #ddd}
+.question h3{margin-top:0} .option{display:block;padding:8px;margin:6px 0;border-radius:6px;border:1px solid transparent}
+.option:hover{background:#f1f1f1} .correct{background:#d4edda!important;border-left:6px solid #28a745!important}
+.wrong{background:#f8d7da!important;border-left:6px solid #dc3545!important}
+.answer-box{display:none;margin-top:10px;padding:10px;background:#e8f4ff;border-left:6px solid #007bff;border-radius:6px}
+button{padding:12px 22px;margin:8px;font-size:16px;cursor:pointer;border:none;border-radius:6px;background:#007bff;color:white}
+button:hover{background:#0056b3} .reset{background:#6c757d} .reset:hover{background:#545b62}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2ff;border:1px solid #ccd5ff;margin:2px}
+code{background:#f1f1f1;padding:2px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<h1>SELinux Context, Confined vs Unconfined</h1>
+<h2>25 MCQs Practice Test</h2>
+<div class="top-box">
+<p><b>Topics Covered:</b> <span class="badge">SELinux Context</span><span class="badge">user:role:type:level</span><span class="badge">restorecon</span><span class="badge">chcon</span><span class="badge">semanage fcontext</span><span class="badge">Confined vs Unconfined</span></p>
+<p><b>Instructions:</b> Select one answer for each question. After submission, you will see your score, percentage, pass/fail result, correct answers, your answers, and explanations.</p>
+<p><b>Passing Score:</b> 70% or higher</p>
+</div>
+<div class="timer">Time Left: <span id="time">30:00</span></div>
+<div class="progress" id="progress">Answered: 0 / 25</div>
+<form id="quiz"></form>
+<div style="text-align:center;"><button type="button" onclick="submitQuiz()">Submit Quiz</button><button type="button" class="reset" onclick="location.reload()">Retake Quiz</button></div>
+<div id="result" class="result"></div><div id="answerSummary" class="summary" style="display:none;"></div>
+<script>
+const questions = [{"q": "What does SELinux stand for?", "options": ["Secure Linux", "Security-Enhanced Linux", "System Enhanced Linux", "Server Enforced Linux"], "answer": 1, "explain": "SELinux stands for Security-Enhanced Linux. It adds an additional security layer using policies and labels."}, {"q": "What is an SELinux context?", "options": ["A file compression format", "A security label assigned to files, processes, ports, and directories", "A network address", "A shell variable"], "answer": 1, "explain": "SELinux context is a security label used by SELinux to decide whether access should be allowed or denied."}, {"q": "What is the structure of an SELinux context?", "options": ["owner:group:others", "read:write:execute", "user:role:type:level", "uid:gid:shell:home"], "answer": 2, "explain": "SELinux context has four parts: user:role:type:level."}, {"q": "In system_u:object_r:httpd_sys_content_t:s0, which part is the type?", "options": ["system_u", "object_r", "httpd_sys_content_t", "s0"], "answer": 2, "explain": "httpd_sys_content_t is the SELinux type. In daily administration, type is usually the most important field."}, {"q": "Which command shows SELinux context for files?", "options": ["ls -l", "ls -Z", "chmod -Z", "context -l"], "answer": 1, "explain": "ls -Z displays SELinux context for files and directories."}, {"q": "Which command shows SELinux context for a directory itself?", "options": ["ls -Zd /path", "ls -R /path", "id -u /path", "getenforce /path"], "answer": 0, "explain": "ls -Zd /path shows the SELinux context of the directory itself."}, {"q": "Which command shows SELinux process contexts?", "options": ["ps -eZ", "ls -Z", "passwd -S", "systemctl -Z"], "answer": 0, "explain": "ps -eZ shows SELinux contexts for running processes."}, {"q": "Which SELinux type is commonly used for Apache web content?", "options": ["user_home_t", "shadow_t", "httpd_sys_content_t", "tmp_t"], "answer": 2, "explain": "httpd_sys_content_t is commonly used for Apache/web server content."}, {"q": "If Apache cannot read a web file even though permissions are 777, what should you check?", "options": ["Only hostname", "Only file size", "SELinux context", "Keyboard layout"], "answer": 2, "explain": "SELinux can deny access even when normal Linux permissions allow it, so check SELinux context with ls -Z."}, {"q": "Which command restores default SELinux context for a file?", "options": ["restorecon -v file", "chown file", "chmod file", "pwck file"], "answer": 0, "explain": "restorecon -v file restores the default SELinux context based on policy."}, {"q": "Which command restores SELinux context recursively for a directory?", "options": ["restorecon -Rv /path", "restorecon -l /path", "chcon -Rv /path", "ls -Rv /path"], "answer": 0, "explain": "restorecon -Rv /path restores default contexts recursively and shows verbose output."}, {"q": "Which command changes SELinux context temporarily?", "options": ["semanage", "restorecon", "chcon", "getenforce"], "answer": 2, "explain": "chcon changes SELinux context temporarily. A later restorecon may revert it to policy defaults."}, {"q": "Which command is used for permanent SELinux file context rules?", "options": ["semanage fcontext", "chmod", "passwd -S", "umask"], "answer": 0, "explain": "semanage fcontext is used to add or modify permanent SELinux file context rules."}, {"q": "After adding a permanent context rule with semanage fcontext, what command should be run to apply it?", "options": ["source ~/.bashrc", "restorecon -Rv /path", "reboot only", "alias"], "answer": 1, "explain": "After semanage fcontext, run restorecon -Rv /path to apply the context."}, {"q": "Which command checks current SELinux mode?", "options": ["getenforce", "id -u", "ls -l", "df -h"], "answer": 0, "explain": "getenforce shows whether SELinux is Enforcing, Permissive, or Disabled."}, {"q": "What are possible outputs of getenforce?", "options": ["Start, Stop, Restart", "Read, Write, Execute", "Enforcing, Permissive, Disabled", "Allow, Deny, Block"], "answer": 2, "explain": "getenforce can show Enforcing, Permissive, or Disabled."}, {"q": "Where are common SELinux denial logs stored?", "options": ["/var/log/audit/audit.log", "/etc/passwd", "/home/logs", "/tmp/selinux.txt"], "answer": 0, "explain": "SELinux AVC denial logs are commonly found in /var/log/audit/audit.log."}, {"q": "Which command can search recent AVC denials?", "options": ["ausearch -m AVC -ts recent", "grep UID /etc/passwd", "ls -la", "chmod AVC"], "answer": 0, "explain": "ausearch -m AVC -ts recent searches recent SELinux AVC denial messages."}, {"q": "In SELinux, what does confined mean?", "options": ["Deleted", "Restricted by security policy", "Uninstalled", "Running without password"], "answer": 1, "explain": "Confined means a user, process, or service is restricted by SELinux policy."}, {"q": "What is the opposite of confined?", "options": ["Archived", "Unconfined", "Disabled user", "Locked"], "answer": 1, "explain": "The opposite of confined is unconfined, meaning fewer SELinux restrictions."}, {"q": "Why is confinement important?", "options": ["It makes files larger", "It limits damage if a process is compromised", "It disables passwords", "It removes users"], "answer": 1, "explain": "Confinement follows least privilege and limits damage if a process or service is compromised."}, {"q": "Which is an example of a confined process/domain for Apache?", "options": ["httpd_t", "user_home_t", "shadow_t", "passwd_file_t"], "answer": 0, "explain": "httpd_t is an SELinux domain/type for the Apache/httpd process."}, {"q": "Which command shows the current user's SELinux context?", "options": ["id -Z", "id -u", "whoami -p", "pwd -Z"], "answer": 0, "explain": "id -Z shows the current user's SELinux context."}, {"q": "Which statement is correct about Linux permissions and SELinux?", "options": ["Only chmod matters", "Only owner matters", "Both Linux permissions and SELinux policy must allow access", "SELinux works only on Windows"], "answer": 2, "explain": "Access requires both normal Linux permissions and SELinux policy/context to allow it."}, {"q": "Scenario: A file copied from a user's home directory into /var/www/html has type user_home_t, and Apache cannot serve it. What is the best fix?", "options": ["chmod 777 only", "restorecon -Rv /var/www/html", "passwd apache", "delete /etc/shadow"], "answer": 1, "explain": "restorecon -Rv /var/www/html restores the correct default web content context, commonly httpd_sys_content_t."}];
+const quiz = document.getElementById("quiz");
+const progress = document.getElementById("progress");
+questions.forEach((item,index)=>{
+  const div=document.createElement("div"); div.className="question"; div.id=`qbox${index}`;
+  let html=`<h3>Q${index+1}. ${item.q}</h3>`;
+  item.options.forEach((option,optIndex)=>{html += `<label class="option" id="q${index}o${optIndex}"><input type="radio" name="q${index}" value="${optIndex}" onchange="updateProgress()"> ${option}</label>`;});
+  html += `<div class="answer-box" id="answer${index}"></div>`; div.innerHTML=html; quiz.appendChild(div);
+});
+function updateProgress(){let answered=0;questions.forEach((_,i)=>{if(document.querySelector(`input[name="q${i}"]:checked`)) answered++;});progress.textContent=`Answered: ${answered} / ${questions.length}`;}
+let timeLeft=1800; let submitted=false;
+const timer=setInterval(()=>{let min=Math.floor(timeLeft/60);let sec=timeLeft%60;document.getElementById("time").textContent=`${min}:${sec.toString().padStart(2,"0")}`;timeLeft--;if(timeLeft<0){clearInterval(timer);submitQuiz();}},1000);
+function submitQuiz(){
+ if(submitted) return; submitted=true; clearInterval(timer); let score=0; let summaryHtml=`<h2>Answer Summary</h2><ol>`;
+ questions.forEach((item,index)=>{
+   const selected=document.querySelector(`input[name="q${index}"]:checked`); const correctIndex=item.answer;
+   document.getElementById(`q${index}o${correctIndex}`).classList.add("correct");
+   let selectedText="Not answered";
+   if(selected){const selectedIndex=parseInt(selected.value); selectedText=item.options[selectedIndex]; if(selectedIndex===correctIndex){score++;} else {document.getElementById(`q${index}o${selectedIndex}`).classList.add("wrong");}}
+   const answerBox=document.getElementById(`answer${index}`); answerBox.style.display="block";
+   answerBox.innerHTML=`<b>Correct Answer:</b> ${item.options[correctIndex]}<br><b>Your Answer:</b> ${selectedText}<br><b>Explanation:</b> ${item.explain}`;
+   summaryHtml += `<li><b>${item.q}</b><br>Correct Answer: ${item.options[correctIndex]}<br>Your Answer: ${selectedText}<br>Explanation: ${item.explain}</li><br>`;
+   document.querySelectorAll(`input[name="q${index}"]`).forEach(r=>r.disabled=true);
+ });
+ summaryHtml += `</ol>`;
+ const percentage=((score/questions.length)*100).toFixed(1); const status=percentage>=70 ? "PASS" : "NEED MORE PRACTICE";
+ document.getElementById("result").innerHTML=`Your Score: ${score}/${questions.length} (${percentage}%)<br>Result: ${status}<br><small>Green = Correct Answer, Red = Your Wrong Answer</small>`;
+ document.getElementById("answerSummary").style.display="block"; document.getElementById("answerSummary").innerHTML=summaryHtml; window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>
