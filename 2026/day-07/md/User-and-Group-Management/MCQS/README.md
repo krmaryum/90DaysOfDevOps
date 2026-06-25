@@ -1,8 +1,8 @@
-# Linux User and Group Management - Interactive MCQ Quiz
+# Linux User Home Directory Recovery & Troubleshooting MCQ Quiz
 
 ## Overview
 
-This repository contains an interactive **HTML quiz** based on Linux User and Group Management study notes.
+This repository contains an interactive HTML quiz based on **Linux User Management**, **Home Directory Recovery**, and **Real-world Troubleshooting**.
 
 It is designed for:
 
@@ -18,23 +18,21 @@ It is designed for:
 
 # Files Included
 
-## 📄 linux-user-and-group-management-25-mcqs-timer.html
+## 📄 linux-user-home-recovery-troubleshooting-25-mcqs-timer.html
 
 This interactive quiz contains **25 multiple-choice questions** covering:
 
-- useradd
-- passwd
-- id
-- Primary Group
-- Secondary Groups
-- usermod
-- userdel
-- pwck
-- User Troubleshooting
-- User Decommissioning
-- Home Directory Management
-- Bash User Creation Scripts
-- Real-world Linux Scenarios
+- User account vs Home directory
+- Recovering a deleted home directory
+- `/etc/skel`
+- `chown` and `chmod`
+- Home directory ownership
+- `.hushlogin`
+- `userdel` vs `userdel -r`
+- `usermod`
+- `pwck`
+- Changing the default shell with `chsh`
+- Real-world Linux troubleshooting scenarios
 
 ---
 
@@ -48,7 +46,7 @@ This interactive quiz contains **25 multiple-choice questions** covering:
 - ✅ Pass / Fail Result
 - ✅ Correct Answer Highlighting
 - ✅ Shows Your Selected Answer
-- ✅ Explanation for Every Question
+- ✅ Detailed Explanation for Every Question
 - ✅ Retake Quiz Button
 
 ---
@@ -57,19 +55,17 @@ This interactive quiz contains **25 multiple-choice questions** covering:
 
 ## Step 1 – Download
 
-Download the HTML quiz file:
+Download:
 
+```text
+linux-user-home-recovery-troubleshooting-25-mcqs-timer.html
 ```
-linux-user-and-group-management-25-mcqs-timer.html
-```
-
----
 
 ## Step 2 – Open
 
 ### Windows
 
-Double-click the HTML file or open it using:
+Open the file by double-clicking it or with:
 
 - Google Chrome
 - Microsoft Edge
@@ -78,78 +74,77 @@ Double-click the HTML file or open it using:
 ### Linux
 
 ```bash
-firefox linux-user-and-group-management-25-mcqs-timer.html
+firefox linux-user-home-recovery-troubleshooting-25-mcqs-timer.html
 ```
 
 or
 
 ```bash
-google-chrome linux-user-and-group-management-25-mcqs-timer.html
+google-chrome linux-user-home-recovery-troubleshooting-25-mcqs-timer.html
 ```
 
 ### macOS
 
-Open the file using Safari, Chrome, or Firefox.
+Open with Safari, Chrome, or Firefox.
 
 ---
 
-## Step 3 – Start the Test
+## Step 3 – Take the Quiz
 
 1. Read each question carefully.
 2. Select the best answer.
-3. Complete all 25 questions before the timer expires.
+3. Complete all questions before the timer expires.
 4. Click **Submit Quiz**.
 
 ---
 
-## Step 4 – Review Your Results
+## Step 4 – Review Results
 
 After submission you will see:
 
-- Your Score
+- Score
 - Percentage
-- Pass / Fail Status
-- Correct Answers
-- Your Selected Answers
-- Explanation for Every Question
+- Pass / Fail status
+- Correct answers
+- Your selected answers
+- Explanation for every question
 
 ---
 
 ## Step 5 – Practice Again
 
-Click **Retake Quiz** to restart the quiz and improve your score.
+Click **Retake Quiz** to restart and improve your score.
 
 ---
 
 # Recommended Learning Path
 
-1. Study User Management
-2. Learn Primary and Secondary Groups
-3. Practice `useradd`, `usermod`, and `userdel`
-4. Learn `pwck`
-5. Practice Troubleshooting User Accounts
-6. Complete the Quiz
-7. Review Incorrect Answers
-8. Repeat until you consistently score 80% or higher.
+1. Learn Linux user management.
+2. Understand home directory recovery.
+3. Practice `/etc/skel`, `chown`, and `chmod`.
+4. Learn `userdel`, `usermod`, and `pwck`.
+5. Practice changing the login shell.
+6. Complete the quiz.
+7. Review explanations.
+8. Repeat until you consistently score **80% or higher**.
 
 ---
 
 # Important Commands
 
 ```bash
-useradd -m username
-passwd username
 id username
-groups username
-usermod -aG group username
-usermod -g group username
-usermod -d /home/newuser -m username
+mkdir /home/username
+cp -a /etc/skel/. /home/username/
+chown -R username:username /home/username
+chmod 700 /home/username
 userdel username
 userdel -r username
+usermod -d /home/newuser -m username
 pwck
-pwck -r
-find / -user username 2>/dev/null
-find / -uid UID 2>/dev/null
+echo $SHELL
+chsh -s /bin/bash username
+touch ~/.hushlogin
 ```
 
 ---
@@ -157,13 +152,28 @@ find / -uid UID 2>/dev/null
 # Quick Memory Tricks
 
 ```text
-useradd = Create User
-passwd = Set Password
-id = User Information
-groups = Group Membership
-usermod = Modify User
-userdel = Delete User
-pwck = Password File Check
+Deleted Home ≠ Deleted User
+
+mkdir
+↓
+copy /etc/skel
+↓
+chown -R
+↓
+chmod 700
+↓
+Test Login
+```
+
+```text
+Permission denied?
+→ Check ownership
+
+Prompt shows only $
+→ Check echo $SHELL
+
+/bin/sh
+→ chsh -s /bin/bash username
 ```
 
 ---
@@ -173,9 +183,9 @@ pwck = Password File Check
 - RHCSA EX200
 - Linux Administration
 - DevOps Interviews
-- Classroom Labs
-- Self-Assessment
-- Linux Fundamentals
+- User Management Labs
+- Linux Troubleshooting
+- Classroom Practice
 
 ---
 

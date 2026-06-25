@@ -262,6 +262,113 @@ To suppress it for that user:
 touch ~/.hushlogin
 ```
 
+
+
+---
+
+## Additional Check: Shell Changed to `/bin/sh` Instead of Bash
+
+After fixing ownership, login may succeed, but you may notice the prompt looks like this:
+
+```text
+$
+```
+
+This often means the user's default login shell may be `/bin/sh` instead of `/bin/bash`.
+
+### Check Current Shell
+
+Log in as the user:
+
+```bash
+su - mkk
+```
+
+Then check:
+
+```bash
+echo $SHELL
+```
+
+Possible output:
+
+```text
+/bin/sh
+```
+
+If the output is `/bin/sh`, the user is using the basic shell.
+
+### Change Default Shell to Bash
+
+Exit back to your main user or root:
+
+```bash
+exit
+```
+
+Then run:
+
+```bash
+sudo chsh -s /bin/bash mkk
+```
+
+### Log Out and Log Back In
+
+```bash
+su - mkk
+```
+
+Now check again:
+
+```bash
+echo $SHELL
+```
+
+Expected output:
+
+```text
+/bin/bash
+```
+
+The prompt should look more like:
+
+```text
+mkk@Khalid-laptop:~$
+```
+
+### Important Note
+
+Changing the shell does not fix ownership problems.
+
+Ownership problems are fixed with:
+
+```bash
+sudo chown -R mkk:mkk /home/mkk
+```
+
+Shell problems are fixed with:
+
+```bash
+sudo chsh -s /bin/bash mkk
+```
+
+### Quick Memory
+
+```text
+Permission denied in home directory
+        ↓
+Fix ownership with chown
+
+Prompt only shows $
+        ↓
+Check shell with echo $SHELL
+
+Shell is /bin/sh
+        ↓
+Change to Bash with chsh
+```
+
+
 ## Lesson Learned
 
 When recreating a user's home directory manually:
