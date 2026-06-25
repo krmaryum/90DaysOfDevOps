@@ -1,845 +1,291 @@
-# Linux User Management Troubleshooting Lab
+# Linux User Management -- Home Directory Recovery & Best Practices
 
-# Scenario: Deleted Home Directory but User Still Exists
+## Purpose
 
-This is a very common Linux Administration and RHCSA troubleshooting scenario.
+These notes improve the user management troubleshooting lab by covering
+the correct way to recover a deleted home directory and common mistakes.
 
----
+------------------------------------------------------------------------
 
-# Objective
+# Scenario
 
-Understand the difference between:
+An administrator accidentally runs:
 
-```text
-Deleting a user's home directory
+``` bash
+sudo rm -rf /home/ali
 ```
 
-and
+The home directory is deleted, but the user account still exists.
 
-```text
-Deleting a user account
-```
+Checking the account:
 
-Many beginners think deleting `/home/username` removes the user.
-
-It does not.
-
----
-
-# Lab Environment
-
-User:
-
-```text
-ali
-```
-
-Home Directory:
-
-```text
-/home/ali
-```
-
-Current User:
-
-```text
-root
-```
-
-Current Directory:
-
-```bash
-pwd
-```
-
-Output:
-
-```text
-/home
-```
-
----
-
-# Step 1: Create User
-
-Create user:
-
-```bash
-useradd -m ali
-```
-
-Set password:
-
-```bash
-passwd ali
-```
-
-Verify:
-
-```bash
+``` bash
 id ali
 ```
 
-Example Output:
+Trying to recreate the user:
 
-```text
-uid=1001(ali) gid=1001(ali) groups=1001(ali)
+``` bash
+sudo useradd -m ali
 ```
 
-Verify home directory:
+Results in:
 
-```bash
-ls -ld /home/ali
-```
-
-Example:
-
-```text
-drwx------ 2 ali ali 4096 Jun 16 12:00 /home/ali
-```
-
----
-
-# Step 2: Simulate Mistake
-
-Move to:
-
-```bash
-cd /home
-```
-
-Verify:
-
-```bash
-pwd
-```
-
-Output:
-
-```text
-/home
-```
-
-Now accidentally delete Ali's home directory:
-
-```bash
-rm -rf ali
-```
-
-or
-
-```bash
-rm -rf /home/ali
-```
-
----
-
-# Step 3: Verify What Happened
-
-Check:
-
-```bash
-ls /home
-```
-
-Ali directory is gone.
-
-Check:
-
-```bash
-ls -ld /home/ali
-```
-
-Output:
-
-```text
-ls: cannot access '/home/ali': No such file or directory
-```
-
----
-
-# Step 4: Check User Account
-
-Run:
-
-```bash
-id ali
-```
-
-Output:
-
-```text
-uid=1001(ali) gid=1001(ali) groups=1001(ali)
-```
-
-Important:
-
-```text
-User still exists.
-```
-
-Only the home directory was deleted.
-
----
-
-# Step 5: Attempt to Create User Again
-
-Run:
-
-```bash
-useradd ali
-```
-
-Output:
-
-```text
+``` text
 useradd: user 'ali' already exists
 ```
 
-Why?
+Because the account still exists in `/etc/passwd`, `/etc/shadow`, and
+`/etc/group`.
 
-Because:
+------------------------------------------------------------------------
 
-```text
-The user account still exists in:
-/etc/passwd
-/etc/shadow
+# Correct Recovery Procedure
+
+## 1. Recreate the Home Directory
+
+``` bash
+sudo mkdir /home/ali
 ```
 
-Only the home directory was removed.
+## 2. Restore Default Files
 
----
-
-# Understanding the Problem
-
-Many Linux administrators confuse:
-
-```text
-Deleting a directory
+``` bash
+sudo cp -a /etc/skel/. /home/ali/
 ```
 
-with
+This restores:
 
-```text
-Deleting a user account
+-   `.bashrc`
+-   `.profile`
+-   `.bash_logout`
+
+## 3. Fix Ownership
+
+``` bash
+sudo chown -R ali:ali /home/ali
 ```
 
-These are completely different operations.
+## 4. Fix Permissions
 
----
-
-# What rm -rf Actually Deletes
-
-Command:
-
-```bash
-rm -rf /home/ali
+``` bash
+sudo chmod 700 /home/ali
 ```
 
-Deletes:
+## 5. Verify
 
-```text
-Files
-Directories
-Documents
-Downloads
-Scripts
-```
-
-Inside:
-
-```text
-/home/ali
-```
-
-But does NOT delete:
-
-```text
-User account
-Password
-UID
-GID
-Group membership
-```
-
----
-
-# Verify User Exists
-
-Method 1:
-
-```bash
-id ali
-```
-
-Method 2:
-
-```bash
-getent passwd ali
-```
-
-Method 3:
-
-```bash
-grep '^ali:' /etc/passwd
-```
-
-Example:
-
-```text
-ali:x:1001:1001::/home/ali:/bin/bash
-```
-
----
-
-# Solution 1: Recreate Home Directory
-
-If you want to keep the existing user account:
-
-Create home directory:
-
-```bash
-mkdir /home/ali
-```
-
-Set ownership:
-
-```bash
-chown ali:ali /home/ali
-```
-
-Set permissions:
-
-```bash
-chmod 700 /home/ali
-```
-
-Verify:
-
-```bash
+``` bash
 ls -ld /home/ali
+ls -la /home/ali
+su - ali
 ```
 
-Output:
+------------------------------------------------------------------------
 
-```text
-drwx------ 2 ali ali
+# What is `/etc/skel`?
+
+`/etc/skel` stores the default template files copied into a user's home
+directory when the account is created.
+
+------------------------------------------------------------------------
+
+# Common Login Errors
+
+``` text
+Unable to setup logging
+Permission denied
+touch: cannot touch '/home/ali/.motd_shown'
 ```
 
-Problem solved.
+Cause:
 
----
+The directory or files are owned by `root`.
 
-# Solution 2: Remove User and Recreate
+Fix:
 
-If you want a completely fresh user:
-
-Delete user:
-
-```bash
-userdel ali
-```
-
-Verify:
-
-```bash
-id ali
-```
-
-Output:
-
-```text
-id: ali: no such user
-```
-
-Now recreate:
-
-```bash
-useradd -m ali
-```
-
-Set password:
-
-```bash
-passwd ali
-```
-
-Verify:
-
-```bash
-id ali
+``` bash
+sudo chown -R ali:ali /home/ali
+sudo chmod 700 /home/ali
 ```
 
 ---
 
-# Difference Between userdel and rm -rf
+# Command Comparison
 
-| Command | Removes Home Directory | Removes User Account |
-|----------|----------|----------|
-| `rm -rf /home/ali` | Yes | No |
-| `userdel ali` | No | Yes |
-| `userdel -r ali` | Yes | Yes |
+| Command | Removes Home Directory | Removes User Account | Removes Mail Spool | Removes Files Outside Home |
+|---------|:----------------------:|:--------------------:|:------------------:|:--------------------------:|
+| `rm -rf /home/ali` | ✅ Yes | ❌ No | ❌ No | ❌ No |
+| `userdel ali` | ❌ No* | ✅ Yes | ❌ Usually No | ❌ No |
+| `userdel -r ali` | ✅ Yes | ✅ Yes | ✅ Yes | ❌ No |
 
----
-
-# Important RHCSA Exam Point
-
-Command:
-
-```bash
-userdel ali
-```
-
-Removes:
-
-```text
-User account
-```
-
-Keeps:
-
-```text
-/home/ali
-```
-
-Command:
-
-```bash
-userdel -r ali
-```
-
-Removes:
-
-```text
-User account
-Home directory
-Mail spool
-```
-
-## use interactive mode:
-```bash
-rm -ri *
-```
-Linux asks for confirmation before deleting.
+> **Note:**
+>
+> - `rm -rf /home/ali` deletes only the home directory and its contents. The user account still exists.
+> - `userdel ali` removes the user account but normally leaves the home directory and mail spool intact.
+> - `userdel -r ali` removes the user account, home directory, and mail spool, **but it does not remove files owned by the user elsewhere on the system.**
+> - To locate remaining files after deleting a user, use:
+>
+> ```bash
+> find / -uid <UID> 2>/dev/null
+> ```
+>
+> or, before deleting the user:
+>
+> ```bash
+> find / -user ali 2>/dev/null
+> ```
 
 ---
 
-# Troubleshooting Checklist
+# Professional Recovery Workflow
 
-User says:
-
-```text
-I deleted the home directory.
-Now useradd says user already exists.
+``` bash
+sudo mkdir /home/ali
+sudo cp -a /etc/skel/. /home/ali/
+sudo chown -R ali:ali /home/ali
+sudo chmod 700 /home/ali
+ls -la /home/ali
+su - ali
 ```
 
-Check:
+------------------------------------------------------------------------
 
-```bash
-id username
-```
+# Best Practices
 
-If user exists:
+-   Always back up important data.
+-   Copy `/etc/skel` after manually recreating a home directory.
+-   Always run `chown -R` after copying files as root.
+-   Verify with `su - username`.
 
-Option A:
+------------------------------------------------------------------------
 
-```bash
-mkdir /home/username
-chown username:username /home/username
-```
+# RHCSA Exam Tip
 
-Option B:
+If a user's home directory is deleted but the account still exists,
+recreate the directory, copy `/etc/skel`, fix ownership and permissions,
+and verify the login.
 
-```bash
-userdel username
-useradd -m username
-```
+------------------------------------------------------------------------
 
----
-
-# Interview Question
+# Real Lab Scenario -- Recovering User `mkk`
 
 ## Scenario
 
-You accidentally ran:
+The user `mkk` already existed, but its home directory was accidentally
+deleted.
 
-```bash
-rm -rf /home/ali
+Attempting to recreate the user:
+
+``` bash
+sudo useradd -m mkk
 ```
 
-Now:
+Result:
 
-```bash
-useradd ali
+``` text
+useradd: user 'mkk' already exists
 ```
 
-returns:
+The home directory was recreated manually and the default files were
+copied:
 
-```text
-user already exists
+``` bash
+sudo mkdir /home/mkk
+sudo cp -a /etc/skel/. /home/mkk/
 ```
 
-Why?
+However, after logging in:
 
-### Answer
-
-```text
-The home directory was deleted,
-but the user account still exists in
-/etc/passwd and /etc/shadow.
+``` bash
+su - mkk
 ```
 
----
+Ubuntu displayed:
 
-# Roman Urdu Summary
+``` text
+Unable to setup logging.
+Permission denied: '/home/mkk/.landscape'
 
-```text
-Agar aap:
-
-rm -rf /home/ali
-
-chalate hain,
-
-to sirf Ali ka home directory delete hota hai.
-
-User account delete nahi hota.
-
-Is liye:
-
-useradd ali
-
-error deta hai:
-
-user already exists
-
-Solution:
-
-Ya to home directory dobara create karo:
-
-mkdir /home/ali
-chown ali:ali /home/ali
-
-Ya user ko delete karke dobara banao:
-
-userdel ali
-useradd -m ali
+touch: cannot touch '/home/mkk/.motd_shown'
+Permission denied
 ```
 
----
+## Root Cause
 
-# Quick Memory Trick
+The files copied from `/etc/skel` were owned by **root**, not by
+**mkk**.
 
-```text
-rm -rf /home/ali
+Verify ownership:
 
-Deletes Files
-NOT User
+``` bash
+ls -ld /home/mkk
+ls -la /home/mkk
 ```
 
-```text
-userdel ali
+## Solution
 
-Deletes User
-NOT Home Directory
+Change the ownership of the entire home directory:
+
+``` bash
+sudo chown -R mkk:mkk /home/mkk
 ```
 
-```text
-userdel -r ali
+(Optional but recommended)
 
-Deletes User
-AND Home Directory
+``` bash
+sudo chmod 700 /home/mkk
 ```
 
----
+Log in again:
 
-# One-Line Exam Definition
-
-Deleting a user's home directory with `rm -rf` removes the files but does not remove the user account from the system.
-
----
-
-# Advanced User Decommissioning
-
-## Does `userdel -r` Remove Everything?
-
-Many administrators think:
-
-```bash
-sudo userdel -r ali
+``` bash
+su - mkk
 ```
 
-removes everything belonging to the user.
+The login now succeeds without any permission errors.
 
-This is not always true.
+## Remaining Message
 
-Typically it removes:
+After the fix, Ubuntu may still display:
 
-```text
-User account
-Password entry
-Home directory
-Mail spool
+``` text
+This message is shown once a day.
+To disable it please create the /home/mkk/.hushlogin file.
 ```
 
-Usually:
+This is **not an error**. It is only Ubuntu's daily Message of the Day
+(MOTD).
 
-```text
-/etc/passwd entry
-/etc/shadow entry
-/home/ali
-/var/mail/ali
+To suppress it for that user:
+
+``` bash
+touch ~/.hushlogin
 ```
 
----
+## Lesson Learned
 
-# Files That May Remain
+When recreating a user's home directory manually:
 
-If the user created files outside the home directory:
+1.  Create the directory.
+2.  Copy the default files from `/etc/skel`.
+3.  Fix ownership using `chown -R`.
+4.  Verify permissions.
+5.  Test the login with `su - username`.
 
-```text
-/opt
-/var/www
-/data
-/shared
-/tmp
+Missing the `chown -R` step commonly causes login errors such as:
+
+-   `Permission denied`
+-   `Unable to setup logging`
+-   `cannot touch '.motd_shown'`
+
+------------------------------------------------------------------------
+
+# Quick Recovery Checklist
+
+``` bash
+sudo mkdir /home/USERNAME
+sudo cp -a /etc/skel/. /home/USERNAME/
+sudo chown -R USERNAME:USERNAME /home/USERNAME
+sudo chmod 700 /home/USERNAME
+su - USERNAME
 ```
-
-those files may still exist.
-
-Example:
-
-```bash
-sudo find / -user ali 2>/dev/null
-```
-
-Output:
-
-```text
-/opt/project/script.sh
-/data/report.txt
-/var/www/html/index.html
-```
-
-These files are not automatically removed by `userdel -r`.
-
----
-
-# Find Everything Owned by a User
-
-Before deleting the user:
-
-```bash
-sudo find / -user ali 2>/dev/null
-```
-
-Save report:
-
-```bash
-sudo find / -user ali > ali-files.txt
-```
-
-This creates an audit report of all files owned by the user.
-
----
-
-# Find Everything Owned by User Group
-
-```bash
-sudo find / -group ali 2>/dev/null
-```
-
-Useful when files belong to the user's primary group.
-
----
-
-# Count Files and Directories Owned by a User
-
-Count everything:
-
-```bash
-sudo find / -user ali 2>/dev/null | wc -l
-```
-
-Count directories only:
-
-```bash
-sudo find / -user ali -type d 2>/dev/null | wc -l
-```
-
-Count files only:
-
-```bash
-sudo find / -user ali -type f 2>/dev/null | wc -l
-```
-
----
-
-# Backup User Data Before Removal
-
-Create backup:
-
-```bash
-sudo tar czf ali-backup.tar.gz /home/ali
-```
-
-Verify:
-
-```bash
-ls -lh ali-backup.tar.gz
-```
-
-This is recommended before deleting employee accounts.
-
----
-
-# Delete User
-
-```bash
-sudo userdel -r ali
-```
-
-Removes:
-
-```text
-User account
-Home directory
-Mail spool
-```
-
----
-
-# Find Remaining Files After Deletion
-
-First determine UID before deletion:
-
-```bash
-id ali
-```
-
-Example:
-
-```text
-uid=1001(ali)
-```
-
-After deletion:
-
-```bash
-sudo find / -uid 1001 2>/dev/null
-```
-
-Example:
-
-```text
-/opt/project/script.sh
-/data/report.txt
-```
-
-These are orphaned files.
-
----
-
-# Remove Remaining Files
-
-Carefully review first:
-
-```bash
-sudo find / -uid 1001
-```
-
-Remove:
-
-```bash
-sudo find / -uid 1001 -delete
-```
-
-⚠️ Always verify before using `-delete`.
-
----
-
-# Professional Linux Administrator Workflow
-
-```bash
-id ali
-
-sudo find / -user ali > ali-files.txt
-
-sudo tar czf ali-backup.tar.gz /home/ali
-
-sudo userdel -r ali
-
-sudo find / -uid 1001
-```
-
-This workflow ensures:
-
-```text
-Backup created
-User removed
-Home directory removed
-Remaining files identified
-```
-
----
-
-# RHCSA Exam Notes
-
-Remember:
-
-```text
-rm -rf /home/ali
-```
-
-Deletes:
-
-```text
-Files
-Directories
-```
-
-Does NOT delete:
-
-```text
-User account
-Password
-UID
-GID
-```
-
----
-
-```text
-userdel ali
-```
-
-Deletes:
-
-```text
-User account
-```
-
-Keeps:
-
-```text
-Home directory
-```
-
----
-
-```text
-userdel -r ali
-```
-
-Deletes:
-
-```text
-User account
-Home directory
-Mail spool
-```
-
----
-
-# One-Line Exam Definition
-
-`userdel -r` removes the user account, home directory, and mail spool, but may not remove files owned by the user elsewhere on the filesystem.
