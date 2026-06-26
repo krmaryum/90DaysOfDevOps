@@ -5,6 +5,8 @@
 These notes improve the user management troubleshooting lab by covering
 the correct way to recover a deleted home directory and common mistakes.
 
+
+
 ------------------------------------------------------------------------
 
 # Scenario
@@ -39,6 +41,25 @@ Because the account still exists in `/etc/passwd`, `/etc/shadow`, and
 `/etc/group`.
 
 ------------------------------------------------------------------------
+
+## About user ali information
+## We need these back
+
+
+```text
+root@Khalid-laptop:/home# id ali
+uid=1003(ali) gid=1003(ali) groups=1003(ali),27(sudo),100(users)
+
+root@Khalid-laptop:/home# ll ali
+total 20
+drwxr-x--- 2 ali  ali  4096 May 17 13:13 ./
+drwxr-xr-x 7 root root 4096 Jun 24 21:38 ../
+-rw-r--r-- 1 ali  ali   220 May 17 13:13 .bash_logout
+-rw-r--r-- 1 ali  ali  3771 May 17 13:13 .bashrc
+-rw-r--r-- 1 ali  ali   807 May 17 13:13 .profile
+```
+
+---
 
 # Correct Recovery Procedure
 
