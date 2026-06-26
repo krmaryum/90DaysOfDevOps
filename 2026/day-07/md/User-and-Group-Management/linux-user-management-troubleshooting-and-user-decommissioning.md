@@ -188,59 +188,59 @@ and verify the login.
 
 ------------------------------------------------------------------------
 
-# Real Lab Scenario -- Recovering User `mkk`
+# Real Lab Scenario -- Recovering User `ali`
 
 ## Scenario
 
-The user `mkk` already existed, but its home directory was accidentally
+The user `ali` already existed, but its home directory was accidentally
 deleted.
 
 Attempting to recreate the user:
 
 ``` bash
-sudo useradd -m mkk
+sudo useradd -m ali
 ```
 
 Result:
 
 ``` text
-useradd: user 'mkk' already exists
+useradd: user 'ali' already exists
 ```
 
 The home directory was recreated manually and the default files were
 copied:
 
 ``` bash
-sudo mkdir /home/mkk
-sudo cp -a /etc/skel/. /home/mkk/
+sudo mkdir /home/ali
+sudo cp -a /etc/skel/. /home/ali/
 ```
 
 However, after logging in:
 
 ``` bash
-su - mkk
+su - ali
 ```
 
 Ubuntu displayed:
 
 ``` text
 Unable to setup logging.
-Permission denied: '/home/mkk/.landscape'
+Permission denied: '/home/ali/.landscape'
 
-touch: cannot touch '/home/mkk/.motd_shown'
+touch: cannot touch '/home/ali/.motd_shown'
 Permission denied
 ```
 
 ## Root Cause
 
 The files copied from `/etc/skel` were owned by **root**, not by
-**mkk**.
+**ali**.
 
 Verify ownership:
 
 ``` bash
-ls -ld /home/mkk
-ls -la /home/mkk
+ls -ld /home/ali
+ls -la /home/ali
 ```
 
 ## Solution
@@ -248,19 +248,19 @@ ls -la /home/mkk
 Change the ownership of the entire home directory:
 
 ``` bash
-sudo chown -R mkk:mkk /home/mkk
+sudo chown -R ali:ali /home/ali
 ```
 
 (Optional but recommended)
 
 ``` bash
-sudo chmod 700 /home/mkk
+sudo chmod 700 /home/ali
 ```
 
 Log in again:
 
 ``` bash
-su - mkk
+su - ali
 ```
 
 The login now succeeds without any permission errors.
@@ -271,7 +271,7 @@ After the fix, Ubuntu may still display:
 
 ``` text
 This message is shown once a day.
-To disable it please create the /home/mkk/.hushlogin file.
+To disable it please create the /home/ali/.hushlogin file.
 ```
 
 This is **not an error**. It is only Ubuntu's daily Message of the Day
@@ -302,7 +302,7 @@ This often means the user's default login shell may be `/bin/sh` instead of `/bi
 Log in as the user:
 
 ```bash
-su - mkk
+su - ali
 ```
 
 Then check:
@@ -330,13 +330,13 @@ exit
 Then run:
 
 ```bash
-sudo chsh -s /bin/bash mkk
+sudo chsh -s /bin/bash ali
 ```
 
 ### Log Out and Log Back In
 
 ```bash
-su - mkk
+su - ali
 ```
 
 Now check again:
@@ -354,7 +354,7 @@ Expected output:
 The prompt should look more like:
 
 ```text
-mkk@Khalid-laptop:~$
+ali@Khalid-laptop:~$
 ```
 
 ### Important Note
@@ -364,13 +364,13 @@ Changing the shell does not fix ownership problems.
 Ownership problems are fixed with:
 
 ```bash
-sudo chown -R mkk:mkk /home/mkk
+sudo chown -R ali:ali /home/ali
 ```
 
 Shell problems are fixed with:
 
 ```bash
-sudo chsh -s /bin/bash mkk
+sudo chsh -s /bin/bash ali
 ```
 
 ### Quick Memory
