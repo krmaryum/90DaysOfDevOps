@@ -1,99 +1,67 @@
-# Day 01 – Introduction to DevOps and Cloud
+# Day 01 — Introduction to DevOps and Cloud
 
-## Task
-Today’s goal is to **set the foundation for your DevOps journey**.
+[Portfolio home](../../README.md) | [Original teacher assignment](Original_Assignment/README.md) | [Additional resources](Additional_Resources/README.md)
 
-You will create a **90-day personal DevOps learning plan** that clearly defines:
-- What is your understanding of DevOps and Cloud Engineering?
-- Why you are starting learning DevOps & Cloud?
-- Where do you want to reach?
-- How you will stay consistent every single day?
+## Suggested Study Sequence
 
-This is not a generic plan.  
-This is your **career execution blueprint** for the next 90 days.
+Read the original assignment → review the submitted learning plan → use supplementary resources as needed → review submission evidence.
 
----
+## Study and Homework Status
 
-## Expected Output
-By the end of today, you should have:
+| Item | Documented status |
+|---|---|
+| Original teacher instructions | Preserved without changes |
+| Personal learning plan | Existing submission available |
+| Commit and push | Not verified from the supplied ZIP |
+| Additional materials | Preserved; inclusion here does not establish Day 01 coursework |
 
-- A markdown file named:  
-  `learning-plan.md`
+The owner reports completing the bootcamp. This page describes only the evidence available in the supplied Day 01 folder.
 
-or
+## Topic and Objectives
 
-- A hand written plan for the next 90 Days (Recommended)
+The original homework introduces DevOps and Cloud and asks for a personal 90-day learning plan covering understanding, motivation, goals, and consistency.
 
+## Original Homework
 
-The file/note should clearly reflect your intent, discipline, and seriousness toward becoming a DevOps engineer.
+1. Navigate to `2026/day-01/` in your fork.
+2. Add `learning-plan.md`.
+3. Commit and push the submission.
 
----
+Read the [complete original instructions](Original_Assignment/README.md), including guidelines and optional learning-in-public activity.
 
-## Guidelines
-Follow these rules while creating your plan:
+## My Submitted Work
 
-- Mention your **current level**  
-  (student / fresher / working professional / non-IT background, etc.)
-- Define **3 clear goals** for the next 90 days  
-  (example: deploy a production-grade application on Kubernetes)
-- Define **3 core DevOps skills** you want to build  
-  (example: Linux troubleshooting, CI/CD pipelines, Kubernetes debugging)
-- Allocate a **weekly time budget**  
-  (example: 2–2.5 hours per day on weekdays, 4-6 hours weekends)
-- Keep the document **under 1 page**
-- Be honest and realistic; consistency matters more than perfection
+[Open my original learning plan](learning-plan.md).
 
----
+The plan describes DevOps and Cloud, career motivation, learning goals, and a four-hour daily study commitment. Its wording is preserved as submitted.
 
-## Resources
-You may refer to:
+### Optional future refinement
 
-- TrainWithShubham [course curriculum](https://english.trainwithshubham.com/JOSH_BATCH_10_Syllabus_v1.pdf)
-- TrainWithShubham DevOps [roadmap](https://docs.google.com/spreadsheets/d/1eE-NhZQFr545LkP4QNhTgXcZTtkMFeEPNyVXAflXia0/edit?gid=2073716385#gid=2073716385)
-- Your own past experience and career aspirations
+The teacher also asks for current background, three clear goals, three core skills, and a weekly time budget. These could be stated more explicitly in a future revision. No answers or activities have been added to the original plan.
 
-Avoid over-researching today. The focus is **clarity**, not depth.
+## Commands — Submission Reference
 
----
+These commands illustrate the original submission workflow from the repository root. They are reference instructions, not a record of commands executed or proof of a successful push. Review unrelated staged changes before committing.
 
-## Why This Matters for DevOps
-DevOps engineers succeed not just because of tools, but because of:
+```bash
+cd 2026/day-01
+git status
+git add learning-plan.md
+git diff --cached
+git commit -m "Add Day 01 personal DevOps learning plan"
+git push
+```
 
-- Discipline
-- Ownership
-- Long-term thinking
-- Ability to execute consistently
+## Practical Exercise
 
-In real jobs, no one tells you exactly what to do every day.  
-This task trains you to **take ownership of your own growth**, just like a real DevOps engineer.
+The verified Day 01 exercise is writing and submitting the learning plan. No Docker, Kubernetes, Terraform, or Ansible lab is claimed as part of this assignment.
 
-A clear plan:
-- Reduces confusion
-- Prevents burnout
-- Keeps you focused during tough days
+## Additional Resources
 
----
+[Browse the preserved supplementary collection](Additional_Resources/README.md): setup guides, revision notes, scripts, roadmap, syllabus, certificates, and portfolio pages. Exact assignment-day placement remains pending later coursework review.
 
-## Submission
-1. Fork this `90DaysOfDevOps` repository  
-2. Navigate to the `2026/day-01/` folder  
-3. Add your `learning-plan.md` file  
-4. Commit and push your changes to your fork  
+## Evidence and Next Step
 
----
+The submitted Markdown file is available. A commit URL or Git history would establish the submission commit and push. Review Day 02 only after its actual instructions and files are supplied; no next-day topic is assumed.
 
-## Learn in Public
-Share your Day 01 progress on LinkedIn:
-
-- Post 2–3 lines on why you’re starting **#90DaysOfDevOps**
-- Share one goal from your learning plan
-- Optional: screenshot of your markdown file or a professional picture
-
-Use hashtags:
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
-
-
-Happy Learning  
-**TrainWithShubham**
+[File move map](../../FILE_MOVE_MAP.csv) | [Review notes](../../REVIEW_NOTES.md)
