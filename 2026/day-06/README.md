@@ -1,93 +1,63 @@
-# Day 06 – Linux Fundamentals: Read and Write Text Files
+# Day 06 — Linux Fundamentals: Read and Write Text Files
 
-## Task
-This is a **continuation of Day 05**, but much simpler.
+[Previous: Day 05](../day-05/README.md) | [Teacher assignment](Original_Assignment/README.md) | [Original practice note](file-io-practice.md)
 
-Today’s goal is to **practice basic file read/write** using only fundamental commands.
+## Suggested Study Sequence
 
-You will create a small text file and practice:
-- Creating a file
-- Writing text to a file
-- Appending new lines
-- Reading the file back
+Read the teacher's task → review the recorded file operations → compare the output with the requirements → complete and capture missing work on the actual lab system.
 
-Keep it basic and repeatable.
+## Study and Homework Status
 
----
+| Item | Documented checkpoint |
+|---|---|
+| Teacher instructions | Preserved unchanged |
+| file-io-practice.md | Original note and output snippets retained unchanged |
+| File creation and redirection | touch, overwrite, append and cat outputs recorded |
+| Partial reads | head and tail outputs recorded |
+| Three-line notes.txt | Only two lines shown in the supplied record |
+| Actual notes.txt deliverable | Not included in the uploaded ZIP |
+| tee practice | Recorded as a separate privileged sudoers-file example |
+| Git submission | Commit and push not verified by the ZIP |
 
-## Expected Output
-By the end of today, you should have:
+## Original Homework and Objectives
 
-- the new created files
-- A markdown file named:  
-  `file-io-practice.md`
+Create `notes.txt`, write three lines using redirection, read it with cat, inspect parts with head and tail, and use tee to write and display text. Submit `file-io-practice.md` under `2026/day-06/`; the expected output also includes created files.
 
-or
+The teacher says both “write 3 lines” and “8–12 lines total in the file.” This is ambiguous. Preserve the wording and use the supplied three-line command flow as the concrete example, without inventing extra required text.
 
-- A hand written practice note (Recommended)
+[Read the complete original assignment](Original_Assignment/README.md).
 
-Your note should include the commands you ran and what they did.
+## My Submitted Work
 
----
+[Open the original file I/O practice note](file-io-practice.md).
 
-## Guidelines
-Follow these rules while creating your practice note:
+| Command recorded in the note | Documented role |
+|---|---|
+| `touch notes.txt` and `ls -l` | File created with zero-byte listing |
+| `echo "This is line 1" > notes.txt` | First line written |
+| `echo "This is line 2" >> notes.txt` | Second line appended |
+| `cat notes.txt` | File contents displayed |
+| `head -n 2 notes.txt` | First two lines displayed |
+| `tail -n 2 notes.txt` | Last two lines displayed; same as head for this two-line file |
+| `tee /etc/sudoers.d/khan` in a pipeline | Separate write-and-display example involving a privilege configuration file |
 
-- Create a file named `notes.txt`
-- Write 3 lines into the file using **redirection** (`>` and `>>`)
-- Use **`cat`** to read the full file
-- Use **`head`** and **`tail`** to read parts of the file
-- Use **`tee`** once to write and display at the same time
-- Keep it short (8–12 lines total in the file)
+The last example grants broad passwordless sudo in its recorded rule. It changes system access and is unnecessary for basic file I/O. It remains preserved as historical source content; use the teacher's ordinary notes.txt example for this homework. The captured root prompt also differs from a general unprivileged shell context.
 
-Suggested command flow:
-1. `touch notes.txt`
-2. `echo "Line 1" > notes.txt`
-3. `echo "Line 2" >> notes.txt`
-4. `echo "Line 3" | tee -a notes.txt`
-5. `cat notes.txt`
-6. `head -n 2 notes.txt`
-7. `tail -n 2 notes.txt`
+## Missing Work — Reference, Not Completed Output
 
----
+The teacher's suggested third-line operation is:
 
-## Resources
-Use these docs to understand the commands:
+```bash
+echo "Line 3" | tee -a notes.txt
+cat notes.txt
+head -n 2 notes.txt
+tail -n 2 notes.txt
+```
 
-- `touch` (create an empty file) 
-- `cat` (read full file) 
-- `head` and `tail` (read parts of a file) 
-- `tee` (write and display at the same time)
+This is a reference for a lab copy containing the first two lines. Run the append once when completing that exercise; repeating it appends additional copies. Record the actual output, retain the resulting notes.txt, and update the practice note only from real observations. No notes.txt or new output has been fabricated in this package.
 
----
+## Review and Navigation
 
-## Why This Matters for DevOps
-Reading and writing files is a daily task in DevOps.
+[Review notes](REVIEW_NOTES.md) | [File move map](FILE_MOVE_MAP.csv) | [Previous day](../day-05/README.md)
 
-Logs, configs, and scripts are all text files.  
-If you can handle files quickly, you can debug and automate faster.
-
----
-
-## Submission
-1. Fork this `90DaysOfDevOps` repository  
-2. Navigate to the `2026/day-06/` folder  
-3. Add your `file-io-practice.md` file  
-4. Commit and push your changes to your fork  
-
----
-
-## Learn in Public
-Share your Day 06 progress on LinkedIn:
-
-- Post 2–3 lines on what you learned about file read/write
-- Share one command you will use often
-- Optional: screenshot of your notes
-
-Use hashtags:  
-#90DaysOfDevOps  
-#DevOpsKaJosh  
-#TrainWithShubham
-
-Happy Learning  
-**TrainWithShubham**
+Day 07 will be linked after its actual coursework is reviewed.
