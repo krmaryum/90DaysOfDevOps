@@ -1,82 +1,72 @@
-# Day 03 – Linux Commands Practice
+# Day 03 — Linux Commands Practice
 
-## Task
-Today’s goal is to **build your Linux command confidence**.
+[Previous: Day 02](../day-02/README.md) | [Original teacher assignment](Original_Assignment/README.md) | [Additional resources](Additional_Resources/README.md)
 
-You will create a cheat sheet of commands focused on:
-- Process management
-- File system
-- Networking troubleshooting
+## Suggested Study Sequence
 
-This is the command toolkit you will reuse for years.
+Read the teacher's task → review the command cheat sheet → revise each command category → use the optional quizzes for self-assessment.
 
----
+## Study and Homework Status
 
-## Expected Output
-By the end of today, you should have:
+| Item | Documented checkpoint |
+|---|---|
+| Original teacher assignment | Preserved in full |
+| Required cheat sheet | Existing submission available at its required path |
+| Command coverage | 25 numbered command/example entries across three categories |
+| Networking coverage | Five entries: ip addr, hostname -I, ping, curl, dig |
+| Supplementary quizzes | Three original HTML files retained; no scores supplied |
+| Practical execution and Git submission | Not established by the supplied files |
 
-- A markdown file named:  
-  `linux-commands-cheatsheet.md`
+The owner reports completing the bootcamp. This table describes the available Day 03 documentation, rather than claiming execution of every command.
 
-or
+## Topic and Objectives
 
-- A hand written cheat sheet (Recommended)
+The homework builds command-line confidence through process management, file-system commands, and networking troubleshooting. The teacher requests at least 20 commands with one-line usage notes, three networking commands, category grouping, and concise presentation.
 
-Your cheat sheet should be easy to scan during real troubleshooting.
+## Original Homework
 
----
+Create `linux-commands-cheatsheet.md` in `2026/day-03/`, then commit and push it to the fork.
 
-## Guidelines
-Follow these rules while creating your cheat sheet:
+[Read the complete teacher instructions](Original_Assignment/README.md), including optional LinkedIn sharing and reference suggestions.
 
-- Include **at least 20 commands** with one‑line usage notes
-- Add **3 networking commands** (`ping`, `ip addr`, `dig`, `curl`, etc.)
-- Group commands by category
-- Keep it concise and readable
+## My Submitted Work
 
----
+[Open my original Linux command cheat sheet](linux-commands-cheatsheet.md).
 
-## Resources
-You may refer to:
+| Category | Numbered entries | Examples already in the submission |
+|---|---:|---|
+| Process management | 12 | ps, top, kill, jobs, fg, nice, watch, uptime |
+| File system | 8 | ls, cd, touch, mkdir, rm, rmdir, cat, head |
+| Networking troubleshooting | 5 | ip addr, hostname -I, ping, curl, dig |
 
-- Linux `man` pages
-- Your class notes
-- Reliable Linux command references
+These are 25 command/example entries, including variations such as `ps` and `ps aux`, not 25 distinct executable names. The opening sentence says 20 commands although the list contains 25 entries; the original wording is preserved for review.
 
-Don’t copy long lists. Focus on commands you understand.
+## Practical Exercises
 
----
+The verified assigned deliverable is the categorized cheat sheet. The three existing quizzes provide additional revision, without being presented as required homework or proof of completed practice.
 
-## Why This Matters for DevOps
-Real production issues are solved at the command line.
+[Browse the quiz guide](Additional_Resources/README.md). Download the HTML files and open them in a browser; GitHub's normal file view displays their source.
 
-The faster you can inspect logs and network issues, the faster you can:
-- Restore service
-- Reduce downtime
-- Gain trust as an operator
+No terminal logs, screenshots of command execution, or completed quiz scores were supplied. Add those only when actual evidence becomes available.
 
----
+## Submission Commands — Reference
 
-## Submission
-1. Fork this `90DaysOfDevOps` repository  
-2. Navigate to the `2026/day-03/` folder  
-3. Add your `linux-commands-cheatsheet.md` file  
-4. Commit and push your changes to your fork  
+From the repository root, the original homework submission workflow would be:
 
----
+```bash
+git status
+git add -- 2026/day-03/linux-commands-cheatsheet.md
+git diff --cached
+git commit -m "Add Day 03 Linux command cheat sheet"
+git push origin master
+```
 
-## Learn in Public
-Share your Day 03 progress on LinkedIn:
+This is a reference workflow, not a record of executed commands. Applying the organized folder also requires staging its reviewed file moves and documentation.
 
-- Post 2–3 lines on your favorite Linux commands
-- Share one log command and one networking command
-- Optional: screenshot of your cheat sheet
+## Review Notes
 
-Use hashtags:
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
+Original command descriptions and quiz answers have not been rewritten or comprehensively validated in this organization pass. Read the [review notes](REVIEW_NOTES.md) for coverage, duplicate handling, and package placement.
 
+[File move map](FILE_MOVE_MAP.csv) | [Previous day](../day-02/README.md)
 
-Happy Learning  
-**TrainWithShubham**
+Day 04 will be linked after its original coursework is reviewed.
