@@ -1,247 +1,869 @@
-# Day 04 – Linux Practice: Processes and Services (hands-on log)
+# Day 04 — Linux Processes, Services, and Logs: Hands-On Lab
+
+A structured Linux practice lab for inspecting processes, managing safe test jobs, examining `systemd` services, reading logs, and troubleshooting environments where `systemctl` does not work.
+
+> **Lab safety:** The exercises use harmless `sleep` processes for process-control practice. Do not stop SSH, networking, or other critical services on a remote system.
+
+## Table of Contents
+
+- [1. Learning Objectives](#1-learning-objectives)
+- [2. Lab Requirements](#2-lab-requirements)
+- [3. Command-Prompt Conventions](#3-command-prompt-conventions)
+- [4. Lab 1 — Identify the System](#4-lab-1--identify-the-system)
+- [5. Lab 2 — Inspect Processes](#5-lab-2--inspect-processes)
+- [6. Lab 3 — Create and Manage a Test Process](#6-lab-3--create-and-manage-a-test-process)
+- [7. Lab 4 — Monitor Processes with top](#7-lab-4--monitor-processes-with-top)
+- [8. Lab 5 — Understand Process Priority](#8-lab-5--understand-process-priority)
+- [9. Lab 6 — Inspect systemd and PID 1](#9-lab-6--inspect-systemd-and-pid-1)
+- [10. Lab 7 — Inspect Service Units](#10-lab-7--inspect-service-units)
+- [11. Lab 8 — Read Service and Boot Logs](#11-lab-8--read-service-and-boot-logs)
+- [12. Lab 9 — Read Distribution Package Logs](#12-lab-9--read-distribution-package-logs)
+- [13. Lab 10 — Troubleshoot systemctl Failures](#13-lab-10--troubleshoot-systemctl-failures)
+- [14. Troubleshooting Flow](#14-troubleshooting-flow)
+- [15. Command Comparison](#15-command-comparison)
+- [16. Common Mistakes and Corrections](#16-common-mistakes-and-corrections)
+- [17. Practice Questions](#17-practice-questions)
+- [18. Lab Completion Checklist](#18-lab-completion-checklist)
+- [19. Quick Reference](#19-quick-reference)
 
 ---
 
-## Process checks
+## 1. Learning Objectives
 
-### 1) Kernel / host info
+After completing this lab, you should be able to:
+
+1. Identify the kernel, hostname, architecture, and Linux distribution
+2. Display and sort processes
+3. Locate a process by name or PID
+4. Start, inspect, and terminate a safe background process
+5. Interpret key fields from `top`
+6. Identify PID 1 and the active init system
+7. Distinguish installed service unit files from currently loaded units
+8. Check service state without making changes
+9. Query current-boot and service-specific logs
+10. Troubleshoot a system where `systemctl` cannot connect to `systemd`
+
+---
+
+## 2. Lab Requirements
+
+Recommended environment:
+
+- Ubuntu 24.04, Rocky Linux 9, or a similar distribution
+- A regular user account
+- `sudo` access for commands that need elevated privileges
+- A VM, cloud instance, or WSL distribution with `systemd` enabled
+
+### Check whether required commands exist
+
+```bash
+command -v ps
+command -v top
+command -v pgrep
+command -v systemctl
+command -v journalctl
+```
+
+If a command prints a path, it is available. No output normally means the command is not in your current `PATH`.
+
+---
+
+## 3. Command-Prompt Conventions
+
+Linux documentation commonly uses these prompt symbols:
+
+| Symbol | Meaning |
+|---|---|
+| `$` | Run as a regular user |
+| `#` | Run as root |
+
+Do not type the prompt symbol itself.
+
+Example:
+
+```text
+$ uname -a
+```
+
+You type only:
+
 ```bash
 uname -a
 ```
-Output:
-```text
-Linux ip-172-31-46-56 6.14.0-1018-aws #18~24.04.1-Ubuntu SMP Mon Nov 24 19:46:27 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
-```
-| Part                   | Meaning                                                               |
-|------------------------| --------------------------------------------------------------------- |
-| `Linux`                | Kernel name                                                           |
-| `ip-172-31-46-56`      | Hostname (machine name)                                               |
-| `6.14.0-1018-aws`      | Kernel version                                                        |
-| `#18~24.04.1-Ubuntu`   | Kernel build info (build number, SMP = multi-CPU support, build date) |
-| `x86_64`               | CPU architecture (64-bit Intel/AMD)                                   |
-| `GNU/Linux`            | Operating system                                                      |
 
+---
 
-### 2) Snapshot of top CPU processes
+## 4. Lab 1 — Identify the System
+
+### Step 1: Display kernel and host information
+
 ```bash
-ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+uname -a
 ```
-- ps = Shows information about running processes (not live like top)
-- -e = Shows all processes on the system (Not just your user’s processes)
-- -o = custom output format
-- --sort=-%cpu = Sorts processes by CPU usage
-                 (minus sign) = descending order
-                 Highest CPU user appears at the top
 
-Output:
+Example:
+
 ```text
-    PID    PPID CMD                         %MEM %CPU
-   3697       1 /usr/lib/systemd/systemd --  1.2  0.3
-   3808    3807 -bash                        0.5  0.0
-   3807    3692 sshd: ubuntu@pts/0           0.7  0.0
-   3692     838 sshd: ubuntu [priv]          1.1  0.0
-   3264       1 /snap/snapd/current/usr/lib  4.1  0.0
-      1       0 /sbin/init                   1.4  0.0
-   2705       2 [kworker/0:0-cgroup_destroy  0.0  0.0
-   2689       2 [kworker/1:0-events]         0.0  0.0
-    189       1 /sbin/multipathd -d -s       2.9  0.0
+Linux lab-server 6.8.0-xx-generic #xx-Ubuntu SMP x86_64 GNU/Linux
 ```
 
-### 3) Find PIDs by name
+### Important fields
+
+| Field | Meaning |
+|---|---|
+| `Linux` | Kernel name |
+| `lab-server` | Hostname |
+| `6.8.0-xx-generic` | Kernel release |
+| `SMP` | Kernel supports symmetric multiprocessing |
+| `x86_64` | 64-bit x86 machine architecture |
+| `GNU/Linux` | GNU user-space tools running with the Linux kernel |
+
+The exact output varies by distribution, kernel, architecture, and environment.
+
+### Step 2: Display focused information
+
 ```bash
-pgrep -a bash | head
-```
-Output:
-```text
-3808 -bash 
+uname -r
+uname -m
+hostname
+cat /etc/os-release
 ```
 
-### 4) Interactive-style process view (batch mode)
+### What each command shows
+
+| Command | Purpose |
+|---|---|
+| `uname -r` | Kernel release |
+| `uname -m` | Machine architecture |
+| `hostname` | System hostname |
+| `cat /etc/os-release` | Distribution name and version |
+
+### Verification
+
+Confirm that you can identify:
+
+- Distribution
+- Distribution version
+- Kernel release
+- CPU architecture
+- Hostname
+
+---
+
+## 5. Lab 2 — Inspect Processes
+
+### Step 1: Display processes for the current terminal
+
 ```bash
-top -b -n 1 | head -n 15
+ps
 ```
-- top = Displays live system performance
-- -b = Batch mode (non-interactive, Used in scripts or piping output)
-- -n 1 = Run only once (1 refresh)
-Output:
-```text
-top - 04:38:18 up  6:04,  1 user,  load average: 0.00, 0.00, 0.00
-Tasks: 107 total,   1 running, 106 sleeping,   0 stopped,   0 zombie
-%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
-MiB Mem :    914.2 total,    121.1 free,    353.1 used,    600.9 buff/cache
-MiB Swap:      0.0 total,      0.0 free,      0.0 used.    561.1 avail Mem
 
-    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
-   3807 ubuntu    20   0   14992   7168   5204 S   9.1   0.8   0:00.10 sshd
-      1 root      20   0   22660  13996   9652 S   0.0   1.5   0:03.18 systemd
-      2 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kthreadd
-      3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_wo+
-      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
-      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
-      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
-      7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+This normally shows processes associated with the current terminal session.
+
+### Step 2: Display all processes in full format
+
+```bash
+ps -ef
+```
+
+Important columns:
+
+| Column | Meaning |
+|---|---|
+| `UID` | Process owner |
+| `PID` | Process ID |
+| `PPID` | Parent process ID |
+| `C` | Processor-utilization value used by this output format |
+| `STIME` | Process start time or date |
+| `TTY` | Associated terminal |
+| `TIME` | Accumulated CPU time |
+| `CMD` | Command |
+
+### Step 3: Create a custom process view
+
+```bash
+ps -eo pid,ppid,user,state,%mem,%cpu,comm --sort=-%cpu | head
+```
+
+### Option breakdown
+
+| Option | Meaning |
+|---|---|
+| `-e` | Select all processes |
+| `-o` | Choose custom output columns |
+| `--sort=-%cpu` | Sort by `%CPU` in descending order |
+| `head` | Display the first ten lines by default |
+
+> In `ps`, `%CPU` is generally based on CPU time over the process lifetime. Use `top`, `pidstat`, or another monitoring tool when you need repeatedly sampled activity.
+
+### Step 4: Search for a process by name
+
+```bash
+pgrep -a bash
+```
+
+| Element | Meaning |
+|---|---|
+| `pgrep` | Find process IDs matching a name or pattern |
+| `-a` | Display the PID and full command line |
+| `bash` | Pattern to match |
+
+For an exact process-name match:
+
+```bash
+pgrep -x -a bash
+```
+
+### Verification
+
+```bash
+ps -p 1 -o pid,ppid,user,state,comm,args
+```
+
+This inspects only PID 1.
+
+---
+
+## 6. Lab 3 — Create and Manage a Test Process
+
+This exercise uses `sleep`, so no production application is affected.
+
+### Step 1: Start a background process
+
+```bash
+sleep 300 &
+```
+
+The shell normally prints a job number and PID:
+
+```text
+[1] 2456
+```
+
+- `1` is the shell job number.
+- `2456` is an example PID.
+
+### Step 2: Save the PID immediately
+
+```bash
+lab_pid=$!
+printf 'Lab PID: %s\n' "$lab_pid"
+```
+
+`$!` contains the PID of the most recently started background process.
+
+### Step 3: Inspect the job and process
+
+```bash
+jobs -l
+ps -p "$lab_pid" -o pid,ppid,user,state,etime,cmd
+```
+
+Important fields:
+
+| Field | Meaning |
+|---|---|
+| `STATE` | Current process state |
+| `ELAPSED` or `ETIME` | Time since the process started |
+| `CMD` | Command line |
+
+### Step 4: Request graceful termination
+
+```bash
+kill "$lab_pid"
+```
+
+Without another signal, `kill` sends `SIGTERM`. It asks the process to terminate gracefully.
+
+### Step 5: Verify termination
+
+```bash
+ps -p "$lab_pid"
+```
+
+Expected result:
+
+```text
+PID TTY          TIME CMD
+```
+
+Only the heading normally remains because the process no longer exists.
+
+### Step 6: Clear the variable
+
+```bash
+unset lab_pid
+```
+
+### Why not use `kill -9` first?
+
+`kill -9` sends `SIGKILL`. The process cannot catch it, save data, close files cleanly, or perform cleanup. Use it only when normal termination fails and you understand the impact.
+
+---
+
+## 7. Lab 4 — Monitor Processes with top
+
+### Interactive mode
+
+```bash
+top
+```
+
+Useful keys:
+
+| Key | Action |
+|---|---|
+| `P` | Sort by CPU usage |
+| `M` | Sort by memory usage |
+| `1` | Toggle per-CPU statistics |
+| `k` | Send a signal to a process |
+| `q` | Quit |
+
+### One-time batch output
+
+```bash
+top -b -n 1 | head -n 20
+```
+
+| Option | Meaning |
+|---|---|
+| `-b` | Batch mode for non-interactive output |
+| `-n 1` | Produce one update and exit |
+| `head -n 20` | Show only the first 20 lines |
+
+### Key CPU fields
+
+| Field | Meaning |
+|---|---|
+| `us` | User-space CPU time |
+| `sy` | Kernel or system CPU time |
+| `ni` | CPU time used by niced processes |
+| `id` | Idle CPU time |
+| `wa` | Time waiting for I/O completion |
+| `hi` | Hardware interrupt time |
+| `si` | Software interrupt time |
+| `st` | CPU time taken by the hypervisor from the VM |
+
+### Important interpretation
+
+The process `%CPU` column and the summary CPU line use different perspectives on multi-CPU systems. A single-threaded process can show near 100% while the overall system still has substantial idle capacity.
+
+---
+
+## 8. Lab 5 — Understand Process Priority
+
+### Step 1: Start a low-priority test process
+
+```bash
+nice -n 10 sleep 300 &
+nice_pid=$!
+```
+
+### Step 2: Inspect its niceness
+
+```bash
+ps -p "$nice_pid" -o pid,ni,pri,state,cmd
+```
+
+| Field | Meaning |
+|---|---|
+| `NI` | User-visible niceness value |
+| `PRI` | Scheduler priority displayed by `ps` |
+
+For normal processes, a higher niceness value generally means a lower scheduling preference.
+
+### Step 3: Clean up
+
+```bash
+kill "$nice_pid"
+unset nice_pid
 ```
 
 ---
 
-## Service checks (systemd)
+## 9. Lab 6 — Inspect systemd and PID 1
 
-### 5) List service unit files (what exists on disk)
+### Step 1: Identify PID 1
+
 ```bash
-systemctl list-unit-files --type=service --no-pager | head -n 20
+ps -p 1 -o pid,ppid,comm,args
+cat /proc/1/comm
 ```
-- systemctl = Main control tool for systemd (Used to manage services, sockets, timers, mounts, etc.)
-- list-unit-files = Which services are installed and how are they configured to start?
-- --type=service = Filters output to only services
-- --no-pager = Prevents paging (less)
-- 
-Output:
+
+On a typical `systemd` system, the output includes:
+
 ```text
-UNIT FILE                                      STATE           PRESET
-acpid.service                                  disabled        enabled
-apparmor.service                               enabled         enabled
-apport-autoreport.service                      static          -
-apport-coredump-hook@.service                  static          -
-apport-forward@.service                        static          -
-apport.service                                 enabled         enabled
-apt-daily-upgrade.service                      static          -
-apt-daily.service                              static          -
-apt-news.service                               static          -
-autovt@.service                                alias           -
-blk-availability.service                       enabled         enabled
-bolt.service                                   static          -
-chrony-dnssrv@.service                         static          -
-chrony-wait.service                            disabled        enabled
-chrony.service                                 enabled         enabled
-chronyd.service                                alias           -
-cloud-config.service                           enabled         enabled
-cloud-final.service                            enabled         enabled
-cloud-init-hotplugd.service                    static          -
+systemd
 ```
 
-### 6) Try checking a service status (expected failure here)
+### Step 2: Confirm systemd state
+
 ```bash
-systemctl status apache2
+systemctl is-system-running
 ```
-Output:
+
+Possible results include:
+
+| Result | Meaning |
+|---|---|
+| `running` | System is operating normally |
+| `degraded` | One or more units failed |
+| `starting` | Boot is still in progress |
+| `maintenance` | Rescue or emergency state |
+| `offline` | systemd is not running |
+
+The command can return a nonzero exit status for states such as `degraded`, even though it successfully reported the state.
+
+### Step 3: List failed units
+
+```bash
+systemctl --failed
+```
+
+Do not automatically restart failed services. First inspect their status and logs.
+
+---
+
+## 10. Lab 7 — Inspect Service Units
+
+### Unit files versus loaded units
+
+These two commands answer different questions.
+
+#### What service unit files are installed?
+
+```bash
+systemctl list-unit-files --type=service --no-pager | head -n 25
+```
+
+#### Which service units are currently loaded?
+
+```bash
+systemctl list-units --type=service --all --no-pager | head -n 25
+```
+
+### Common unit-file states
+
+| State | Meaning |
+|---|---|
+| `enabled` | Configured to start through an enablement relationship |
+| `disabled` | Installed but not enabled |
+| `static` | Cannot normally be enabled directly; started by dependency or activation |
+| `masked` | Blocked from being started |
+| `alias` | Alternate name for another unit |
+
+The `PRESET` column is the vendor's recommended default, not necessarily the current state.
+
+### Check a known service
+
+Ubuntu commonly uses:
+
+```bash
+systemctl status ssh --no-pager
+systemctl is-active ssh
+systemctl is-enabled ssh
+```
+
+Rocky Linux and RHEL commonly use:
+
+```bash
+systemctl status sshd --no-pager
+systemctl is-active sshd
+systemctl is-enabled sshd
+```
+
+> `active` and `enabled` are different. Active describes the current runtime state; enabled describes boot-time configuration.
+
+### Check whether a unit exists
+
+```bash
+systemctl status apache2 --no-pager
+```
+
+If you see:
+
 ```text
 Unit apache2.service could not be found.
 ```
-- Then it means Apache is not installed.
+
+It means `systemd` cannot find that unit name. Possible reasons include:
+
+- The package is not installed
+- The service uses a different unit name
+- The unit file was removed
+- The systemd unit-file cache needs to be reloaded after a manual change
+
+Check related unit names:
+
+```bash
+systemctl list-unit-files --type=service | grep -iE 'apache|httpd'
+```
+
+On Ubuntu, Apache usually uses `apache2.service`. On Rocky Linux or RHEL, it usually uses `httpd.service`.
 
 ---
 
-## Log checks
+## 11. Lab 8 — Read Service and Boot Logs
 
-### 7) Query systemd journal for a unit (expected empty here)
+### Recent logs for the current boot
+
 ```bash
-journalctl -u ssh --no-pager -n 10
-```
-- journalctl =	Query systemd logs
-- -u ssh =	Filter logs for ssh.service
-- --no-pager =	Print directly to terminal
-- -n 10 =	Show last 10 log lines
-Output:
-```text
-Jan 29 04:11:13 ip-172-31-46-56 sshd[3692]: pam_unix(sshd:session): session opened for user ubuntu(uid=1000) by ubuntu(uid=0)
-Jan 29 04:21:44 ip-172-31-46-56 sshd[3854]: banner exchange: Connection from 20.65.195.59 port 34374: invalid format
-Jan 29 04:21:54 ip-172-31-46-56 sshd[3852]: Connection closed by 20.65.195.59 port 34358 [preauth]
-Jan 29 04:29:47 ip-172-31-46-56 sshd[3862]: Connection reset by 205.210.31.39 port 59066 [preauth]
-Jan 29 05:02:35 ip-172-31-46-56 sshd[3910]: Connection closed by 103.203.57.11 port 57536
-Jan 29 05:05:16 ip-172-31-46-56 sshd[3920]: Connection closed by 13.58.84.198 port 45120
-Jan 29 05:12:33 ip-172-31-46-56 sshd[3948]: error: kex_exchange_identification: read: Connection reset by peer
-Jan 29 05:12:33 ip-172-31-46-56 sshd[3948]: Connection reset by 123.209.205.215 port 45238
-Jan 29 05:44:18 ip-172-31-46-56 sshd[3999]: Accepted publickey for ubuntu from 71.194.37.152 port 51842 ssh2: RSA SHA256:0wtcVbfyLDcY6QNRFtEan6PYXGjIXIcg0gnfNePGix0
-Jan 29 05:44:18 ip-172-31-46-56 sshd[3999]: pam_unix(sshd:session): session opened for user ubuntu(uid=1000) by ubuntu(uid=0)
-ubuntu@ip-172-31-46-56:~$ found.
-
+journalctl -b -n 30 --no-pager
 ```
 
-### 8) Tail a “traditional” logfile (ssh history)
+| Option | Meaning |
+|---|---|
+| `-b` | Current boot |
+| `-n 30` | Last 30 entries |
+| `--no-pager` | Print directly instead of opening a pager |
+
+### Warning-and-higher messages
+
+```bash
+journalctl -b -p warning --no-pager
+```
+
+### Logs for a specific service
+
+Ubuntu:
+
+```bash
+sudo journalctl -u ssh -n 20 --no-pager
+```
+
+Rocky Linux or RHEL:
+
+```bash
+sudo journalctl -u sshd -n 20 --no-pager
+```
+
+### Follow logs in real time
+
+```bash
+sudo journalctl -u ssh -f
+```
+
+Press `Ctrl+C` to stop following the log.
+
+> SSH logs can contain usernames, source IP addresses, key fingerprints, and other sensitive operational details. Sanitize them before publishing screenshots or notes.
+
+---
+
+## 12. Lab 9 — Read Distribution Package Logs
+
+Package-manager logs are not SSH logs. They record package installation, upgrade, configuration, and removal activity.
+
+### Ubuntu or Debian
+
+```bash
+sudo tail -n 20 /var/log/dpkg.log
+```
+
+Common actions:
+
+| Entry | Meaning |
+|---|---|
+| `install` | Package installation began |
+| `unpack` | Package files were extracted |
+| `configure` | Package configuration ran |
+| `status installed` | Package reached the installed state |
+| `purge` | Package and its configuration were removed |
+
+APT history:
+
+```bash
+sudo less /var/log/apt/history.log
+```
+
+### Rocky Linux, RHEL, or Fedora
+
+```bash
+sudo tail -n 20 /var/log/dnf.log
+sudo dnf history
+```
+
+### Why this original pattern is redundant
+
 ```bash
 tail -n 20 /var/log/dpkg.log | head -n 20
 ```
-- installed = installed 
-- configure = configuring packages
-- purge = removing packages + configs
-- purge = removing packages + configs
-Output:
-```text
-2025-12-12 10:10:05 status installed man-db:amd64 2.12.0-4build2
-2025-12-12 10:10:09 startup packages configure
-2025-12-12 10:10:09 startup packages purge
-2025-12-12 10:10:09 purge systemd-timesyncd:amd64 255.4-1ubuntu8.11 <none>
-2025-12-12 10:10:09 status config-files systemd-timesyncd:amd64 255.4-1ubuntu8.11
-2025-12-12 10:10:09 status not-installed systemd-timesyncd:amd64 <none>
-2025-12-12 10:10:09 startup packages configure
-2025-12-12 10:10:50 startup archives unpack
-2025-12-12 10:10:50 install irqbalance:amd64 <none> 1.9.3-2ubuntu5
-2025-12-12 10:10:50 status half-installed irqbalance:amd64 1.9.3-2ubuntu5
-2025-12-12 10:10:50 status triggers-pending man-db:amd64 2.12.0-4build2
-2025-12-12 10:10:50 status unpacked irqbalance:amd64 1.9.3-2ubuntu5
-2025-12-12 10:10:50 startup packages configure
-2025-12-12 10:10:50 configure irqbalance:amd64 1.9.3-2ubuntu5 <none>
-2025-12-12 10:10:50 status unpacked irqbalance:amd64 1.9.3-2ubuntu5
-2025-12-12 10:10:50 status half-configured irqbalance:amd64 1.9.3-2ubuntu5
-2025-12-12 10:10:50 status installed irqbalance:amd64 1.9.3-2ubuntu5
-2025-12-12 10:10:50 trigproc man-db:amd64 2.12.0-4build2 <none>
-2025-12-12 10:10:50 status half-configured man-db:amd64 2.12.0-4build2
-2025-12-12 10:10:51 status installed man-db:amd64 2.12.0-4build2
+
+`tail -n 20` already produces at most 20 lines, so sending that result to `head -n 20` normally changes nothing. Use:
+
+```bash
+tail -n 20 /var/log/dpkg.log
 ```
 
 ---
 
-## Mini troubleshooting steps (simple flow)
+## 13. Lab 10 — Troubleshoot systemctl Failures
 
 ### Symptom
-`systemctl status <service>` fails with:
+
 ```text
 System has not been booted with systemd as init system (PID 1). Can't operate.
 Failed to connect to bus: Host is down
 ```
 
-### Step 1: Confirm what PID 1 is
+This usually means `systemctl` is installed, but `systemd` is not running as PID 1 in the current environment.
+
+### Step 1: Identify PID 1
+
 ```bash
-ps -p 1 -o pid,ppid,cmd
+ps -p 1 -o pid,ppid,user,comm,args
 cat /proc/1/comm
 ```
-Output:
-```text
-  PID  PPID CMD
-    1     0 /usr/bin/python3 /usr/bin/supervisord -n -c /etc/supervisord.conf
-supervisord
-```
 
-### Step 2: Use the actual service manager available (supervisor in this container)
+Possible PID 1 processes include:
+
+- `systemd` on a normal systemd host
+- `init` as a link or alternative init process
+- `bash`, `sh`, or an application inside a container
+- `supervisord` in an environment managed by Supervisor
+
+### Step 2: Identify the environment
+
 ```bash
-supervisorctl status | head -n 25
-```
-Output:
-```text
-apply_patch                      EXITED    Jan 28 06:44 PM
-caas_package_mirror              EXITED    Jan 28 06:44 PM
-certs                            EXITED    Jan 28 06:44 PM
-chromium                         EXITED    Jan 28 06:44 PM
-container_daemon                 EXITED    Jan 28 06:44 PM
-cua_bing_at_home                 EXITED    Jan 28 06:44 PM
-dbus                             EXITED    Jan 28 06:44 PM
-extension_server                 EXITED    Jan 28 06:44 PM
-libreoffice                      EXITED    Jan 28 06:44 PM
-logrotate                        RUNNING   pid 3, uptime 0:01:23
-mitmproxy                        EXITED    Jan 28 06:44 PM
-multikernel_jupyter_tool         EXITED    Jan 28 06:44 PM
-neko                             EXITED    Jan 28 06:44 PM
-nginx                            EXITED    Jan 28 06:44 PM
-notebook_server                  EXITED    Jan 28 06:44 PM
-novnc_proxy                      EXITED    Jan 28 06:44 PM
-openbox                          EXITED    Jan 28 06:44 PM
-pdf_reader_service               EXITED    Jan 28 06:44 PM
-picom                            EXITED    Jan 28 06:44 PM
-policy_merge                     EXITED    Jan 28 06:44 PM
-python_tool                      RUNNING   pid 73, uptime 0:01:16
-rsync_daemon                     EXITED    Jan 28 06:44 PM
-sync_share                       EXITED    Jan 28 06:44 PM
-terminal_server                  RUNNING   pid 78, uptime 0:01:15
-test_server                      EXITED    Jan 28 06:44 PM
+systemd-detect-virt
+systemd-detect-virt --container
+uname -a
 ```
 
+Possible environments include:
+
+- Physical server
+- Virtual machine
+- Container
+- WSL
+
+### Step 3: Use the correct management method
+
+| Environment | Appropriate approach |
+|---|---|
+| systemd host | Use `systemctl` and `journalctl` |
+| Supervisor-managed environment | Use `supervisorctl` |
+| Docker container | Use the container's intended entrypoint or manage it from the Docker host |
+| WSL without systemd | Enable systemd if supported or use the distribution's available service method |
+| Minimal container | Run the application directly or use its provided process supervisor |
+
+### Supervisor example
+
+```bash
+command -v supervisorctl
+sudo supervisorctl status
+```
+
+Do not assume Supervisor is installed. Confirm it first with `command -v`.
+
+### WSL systemd check
+
+```bash
+ps -p 1 -o comm=
+```
+
+If the output is not `systemd`, check the WSL configuration:
+
+```bash
+cat /etc/wsl.conf
+```
+
+A supported configuration may contain:
+
+```ini
+[boot]
+systemd=true
+```
+
+After changing WSL configuration, restart the distribution from Windows:
+
+```powershell
+wsl --shutdown
+```
+
+Then reopen WSL and verify PID 1 again.
+
+---
+
+## 14. Troubleshooting Flow
+
+```mermaid
+flowchart TD
+    A["Service problem"] --> B["Identify PID 1"]
+    B --> C{"systemd is PID 1?"}
+    C -- Yes --> D["Check status and logs"]
+    C -- No --> E["Identify container, WSL, or supervisor"]
+    D --> F["Find root cause before action"]
+    E --> G["Use the correct management tool"]
+```
+
+### Safe investigation sequence
+
+```bash
+ps -p 1 -o pid,comm,args
+systemctl is-system-running
+systemctl --failed
+systemctl status SERVICE_NAME --no-pager
+journalctl -u SERVICE_NAME -n 50 --no-pager
+```
+
+Replace `SERVICE_NAME` with the actual unit name.
+
+> Investigation commands do not authorize restarting or changing a production service. Confirm impact and follow the change process first.
+
+---
+
+## 15. Command Comparison
+
+| Command | What it answers |
+|---|---|
+| `ps` | Which processes belong to this terminal? |
+| `ps -ef` | Which processes are running system-wide? |
+| `pgrep -a NAME` | Which PIDs match this process name or pattern? |
+| `top` | How are processes and resources changing over time? |
+| `jobs -l` | Which jobs were started by this shell? |
+| `systemctl status UNIT` | What is the current state and recent status of this unit? |
+| `systemctl is-active UNIT` | Is this unit active now? |
+| `systemctl is-enabled UNIT` | Is this unit configured for enablement at boot? |
+| `systemctl list-unit-files` | Which unit files are installed and what are their enablement states? |
+| `systemctl list-units` | Which units are currently loaded? |
+| `journalctl -u UNIT` | What journal entries belong to this unit? |
+| `journalctl -b` | What happened during the current boot? |
+
+---
+
+## 16. Common Mistakes and Corrections
+
+### Mistake: Treating `ps` as live monitoring
+
+`ps` provides a snapshot. Use `top`, `watch`, or `pidstat` for repeated observation.
+
+### Mistake: Assuming `Unit could not be found` proves a package is absent
+
+The package may be missing, but the service may also have a different unit name. Search installed unit files before concluding.
+
+### Mistake: Calling `dpkg.log` an SSH log
+
+`/var/log/dpkg.log` records package-management events. SSH activity is normally found through `journalctl -u ssh` or distribution-specific authentication logs.
+
+### Mistake: Using `kill -9` first
+
+Start with normal `kill` (`SIGTERM`). Escalate only if the process refuses to stop and the impact is understood.
+
+### Mistake: Confusing active with enabled
+
+- **Active:** running now
+- **Enabled:** configured for boot-time activation
+
+A service can be active but disabled, or enabled but currently inactive.
+
+### Mistake: Assuming every Linux environment uses systemd
+
+Containers, WSL configurations, embedded systems, and minimal environments may use another PID 1 process.
+
+---
+
+## 17. Practice Questions
+
+Try to answer before reading the answer key.
+
+### Questions
+
+1. What is the difference between PID and PPID?
+2. Why is `ps` called a snapshot?
+3. What does the minus sign mean in `--sort=-%cpu`?
+4. What value does `$!` contain?
+5. Why should `kill -9` not be the first choice?
+6. What is the difference between an active and enabled service?
+7. What is the difference between `list-unit-files` and `list-units`?
+8. Which command displays logs for the current boot?
+9. Why can `systemctl` exist even when systemd is not PID 1?
+10. Why should SSH journal entries be sanitized before publishing?
+
+### Answer key
+
+1. PID identifies a process; PPID identifies its parent process.
+2. It reads process information at one point in time and then exits.
+3. It requests descending order, placing higher values first.
+4. The PID of the most recently started background process.
+5. SIGKILL prevents the process from performing cleanup or saving state.
+6. Active is the current runtime state; enabled is boot-time configuration.
+7. `list-unit-files` shows installed unit files and enablement; `list-units` shows loaded units.
+8. `journalctl -b`.
+9. The client command may be installed inside a container or non-systemd environment even though the system manager is not running.
+10. They may contain usernames, source IPs, fingerprints, and operational details.
+
+---
+
+## 18. Lab Completion Checklist
+
+- [ ] Identified the distribution, kernel, architecture, and hostname
+- [ ] Displayed processes with `ps`
+- [ ] Built a custom process view
+- [ ] Located Bash processes using `pgrep`
+- [ ] Started and safely terminated a `sleep` process
+- [ ] Interpreted the CPU fields in `top`
+- [ ] Checked a process's niceness value
+- [ ] Identified PID 1
+- [ ] Compared installed unit files with loaded units
+- [ ] Checked active and enabled service states
+- [ ] Read boot and service logs
+- [ ] Examined the appropriate package-manager log
+- [ ] Practiced the non-systemd troubleshooting flow
+- [ ] Answered all ten revision questions
+
+---
+
+## 19. Quick Reference
+
+```bash
+# System identity
+uname -a
+cat /etc/os-release
+
+# Processes
+ps -ef
+ps -eo pid,ppid,user,state,%mem,%cpu,comm --sort=-%cpu | head
+pgrep -x -a bash
+top
+
+# Safe process-control practice
+sleep 300 &
+lab_pid=$!
+ps -p "$lab_pid" -o pid,ppid,state,etime,cmd
+kill "$lab_pid"
+unset lab_pid
+
+# PID 1 and systemd
+ps -p 1 -o pid,ppid,comm,args
+systemctl is-system-running
+systemctl --failed
+
+# Services
+systemctl list-unit-files --type=service --no-pager
+systemctl list-units --type=service --all --no-pager
+systemctl status SERVICE_NAME --no-pager
+systemctl is-active SERVICE_NAME
+systemctl is-enabled SERVICE_NAME
+
+# Logs
+journalctl -b -n 30 --no-pager
+journalctl -u SERVICE_NAME -n 20 --no-pager
+
+# Package logs: Ubuntu/Debian
+sudo tail -n 20 /var/log/dpkg.log
+
+# Package history: Rocky/RHEL/Fedora
+sudo dnf history
+```
+
+## Final Takeaway
+
+A reliable Linux administrator does not begin by restarting services or force-killing processes. First:
+
+1. Identify the environment
+2. Confirm the symptom
+3. Inspect the process or service state
+4. Read the relevant logs
+5. Determine the likely root cause
+6. Take the least disruptive corrective action
+7. Verify recovery

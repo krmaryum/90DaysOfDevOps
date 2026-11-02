@@ -1,85 +1,45 @@
-# Day 04 – Linux Practice: Processes and Services
+# Day 04 — Linux Practice: Processes and Services
 
-## Task
-Today’s goal is to **practice Linux fundamentals with real commands**.
+[Previous: Day 03](../day-03/README.md) | [Teacher assignment](Original_Assignment/README.md) | [Study guide](linux-practice.md)
 
-You will create a short practice note by actually running basic commands and capturing what you see:
-- Check running processes
-- Inspect one systemd service
-- Capture a small troubleshooting flow
+## Suggested Study Sequence
 
-This is hands-on. Keep it simple and focused on fundamentals.
+Read the teacher task → review the original recorded log → work through the revised guide as needed → record actual results and mark only completed activities.
 
----
+## Study and Homework Status
 
-## Expected Output
-By the end of today, you should have:
+| Item | Documented checkpoint |
+|---|---|
+| Teacher task | Preserved without changes |
+| Original practice log | Preserved separately with its recorded outputs |
+| Revised linux-practice.md | Expanded study guide with instructions, examples, and an unchecked checklist |
+| New lab execution | Not established by the revised guide |
+| Original service inspection | Missing apache2 unit result and SSH journal entries recorded; no status output for the same existing service |
+| Container example | Present in the original log; origin remains unconfirmed |
 
-- A markdown file named:  
-  `linux-practice.md`
+## Original Homework
 
-or
+Run and record at least six commands, including two process, two service, and two log commands. Inspect an existing service and capture a troubleshooting flow. Submit `linux-practice.md` under `2026/day-04/`.
 
-- A hand written practice log (Recommended)
+[Read the full teacher assignment](Original_Assignment/README.md).
 
-Your note should show what you actually ran on your system.
+## Files and Their Purpose
 
----
+- [Revised practice guide](linux-practice.md): system identity, processes, safe test jobs, top, priority, PID 1, service units, logs, troubleshooting, questions, and an unchecked checklist.
+- [Original practice log](Original_Assignment/linux-practice-original.md): the earlier submitted document with recorded host and container outputs, retained unchanged.
+- [Review notes](REVIEW_NOTES.md): scope, evidence limits, and source preservation.
+- [File move map](FILE_MOVE_MAP.csv): original input paths and current destinations.
 
-## Guidelines
-Follow these rules while creating your practice note:
+## Commands and Practical Exercises
 
-- Run and record output for **at least 6 commands**
-- Include **2 process commands** (`ps`, `top`, `pgrep`, etc.)
-- Include **2 service commands** (`systemctl status`, `systemctl list-units`, etc.)
-- Include **2 log commands** (`journalctl -u <service>`, `tail -n 50`, etc.)
-- Pick **one service on your system** (example: `ssh`, `cron`, `docker`) and inspect it
-- Keep it **simple and actionable**
+The revised guide contains process inspection, sleep-based process-control practice, service checks, journal queries, and package-log examples. It describes what to run; sample and expected output are not personal execution evidence. The additional exercises supplement the original teacher task and do not imply completion.
 
-Suggested structure for `linux-practice.md`:
-- Process checks
-- Service checks
-- Log checks
-- Mini troubleshooting steps
+The original log records ps, pgrep, top, systemctl list-unit-files, a missing apache2 unit check, SSH journal entries, and dpkg log output. Its later supervisord example comes from a separate environment. Neither that example nor the new guide establishes a successful status check of an installed service on the owner's host.
 
----
+## Next Evidence to Add
 
-## Resources
-You may refer to:
+On the actual lab system, identify one existing service, record its status and relevant logs, and label the environment and date. Keep reference examples separate from observed output. No new execution results were created during this reorganization.
 
-- Your notes from Day 02 and Day 03
-- Linux `man` pages
-- Your class notes
+The original log has heading inconsistencies: the SSH journal section predicts empty output despite containing entries, and dpkg package logs are labelled SSH history. These remain in the preserved original; the expanded guide uses clearer explanations.
 
----
-
-## Why This Matters for DevOps
-Hands‑on practice builds speed and confidence.
-
-When issues happen in production, you won’t have time to search for basic commands.  
-This day helps you build muscle memory with Linux fundamentals.
-
----
-
-## Submission
-1. Fork this `90DaysOfDevOps` repository  
-2. Navigate to the `2026/day-04/` folder  
-3. Add your `linux-practice.md` file  
-4. Commit and push your changes to your fork  
-
----
-
-## Learn in Public
-Share your Day 04 progress on LinkedIn:
-
-- Post 2–3 lines on the Linux commands you practiced
-- Share one service you inspected and what you learned
-- Optional: screenshot of your practice note
-
-Use hashtags:
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
-
-Happy Learning
-**TrainWithShubham**
+[Previous day](../day-03/README.md). Day 05 will be linked after its actual coursework is reviewed.
